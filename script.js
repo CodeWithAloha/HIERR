@@ -61,20 +61,9 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-var geojsonLayer = new L.geoJSON("2020_Census_Tracts.geojson", {
-    style: function (feature) {
-        return {
-            fillColor: chroma.random(),
-            fillOpacity: 1.0,
-            stroke: true,
-            weight: 1,
-            opacity: 0.8,
-            color: '#ffffff'
-        };
-    }
-}); 
-
-L.geoJSON(geojsonFeature).addTo(map);
+var geojsonLayer = $.getJSON('2020_Census_Tracts.geojson'); 
+console.log("GeojsonLayer:", geojsonLayer)
+L.geoJSON(geojsonLayer).addTo(map);
 
 // function onMapClick(e) {
 //     popup
