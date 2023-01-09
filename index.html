@@ -11,17 +11,25 @@
             width: 100vw;
             height: 100vh;
         }
+        #map { height: 400px; }
     </style>
-</head>
-
-<body>
-    <h1>Public forum</h1>
-    <p>Please share your thoughts below.</p>
-    <div id="polis-container"></div>
-    <script async src='script.js'></script>
-    <p>If you'd like to let us know a little bit more about you, please fill out the demographic survey below (optional)
-    </p>
-    <div id="wrapper" data-tf-widget="aa9cbnhy" data-tf-inline-on-mobile data-tf-medium="snippet"></div>
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
+    </head>
+    
+    <body>
+        <div id="map"></div>
+        <h1>Public forum</h1>
+        <p>Please share your thoughts below.</p>
+        <div id="polis-container"></div>
+        <script async src='script.js'></script>
+        <p>If you'd like to let us know a little bit more about you, please fill out the demographic survey below (optional)
+        </p>
+        <div id="wrapper" data-tf-widget="aa9cbnhy" data-tf-inline-on-mobile data-tf-medium="snippet"></div>
+        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+        crossorigin=""></script>
     <script src="//embed.typeform.com/next/embed.js"></script>
 </body>
 

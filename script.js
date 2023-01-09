@@ -29,7 +29,7 @@ function uuidv4() {
 // a function for dynamically building a polis container div based on the random uuid
 
 function buildEmbedDiv(xid) {
-    return "<div class='polis' data-conversation_id='5a6mr8dh2r' data-xid='" + xid + "'></div>"
+    return "<div class='polis' data-conversation_id='5szsz2uxay' data-xid='" + xid + "'></div>"
 }
 
 // check to see if there is already a polisUserXID in localStorage, and assign one if there isn't
@@ -53,3 +53,19 @@ embedScript.setAttribute("src", "https://pol.is/embed.js")
 var polisContainer = document.getElementById('polis-container')
 polisContainer.innerHTML = buildEmbedDiv(localStorage.polisUserXID)
 polisContainer.appendChild(embedScript)
+
+var map = L.map('map').setView([20.4162, -157.4015], 9);
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 09,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+// function onMapClick(e) {
+//     popup
+//         .setLatLng(e.latlng)
+//         .setContent("You clicked the map at " + e.latlng.toString())
+//         .openOn(map);
+// }
+
+// map.on('click', onMapClick);
