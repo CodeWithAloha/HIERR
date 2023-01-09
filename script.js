@@ -54,12 +54,27 @@ var polisContainer = document.getElementById('polis-container')
 polisContainer.innerHTML = buildEmbedDiv(localStorage.polisUserXID)
 polisContainer.appendChild(embedScript)
 
-var map = L.map('map').setView([20.4162, -157.4015], 9);
+var map = L.map('map').setView([20.4162, -157.4015], 13);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 09,
+    maxZoom: 13,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
+
+var geojsonLayer = new L.geoJSON("2020_Census_Tracts.geojson", {
+    style: function (feature) {
+        return {
+            fillColor: chroma.random(),
+            fillOpacity: 1.0,
+            stroke: true,
+            weight: 1,
+            opacity: 0.8,
+            color: '#ffffff'
+        };
+    }
+}); 
+
+L.geoJSON(geojsonFeature).addTo(map);
 
 // function onMapClick(e) {
 //     popup
