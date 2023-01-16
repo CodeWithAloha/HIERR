@@ -1,4 +1,3 @@
-
 // This is uuidv4 function is for generating decently random ids, sufficient for the uses of identitification in a polis conversation
 
 // This uuid function is from https://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid 👀
@@ -65,21 +64,21 @@ var polisContainer = document.getElementById('polis-container')
 polisContainer.innerHTML = buildEmbedDiv(localStorage.polisUserXID)
 polisContainer.appendChild(embedScript)
 
-//**--- Leaflet map ---**//
+//!!------ Leaflet map ------!!//
 
-// create the map & set the view
+//* create the map & set the default location the map will load to
 var map = L.map('map').setView([21.4862, -157.9916], 10)
 
-// add the basemap
+//* add OSM basemap
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	attribution:
+		'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map)
 
-// fetch the geojson data & add it to the map
-var censusTracts = '/census-tracts_min.geojson'
-fetch(censusTracts)
-    .then(response => response.json())
-    .then(data => {
-        L.geoJSON(data).addTo(map);
-    });
-    
+async function addCensusTracts() {
+	const response = await fetch('/census-tracts_min.geojson')
+	const data = await response.json()
+	L.geoJson(data).addTo(map)
+}
+
+addCensusTracts()
