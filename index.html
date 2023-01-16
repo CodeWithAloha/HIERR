@@ -4,53 +4,48 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="styles.css" />
 		<title>HIERR</title>
-		<style>
-			#wrapper {
-				width: 100vw;
-				height: 100vh;
-			}
-			#map {
-				width: 60vw;
-                height: 50vh;
-                margin: auto;
-                border: 5px slategray solid;
-			}
-		</style>
-		<link
-			rel="stylesheet"
-			href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-			integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
-			crossorigin=""
-		/>
-		<script
-			src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-			integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
-			crossorigin=""
-		></script>
-		<script
-			type="text/javascript"
-			src="https://unpkg.com/leaflet-ajax@2.1.0/src/index.js"
-		></script>
 	</head>
 
 	<body>
-		<div id="map"></div>
-		<h1>Public forum</h1>
-		<p>Please share your thoughts below.</p>
-		<div id="polis-container"></div>
-		<p>
-			If you'd like to let us know a little bit more about you, please fill out
-			the demographic survey below (optional)
-		</p>
-		<div
-			id="wrapper"
-			data-tf-widget="aa9cbnhy"
-			data-tf-inline-on-mobile
-			data-tf-medium="snippet"
-		></div>
-		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-		<script src="//embed.typeform.com/next/embed.js"></script>
-		<script async src="script.js"></script>
+		<div class="login-page">
+			<div class="form">
+				<div class="login">
+					<div class="login-header">
+						<h1>HIERR | Login</h1>
+						<p>Please enter your credentials to login</p>
+					</div>
+				</div>
+				<form class="login-form">
+					<input type="text" placeholder="username" />
+					<input type="password" placeh2older="password" />
+					<a href="/home.html/"><button>login</button></a>
+					<p class="message">
+						Not registered? <a href="/">Create an account</a>
+					</p>
+				</form>
+			</div>
+		</div>
 	</body>
+	<!-- <div id="wrapper">
+			<div class="login">
+				<h1>Welcome to HIERR</h1>
+				<label for="email">Enter your email:</label>
+				<input
+					class="login__field"
+					type="email"
+					id="email"
+					size="30"
+					required />
+				<label for="password">Enter your password:</label>
+				<input
+					class="login__field"
+					type="password"
+					id="password"
+					size="50"
+					required />
+				<a href="./home.html"><button>Login</button></a>
+			</div>
+    	</div> -->
 </html>
