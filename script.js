@@ -78,7 +78,25 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 async function addCensusTracts() {
 	const response = await fetch('/census-tracts_min.geojson')
 	const data = await response.json()
-	L.geoJson(data).addTo(map)
+	L.geoJson(data, {
+		style: function (feature) {
+			var color
+			if (feature.properties['pop20'] < 2500) {
+				color = '#d3d3d3'
+			} else if (feature.properties['pop20'] < 5000) {
+				color = '#b0c4de'
+			} else {
+				color = '#a68efe'
+			}
+			return {
+				fillColor: color,
+				color: '#708090',
+				weight: 0.5,
+				opacity: 1,
+				fillOpacity: 0.5,
+			}
+		},
+	}).addTo(map)
 }
 
 addCensusTracts()
