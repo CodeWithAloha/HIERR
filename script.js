@@ -66,37 +66,76 @@ polisContainer.appendChild(embedScript)
 
 //!!------ Leaflet map ------!!//
 
-//* create the map & set the default location the map will load to
+// create the map & set the default location the map will load to
 var map = L.map('map').setView([21.4862, -157.9916], 10)
 
-//* add OSM basemap
+// add OSM basemap with attributionq
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	attribution:
 		'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map)
 
+// fetch the GIS data (can be local file or remote URL) 
 async function addCensusTracts() {
 	const response = await fetch('/census-tracts_min.geojson')
 	const data = await response.json()
+
+	// create a layer from the response 
 	L.geoJson(data, {
 		style: function (feature) {
+			// conditionally color each tract based on the ['pop20'] t (population 2020)
+			// more info Census Blocks ['pop20'] here: http://proximityone.com/geo_blocks.html
+
+			// TODO: add more conditions
 			var color
-			if (feature.properties['pop20'] < 2500) {
-				color = '#d3d3d3'
-			} else if (feature.properties['pop20'] < 5000) {
-				color = '#b0c4de'
-			} else {
-				color = '#a68efe'
+			if (feature.properties['pop20'] <= 2500) {
+				color = '#bd93f9'
+			} else if (feature.properties['pop20'] < 5000 && feature.properties['pop20'] > 2500) {
+				color = '#ffb86c'
+			} else if (feature.properties['pop20'] < 10000 && feature.properties['pop20'] > 5000) {
+				color = '#8be9fd'
 			}
+			//
 			return {
 				fillColor: color,
-				color: '#708090',
+				color: '#44475a',
 				weight: 0.5,
 				opacity: 1,
 				fillOpacity: 0.5,
 			}
 		},
+
+		// change opacity on mouse in and out
+		onEachFeature: function (feature, layer) {
+			layer.on({
+					mouseover: function (e) {
+							var layer = e.target;
+							layer.setStyle({
+									fillOpacity: 0.8,
+							});
+					},
+					mouseout: function (e) {
+							var layer = e.target;var layer = e.target;
+							layer.setStyle({
+									fillOpacity: 0.5,
+							});
+					},
+			});
+		}
 	}).addTo(map)
 }
 
 addCensusTracts()
+
+
+// popup on click that shows lat/long
+var popup = L.popup();
+
+function onMapClick(e) {
+    popup
+        .setLatLng(e.latlng)
+        .setContent(e.latlng.toString())
+        .openOn(map);
+}
+
+map.on('click', onMapClick)
