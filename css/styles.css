@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
+
+/* Box Model Hack */
+* {
+  box-sizing: border-box;
+}
+
+/* Clear fix hack */
+.clearfix:after {
+     content: ".";
+     display: block;
+     clear: both;
+     visibility: hidden;
+     line-height: 0;
+     height: 0;
+}
+
+.clear {
+	clear: both;
+}
+
+/******************************************
+/* BASE STYLES
+/*******************************************/
+
+body {
+	background: #3f4042;
+	font-family: 'Roboto', sans-serif;
+	max-width: 100vw;
+  max-height: 100vh;
+}
+
+h1 {
+	font-size: 3.5rem;
+	font-weight: 400;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	padding: 1rem;
+}
+
+#dropdown label {
+	font-size: 1.5rem;
+	padding: 1rem 0;
+}
+
+/******************************************
+/* LAYOUT
+/*******************************************/
+
+
+.login-card {
+	display: flex;
+	min-width: 50vw;
+	min-height: 50vh;
+	margin: 10% auto;
+}
+
+#map {
+	width: 70vw;
+	height: 50vh;
+	margin: 0 auto;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+#polis-container {
+	width: 70vw;
+	margin: 0 auto;
+}
+
+#wrapper {
+	width: 70vw;
+	height: 70vh;
+	margin:  0 auto;
+	padding-bottom: 10rem;
+}
+
+#dropdown {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-content: flex-start;
+	width: 70vw;
+	margin: 2rem auto;
+}
+
+.heading,
+.demographics {
+	width: 70vw;
+	margin: 2rem auto;
+	font-size: 2.5rem;
+	font-weight: 300;
+}
+
+header .header {
+	background-color: fff;
+	height: 45px;
+}
+
+header a img {
+	width: 134px;
+	margin-top: 4px;
+}
+
+.form {
+	min-width: 40%;
+	margin: 0 auto;
+	padding: 45px;
+	background: #8bba88ba;
+	text-align: center;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+
+.form input {
+	font-family: 'Roboto', sans-serif;
+	outline: 0;
+	background: #d5caca;
+	width: 100%;
+	border: 0;
+	margin: 0 0 15px;
+	padding: 15px;
+	box-sizing: border-box;
+	font-size: 14px;
+}
+
+.form button {
+	font-family: 'Roboto', sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #403c3c;
+	width: 100%;
+	border: 0;
+	border-radius: 5px;
+	padding: 1rem;
+	color: #d5caca;
+	font-size: 1rem;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+.form .message a {
+	color: #3f4042;
+	text-decoration: none;
+}
+
+footer {
+	width: 60vw;
+  height: 10rem;
+	margin: 0 auto;
+  background-color: #d5caca;
+}
+
+.form-header,
+.message {
+ padding: 1rem;	
+}
+
+/******************************************
+/* ADDITIONAL STYLES
+/*******************************************/
