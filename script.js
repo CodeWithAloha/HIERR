@@ -66,17 +66,43 @@ polisContainer.appendChild(embedScript)
 
 //**** ------ Leaflet map ------ ****//
 
-//! create the map & set the default location the map will load to
+const baseMapSelector = document.getElementById("base-map-selector");
 
-var map = L.map('map').setView([21.217701, -157], 7)
+baseMapSelector.addEventListener("change", function() {
+	const baseMapSelection = this.value;
+	updateBaseMap(baseMapSelection);
+});	
 
-//! add basemap with attribution 
-//* collection of swappable basemaps @ `basemaps.html`
+//! create the map & set the location for the map on page load
+var map = L.map('map').setView([20.5, -157.510857], 7)
 
-L.tileLayer(`https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Street_Map/MapServer/tile/{z}/{y}/{x}`, {
-	attribution:
-		'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-}).addTo(map)
+//! create the basemap layer
+var baseMap = L.tileLayer(`https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}`, {attribution: "Map data © OpenStreetMap contributors, Esri Community Maps contributors, Map layer by Esri"}).addTo(map);
+
+//! select the basemap layer using the dropdown
+function updateBaseMap(baseMapSelection) {
+	if (baseMap) {
+		map.removeLayer(baseMap);
+	}
+	switch (baseMapSelection) { 
+		case "osm": 
+			baseMap = L.tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+			break;
+		case "esri_light":
+			baseMap = L.tileLayer(`https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}`, {attribution: "Map data © OpenStreetMap contributors, Esri Community Maps contributors, Map layer by Esri"}).addTo(map);
+			break;
+		case "esri_dark":
+			baseMap = L.tileLayer(`https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}`, {attribution: "Map data © OpenStreetMap contributors, Esri Community Maps contributors, Map layer by Esri"}).addTo(map);
+			break;
+		case "carto_dark":
+			baseMap = L.tileLayer(`https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'`, {attribution:
+			'&copy; <a href="https://www.openstreetmap.org/copyright">CartoDB Dark</a> contributors'}).addTo(map);
+			break;
+		default:
+			baseMap = L.tileLayer(`https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}`, {attribution: "Map data © OpenStreetMap contributors, Esri Community Maps contributors, Map layer by Esri"}).addTo(map);
+			break;	
+	}
+}
 
 
 //! fetch the GIS data (can be local file or remote URL) 
@@ -107,11 +133,11 @@ async function addCensusTracts() {
 				color: '#44475a',
 				weight: 0.5,
 				opacity: 1,
-				fillOpacity: 0.23,
+				fillOpacity: 0.4,
 			}
 		},
 
-		// change opacity on mouse in and out
+		//! change fill opacity on mouse in and out
 		onEachFeature: function (feature, layer) {
 			layer.on({
 					mouseover: function (e) {
@@ -130,10 +156,7 @@ async function addCensusTracts() {
 		}
 	}).addTo(map)
 }
-
-addCensusTracts()
-
-
+addCensusTracts();
 
 var popup = L.popup();
 // popup on click that shows lat/long
@@ -145,4 +168,4 @@ function onMapClick(e) {
         .openOn(map);
 }
 
-map.on('click', onMapClick)
+map.on('click', onMapClick);

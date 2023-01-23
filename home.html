@@ -4,7 +4,9 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="styles.css" />
+		<link rel="stylesheet" href="/css/normalize.css">
+		<link rel="stylesheet" href="/css/styles.css" />
+		<link rel="stylesheet" href="/css/reset.css">
 		<link
 			rel="stylesheet"
 			href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
@@ -18,9 +20,22 @@
 	</head>
 
 	<body>
+		<div id="dropdown">
+			<label for="base-map-selector">Choose a Base Map</label>
+		  <select name="base-map-selector" id="base-map-selector">
+		 	  <option value="osm">OpenStreetMap</option>
+			  <option value="esri_light">
+				  ESRI Gray
+			  </option>
+			  <option value="esri_dark" selected>
+				  ESRI Dark
+			  </option>
+			  <option value="carto_dark">CartoDB Dark</option>
+		  </select>
+	  </div>
 		<div id="map"></div>
 		<div class="heading">
-			<h1>Public forum</h1>
+			<h1>Public Forum</h1>
 			<p>Please share your thoughts below.</p>
 		</div>
 		<div id="polis-container"></div>
