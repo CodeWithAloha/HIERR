@@ -64,33 +64,39 @@ var polisContainer = document.getElementById('polis-container')
 polisContainer.innerHTML = buildEmbedDiv(localStorage.polisUserXID)
 polisContainer.appendChild(embedScript)
 
-//!!------ Leaflet map ------!!//
+//**** ------ Leaflet map ------ ****//
 
-// create the map & set the default location the map will load to
-var map = L.map('map').setView([21.4862, -157.9916], 10)
+//! create the map & set the default location the map will load to
 
-// add OSM basemap with attributionq
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+var map = L.map('map').setView([21.217701, -157], 7)
+
+//! add basemap with attribution 
+//* collection of swappable basemaps @ `basemaps.html`
+
+L.tileLayer(`https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Street_Map/MapServer/tile/{z}/{y}/{x}`, {
 	attribution:
 		'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map)
 
-// fetch the GIS data (can be local file or remote URL) 
+
+//! fetch the GIS data (can be local file or remote URL) 
+
 async function addCensusTracts() {
 	const response = await fetch('/census-tracts_min.geojson')
 	const data = await response.json()
 
-	// create a layer from the response 
-	L.geoJson(data, {
+	//! create a layer from the response 
+	var geojson = L.geoJson(data, {
 		style: function (feature) {
-			// conditionally color each tract based on the ['pop20'] t (population 2020)
-			// more info Census Blocks ['pop20'] here: http://proximityone.com/geo_blocks.html
+			//! conditionally color each tract based on the ['pop20'] t (population 2020)
+			//! more info Census Blocks ['pop20'] here: http://proximityone.com/geo_blocks.html
 
-			// TODO: add more conditions
+			// TODO: add more fine grained conditions for color palette | Maybe-TODO: possibly change the the if/else to a switch statement
 			var color
-			if (feature.properties['pop20'] <= 2500) {
+			var pop20 = feature.properties['pop20']
+			if (pop20 <= 2500) {
 				color = '#bd93f9'
-			} else if (feature.properties['pop20'] < 5000 && feature.properties['pop20'] > 2500) {
+			} else if (pop20 < 5000 && pop20 > 2500) {
 				color = '#ffb86c'
 			} else if (feature.properties['pop20'] < 10000 && feature.properties['pop20'] > 5000) {
 				color = '#8be9fd'
@@ -101,7 +107,7 @@ async function addCensusTracts() {
 				color: '#44475a',
 				weight: 0.5,
 				opacity: 1,
-				fillOpacity: 0.5,
+				fillOpacity: 0.23,
 			}
 		},
 
@@ -113,12 +119,12 @@ async function addCensusTracts() {
 							layer.setStyle({
 									fillOpacity: 0.8,
 							});
+							let name = e.target.feature.properties['tractname']
+							layer.bindPopup(name).openPopup();
 					},
 					mouseout: function (e) {
-							var layer = e.target;var layer = e.target;
-							layer.setStyle({
-									fillOpacity: 0.5,
-							});
+							geojson.resetStyle(layer);
+							layer.closePopup();
 					},
 			});
 		}
@@ -128,9 +134,10 @@ async function addCensusTracts() {
 addCensusTracts()
 
 
-// popup on click that shows lat/long
-var popup = L.popup();
 
+var popup = L.popup();
+// popup on click that shows lat/long
+// TODO: add users census tract info to polis embed
 function onMapClick(e) {
     popup
         .setLatLng(e.latlng)
