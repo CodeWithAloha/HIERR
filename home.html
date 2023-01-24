@@ -1,28 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/css/normalize.css">
+		<link rel="stylesheet" href="/css/styles.css" />
+		<link rel="stylesheet" href="/css/reset.css">
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+			integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+			crossorigin="" />
+		<script
+			src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+			integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+			crossorigin=""></script>
+		<title>HIERR</title>
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HIERR</title>
-    <style>
-        #wrapper {
-            width: 100vw;
-            height: 100vh;
-        }
-    </style>
-</head>
-
-<body>
-    <h1>Public forum</h1>
-    <p>Please share your thoughts below.</p>
-    <div id="polis-container"></div>
-    <script async src='script.js'></script>
-    <p>If you'd like to let us know a little bit more about you, please fill out the demographic survey below (optional)
-    </p>
-    <div id="wrapper" data-tf-widget="aa9cbnhy" data-tf-inline-on-mobile data-tf-medium="snippet"></div>
-    <script src="//embed.typeform.com/next/embed.js"></script>
-</body>
-
+	<body>
+		<div id="dropdown">
+			<label for="base-map-selector">Choose a Base Map</label>
+		  <select name="base-map-selector" id="base-map-selector">
+		 	  <option value="osm">OpenStreetMap</option>
+			  <option value="esri_light">
+				  ESRI Gray
+			  </option>
+			  <option value="esri_dark" selected>
+				  ESRI Dark
+			  </option>
+			  <option value="carto_dark">CartoDB Dark</option>
+		  </select>
+	  </div>
+		<div id="map"></div>
+		<div class="heading">
+			<h1>Public Forum</h1>
+			<p>Please share your thoughts below.</p>
+		</div>
+		<div id="polis-container"></div>
+		<script async src="script.js"></script>
+		<div class="demographics">
+			<h3>
+				Optional demographic information (please fill out if you are comfortable
+				doing so)
+			</h3>
+		</div>
+		<div
+			id="wrapper"
+			data-tf-widget="aa9cbnhy"
+			data-tf-inline-on-mobile
+			data-tf-medium="snippet"></div>
+		<script src="//embed.typeform.com/next/embed.js"></script>
+	</body>
 </html>

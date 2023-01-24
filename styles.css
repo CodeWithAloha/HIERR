@@ -1,9 +1,0 @@
-.login {
-  display: flex;
-  flex-direction: column;
-}
-
-.login__field {
-  width: 500px;
-  margin-bottom:10px;
-}
