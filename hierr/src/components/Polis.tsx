@@ -44,17 +44,29 @@ export default function Polis() {
       console.log('Assigning new polisUserXID:', userID)
       localStorage.polisUserXID = userID
     }
-  }, [userID])
+  }, [userID]);
+
+  useEffect(() => {
+    const script = document.createElement('script');
+  
+    script.src = "https://pol.is/embed.js";
+    script.async = true;
+  
+    document.body.appendChild(script);
+  
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
   
   return (
-    <div id="polis-container">
+    <>
       <h1>UserID: {userID}</h1>
-      <div id="polis-container">
-        <div className="polis" data-conversation_id="5szsz2uxay" data-xid={userID}>
-      <script src="https://pol.is/embed.js"></script>
-
-        </div>
+        {/* TODO: Fix Styling here */}
+        <div id="polis-container" style={{width: "70vw", margin:"0 auto"}}>
+          <div className="polis" data-conversation_id="5szsz2uxay" data-xid={userID}>
+          </div>
       </div>
-    </div>
+    </>
   )
 }
