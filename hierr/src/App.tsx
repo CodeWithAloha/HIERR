@@ -7,7 +7,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <h1>Hello Jez</h1>
+      <h1>Welcome to HIERR</h1>
       <Map />
       <Polis />
       <DemographicsSurvey />
