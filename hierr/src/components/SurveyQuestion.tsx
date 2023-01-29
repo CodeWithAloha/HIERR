@@ -1,23 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { QuestionDirection } from "./DemographicsSurvey";
 
 interface SurveyQuestionProps {
   question: string;
   answers: string[];
-  updateQuestion: (val: QuestionDirection) => void;
+  updateQuestion: (val: QuestionDirection, answer?: string) => void;
 }
 
 export default function SurveyQuestion({question, answers, updateQuestion}: SurveyQuestionProps) {
+  const [selectedAnswer, setSelectedAnswer] = useState(answers[0])
+  const updateCurrentAnswer = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedAnswer(e.target.value)
+  }
   return (
     <div>
       <h1>{question}</h1>
       <ul>
-        {answers.map(a => {return (
-          <li>{a}</li>
+        {answers.map((a, index) => {return (
+          <label>
+          <input type="radio" name="myRadio" value={a} onChange={(e) => updateCurrentAnswer(e)} />
+          {a} 
+        </label>
         )})}
       </ul>
       <button onClick={() => updateQuestion("Prev")}>Back</button>
-      <button onClick={() => updateQuestion("Next")}>Next</button>
+      <button onClick={() => updateQuestion("Next", selectedAnswer)}>Next</button>
     </div>
   )
 }
