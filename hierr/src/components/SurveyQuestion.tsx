@@ -1,11 +1,13 @@
 import React from "react";
+import { QuestionDirection } from "./DemographicsSurvey";
 
 interface SurveyQuestionProps {
   question: string;
-  answers: string[]
+  answers: string[];
+  updateQuestion: (val: QuestionDirection) => void;
 }
 
-export default function SurveyQuestion({question, answers}: SurveyQuestionProps) {
+export default function SurveyQuestion({question, answers, updateQuestion}: SurveyQuestionProps) {
   return (
     <div>
       <h1>{question}</h1>
@@ -14,6 +16,8 @@ export default function SurveyQuestion({question, answers}: SurveyQuestionProps)
           <li>{a}</li>
         )})}
       </ul>
+      <button onClick={() => updateQuestion("Prev")}>Back</button>
+      <button onClick={() => updateQuestion("Next")}>Next</button>
     </div>
   )
 }
