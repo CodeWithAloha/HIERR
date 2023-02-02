@@ -32,7 +32,7 @@ export const serverEnv = {
   NODE_ENV: process.env.NODE_ENV,
   NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
   NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-  CLIENT_ID: "TestClientID",
+  CLIENT_ID: process.env.CLIENT_ID || "TestClientID",
 };
 
 /**
