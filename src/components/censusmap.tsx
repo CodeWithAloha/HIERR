@@ -6,6 +6,7 @@ import { MapContainer,  TileLayer, GeoJSON } from 'react-leaflet';
 import CensusTractData from "../data/census-tracts_min.json";
 import 'leaflet/dist/leaflet.css';
 import type {GeoJsonObject, Feature, Geometry} from "geojson";
+import Link from "next/link";
 // TODO: Migrate the following:
 //! select the basemap layer using the dropdown
 // function updateBaseMap(baseMapSelection) {
@@ -128,6 +129,7 @@ const CensusTractMap: NextPage = () => {
   }
   return (
     <>
+      <h1>Please select the census tract area that contains your address.</h1>
        <div id="map" className="h-screen">
       <MapContainer center={[20.5, -157.510857]} zoom={7} scrollWheelZoom={true} style={{height: "400px"}}>
         <TileLayer
@@ -136,6 +138,9 @@ const CensusTractMap: NextPage = () => {
         />
         <GeoJSON data={CensusTractData as GeoJsonObject} style={(val: Feature<Geometry, {pop20: number}> | undefined) => censusTractStyle(val)}/>
       </MapContainer>
+    </div>
+    <div>
+        <Link href="./polis">Click here to start the Pol.is survey.</Link>
     </div>
     </>
   )

@@ -3,6 +3,7 @@ import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "../utils/api";
+import Link from "next/link";
 
 const Login: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -50,6 +51,13 @@ const AuthShowcase: React.FC = () => {
       <p className="text-center text-2xl text-white">
         {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
         {secretMessage && <span> - {secretMessage}</span>}
+        {
+          sessionData ?
+          <div>
+            <Link href="./censusmap">Ready to start the survey? Click here!</Link>
+          </div>
+          : null
+        }
       </p>
       <button
         className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
