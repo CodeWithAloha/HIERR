@@ -13,18 +13,22 @@ export default function SurveyQuestion({question, answers, updateQuestion}: Surv
     setSelectedAnswer(e.target.value)
   }
   return (
-    <div>
+    <div className="bg-[#FFFFFF] rounded-md px-10 py-3 ">
       <h1>{question}</h1>
       <ul>
         {answers.map((a, index) => {return (
-          <label key={index}>
-          <input type="radio" name="myRadio" value={a} onChange={(e) => updateCurrentAnswer(e)} />
-          {a} 
-        </label>
+          <div key={index}>
+            <label>
+            <input type="radio" name="myRadio" value={a} onChange={(e) => updateCurrentAnswer(e)} />
+            {a} 
+          </label>
+          </div>
         )})}
       </ul>
-      <button onClick={() => updateQuestion("Prev")}>Back</button>
-      <button onClick={() => updateQuestion("Next", selectedAnswer)}>Next</button>
+      <div className="flex flex-row justify-between mt-10">
+      <button className="rounded-md p-2 bg-[#CCCCCC]" onClick={() => updateQuestion("Prev")}>Back</button>
+      <button className="rounded-md p-2 bg-[#CCCCCC]" onClick={() => updateQuestion("Next", selectedAnswer)}>Next</button>
+      </div>
     </div>
   )
 }
