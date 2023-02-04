@@ -9,7 +9,7 @@ export const NextPageButtonLink = ({pageName, msg}: NextPageButtonLinkProps) => 
   const href = `./${pageName}`;
   return (
   <div>
-    <Link href={href}><button className="rounded-full bg-white/10 px-10 py-3 hover:bg-white/20 my-10">
+    <Link href={href}><button className="rounded-full bg-white/10 px-10 py-3 hover:bg-white/20 my-10 text-white">
             {msg}
     </button></Link>
   </div>

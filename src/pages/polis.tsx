@@ -61,14 +61,14 @@ const Polis: NextPage = () => {
     }
   }, []);
   return (
-    <>
+    <div className="bg-[#3276AE] flex flex-col items-center h-max">
       <h1>UserID: {userID}</h1>
         {/* TODO: Fix Styling here */}
         <div id="polis-container" style={{width: "70vw", margin:"0 auto"}}>
           <div className="polis" data-conversation_id="5szsz2uxay" data-xid={userID}>
           </div>
       </div>
-    </>
+    </div>
   )
 }
 
