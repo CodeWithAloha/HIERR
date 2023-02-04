@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 import SurveyQuestion from "./surveyquestion";
 import Link from "next/link";
+import { NextPageButtonLink } from "../../UI/NextPageButtonLink";
 
 interface SurveyData {
   question: string;
@@ -42,7 +43,7 @@ export default function DemographicsSurvey() {
     return (
       <>
         <h1>Survey Completed!</h1>
-        <Link href="./polis">Click here to start the Pol.is survey.</Link>
+        <NextPageButtonLink pageName="polis" msg="Click here to start the Pol.is survey." />
       </>
     )
   }

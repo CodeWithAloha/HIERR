@@ -7,6 +7,7 @@ import CensusTractData from "../data/census-tracts_min.json";
 import 'leaflet/dist/leaflet.css';
 import type {GeoJsonObject, Feature, Geometry} from "geojson";
 import Link from "next/link";
+import { NextPageButtonLink } from "../UI/NextPageButtonLink";
 // TODO: Migrate the following:
 //! select the basemap layer using the dropdown
 // function updateBaseMap(baseMapSelection) {
@@ -128,19 +129,17 @@ const CensusTractMap: NextPage = () => {
   }
   return (
     <>
-      <h1>Please select the census tract area that contains your address.</h1>
-       <div id="map" className="h-screen">
-      <MapContainer center={[20.5, -157.510857]} zoom={7} scrollWheelZoom={true} style={{height: "400px"}}>
-        <TileLayer
-          attribution='&copy; "Map data © OpenStreetMap contributors, Esri Community Maps contributors, Map layer by Esri'
-          url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}"
-        />
-        <GeoJSON data={CensusTractData as GeoJsonObject} style={(val: Feature<Geometry, {pop20: number}> | undefined) => censusTractStyle(val)}/>
-      </MapContainer>
-    </div>
-    <div>
-        <Link href="./survey">Click here to start the demographics survey.</Link>
-    </div>
+        <h1>Please select the census tract area that contains your address.</h1>
+        <div id="map" className="h-screen">
+        <MapContainer center={[20.5, -157.510857]} zoom={7} scrollWheelZoom={true} style={{height: "400px"}}>
+          <TileLayer
+            attribution='&copy; "Map data © OpenStreetMap contributors, Esri Community Maps contributors, Map layer by Esri'
+            url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}"
+          />
+          <GeoJSON data={CensusTractData as GeoJsonObject} style={(val: Feature<Geometry, {pop20: number}> | undefined) => censusTractStyle(val)}/>
+        </MapContainer>
+      </div>
+      <NextPageButtonLink pageName="survey" msg="Click here to start the demographics survey." />
     </>
   )
 }

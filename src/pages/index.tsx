@@ -4,6 +4,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "../utils/api";
 import Link from "next/link";
+import { NextPageButtonLink } from "../UI/NextPageButtonLink";
 
 const Login: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -53,11 +54,7 @@ const AuthShowcase: React.FC = () => {
         {secretMessage && <span> - {secretMessage}</span>}
         {
           sessionData ?
-          <div>
-            <Link href="./censusmap"><button className="rounded-full bg-white/10 px-10 py-3 hover:bg-white/20 my-10">
-            Ready to start the survey? Click here!
-              </button></Link>
-          </div>
+          <NextPageButtonLink pageName="censusmap" msg="Ready to start the survey? Click here!" />
           : null
         }
       </p>
