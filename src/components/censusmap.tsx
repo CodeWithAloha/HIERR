@@ -139,7 +139,7 @@ const CensusTractMap: NextPage = () => {
           <GeoJSON data={CensusTractData as GeoJsonObject} style={(val: Feature<Geometry, {pop20: number}> | undefined) => censusTractStyle(val)}/>
         </MapContainer>
       </div>
-      <NextPageButtonLink pageName="survey" msg="Click here to start the demographics survey." />
+      <NextPageButtonLink pageName="zipcode" msg="Click here to continue." />
     </div>
   )
 }
