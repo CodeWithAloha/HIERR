@@ -128,9 +128,9 @@ const CensusTractMap: NextPage = () => {
 			}
   }
   return (
-    <>
+    <div className="bg-[#3276AE] flex flex-col items-center h-screen">
         <h1>Please select the census tract area that contains your address.</h1>
-        <div id="map" className="h-screen">
+        <div id="map" className="w-1/2">
         <MapContainer center={[20.5, -157.510857]} zoom={7} scrollWheelZoom={true} style={{height: "400px"}}>
           <TileLayer
             attribution='&copy; "Map data © OpenStreetMap contributors, Esri Community Maps contributors, Map layer by Esri'
@@ -140,7 +140,7 @@ const CensusTractMap: NextPage = () => {
         </MapContainer>
       </div>
       <NextPageButtonLink pageName="survey" msg="Click here to start the demographics survey." />
-    </>
+    </div>
   )
 }
 
