@@ -20,6 +20,12 @@ model Example {
     updatedAt DateTime @updatedAt
 }
 
+model ZipCode {
+    id String @id @default(cuid())
+    userId String
+    zipcode String
+}
+
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
