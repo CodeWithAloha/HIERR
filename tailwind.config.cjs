@@ -4,11 +4,12 @@ module.exports = {
   theme: {
     extend: {},
     colors: {
-      Green: "#1A9432",
-      Blue: "#3276AE",
-      White: "#FFFFFF",
-      Gray: "#4C4C4C"
+      green: "#1A9432",
+      blue: "#3276AE",
+      white: "#FFFFFF",
+      gray: "#4C4C4C"
     }
   },
   plugins: [],
+  mode: 'jit'
 };
