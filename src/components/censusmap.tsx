@@ -96,9 +96,8 @@ import Link from "next/link";
 
 // map.on('click', onMapClick);
 
-const isBrowser = () => typeof window !== 'undefined';
-
 const CensusTractMap: NextPage = () => {
+
   const getCensusTractFillColor = (population2020: number) => {
     if(population2020 <= 2500)
     {
@@ -140,7 +139,7 @@ const CensusTractMap: NextPage = () => {
       </MapContainer>
     </div>
     <div>
-        <Link href="./polis">Click here to start the Pol.is survey.</Link>
+        <Link href="./survey">Click here to start the demographics survey.</Link>
     </div>
     </>
   )

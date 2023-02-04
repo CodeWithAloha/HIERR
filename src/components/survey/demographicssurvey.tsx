@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
 import SurveyQuestion from "./surveyquestion";
+import Link from "next/link";
 
 interface SurveyData {
   question: string;
@@ -35,11 +36,20 @@ export default function DemographicsSurvey() {
     }
     userAnswers.push(answer ?? "")
     setCurrentQuestion(currentQuestion + 1)
-  },[currentQuestion, userAnswers, surveyData.length])
+  },[currentQuestion, userAnswers, surveyData.length]);
+
+  const completedSurvey = () => {
+    return (
+      <>
+        <h1>Survey Completed!</h1>
+        <Link href="./polis">Click here to start the Pol.is survey.</Link>
+      </>
+    )
+  }
   return (
     <>
     {
-      surveyCompleted ? <h1>Survey Completed!</h1> :
+      surveyCompleted ? completedSurvey() :
       <>
         <h1>Please answer the following questions</h1>
         {
