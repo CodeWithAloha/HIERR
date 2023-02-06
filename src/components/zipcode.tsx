@@ -10,10 +10,10 @@ const ZipCode: NextPage = () => {
   const [zipcode, setZipCode] = useState("");
   // This posts on every rerender and input. Ideally, it should only post when the user clicks submit
   // const postZipCodeResult = api.zipcode.postZipCode.useQuery({userId: "1", zipcode: zipcode});
+  const postZipCodeResult = api.zipcode.postZipCode.useMutation();
   const handleSubmit = () => {
     // This throws the invalid hook location error
-    const postZipCodeResult = api.zipcode.postZipCode.useQuery({userId: "1", zipcode: zipcode});
-
+    postZipCodeResult.mutate({userId: "1", zipcode: zipcode})
     console.log("Posting result", postZipCodeResult)
   }
   return (
