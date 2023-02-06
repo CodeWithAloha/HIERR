@@ -12,6 +12,7 @@ export const zipcodeRouter = createTRPCRouter({
       }
       const { id: userId } = ctx.session.user
       const zipcode = input.zipcode;
+      // TODO: Since each user is unique check if the user already has a zip code first
       return ctx.prisma.zipCode.create({
         data: {
           userId,
