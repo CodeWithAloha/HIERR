@@ -13,7 +13,7 @@ const ZipCode: NextPage = () => {
   const postZipCodeResult = api.zipcode.postZipCode.useMutation();
   const handleSubmit = () => {
     // This throws the invalid hook location error
-    postZipCodeResult.mutate({userId: "1", zipcode: zipcode})
+    postZipCodeResult.mutate({zipcode: zipcode})
     console.log("Posting result", postZipCodeResult)
   }
   return (

@@ -4,7 +4,7 @@ import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const zipcodeRouter = createTRPCRouter({
   postZipCode: publicProcedure
-    .input(z.object({ userId: z.string(), zipcode: z.string() }))
+    .input(z.object({ zipcode: z.string() }))
     .mutation(({ input, ctx }) => {
       if(!ctx.session){
         console.log("Not authenticated")
