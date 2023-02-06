@@ -8,25 +8,38 @@ import { useState } from "react";
 
 const ZipCode: NextPage = () => {
   const [zipcode, setZipCode] = useState("");
-  // This posts on every rerender and input. Ideally, it should only post when the user clicks submit
-  // const postZipCodeResult = api.zipcode.postZipCode.useQuery({userId: "1", zipcode: zipcode});
+  const [nextLinkDisabled, setNextLinkDisabled] = useState(true)
   const postZipCodeResult = api.zipcode.postZipCode.useMutation();
   const handleSubmit = () => {
-    // This throws the invalid hook location error
+    // TODO: Add zipcode validation here
+    if(zipcode === "")
+    {
+      return;
+    }
+    setNextLinkDisabled(false)
     postZipCodeResult.mutate({zipcode: zipcode})
     console.log("Posting result", postZipCodeResult)
   }
+
   return (
-    <div className="bg-[#3276AE] flex flex-col items-center h-screen">
-       <form onSubmit={handleSubmit}>
-        <label htmlFor="zipcode">Enter your zipcode:
-        <input type="text" id="zipcode" name="zipcode" required value={zipcode} onChange={e => setZipCode(e.target.value)} />
-        </label>
-        <button type="submit">Submit</button>
+<div className="bg-[#3276AE] flex flex-col items-center h-screen">
+  {
+    nextLinkDisabled ? 
+    <form onSubmit={handleSubmit}>
+          <label htmlFor="zipcode" className="text-white">Enter your zipcode:
+          <br />
+          <input type="text" id="zipcode" name="zipcode" required value={zipcode} onChange={e => setZipCode(e.target.value)} />
+          </label>
+          <br />
+          <button type="submit" className="text-white">Submit</button>
       </form>
-        <NextPageButtonLink pageName="survey" msg="Click here to start the demographics survey." />
+    : (
+      <NextPageButtonLink pageName="survey" msg="Click here to start the demographics survey." disabled={nextLinkDisabled}/>
+    )
+  }
     </div>
   )
+ 
 }
 
 export default ZipCode;
