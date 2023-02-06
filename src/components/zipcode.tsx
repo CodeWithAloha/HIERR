@@ -31,7 +31,7 @@ const ZipCode: NextPage = () => {
           <input type="text" id="zipcode" name="zipcode" required value={zipcode} onChange={e => setZipCode(e.target.value)} />
           </label>
           <br />
-          <button type="submit" className="text-white">Submit</button>
+          <button type="submit" className="rounded-full bg-white/10 px-10 py-3 hover:bg-white/20 my-10 text-white">Submit</button>
       </form>
     : (
       <NextPageButtonLink pageName="survey" msg="Click here to start the demographics survey." disabled={nextLinkDisabled}/>
