@@ -9,6 +9,7 @@ import type {GeoJsonObject, Feature, Geometry} from "geojson";
 import { NextPageButtonLink } from "../UI/NextPageButtonLink";
 import {Ref, useRef, useState } from "react";
 import { Layer, LeafletMouseEvent } from "leaflet";
+import { api } from "../utils/api";
 
 
 interface LayerEventTarget {
@@ -26,11 +27,13 @@ interface GeoJSONElement {
 
 const CensusTractMap: NextPage = () => {
   const [userCensusTract, setUserCensusTract] = useState("");
+  const updateUserCensusTract = api.user.addCensusTract.useMutation();
   const geoJsonRef = useRef();
   const handleFeature = (feature: Feature<Geometry, any>, layer: Layer) => {
     layer.on("click", (e: LeafletMouseEvent) => {
       const selectedCensusTract = (e.target as LayerEventTarget).feature.properties["name20"];
       setUserCensusTract(selectedCensusTract);
+      updateUserCensusTract.mutate({censusTract: selectedCensusTract})
     })
     layer.on("mouseover", (e: LeafletMouseEvent) => {
       
