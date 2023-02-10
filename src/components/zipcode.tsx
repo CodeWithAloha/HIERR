@@ -12,6 +12,10 @@ const ZipCode: NextPage = () => {
   const postZipCodeResult = api.zipcode.postZipCode.useMutation();
   const handleSubmit = () => {
     // TODO: Add zipcode validation here
+    // const re = /^(?:\d{3}|\(\d{3}\))([-/.])\d{3}\1\d{4}$/; EXAMPLE
+    // const re = /^\d{6}/; MINE
+    // function to test zipcode is 6 digits? 
+    // zipcode.test()
     if(zipcode === "")
     {
       return;
