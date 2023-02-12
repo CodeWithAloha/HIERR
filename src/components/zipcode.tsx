@@ -32,7 +32,7 @@ const ZipCode: NextPage = () => {
     <form onSubmit={handleSubmit}>
           <label htmlFor="zipcode" className="text-white">Enter your zipcode:
           <br />
-          <input type="text" id="zipcode" name="zipcode" required value={zipcode} onChange={e => setZipCode(e.target.value)} />
+          <input type="text" id="zipcode" name="zipcode" required value={zipcode} onChange={e => setZipCode(e.target.value)} style={{color: "#4C4C4C"}} />
           </label>
           <br />
           <button type="submit" className="rounded-full bg-white/10 px-10 py-3 hover:bg-white/20 my-10 text-white">Submit</button>
