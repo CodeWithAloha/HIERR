@@ -1,7 +1,7 @@
 'use client';
 
 import { type NextPage } from "next";
-import { MapContainer,  TileLayer, GeoJSON as GeoJSONComponent } from 'react-leaflet';
+import { MapContainer,  TileLayer, GeoJSON as GeoJSONComponent, Popup } from 'react-leaflet';
 // TODO: Fix this import to be from geojson and change the filename
 import CensusTractData from "../data/census-tracts_min.json";
 import 'leaflet/dist/leaflet.css';
@@ -10,6 +10,7 @@ import { NextPageButtonLink } from "../UI/NextPageButtonLink";
 import {Ref, useRef, useState } from "react";
 import { Layer, LeafletMouseEvent } from "leaflet";
 import { api } from "../utils/api";
+import { type LatLngExpression} from 'leaflet';
 
 
 interface LayerEventTarget {
@@ -25,22 +26,33 @@ interface GeoJSONElement {
   resetStyle: (element: any) => void
 }
 
+interface CensusTractProps {
+  position: LatLngExpression;
+  name: string;
+  number: string;
+}
+
 const CensusTractMap: NextPage = () => {
   const [userCensusTract, setUserCensusTract] = useState("");
+  const [popup, setPopup] = useState<CensusTractProps | undefined>();
   const updateUserCensusTract = api.user.addCensusTract.useMutation();
   const geoJsonRef = useRef();
-  const handleFeature = (feature: Feature<Geometry, any>, layer: Layer) => {
+  const handleFeature = (feature: Feature<Geometry, any>, layer: Layer, popupCallback: (val: CensusTractProps | undefined) => void) => {
+
     layer.on("click", (e: LeafletMouseEvent) => {
       const selectedCensusTract = (e.target as LayerEventTarget).feature.properties["name20"];
       setUserCensusTract(selectedCensusTract);
       updateUserCensusTract.mutate({censusTract: selectedCensusTract})
     })
     layer.on("mouseover", (e: LeafletMouseEvent) => {
-      
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       (e.target).setStyle({
-        	fillOpacity: 0.8,
+        fillOpacity: 0.8,
       });
+      const tractname = e.target.feature.properties.tractname;
+      const tractId = e.target.feature.properties.name20
+      const latLong = e.latlng;
+      popupCallback({position: latLong, name: tractname, number:tractId});
     });
     layer.on("mouseout", (e: LeafletMouseEvent) => {
 
@@ -49,7 +61,8 @@ const CensusTractMap: NextPage = () => {
         return;
       }
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      (geoJsonRef.current as GeoJSONElement).resetStyle(e.target)
+      (geoJsonRef.current as GeoJSONElement).resetStyle(e.target);
+      popupCallback(undefined);
     })
     return null;
   }
@@ -95,7 +108,18 @@ const CensusTractMap: NextPage = () => {
               url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}"
               
             />
-            <GeoJSONComponent data={CensusTractData as GeoJsonObject} style={(val: Feature<Geometry, {pop20: number}> | undefined) => censusTractStyle(val)} onEachFeature={(feature, layer) => handleFeature(feature, layer)} ref={geoJsonRef as Ref<any>} />
+            {
+              popup ? 
+               <Popup position={popup.position}>
+                  <div>
+                    Name: {popup.name}
+                    <br />
+                    Number: {popup.number}
+                  </div>
+               </Popup>
+              : null
+            }
+            <GeoJSONComponent data={CensusTractData as GeoJsonObject} style={(val: Feature<Geometry, {pop20: number}> | undefined) => censusTractStyle(val)} onEachFeature={(feature, layer) => handleFeature(feature, layer, setPopup)} ref={geoJsonRef as Ref<any>} />
           </MapContainer>
         </div>
         </>
