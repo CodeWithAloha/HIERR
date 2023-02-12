@@ -65,3 +65,12 @@ npx prisma db push
    2. ```npx prisma db push```
 6. Run the application and confirm it works
 
+# Working with prisma
+When the data model changes, run the following to update your local database with the latest migrations
+
+```
+npx prisma migrate dev
+```
+
+Docs: https://www.prisma.io/docs/guides/database/developing-with-prisma-migrate/team-development
+
