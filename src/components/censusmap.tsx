@@ -92,7 +92,8 @@ const CensusTractMap: NextPage = () => {
           <MapContainer center={[20.5, -157.510857]} zoom={7} scrollWheelZoom={true} style={{height: "400px"}} >
             <TileLayer
               attribution='&copy; "Map data © OpenStreetMap contributors, Esri Community Maps contributors, Map layer by Esri'
-              url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}"
+              url="https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}"
+              
               
             />
             <GeoJSONComponent data={CensusTractData as GeoJsonObject} style={(val: Feature<Geometry, {pop20: number}> | undefined) => censusTractStyle(val)} onEachFeature={(feature, layer) => handleFeature(feature, layer)} ref={geoJsonRef as Ref<any>} />
