@@ -48,8 +48,7 @@ npx prisma db push
 - [Sendinblue](https://app.sendinblue.com)
   - Create an account
   - Fill in the .env variables for EMAIL_SERVER and EMAIL_FROM
-    - EMAIL_SERVER
-      - smtp://LOGIN:SMTP_KEY_VALUE@smtp-relay.sendinblue.com:587
+    - EMAIL_SERVER=smtp://LOGIN:SMTP_KEY_VALUE@smtp-relay.sendinblue.com:587
       - [SMTP Credentials](https://app.sendinblue.com/settings/keys/smtp)
     - EMAIL_FROM={Email sending the verification link}
   - Debugging [Log](https://app-smtp.sendinblue.com/log)
