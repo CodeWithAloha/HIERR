@@ -41,7 +41,7 @@ npx prisma db push
 # SMTP Server Setup
 - Gmail
   - Follow the steps at this YouTube video for setting up an SMTP gmail account
-    - https://www.youtube.com/watch?v=1YXVdyVuFGA
+    - [Youtube](https://www.youtube.com/watch?v=1YXVdyVuFGA)
   - Fill in the .env variables for EMAIL_SERVER and EMAIL_FROM
     - EMAIL_SERVER="smtps://{username}:{password}@{smtpserver}:{port}"
     - EMAIL_FROM={Email sending the verification link}
