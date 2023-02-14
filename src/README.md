@@ -41,7 +41,17 @@ npx prisma db push
 # SMTP Server Setup
 1. Follow the steps at this YouTube video for setting up an SMTP gmail account
    1. https://www.youtube.com/watch?v=1YXVdyVuFGA
-2. Fill in the .env variables for EMAIL_SERVER and EMAIL_FROM
+- Gmail
+  - Follow the steps at this YouTube video for setting up an SMTP gmail account
+    - https://www.youtube.com/watch?v=1YXVdyVuFGA
+  - Fill in the .env variables for EMAIL_SERVER and EMAIL_FROM
+- [Sendinblue](https://app.sendinblue.com)
+  - Create an account
+  - Fill in the .env variables for EMAIL_SERVER and EMAIL_FROM
+    - EMAIL_SERVER
+      - smtp://LOGIN:SMTP_KEY_VALUE@smtp-relay.sendinblue.com:587
+      - [SMTP Credentials](https://app.sendinblue.com/settings/keys/smtp)
+  - [Log](https://app-smtp.sendinblue.com/log)
    1. EMAIL_SERVER="smtps://{username}:{password}@{smtpserver}:{port}"
    2. EMAIL_FROM={Email sending the verification link} 
 
