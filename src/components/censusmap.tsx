@@ -95,8 +95,8 @@ const CensusTractMap: NextPage = () => {
           </h1>
           <div id="map" className="w-3/4">
             <MapContainer
-              center={[20.5, -157.510857]}
-              zoom={7}
+              center={[21.43805, -157.985262]}
+              zoom={11}
               scrollWheelZoom={true}
               style={{ height: "800px" }}
             >
