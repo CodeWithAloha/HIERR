@@ -10,7 +10,7 @@ export const NextPageButtonLink = ({pageName, msg, disabled}: NextPageButtonLink
   const href = `./${pageName}`;
   return (
   <div>
-    <Link href={href}><button disabled={disabled} className="rounded-full bg-white/10 px-10 py-3 hover:bg-white/20 my-10 text-white">
+    <Link href={href}><button disabled={disabled} className="rounded-full text-blue-default bg-white/90 hover:bg-white hover:text-blue-darker px-10 py-3 no-underline transition">
             {msg}
     </button></Link>
   </div>

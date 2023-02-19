@@ -128,9 +128,9 @@ const CensusTractMap: NextPage = () => {
 			}
   }
   return (
-    <div className="bg-[#3276AE] flex flex-col items-center h-screen">
-        <h1>Please select the census tract area that contains your address.</h1>
-        <div id="map" className="w-1/2">
+    <div className="bg-blue-default flex flex-col items-center h-screen">
+      <div className="rounded overflow-hidden shadow-lg bg-white my-6">
+        <div id="map" className="w-full">
         <MapContainer center={[20.5, -157.510857]} zoom={7} scrollWheelZoom={true} style={{height: "400px"}}>
           <TileLayer
             attribution='&copy; "Map data © OpenStreetMap contributors, Esri Community Maps contributors, Map layer by Esri'
@@ -138,6 +138,10 @@ const CensusTractMap: NextPage = () => {
           />
           <GeoJSON data={CensusTractData as GeoJsonObject} style={(val: Feature<Geometry, {pop20: number}> | undefined) => censusTractStyle(val)}/>
         </MapContainer>
+        </div>
+        <div className="px-6 py-4 items-center">
+          <h1 className="text-black">Please select the census tract area that contains your address.</h1>
+        </div>
       </div>
       <NextPageButtonLink pageName="zipcode" msg="Click here to continue." />
     </div>
