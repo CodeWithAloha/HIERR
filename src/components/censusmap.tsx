@@ -14,6 +14,8 @@ import { NextPageButtonLink } from "../UI/NextPageButtonLink";
 import { Ref, useRef, useState } from "react";
 import { Layer, LeafletMouseEvent } from "leaflet";
 import { api } from "../utils/api";
+import CompletedCensusMap from "./completedcensusmap";
+import ExistingCensusMap from "./existingcensusmap";
 
 interface LayerEventTarget {
   feature: {
@@ -31,6 +33,10 @@ interface GeoJSONElement {
 const CensusTractMap: NextPage = () => {
   const [userCensusTract, setUserCensusTract] = useState("");
   const updateUserCensusTract = api.user.addCensusTract.useMutation();
+  const [existingCensusTractId, setExistingCensusTractId] = useState(
+    api.user.getCensusTract.useQuery().data?.censusTractId
+  );
+
   const geoJsonRef = useRef();
   const handleFeature = (feature: Feature<Geometry, any>, layer: Layer) => {
     layer.on("click", (e: LeafletMouseEvent) => {
@@ -85,12 +91,16 @@ const CensusTractMap: NextPage = () => {
 
   return (
     <div className="flex h-screen flex-col items-center bg-[#3276AE]">
-      {!userCensusTract ? (
+      {existingCensusTractId ? (
+        <ExistingCensusMap existingCensusTract={existingCensusTractId} />
+      ) : userCensusTract ? (
+        <CompletedCensusMap userSelectedCensusTract={userCensusTract} />
+      ) : (
         <>
-          <h1 className="mt-4 w-3/4 items-center p-5 text-3xl">
+          <h1 className="text-white-3xl mt-4 w-3/4 items-center p-5">
             Please select the census tract area where you reside
-            <p className="text-xl">
-              Use the ➕ and ➖ on the map to find your census tract
+            <p className="text-white-xl">
+              Use the ➕ and ➖ on the map to find your tract
             </p>
           </h1>
           <div id="map" className="w-3/4">
@@ -100,8 +110,6 @@ const CensusTractMap: NextPage = () => {
               scrollWheelZoom={true}
               style={{ height: "800px" }}
             >
-              {/* <TileLayer url={osmUrl} zIndex={1} />
-              <TileLayer url={watercolorUrl} zIndex={3} /> */}
               <TileLayer
                 attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
                 url="https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png"
@@ -118,16 +126,6 @@ const CensusTractMap: NextPage = () => {
               />
             </MapContainer>
           </div>
-        </>
-      ) : (
-        <>
-          <h1 className="text-white">
-            Census Tract Selected is: {userCensusTract}
-          </h1>
-          <NextPageButtonLink
-            pageName="zipcode"
-            msg="Click here to continue."
-          />
         </>
       )}
     </div>
