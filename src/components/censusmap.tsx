@@ -97,13 +97,16 @@ const CensusTractMap: NextPage = () => {
         <CompletedCensusMap userSelectedCensusTract={userCensusTract} />
       ) : (
         <>
-          <h1 className="text-white-3xl mt-4 w-3/4 items-center p-5">
+          <h1 className="mt-4 w-3/4 items-center pb-5 pt-5 text-3xl text-white">
             Please select the census tract area where you reside
-            <p className="text-white-xl">
+            <p className="text-xl text-white">
               Use the ➕ and ➖ on the map to find your tract
             </p>
           </h1>
-          <div id="map" className="w-3/4">
+          <div
+            id="map"
+            className="w-3/4 rounded-sm border-8 border-solid border-gray"
+          >
             <MapContainer
               center={[21.43805, -157.985262]}
               zoom={11}
