@@ -21,6 +21,12 @@ model ZipCode {
   user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model CensusTract {
+  id   String @id
+  name String
+  user User?
+}
+
 // Necessary for Next auth
 model Account {
   id                String  @id @default(cuid())
@@ -49,14 +55,16 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String       @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?      @unique
   emailVerified DateTime?
   image         String?
+  censusTractId String?      @unique
   accounts      Account[]
   sessions      Session[]
   zipcode       ZipCode?
+  censustract   CensusTract? @relation(fields: [censusTractId], references: [id])
 }
 
 model VerificationToken {
