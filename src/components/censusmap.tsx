@@ -103,7 +103,7 @@ const CensusTractMap: NextPage = () => {
               center={[21.43805, -157.985262]}
               zoom={11}
               scrollWheelZoom={true}
-              style={{ height: "800px" }}
+              style={{ height: "600px" }}
             >
               <TileLayer
                 attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
@@ -121,14 +121,12 @@ const CensusTractMap: NextPage = () => {
               />
             </MapContainer>
             <div className="px-6 py-4 items-center">
-              <h1 className="text-black">Please select the census tract area that contains your address.</h1>
               <p className="text-black">
-              Use the ➕ and ➖ on the map to find your tract
-            </p>
+              Use the ➕ and ➖ on the map to find the census tract area that contains your address
+              </p>
             </div>
           </div>
         </div>
-        <NextPageButtonLink pageName="zipcode" msg="Click here to continue." />
         </>
       )}
     </div>
