@@ -22,6 +22,7 @@ CREATE TABLE [dbo].[SurveyAnswer] (
 CREATE TABLE [dbo].[UserSurveyAnswers] (
     [id] NVARCHAR(1000) NOT NULL,
     [userId] NVARCHAR(1000) NOT NULL,
+    [questionId] NVARCHAR(1000) NOT NULL,
     [answerId] NVARCHAR(1000) NOT NULL,
     CONSTRAINT [UserSurveyAnswers_pkey] PRIMARY KEY CLUSTERED ([id])
 );
@@ -34,6 +35,9 @@ ALTER TABLE [dbo].[UserSurveyAnswers] ADD CONSTRAINT [UserSurveyAnswers_answerId
 
 -- AddForeignKey
 ALTER TABLE [dbo].[UserSurveyAnswers] ADD CONSTRAINT [UserSurveyAnswers_userId_fkey] FOREIGN KEY ([userId]) REFERENCES [dbo].[User]([id]) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[UserSurveyAnswers] ADD CONSTRAINT [UserSurveyAnswers_questionId_fkey] FOREIGN KEY ([questionId]) REFERENCES [dbo].[SurveyQuestion]([id]) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- Add Question Data
 DECLARE @questionId1 uniqueidentifier = NEWID();

@@ -15,9 +15,10 @@ datasource db {
 }
 
 model SurveyQuestion {
-  id       String         @id @default(cuid())
-  question String
-  answers  SurveyAnswer[]
+  id                String              @id @default(cuid())
+  question          String
+  answers           SurveyAnswer[]
+  UserSurveyAnswers UserSurveyAnswers[]
 }
 
 model SurveyAnswer {
@@ -30,11 +31,13 @@ model SurveyAnswer {
 }
 
 model UserSurveyAnswers {
-  id       String       @id @default(cuid())
-  userId   String
-  answerId String
-  answer   SurveyAnswer @relation(fields: [answerId], references: [id])
-  user     User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id         String         @id @default(cuid())
+  userId     String
+  questionId String
+  answerId   String
+  answer     SurveyAnswer   @relation(fields: [answerId], references: [id])
+  user       User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question   SurveyQuestion @relation(fields: [questionId], references: [id], onUpdate: NoAction, onDelete: NoAction)
 }
 
 model ZipCode {

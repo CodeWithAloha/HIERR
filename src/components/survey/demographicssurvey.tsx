@@ -5,8 +5,9 @@ import { NextPageButtonLink } from "../../UI/NextPageButtonLink";
 import { api } from "../../utils/api";
 
 interface SurveyData {
+  questionId: string;
   question: string;
-  answers: string[]
+  answers: {answer:string, answerId: string}[]
 }
 
 export type QuestionDirection = "Prev" | "Next"
@@ -15,7 +16,9 @@ export default function DemographicsSurvey() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [surveyCompleted, setSurveyCompleted] = useState(false);
   const surveyDataDB = api.survey.getSurveyData.useQuery()?.data ?? [];
-  const surveyData: SurveyData[]= surveyDataDB.map(sd => {return {question: sd.question, answers: sd.answers.sort((a1, a2) => a1.position - a2.position).map(a => a.answer)}})
+  const surveyData: SurveyData[] = surveyDataDB.map(sd => {return {questionId: sd.id, question: sd.question, answers: sd.answers.sort((a1, a2) => a1.position - a2.position).map(a => {return {answer: a.answer, answerId: a.id}})}})
+
+  const postUserAnswer = api.survey.addUserAnswer.useMutation();
 
   const userAnswers: string[] = useMemo(() => [], []);
   // TODO: make sure questions do not go out of bounds
@@ -24,14 +27,21 @@ export default function DemographicsSurvey() {
       setCurrentQuestion(currentQuestion - 1);
       return;
     }
+    const questionId = surveyData[currentQuestion]?.questionId;
+    const answerId = surveyData[currentQuestion]?.answers.find(a => a.answer === answer)?.answerId;
     if(currentQuestion === surveyData.length - 1) {
       userAnswers.push(answer ?? "")
       console.log("User answers are:", userAnswers)
+      // TODO: Fix these conditionals
+      postUserAnswer.mutate({answerId: answerId ?? "", questionId: questionId ?? ""})
       setSurveyCompleted(true)
       // TODO: Send user answers to database
       return;
     }
     userAnswers.push(answer ?? "")
+
+    // TODO: Fix these conditionals
+    postUserAnswer.mutate({answerId: answerId ?? "", questionId: questionId ?? ""})
     setCurrentQuestion(currentQuestion + 1)
   },[currentQuestion, userAnswers, surveyData.length]);
 
@@ -52,7 +62,7 @@ export default function DemographicsSurvey() {
         {
           surveyData[currentQuestion]!== undefined ? 
           // TODO: Fix these conditionals
-          <SurveyQuestion question={surveyData[currentQuestion]?.question ?? ""} answers={surveyData[currentQuestion]?.answers ?? []} updateQuestion={updateCurrentQuestion} /> : null
+          <SurveyQuestion question={surveyData[currentQuestion]?.question ?? ""} answers={surveyData[currentQuestion]?.answers.map(a => a.answer) ?? []} updateQuestion={updateCurrentQuestion} /> : null
         }
       </>
     }
