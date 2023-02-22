@@ -14,6 +14,7 @@ CREATE TABLE [dbo].[SurveyAnswer] (
     [id] NVARCHAR(1000) NOT NULL,
     [questionId] NVARCHAR(1000) NOT NULL,
     [answer] NVARCHAR(1000) NOT NULL,
+    [position] INT NOT NULL,
     CONSTRAINT [SurveyAnswer_pkey] PRIMARY KEY CLUSTERED ([id])
 );
 
@@ -49,14 +50,15 @@ DECLARE @answerId7 uniqueidentifier = NEWID();
 DECLARE @answerId8 uniqueidentifier = NEWID();
 DECLARE @answerId9 uniqueidentifier = NEWID();
 DECLARE @answerId10 uniqueidentifier = NEWID();
+DECLARE @answerId11 uniqueidentifier = NEWID();
+DECLARE @answerId12 uniqueidentifier = NEWID();
+DECLARE @answerId13 uniqueidentifier = NEWID();
 
 INSERT INTO [dbo].[SurveyQuestion] (id, question)
 VALUES (@questionId1, 'How are you today?'), (@questionId2, 'Does pineapple belong on pizza?'), (@questionId3, 'On a scale of 1 - 5, how well can you draw?')
 
-INSERT INTO [dbo].[SurveyAnswer] (id, questionId, answer)
-VALUES (@answerId1, @questionId1 ,'very bad'), (@answerId2,@questionId1,'bad'), (@answerId3,@questionId1, 'neutral'), (@answerId4,@questionId1, 'good'), (@answerId5,@questionId1,'very good'), (@answerId6,@questionId2,'yes'), (@answerId7,@questionId2,'no'), (@answerId8,@questionId3,'1'), (@answerId9,@questionId3,'5')
-
-
+INSERT INTO [dbo].[SurveyAnswer] (id, questionId, answer, position)
+VALUES (@answerId1, @questionId1 ,'very bad', 1), (@answerId2,@questionId1,'bad', 2), (@answerId3,@questionId1, 'neutral', 3), (@answerId4,@questionId1, 'good', 4), (@answerId5,@questionId1,'very good', 5), (@answerId6,@questionId2,'yes', 1), (@answerId7,@questionId2,'no', 2), (@answerId8,@questionId3,'1', 1), (@answerId9,@questionId3,'2', 2), (@answerId10,@questionId3,'3', 3), (@answerId11,@questionId3,'4', 4), (@answerId12,@questionId3,'5', 5)
 
 COMMIT TRAN;
 

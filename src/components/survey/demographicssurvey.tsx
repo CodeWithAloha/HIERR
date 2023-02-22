@@ -15,7 +15,7 @@ export default function DemographicsSurvey() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [surveyCompleted, setSurveyCompleted] = useState(false);
   const surveyDataDB = api.survey.getSurveyData.useQuery()?.data ?? [];
-  const surveyData: SurveyData[]= surveyDataDB.map(sd => {return {question: sd.question, answers: sd.answers.map(a => a.answer)}})
+  const surveyData: SurveyData[]= surveyDataDB.map(sd => {return {question: sd.question, answers: sd.answers.sort((a1, a2) => a1.position - a2.position).map(a => a.answer)}})
 
   const userAnswers: string[] = useMemo(() => [], []);
   // TODO: make sure questions do not go out of bounds
