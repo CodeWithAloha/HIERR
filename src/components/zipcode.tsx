@@ -11,18 +11,9 @@ const ZipCode: NextPage = () => {
   const [nextLinkDisabled, setNextLinkDisabled] = useState(true)
   const postZipCodeResult = api.zipcode.postZipCode.useMutation();
   const handleSubmit = () => {
-    // TODO: Add zipcode validation here
-    const re = /^\d{5}/;
-    re.test(zipcode);
-    
-    if(zipcode === "")
-    {
-      return;
-    }
     setNextLinkDisabled(false)
     postZipCodeResult.mutate({zipcode: zipcode})
     console.log("Posting result", postZipCodeResult)
-    console.log(re.test(zipcode))
   }
 
   return (
@@ -32,7 +23,7 @@ const ZipCode: NextPage = () => {
     <form onSubmit={handleSubmit}>
           <label htmlFor="zipcode" className="text-white">Enter your zipcode:
           <br />
-          <input type="text" id="zipcode" name="zipcode" required value={zipcode} onChange={e => setZipCode(e.target.value)} style={{color: "#4C4C4C"}} />
+          <input type="text" id="zipcode" name="zipcode" required value={zipcode} onChange={e => setZipCode(e.target.value)} style={{color: "#4C4C4C"}} pattern="[0-9]{5}" title="The zipcode must be 5 digits."/>
           </label>
           <br />
           <button type="submit" className="rounded-full bg-white/10 px-10 py-3 hover:bg-white/20 my-10 text-white">Submit</button>
