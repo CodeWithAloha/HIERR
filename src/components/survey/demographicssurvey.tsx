@@ -15,7 +15,7 @@ export type QuestionDirection = "Prev" | "Next"
 export default function DemographicsSurvey() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [surveyCompleted, setSurveyCompleted] = useState(false);
-  const surveyDataDB = api.survey.getSurveyData.useQuery()?.data ?? [];
+  const surveyDataDB = (api.survey.getSurveyData.useQuery()?.data  ?? []).sort((d1, d2) => d1.position - d2.position );
   const surveyData: SurveyData[] = surveyDataDB.map(sd => {return {questionId: sd.id, question: sd.question, answers: sd.answers.sort((a1, a2) => a1.position - a2.position).map(a => {return {answer: a.answer, answerId: a.id}})}})
 
   const postUserAnswer = api.survey.addUserAnswer.useMutation();

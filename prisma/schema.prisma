@@ -17,6 +17,7 @@ datasource db {
 model SurveyQuestion {
   id                String              @id @default(cuid())
   question          String
+  position          Int
   answers           SurveyAnswer[]
   UserSurveyAnswers UserSurveyAnswers[]
 }
