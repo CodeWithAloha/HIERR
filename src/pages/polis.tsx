@@ -9,9 +9,9 @@ const Polis: NextPage = () => {
     <div className="bg-[#3276AE] flex flex-col items-center h-screen">
       <h1 className="text-center text-2xl text-white mb-10">Please select the Pol.is survey you would wish to complete.</h1>
       {
-        surveys?.map(survey => {
+        surveys?.map((survey,index) => {
           return (
-            <NextPageButtonLink pageName="polissurvey" msg={survey} query={{surveyId: survey}} />
+            <NextPageButtonLink key={index} pageName="polissurvey" msg={survey} query={{surveyId: survey}} />
           )
         })
       }
