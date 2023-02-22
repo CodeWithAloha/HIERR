@@ -11,7 +11,7 @@ const Polis: NextPage = () => {
       {
         surveys?.map((survey,index) => {
           return (
-            <NextPageButtonLink key={index} pageName="polissurvey" msg={survey} query={{surveyId: survey}} />
+            <NextPageButtonLink key="survey-{index}" pageName="polissurvey" msg={survey} query={{surveyId: survey}} />
           )
         })
       }
