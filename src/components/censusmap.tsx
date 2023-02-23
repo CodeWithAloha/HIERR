@@ -90,28 +90,20 @@ const CensusTractMap: NextPage = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center bg-[#3276AE]">
+    <div className="bg-blue-default flex flex-col items-center h-screen">
       {existingCensusTractId ? (
         <ExistingCensusMap existingCensusTract={existingCensusTractId} />
       ) : userCensusTract ? (
         <CompletedCensusMap userSelectedCensusTract={userCensusTract} />
       ) : (
         <>
-          <h1 className="mt-4 w-3/4 items-center pb-5 pt-5 text-3xl text-white">
-            Please select the census tract area where you reside
-            <p className="text-xl text-white">
-              Use the ➕ and ➖ on the map to find your tract
-            </p>
-          </h1>
-          <div
-            id="map"
-            className="w-3/4 rounded-sm border-8 border-solid border-gray"
-          >
+          <div className="rounded overflow-hidden shadow-lg bg-white my-6">
+          <div id="map" className="w-full">
             <MapContainer
               center={[21.43805, -157.985262]}
               zoom={11}
               scrollWheelZoom={true}
-              style={{ height: "800px" }}
+              style={{ height: "600px" }}
             >
               <TileLayer
                 attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
@@ -128,7 +120,13 @@ const CensusTractMap: NextPage = () => {
                 ref={geoJsonRef as Ref<any>}
               />
             </MapContainer>
+            <div className="px-6 py-4 items-center">
+              <p className="text-black">
+              Use the ➕ and ➖ on the map to find the census tract area that contains your address
+              </p>
+            </div>
           </div>
+        </div>
         </>
       )}
     </div>

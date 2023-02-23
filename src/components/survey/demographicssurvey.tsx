@@ -58,7 +58,7 @@ export default function DemographicsSurvey() {
     {
       surveyCompleted ? completedSurvey() :
       <>
-        <p className="text-center text-2xl text-white mb-10">Please answer the following questions</p>
+        <p className="text-center text-2xl text-white my-6">Please answer the following questions</p>
         {
           surveyData[currentQuestion]!== undefined ? 
           // TODO: Fix these conditionals
