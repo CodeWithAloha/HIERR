@@ -7,7 +7,12 @@ import { api } from "../../utils/api";
 interface SurveyData {
   questionId: string;
   question: string;
-  answers: {answer:string, answerId: string}[]
+  answers: SurveyAnswer[]
+}
+
+interface SurveyAnswer {
+  answer: string;
+  answerId: string;
 }
 
 export type QuestionDirection = "Prev" | "Next"

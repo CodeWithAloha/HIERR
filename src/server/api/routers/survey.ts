@@ -25,8 +25,7 @@ export const surveyRouter = createTRPCRouter({
         return null;
       }
       const { id: userId } = ctx.session.user
-      const answerId = input.answerId;
-      const questionId = input.questionId;
+      const {answerId, questionId} = input;
       const existingUserAnswer = await ctx.prisma.userSurveyAnswers.findFirst({
         where: {
           userId,
