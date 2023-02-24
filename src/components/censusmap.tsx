@@ -90,47 +90,47 @@ const CensusTractMap: NextPage = () => {
   };
 
   return (
-		<div className='flex h-screen flex-col items-center bg-[#3276AE]'>
-			{existingCensusTractId ? (
-				<ExistingCensusMap existingCensusTract={existingCensusTractId} />
-			) : userCensusTract ? (
-				<CompletedCensusMap userSelectedCensusTract={userCensusTract} />
-			) : (
-				<>
-					<h1 className='mt-4 w-3/4 items-center pb-5 pt-5 text-3xl text-white'>
-						Please select the census tract area where you reside
-						<p className='text-xl text-white'>
-							Use the ➕ and ➖ on the map to find your tract
-						</p>
-					</h1>
-					<div
-						id='map'
-						className='w-3/4 rounded-sm border-8 border-solid border-gray'>
-						<MapContainer
-							center={[21.43805, -157.985262]}
-							zoom={11}
-							scrollWheelZoom={true}
-							style={{ height: '800px' }}>
+    <div className="bg-blue-default flex flex-col items-center h-screen">
+      {existingCensusTractId ? (
+        <ExistingCensusMap existingCensusTract={existingCensusTractId} />
+      ) : userCensusTract ? (
+        <CompletedCensusMap userSelectedCensusTract={userCensusTract} />
+      ) : (
+        <>
+          <div className="rounded overflow-hidden shadow-lg bg-white my-6">
+          <div id="map" className="w-full">
+            <MapContainer
+              center={[21.43805, -157.985262]}
+              zoom={11}
+              scrollWheelZoom={true}
+              style={{ height: "600px" }}
+            >
 							<TileLayer
 								attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 								url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 							/>
-							<GeoJSONComponent
-								data={CensusTractData as GeoJsonObject}
-								style={(
-									val: Feature<Geometry, { pop20: number }> | undefined
-								) => censusTractStyle(val)}
-								onEachFeature={(feature, layer) =>
-									handleFeature(feature, layer)
-								}
-								ref={geoJsonRef as Ref<any>}
-							/>
-						</MapContainer>
-					</div>
-				</>
-			)}
-		</div>
-	)
+              <GeoJSONComponent
+                data={CensusTractData as GeoJsonObject}
+                style={(
+                  val: Feature<Geometry, { pop20: number }> | undefined
+                ) => censusTractStyle(val)}
+                onEachFeature={(feature, layer) =>
+                  handleFeature(feature, layer)
+                }
+                ref={geoJsonRef as Ref<any>}
+              />
+            </MapContainer>
+            <div className="px-6 py-4 items-center">
+              <p className="text-black">
+              Use the ➕ and ➖ on the map to find the census tract area that contains your address
+              </p>
+            </div>
+          </div>
+        </div>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default CensusTractMap;
