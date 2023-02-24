@@ -14,6 +14,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model SurveyQuestion {
+  id                String              @id @default(cuid())
+  question          String
+  position          Int
+  answers           SurveyAnswer[]
+  UserSurveyAnswers UserSurveyAnswers[]
+}
+
+model SurveyAnswer {
+  id                String              @id @default(cuid())
+  questionId        String
+  question          SurveyQuestion      @relation(fields: [questionId], references: [id])
+  answer            String
+  UserSurveyAnswers UserSurveyAnswers[]
+  position          Int
+}
+
+model UserSurveyAnswers {
+  id         String         @id @default(cuid())
+  userId     String
+  questionId String
+  answerId   String
+  answer     SurveyAnswer   @relation(fields: [answerId], references: [id])
+  user       User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question   SurveyQuestion @relation(fields: [questionId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+}
+
 model ZipCode {
   id      String @id @default(cuid())
   userId  String @unique
@@ -55,16 +82,17 @@ model Session {
 }
 
 model User {
-  id            String       @id @default(cuid())
-  name          String?
-  email         String?      @unique
-  emailVerified DateTime?
-  image         String?
-  censusTractId String?      @unique
-  accounts      Account[]
-  sessions      Session[]
-  zipcode       ZipCode?
-  censustract   CensusTract? @relation(fields: [censusTractId], references: [id])
+  id                String              @id @default(cuid())
+  name              String?
+  email             String?             @unique
+  emailVerified     DateTime?
+  image             String?
+  censusTractId     String?             @unique
+  accounts          Account[]
+  sessions          Session[]
+  zipcode           ZipCode?
+  censustract       CensusTract?        @relation(fields: [censusTractId], references: [id])
+  UserSurveyAnswers UserSurveyAnswers[]
 }
 
 model VerificationToken {
