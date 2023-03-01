@@ -20,6 +20,7 @@ model SurveyQuestion {
   position          Int
   answers           SurveyAnswer[]
   UserSurveyAnswers UserSurveyAnswers[]
+  questionType      String
 }
 
 model SurveyAnswer {
@@ -29,6 +30,7 @@ model SurveyAnswer {
   answer            String
   UserSurveyAnswers UserSurveyAnswers[]
   position          Int
+  answerType        String
 }
 
 model UserSurveyAnswers {
