@@ -1,30 +1,32 @@
 import React, { useState } from "react";
-import { QuestionDirection } from "./demographicssurvey";
+import { AnswerType, QuestionDirection, QuestionType, SurveyAnswer, SurveyData } from "./demographicssurvey";
+import RadioButtonAnswers from "./radioButtonAnswers";
+import MultiSelectAnswers from "./multiSelectAnswers";
 
 interface SurveyQuestionProps {
-  question: string;
-  answers: string[];
+  question: SurveyData;
   updateQuestion: (val: QuestionDirection, answer?: string) => void;
 }
 
-export default function SurveyQuestion({question, answers, updateQuestion}: SurveyQuestionProps) {
-  const [selectedAnswer, setSelectedAnswer] = useState(answers[0])
+export default function SurveyQuestion({question, updateQuestion}: SurveyQuestionProps) {
+  const [selectedAnswer, setSelectedAnswer] = useState("")
   const updateCurrentAnswer = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedAnswer(e.target.value)
   }
+  const getAnswers = (questionType: QuestionType, answers: SurveyAnswer[]) => {
+    switch(questionType) {
+      case "option": return <RadioButtonAnswers answers={answers.map(a => a.answer)} updateCurrentAnswer={updateCurrentAnswer} />;
+      case "multiSelect": return <MultiSelectAnswers updateCurrentAnswer={updateCurrentAnswer} answers={answers.map(a => {return {answer: a.answer, answerType: (a.answerType as AnswerType)}})} />;
+      case "text": return null;
+      default: return null;
+    }
+  }
   return (
     <div className="bg-[#FFFFFF] rounded-md px-10 py-5 ">
-      <h1 className="mb-2">{question}</h1>
-      <ul>
-        {answers.map((a, index) => {return (
-          <div key={index}>
-            <label>
-            <input type="radio" name="myRadio" value={a} onChange={(e) => updateCurrentAnswer(e)} />
-            <span className="mx-2">{a}</span> 
-          </label>
-          </div>
-        )})}
-      </ul>
+      <h1 className="mb-2">{question.question}</h1>
+      {
+        getAnswers(question.questionType, question.answers)
+      }
       <div className="flex flex-row justify-between mt-10">
       <button className="rounded-full px-6 py-2 mx-1 bg-blue-darker text-white hover:bg-blue-default" onClick={() => updateQuestion("Prev")}>Back</button>
       <button className="rounded-full px-6 py-2 mx-1 hover:bg-blue-default bg-blue-darker text-white" onClick={() => updateQuestion("Next", selectedAnswer)}>Next</button>
