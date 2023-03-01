@@ -203,17 +203,17 @@ VALUES
         'What was your age on your last birthday?',
         2, 'number'
     ),
-    (@questionId3, 'What is your gender?', 3, 'option')
---     (
---         @questionId4,
---         'Including yourself, how many persons, in total, live in your household?',
---         4, 'number'
---     ),
---     (
---         @questionId5,
---         'Which of the following best describes your current employment status?',
---         5, 'option'
---     ),
+    (@questionId3, 'What is your gender?', 3, 'option'),
+    (
+        @questionId4,
+        'Including yourself, how many persons, in total, live in your household?',
+        4, 'number'
+    ),
+    (
+        @questionId5,
+        'Which of the following best describes your current employment status?',
+        5, 'multiSelect'
+    )
 --     (
 --         @questionId6,
 --         'Do you currently have, or did you have a non-dial-up internet subscription (i.e., cellular data, cable, fiber optic, DSL, satellite) during the pandemic?',
@@ -272,7 +272,17 @@ VALUES
     (@answerId3, @questionId2, '', 1, 'text'),
     (@answerId4, @questionId3, 'Female', 1, 'option'),
     (@answerId5, @questionId3, 'Male', 2, 'option'),
-    (@answerId6, @questionId3, 'Other,', 3, 'optionText')
+    (@answerId6, @questionId3, 'Other,', 3, 'optionText'),
+    (@answerId7, @questionId4, '', 1, 'number'),
+    (@answerId8, @questionId5, 'Employed fulltime / part time', 1, 'option'),
+    (@answerId9, @questionId5, 'Unemployed, not looking for work', 2, 'option'),
+    (@answerId10, @questionId5, 'Unemployed, looking for work', 3, 'option'),
+    (@answerId11, @questionId5, 'Retired', 4, 'option'),
+    (@answerId12, @questionId5, 'Homemaker', 5, 'option'),
+    (@answerId13, @questionId5, 'Self-employed', 6, 'option'),
+    (@answerId14, @questionId5, 'Student', 7, 'option'),
+    (@answerId15, @questionId5, 'Other:', 8, 'optionText')
+
 
 COMMIT TRAN;
 
