@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AnswerType, QuestionDirection, QuestionType, SurveyAnswer, SurveyData } from "./demographicssurvey";
 import RadioButtonAnswers from "./radioButtonAnswers";
 import MultiSelectAnswers from "./multiSelectAnswers";
+import TextAnswer from "./textAnswers";
 
 interface SurveyQuestionProps {
   question: SurveyData;
@@ -17,7 +18,8 @@ export default function SurveyQuestion({question, updateQuestion}: SurveyQuestio
     switch(questionType) {
       case "option": return <RadioButtonAnswers answers={answers.map(a => a.answer)} updateCurrentAnswer={updateCurrentAnswer} />;
       case "multiSelect": return <MultiSelectAnswers updateCurrentAnswer={updateCurrentAnswer} answers={answers.map(a => {return {answer: a.answer, answerType: (a.answerType as AnswerType)}})} />;
-      case "text": return null;
+      case "text":
+      case "number": return <TextAnswer updateCurrentAnswer={updateCurrentAnswer} />;
       default: return null;
     }
   }
