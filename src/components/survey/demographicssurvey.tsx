@@ -31,8 +31,8 @@ export default function DemographicsSurvey() {
   const postUserAnswer = api.survey.addUserAnswer.useMutation();
 
   const userAnswers: string[] = useMemo(() => [], []);
-  // TODO: make sure questions do not go out of bounds
-  const updateCurrentQuestion = useCallback((change: QuestionDirection, answer?: string, answerType?: string) => {
+
+  const updateCurrentQuestion = useCallback((change: QuestionDirection, answer?: string) => {
     if(change === "Prev" && currentQuestion !== 0) {
       setCurrentQuestion(currentQuestion - 1);
       return;
@@ -41,22 +41,20 @@ export default function DemographicsSurvey() {
     if(change === "Prev" && currentQuestion === 0) {
       return;
     }
-    // const questionId = surveyData[currentQuestion]?.questionId;
-    // const foundAnswer = surveyData[currentQuestion]?.answers.find(a => a.answer === answer);
-    
-    // TODO: Remove guaranteed not null exclamation point
-    // const {answerId, answerValue } = foundAnswer!;
+    const questionId = surveyData[currentQuestion]?.questionId;
+
     if(currentQuestion === surveyData.length - 1) {
-      // userAnswers.push(answer ?? "")
+      userAnswers.push(answer ?? "")
       // TODO: Fix these conditionals
-      // postUserAnswer.mutate({answerId: answerId ?? "", questionId: questionId ?? ""})
-      // setSurveyCompleted(true)
+      postUserAnswer.mutate({answerValue: answer ?? "", questionId: questionId ?? ""})
+      setSurveyCompleted(true)
       return;
     }
-    // userAnswers.push(answer ?? "")
+    
+    userAnswers.push(answer ?? "")
 
     // TODO: Fix these conditionals
-    // postUserAnswer.mutate({answerId: answerId ?? "", questionId: questionId ?? ""})
+    postUserAnswer.mutate({answerValue: answer ?? "", questionId: questionId ?? ""})
     setCurrentQuestion(currentQuestion + 1)
   },[currentQuestion, userAnswers, surveyData.length]);
 

@@ -18,14 +18,15 @@ export const surveyRouter = createTRPCRouter({
       });
     }),
   addUserAnswer: publicProcedure
-    .input(z.object({ answerId: z.string(), questionId: z.string() }))  
+    .input(z.object({ questionId: z.string(), answerValue: z.string() }))  
     .mutation(async ({input, ctx}) => {
       if(!ctx.session){
         console.log("Not authenticated")
         return null;
       }
       const { id: userId } = ctx.session.user
-      const {answerId, questionId} = input;
+      const { questionId, answerValue} = input;
+      // TODO: Revisit this for multiselect
       const existingUserAnswer = await ctx.prisma.userSurveyAnswers.findFirst({
         where: {
           userId,
@@ -40,8 +41,7 @@ export const surveyRouter = createTRPCRouter({
           },
           data: {
             userId,
-            questionId,
-            answerId
+            questionId
           }
         })
       }
@@ -49,7 +49,7 @@ export const surveyRouter = createTRPCRouter({
         data: {
           userId,
           questionId,
-          answerId
+          answerValue
         }
       });
     })

@@ -5,21 +5,25 @@ import MultiSelectAnswers from "./multiSelectAnswers";
 import TextAnswer from "./textAnswers";
 
 interface SurveyQuestionProps {
-  question: SurveyData;
+  question?: SurveyData;
   updateQuestion: (val: QuestionDirection, answer?: string) => void;
 }
 
 export default function SurveyQuestion({question, updateQuestion}: SurveyQuestionProps) {
+  if(!question)
+  {
+    return null;
+  }
   const [selectedAnswer, setSelectedAnswer] = useState("")
   const updateCurrentAnswer = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedAnswer(e.target.value)
   }
   const getAnswers = (questionType: QuestionType, answers: SurveyAnswer[]) => {
     switch(questionType) {
-      case "option": return <RadioButtonAnswers answers={answers.map(a => a.answer)} updateCurrentAnswer={updateCurrentAnswer} />;
-      case "multiSelect": return <MultiSelectAnswers updateCurrentAnswer={updateCurrentAnswer} answers={answers.map(a => {return {answer: a.answer, answerType: (a.answerType as AnswerType)}})} />;
+      case "option": return <RadioButtonAnswers answers={answers.map(a => a.answer)} updateCurrentAnswer={setSelectedAnswer} />;
+      case "multiSelect": return <MultiSelectAnswers updateCurrentAnswer={setSelectedAnswer} answers={answers.map(a => {return {answer: a.answer, answerType: (a.answerType as AnswerType)}})} />;
       case "text":
-      case "number": return <TextAnswer updateCurrentAnswer={updateCurrentAnswer} />;
+      case "number": return <TextAnswer updateCurrentAnswer={setSelectedAnswer} />;
       default: return null;
     }
   }
