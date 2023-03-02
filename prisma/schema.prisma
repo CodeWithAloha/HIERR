@@ -28,7 +28,6 @@ model SurveyAnswer {
   questionId        String
   question          SurveyQuestion      @relation(fields: [questionId], references: [id])
   answer            String
-  UserSurveyAnswers UserSurveyAnswers[]
   position          Int
   answerType        String
 }
@@ -37,9 +36,7 @@ model UserSurveyAnswers {
   id         String         @id @default(cuid())
   userId     String
   questionId String
-  answerId   String
   answerValue String
-  answer     SurveyAnswer   @relation(fields: [answerId], references: [id])
   user       User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   question   SurveyQuestion @relation(fields: [questionId], references: [id], onUpdate: NoAction, onDelete: NoAction)
 }
