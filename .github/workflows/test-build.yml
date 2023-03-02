@@ -1,0 +1,44 @@
+
+name: test & build before deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    
+  workflow_dispatch:  
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x, 18.x]
+
+    steps:
+    - name: checkout files
+    - uses: actions/checkout@v3
+    
+    - name: setup node.js with variable versions ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        
+    - name: install deps
+    - run: npm ci
+    
+    - name: build the source
+    - run: next build --if-present
+    
+    - name: test with jest
+    - run: jest
+    - name: build and test artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: upload directory
+        path: .next
+          
