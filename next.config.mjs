@@ -14,6 +14,6 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
-  productionBrowserSourceMaps: true
+  productionBrowserSourceMaps: true,
 };
 export default config;

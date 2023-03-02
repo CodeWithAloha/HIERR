@@ -1,44 +1,53 @@
 # Local project installation and setup
+
 ```
 git clone https://github.com/CodeforHawaii/HIERR.git
 cd HIERR
 npm install
 touch .env
 ```
-* Add the following to the .env:
-     1. DATABASE_URL="file:./db.sqlite"
-     2. NEXTAUTH_URL="http://localhost:3000"
-     3. EMAIL_SERVER={your email server}
-     4. EMAIL_FROM={the email to send the verification link}
+
+- Add the following to the .env:
+  1.  DATABASE_URL="file:./db.sqlite"
+  2.  NEXTAUTH_URL="http://localhost:3000"
+  3.  EMAIL_SERVER={your email server}
+  4.  EMAIL_FROM={the email to send the verification link}
+
 ```
 npx prisma db push
 npm run dev
 ```
 
 # Update Prisma
+
 1. Update schema.prisma with your model
 
 Validate your prisma model
+
 ```
 npx prisma validate
 ```
 
 Format the prisma file
+
 ```
 npx prisma format
 ```
-Generate Prisma Client 
+
+Generate Prisma Client
+
 ```
 npx prisma generate
 ```
 
 Update the database
+
 ```
 npx prisma db push
 ```
 
-
 # SMTP Server Setup
+
 - Gmail
   - Follow the steps at this YouTube video for setting up an SMTP gmail account
     - [Youtube](https://www.youtube.com/watch?v=1YXVdyVuFGA)
@@ -54,6 +63,7 @@ npx prisma db push
   - Debugging [Log](https://app-smtp.sendinblue.com/log)
 
 # Prisma SQL Server Migration
+
 - Windows
   - Install SQL Server
     - Docker
@@ -70,21 +80,22 @@ npx prisma db push
   - [Download Microsoft SQL Server Management Studio](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)
   - Create a database named HIERR
   - In the .env file update the DATABASE_URL variable
-   - SQL Server 2019 (local install):
-     - sqlserver://localhost:1433;initial catalog=HIERR;integratedSecurity=true;trustServerCertificate=true;
-   - SQL Server 2017 (docker):
-     - sqlserver://localhost:1433;database=HIERR;user=sa;password=yourStrong(!)Password;encrypt=DANGER_PLAINTEXT;
-     - Note: Connection string uses the default user and password from docker. Also the DANGER_PLAINTEXT is used because of an issue with TLS.
-   - Other OS systems:
-     - sqlserver://HOST:PORT;database=HIERR;user=USER;password=PASSWORD;encrypt=true
-     - Note: Be sure to change USER and PASSWORD to your system's requirements
-   - Docs: https://www.prisma.io/docs/concepts/database-connectors/sql-server
+  - SQL Server 2019 (local install):
+    - sqlserver://localhost:1433;initial catalog=HIERR;integratedSecurity=true;trustServerCertificate=true;
+  - SQL Server 2017 (docker):
+    - sqlserver://localhost:1433;database=HIERR;user=sa;password=yourStrong(!)Password;encrypt=DANGER_PLAINTEXT;
+    - Note: Connection string uses the default user and password from docker. Also the DANGER_PLAINTEXT is used because of an issue with TLS.
+  - Other OS systems:
+    - sqlserver://HOST:PORT;database=HIERR;user=USER;password=PASSWORD;encrypt=true
+    - Note: Be sure to change USER and PASSWORD to your system's requirements
+  - Docs: https://www.prisma.io/docs/concepts/database-connectors/sql-server
 - Run the following prisma commands
-  - ```npx prisma migrate dev```
-  - ```npx prisma db push```
+  - `npx prisma migrate dev`
+  - `npx prisma db push`
 - Run the application and confirm it works
 
 # Working with prisma
+
 When the data model changes, run the following to update your local database with the latest migrations
 
 ```
@@ -94,6 +105,7 @@ npx prisma migrate dev
 Docs: https://www.prisma.io/docs/guides/database/developing-with-prisma-migrate/team-development
 
 # Adding Pol.is surveys to the application
+
 In the .env file, add the following environment variable with the survey ids comma separated.
 
 NEXT_PUBLIC_POLIS_SURVEYS="{survey1},{survey2}, ..."

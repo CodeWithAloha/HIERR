@@ -3,54 +3,52 @@ import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const surveyRouter = createTRPCRouter({
-  getSurveyData: publicProcedure
-    .query(async({ ctx }) => {
-      if(!ctx.session){
-        console.log("Not authenticated")
-        return null;
-      }
-      const { id: userId } = ctx.session.user
+  getSurveyData: publicProcedure.query(async ({ ctx }) => {
+    if (!ctx.session) {
+      console.log("Not authenticated");
+      return null;
+    }
+    const { id: userId } = ctx.session.user;
 
-      return ctx.prisma.surveyQuestion.findMany({
-        include: {
-          answers: true
-        }
-      });
-    }),
+    return ctx.prisma.surveyQuestion.findMany({
+      include: {
+        answers: true,
+      },
+    });
+  }),
   addUserAnswer: publicProcedure
-    .input(z.object({ answerId: z.string(), questionId: z.string() }))  
-    .mutation(async ({input, ctx}) => {
-      if(!ctx.session){
-        console.log("Not authenticated")
+    .input(z.object({ answerId: z.string(), questionId: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      if (!ctx.session) {
+        console.log("Not authenticated");
         return null;
       }
-      const { id: userId } = ctx.session.user
-      const {answerId, questionId} = input;
+      const { id: userId } = ctx.session.user;
+      const { answerId, questionId } = input;
       const existingUserAnswer = await ctx.prisma.userSurveyAnswers.findFirst({
         where: {
           userId,
-          questionId
-        }
+          questionId,
+        },
       });
-      if(existingUserAnswer)
-      {
+      if (existingUserAnswer) {
         return ctx.prisma.userSurveyAnswers.update({
           where: {
-            id: existingUserAnswer.id
+            id: existingUserAnswer.id,
           },
           data: {
             userId,
             questionId,
-            answerId
-          }
-        })
+            answerId,
+          },
+        });
       }
       return ctx.prisma.userSurveyAnswers.create({
         data: {
           userId,
           questionId,
-          answerId
-        }
+          answerId,
+        },
       });
-    })
+    }),
 });
