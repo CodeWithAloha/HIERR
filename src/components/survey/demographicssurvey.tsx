@@ -46,7 +46,7 @@ export default function DemographicsSurvey() {
     if(currentQuestion === surveyData.length - 1) {
       userAnswers.push(answer ?? "")
       // TODO: Fix these conditionals
-      postUserAnswer.mutate({answerValue: answer ?? "", questionId: questionId ?? ""})
+      postUserAnswer.mutate([{answerValue: answer ?? "", questionId: questionId ?? ""}])
       setSurveyCompleted(true)
       return;
     }
@@ -54,7 +54,7 @@ export default function DemographicsSurvey() {
     userAnswers.push(answer ?? "")
 
     // TODO: Fix these conditionals
-    postUserAnswer.mutate({answerValue: answer ?? "", questionId: questionId ?? ""})
+    postUserAnswer.mutate([{answerValue: answer ?? "", questionId: questionId ?? ""}])
     setCurrentQuestion(currentQuestion + 1)
   },[currentQuestion, userAnswers, surveyData.length]);
 

@@ -18,39 +18,38 @@ export const surveyRouter = createTRPCRouter({
       });
     }),
   addUserAnswer: publicProcedure
-    .input(z.object({ questionId: z.string(), answerValue: z.string() }))  
+    .input(z.array(z.object({ questionId: z.string(), answerValue: z.string() })))  
     .mutation(async ({input, ctx}) => {
       if(!ctx.session){
         console.log("Not authenticated")
         return null;
       }
       const { id: userId } = ctx.session.user
-      const { questionId, answerValue} = input;
-      // TODO: Revisit this for multiselect
-      const existingUserAnswer = await ctx.prisma.userSurveyAnswers.findFirst({
+      const userAnswers = input;
+      if(userAnswers.length < 1 || userAnswers[0]?.questionId === undefined) {
+        return null;
+      }
+      // userAnswers should be 1 or more values. All multiple values should have the same questionId
+      const questionId = userAnswers[0].questionId;
+      
+      const existingUserAnswers = await ctx.prisma.userSurveyAnswers.findMany({
         where: {
           userId,
           questionId
         }
       });
-      if(existingUserAnswer)
+      if(existingUserAnswers)
       {
-        return ctx.prisma.userSurveyAnswers.update({
+        ctx.prisma.userSurveyAnswers.deleteMany({
           where: {
-            id: existingUserAnswer.id
-          },
-          data: {
-            userId,
-            questionId
+            userId: userId,
+            questionId: questionId
           }
         })
       }
-      return ctx.prisma.userSurveyAnswers.create({
-        data: {
-          userId,
-          questionId,
-          answerValue
-        }
+      const data = userAnswers.map(a => {return {userId: userId, questionId: questionId, answerValue: a.answerValue }})
+      return ctx.prisma.userSurveyAnswers.createMany({
+        data: data
       });
     })
 });

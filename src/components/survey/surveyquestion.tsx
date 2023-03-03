@@ -15,9 +15,7 @@ export default function SurveyQuestion({question, updateQuestion}: SurveyQuestio
     return null;
   }
   const [selectedAnswer, setSelectedAnswer] = useState("")
-  const updateCurrentAnswer = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedAnswer(e.target.value)
-  }
+
   const getAnswers = (questionType: QuestionType, answers: SurveyAnswer[]) => {
     switch(questionType) {
       case "option": return <RadioButtonAnswers answers={answers.map(a => a.answer)} updateCurrentAnswer={setSelectedAnswer} />;
