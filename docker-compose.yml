@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  app:
+    platform: "linux/amd64"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_CLIENTVAR: "clientvar"
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    image: t3-app
+    environment:
+      - DATABASE_URL='mysql://k97u7qkod938za0km0a0:pscale_pw_MkSIgpwqTwYjAOdXF9P1MviejaxyOwfHmnUnRNw8ooa@us-west.connect.psdb.cloud/hierr-01?sslaccept=strict'

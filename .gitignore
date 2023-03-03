@@ -41,3 +41,5 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+prisma/migrations/migration_lock.toml
+prisma/schema.prisma
