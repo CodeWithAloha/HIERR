@@ -18,8 +18,8 @@ export default function SurveyQuestion({question, updateQuestion}: SurveyQuestio
 
   const getAnswers = (questionType: QuestionType, answers: SurveyAnswer[]) => {
     switch(questionType) {
-      case "option": return <RadioButtonAnswers answers={answers.map(a => a.answer)} updateCurrentAnswer={setSelectedAnswer} />;
-      case "multiSelect": return <MultiSelectAnswers updateCurrentAnswer={setSelectedAnswer} answers={answers.map(a => {return {answer: a.answer, answerType: (a.answerType as AnswerType)}})} />;
+      case "option": return <RadioButtonAnswers answers={answers} updateCurrentAnswer={setSelectedAnswer} />;
+      case "multiSelect": return <MultiSelectAnswers updateCurrentAnswer={setSelectedAnswer} answers={answers} />;
       case "text":
       case "number": return <TextAnswer updateCurrentAnswer={setSelectedAnswer} />;
       default: return null;
