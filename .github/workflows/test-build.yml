@@ -1,16 +1,14 @@
 name: test & build before deploy
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
-    
-  workflow_dispatch:  
+    branches: ["main"]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -18,31 +16,27 @@ jobs:
         node-version: [12.x, 14.x, 16.x, 18.x]
 
     steps:
-    - name: checkout files
-    - uses: actions/checkout@v3
-    
-    - name: setup node.js with variable versions ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        
-    - run: npm ci
-    - run: next build --if-present
-    # Todo: configure next/jest see https://nextjs.org/docs/testing#setting-up-jest-with-the-rust-compiler
-    # uncomment the run command below once jest is running
-    # - run: jest --watch 
+      - uses: actions/checkout@v3
+      - name: setup node.js with variable versions ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
 
-    - name: upload production artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: build output ${{ matrix.node-version }}
-        path: .next
+      - run: npm ci
+      - run: next build --if-present
+      # Todo: configure next/jest see https://nextjs.org/docs/testing#setting-up-jest-with-the-rust-compiler
+      # uncomment the run command below once jest is running
+      # - run: jest --watch
+      - name: upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build output ${{ matrix.node-version }}
+          path: .next
 
-      # Uncomment the section below once Jest is running
-      # - name: upload code coverage results
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: code-coverage-report ${{ matrix.node-version }}
-      #     path: output/test/code-coverage.html
-      
+        # Uncomment the section below once Jest is running
+        # - name: upload code coverage results
+        #   uses: actions/upload-artifact@v3
+        #   with:
+        #     name: code-coverage-report ${{ matrix.node-version }}
+        #     path: output/test/code-coverage.html
