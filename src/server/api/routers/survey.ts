@@ -40,7 +40,8 @@ export const surveyRouter = createTRPCRouter({
       });
       if(existingUserAnswers)
       {
-        ctx.prisma.userSurveyAnswers.deleteMany({
+        // Remove any existing answers tied to a certain question
+        await ctx.prisma.userSurveyAnswers.deleteMany({
           where: {
             userId: userId,
             questionId: questionId

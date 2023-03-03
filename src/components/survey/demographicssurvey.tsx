@@ -42,19 +42,24 @@ export default function DemographicsSurvey() {
       return;
     }
     const questionId = surveyData[currentQuestion]?.questionId;
+    let answers = [answer];
+    if(answer?.includes(";")) {
+      answers = answer.split(";");
+    }
+      
+    // TODO: Fix these conditionals
+    const submissionData = answers.map(a => {return {questionId: questionId ?? "", answerValue: a ?? ""}})
 
     if(currentQuestion === surveyData.length - 1) {
       userAnswers.push(answer ?? "")
-      // TODO: Fix these conditionals
-      postUserAnswer.mutate([{answerValue: answer ?? "", questionId: questionId ?? ""}])
+      postUserAnswer.mutate(submissionData)
       setSurveyCompleted(true)
       return;
     }
     
     userAnswers.push(answer ?? "")
 
-    // TODO: Fix these conditionals
-    postUserAnswer.mutate([{answerValue: answer ?? "", questionId: questionId ?? ""}])
+    postUserAnswer.mutate(submissionData)
     setCurrentQuestion(currentQuestion + 1)
   },[currentQuestion, userAnswers, surveyData.length]);
 
