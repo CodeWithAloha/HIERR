@@ -19,10 +19,10 @@ export default function SurveyQuestion({
   question,
   updateQuestion,
 }: SurveyQuestionProps) {
+  const [selectedAnswer, setSelectedAnswer] = useState("");
   if (!question) {
     return null;
   }
-  const [selectedAnswer, setSelectedAnswer] = useState("");
 
   const getAnswers = (questionType: QuestionType, answers: SurveyAnswer[]) => {
     switch (questionType) {

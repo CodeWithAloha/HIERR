@@ -8,7 +8,6 @@ export const surveyRouter = createTRPCRouter({
       console.log("Not authenticated");
       return null;
     }
-    const { id: userId } = ctx.session.user;
 
     return ctx.prisma.surveyQuestion.findMany({
       include: {
