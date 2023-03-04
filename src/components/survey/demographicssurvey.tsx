@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
 import SurveyQuestion from "./surveyquestion";
-import Link from "next/link";
 import { NextPageButtonLink } from "../../UI/NextPageButtonLink";
 import { api } from "../../utils/api";
 
