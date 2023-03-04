@@ -81,8 +81,15 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+// model PolisUser {
+  // xid               String @id // This field gets tied to the xid field in the User model
+  // pid               String // This participant id is used to identify the user in the polis conversation, comes from polis on a survey basis
+  // sid               String // This is the polis survey id
+// }
+
 model User {
   id                String              @id @default(cuid())
+  xid               String              @unique @default(cuid())
   name              String?
   email             String?             @unique
   emailVerified     DateTime?

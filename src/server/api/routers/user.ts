@@ -3,6 +3,21 @@ import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
+  retrieveXid: publicProcedure.query(async ({ ctx }) => {
+    if (!ctx.session) {
+      console.log("Not authenticated");
+      return null;
+    }
+    const { id: userId } = ctx.session.user;
+    const user = await ctx.prisma.user.findUnique({
+      where: { id: userId },
+    });
+    if (!user) {
+      console.log("User not found");
+      return null;
+    }
+    return user.xid;
+  }),
   addCensusTract: publicProcedure
     .input(z.object({ censusTract: z.string() }))
     .mutation(async ({ input, ctx }) => {
