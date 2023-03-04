@@ -1,42 +1,63 @@
-'use client';
+"use client";
 
-import { type NextPage } from "next"
-import { NextPageButtonLink } from "../UI/NextPageButtonLink"
+import { type NextPage } from "next";
+import { NextPageButtonLink } from "../UI/NextPageButtonLink";
 import { api } from "../utils/api";
 import { useState } from "react";
 
-
 const ZipCode: NextPage = () => {
   const [zipcode, setZipCode] = useState("");
-  const [nextLinkDisabled, setNextLinkDisabled] = useState(true)
+  const [nextLinkDisabled, setNextLinkDisabled] = useState(true);
   const postZipCodeResult = api.zipcode.postZipCode.useMutation();
   const handleSubmit = () => {
-    setNextLinkDisabled(false)
-    postZipCodeResult.mutate({zipcode: zipcode})
-    console.log("Posting result", postZipCodeResult)
-  }
+    setNextLinkDisabled(false);
+    postZipCodeResult.mutate({ zipcode: zipcode });
+    console.log("Posting result", postZipCodeResult);
+  };
 
   return (
-<div className="bg-[#3276AE] flex flex-col items-center h-screen">
-  {
-    nextLinkDisabled ? 
-    <form className="rounded overflow-hidden shadow-lg bg-white mt-6 px-8 py-6" onSubmit={handleSubmit}>
-          <label htmlFor="zipcode" className="block text-gray-700 text-sm mb-2">Enter your zipcode:
-          <br />
-          <input type="text" id="zipcode" name="zipcode" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required value={zipcode} onChange={e => setZipCode(e.target.value)} style={{color: "#4C4C4C"}} pattern="[0-9]{5}" title="The zipcode must be 5 digits."/>
+    <div className="flex h-screen flex-col items-center bg-[#3276AE]">
+      {nextLinkDisabled ? (
+        <form
+          className="mt-6 overflow-hidden rounded bg-white px-8 py-6 shadow-lg"
+          onSubmit={handleSubmit}
+        >
+          <label htmlFor="zipcode" className="text-gray-700 mb-2 block text-sm">
+            Enter your zipcode:
+            <br />
+            <input
+              type="text"
+              id="zipcode"
+              name="zipcode"
+              className="text-gray-700 focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight shadow focus:outline-none"
+              required
+              value={zipcode}
+              onChange={(e) => setZipCode(e.target.value)}
+              style={{ color: "#4C4C4C" }}
+              pattern="[0-9]{5}"
+              title="The zipcode must be 5 digits."
+            />
           </label>
           <br />
-          <button type="submit" className="rounded-full bg-blue-default text-white hover:bg-blue-default hover:text-white px-10 py-3 no-underline transition border-blue-default" style={{background: "#17364F"}}>Submit</button>
-      </form>
-    : (
-      <div className="my-6">
-        <NextPageButtonLink pageName="survey" msg="Click here to start the demographics survey." disabled={nextLinkDisabled}/>
-      </div>
-    )
-  }
+          <button
+            type="submit"
+            className="rounded-full border-blue-default bg-blue-default px-10 py-3 text-white no-underline transition hover:bg-blue-default hover:text-white"
+            style={{ background: "#17364F" }}
+          >
+            Submit
+          </button>
+        </form>
+      ) : (
+        <div className="my-6">
+          <NextPageButtonLink
+            pageName="survey"
+            msg="Click here to start the demographics survey."
+            disabled={nextLinkDisabled}
+          />
+        </div>
+      )}
     </div>
-  )
- 
-}
+  );
+};
 
 export default ZipCode;

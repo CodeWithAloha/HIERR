@@ -11,7 +11,7 @@ import { surveyRouter } from "./routers/survey";
 export const appRouter = createTRPCRouter({
   zipcode: zipcodeRouter,
   user: userRouter,
-  survey: surveyRouter
+  survey: surveyRouter,
 });
 
 // export type definition of API
