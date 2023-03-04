@@ -25,6 +25,8 @@ jobs:
 
       - run: npm ci
       - run: npm run build --if-present
+        env:
+          CI: true
       # Todo: configure next/jest see https://nextjs.org/docs/testing#setting-up-jest-with-the-rust-compiler
       # uncomment the run command below once jest is running
       # - run: jest --watch
