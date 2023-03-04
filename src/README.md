@@ -109,3 +109,7 @@ Docs: https://www.prisma.io/docs/guides/database/developing-with-prisma-migrate/
 In the .env file, add the following environment variable with the survey ids comma separated.
 
 NEXT_PUBLIC_POLIS_SURVEYS='[{"id": "SurveyID1", "title": "SurveyTitle1", "description", "SurveyDescription1"}, ...]'
+
+# Exporting data from Pol.is survey data
+
+Visit http://<hierr server>/polisconvert. You must be an administrator to be able to export data. Upload a participant-votes.csv file when prompted by the form. A CSV with census tract and zip code data from users (joined by xid) will be returned.
