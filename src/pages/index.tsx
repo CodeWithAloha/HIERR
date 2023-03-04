@@ -1,10 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { Theme } from "next-auth";
-
-import { api } from "../utils/api";
-import Link from "next/link";
 import { NextPageButtonLink } from "../UI/NextPageButtonLink";
 
 const Login: NextPage = () => {

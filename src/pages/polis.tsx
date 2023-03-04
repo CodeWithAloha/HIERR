@@ -1,5 +1,4 @@
 import { type NextPage } from "next";
-import { useEffect, useState } from "react";
 import { NextPageButtonLink } from "../UI/NextPageButtonLink";
 
 const Polis: NextPage = () => {

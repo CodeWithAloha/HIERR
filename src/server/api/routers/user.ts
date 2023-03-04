@@ -31,7 +31,7 @@ export const userRouter = createTRPCRouter({
         },
       });
     }),
-  getCensusTract: publicProcedure.query(async ({ input, ctx }) => {
+  getCensusTract: publicProcedure.query(async ({ ctx }) => {
     if (!ctx.session) {
       console.log("Not authenticated");
       return null;

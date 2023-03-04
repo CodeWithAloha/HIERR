@@ -8,6 +8,7 @@
     "postinstall": "prisma generate",
     "lint": "next lint",
     "start": "next start",
+    "buildstyles": "tailwindcss -i ./src/styles/globals.css -o ./src/styles/output.css --watch",
     "prepare": "husky install",
     "prettier": "prettier --write **/*"
   },
