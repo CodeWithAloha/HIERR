@@ -6,9 +6,9 @@
   "editor.quickSuggestions": {
     "strings": true
   },
-    "tailwindCSS.includeLanguages": {
-      "plaintext": "html"
-    },
+  "tailwindCSS.includeLanguages": {
+    "plaintext": "html"
+  },
   "configurations": [
     {
       "name": "Next.js: debug server-side",

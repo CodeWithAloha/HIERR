@@ -7,7 +7,7 @@ import { api } from "../../utils/api";
 interface SurveyData {
   questionId: string;
   question: string;
-  answers: SurveyAnswer[]
+  answers: SurveyAnswer[];
 }
 
 interface SurveyAnswer {
@@ -15,62 +15,98 @@ interface SurveyAnswer {
   answerId: string;
 }
 
-export type QuestionDirection = "Prev" | "Next"
+export type QuestionDirection = "Prev" | "Next";
 
 export default function DemographicsSurvey() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [surveyCompleted, setSurveyCompleted] = useState(false);
-  const surveyDataDB = (api.survey.getSurveyData.useQuery()?.data  ?? []).sort((d1, d2) => d1.position - d2.position );
-  const surveyData: SurveyData[] = surveyDataDB.map(sd => {return {questionId: sd.id, question: sd.question, answers: sd.answers.sort((a1, a2) => a1.position - a2.position).map(a => {return {answer: a.answer, answerId: a.id}})}})
+  const surveyDataDB = (api.survey.getSurveyData.useQuery()?.data ?? []).sort(
+    (d1, d2) => d1.position - d2.position
+  );
+  const surveyData: SurveyData[] = surveyDataDB.map((sd) => {
+    return {
+      questionId: sd.id,
+      question: sd.question,
+      answers: sd.answers
+        .sort((a1, a2) => a1.position - a2.position)
+        .map((a) => {
+          return { answer: a.answer, answerId: a.id };
+        }),
+    };
+  });
 
   const postUserAnswer = api.survey.addUserAnswer.useMutation();
 
   const userAnswers: string[] = useMemo(() => [], []);
   // TODO: make sure questions do not go out of bounds
-  const updateCurrentQuestion = useCallback((change: QuestionDirection, answer?: string) => {
-    if(change === "Prev") {
-      setCurrentQuestion(currentQuestion - 1);
-      return;
-    }
-    const questionId = surveyData[currentQuestion]?.questionId;
-    const answerId = surveyData[currentQuestion]?.answers.find(a => a.answer === answer)?.answerId;
-    if(currentQuestion === surveyData.length - 1) {
-      userAnswers.push(answer ?? "")
-      console.log("User answers are:", userAnswers)
-      // TODO: Fix these conditionals
-      postUserAnswer.mutate({answerId: answerId ?? "", questionId: questionId ?? ""})
-      setSurveyCompleted(true)
-      // TODO: Send user answers to database
-      return;
-    }
-    userAnswers.push(answer ?? "")
+  const updateCurrentQuestion = useCallback(
+    (change: QuestionDirection, answer?: string) => {
+      if (change === "Prev") {
+        setCurrentQuestion(currentQuestion - 1);
+        return;
+      }
+      const questionId = surveyData[currentQuestion]?.questionId;
+      const answerId = surveyData[currentQuestion]?.answers.find(
+        (a) => a.answer === answer
+      )?.answerId;
+      if (currentQuestion === surveyData.length - 1) {
+        userAnswers.push(answer ?? "");
+        console.log("User answers are:", userAnswers);
+        // TODO: Fix these conditionals
+        postUserAnswer.mutate({
+          answerId: answerId ?? "",
+          questionId: questionId ?? "",
+        });
+        setSurveyCompleted(true);
+        // TODO: Send user answers to database
+        return;
+      }
+      userAnswers.push(answer ?? "");
 
-    // TODO: Fix these conditionals
-    postUserAnswer.mutate({answerId: answerId ?? "", questionId: questionId ?? ""})
-    setCurrentQuestion(currentQuestion + 1)
-  },[currentQuestion, userAnswers, surveyData.length]);
+      // TODO: Fix these conditionals
+      postUserAnswer.mutate({
+        answerId: answerId ?? "",
+        questionId: questionId ?? "",
+      });
+      setCurrentQuestion(currentQuestion + 1);
+    },
+    [currentQuestion, userAnswers, surveyData.length]
+  );
 
   const completedSurvey = () => {
     return (
       <>
-        <h1 className="text-center text-2xl text-white mb-10">Survey Completed!</h1>
-        <NextPageButtonLink pageName="polis" msg="Click here to start the Pol.is survey." />
+        <h1 className="mb-10 text-center text-2xl text-white">
+          Survey Completed!
+        </h1>
+        <NextPageButtonLink
+          pageName="polis"
+          msg="Click here to start the Pol.is survey."
+        />
       </>
-    )
-  }
+    );
+  };
   return (
-    <div className="bg-[#3276AE] flex flex-col items-center h-screen">
-    {
-      surveyCompleted ? completedSurvey() :
-      <>
-        <p className="text-center text-2xl text-white my-6">Please answer the following questions</p>
-        {
-          surveyData[currentQuestion]!== undefined ? 
-          // TODO: Fix these conditionals
-          <SurveyQuestion question={surveyData[currentQuestion]?.question ?? ""} answers={surveyData[currentQuestion]?.answers.map(a => a.answer) ?? []} updateQuestion={updateCurrentQuestion} /> : null
-        }
-      </>
-    }
+    <div className="flex h-screen flex-col items-center bg-[#3276AE]">
+      {surveyCompleted ? (
+        completedSurvey()
+      ) : (
+        <>
+          <p className="my-6 text-center text-2xl text-white">
+            Please answer the following questions
+          </p>
+          {surveyData[currentQuestion] !== undefined ? (
+            // TODO: Fix these conditionals
+            <SurveyQuestion
+              question={surveyData[currentQuestion]?.question ?? ""}
+              answers={
+                surveyData[currentQuestion]?.answers.map((a) => a.answer) ?? []
+              }
+              updateQuestion={updateCurrentQuestion}
+            />
+          ) : null}
+        </>
+      )}
     </div>
-  )
+  );
 }
