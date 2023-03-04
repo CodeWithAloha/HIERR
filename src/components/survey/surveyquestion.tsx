@@ -42,7 +42,7 @@ export default function SurveyQuestion({
         );
       case "text":
       case "number":
-        return <TextAnswer updateCurrentAnswer={setSelectedAnswer} />;
+        return <TextAnswer updateCurrentAnswer={setSelectedAnswer} number={questionType === "number"}/>;
       default:
         return null;
     }
