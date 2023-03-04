@@ -7,6 +7,7 @@ const PolisSurvey: NextPage = () => {
   const router = useRouter();
   const { surveyId } = router.query;
   const [userID, setUserID] = useState<string>();
+  const res = api.user.retrieveXid.useQuery();
   // const [userHasVoted, setUserHasVoted] = useState<boolean>(false);
 
   useEffect(() => {
@@ -17,8 +18,6 @@ const PolisSurvey: NextPage = () => {
       setUserID(String(localStorage.polisUserXID));
       console.log("LocalStorage polisUserXID found:", localStorage.polisUserXID);
     } else {
-      const res = api.user.retrieveXid.useQuery();
-
       if (res.data) {
         const { xid } = res.data;
         console.log("Database User XID: ", xid);
@@ -26,7 +25,7 @@ const PolisSurvey: NextPage = () => {
         localStorage.polisUserXID = xid;
       }
     }
-  }, [userID]);
+  }, [res.data]);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -51,19 +50,22 @@ const PolisSurvey: NextPage = () => {
     })
   }, []);
       
-
-  return (
-    <div className="flex h-max flex-col items-center bg-[#3276AE]">
-      {/* TODO: Fix Styling here */}
-      <div id="polis-container" style={{ width: "70vw", margin: "0 auto" }}>
-        <div
-          className="polis"
-          data-conversation_id={surveyId}
-          data-xid={userID}
-        ></div>
+  if (!userID) {
+    return <div>Loading...</div>;
+  } else {
+    return (
+      <div className="flex h-max flex-col items-center bg-[#3276AE]">
+        {/* TODO: Fix Styling here */}
+        <div id="polis-container" style={{ width: "70vw", margin: "0 auto" }}>
+          <div
+            className="polis"
+            data-conversation_id={surveyId}
+            data-xid={userID}
+          ></div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default PolisSurvey;
