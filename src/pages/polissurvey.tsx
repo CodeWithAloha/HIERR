@@ -19,7 +19,7 @@ const PolisSurvey: NextPage = () => {
       console.log("LocalStorage polisUserXID found:", localStorage.polisUserXID);
     } else {
       if (res.data) {
-        const xid = res.data;
+        const xid = res.data as string;
         console.log("Database User XID: ", xid);
         setUserID(xid);
         localStorage.polisUserXID = xid;
@@ -42,7 +42,8 @@ const PolisSurvey: NextPage = () => {
 
   useEffect(() => {
     window.addEventListener('message', function (event) {
-      const data = (event.data as any) || {};
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const data = event.data;
       if (!event.origin.match(/pol.is$/)) {
         return;
       }
