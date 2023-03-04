@@ -19,7 +19,7 @@ const PolisSurvey: NextPage = () => {
       console.log("LocalStorage polisUserXID found:", localStorage.polisUserXID);
     } else {
       if (res.data) {
-        const { xid } = res.data;
+        const xid = res.data;
         console.log("Database User XID: ", xid);
         setUserID(xid);
         localStorage.polisUserXID = xid;
