@@ -16,7 +16,7 @@ export const userRouter = createTRPCRouter({
       console.log("User not found");
       return null;
     }
-    return user.xid as string;
+    return user.xid;
   }),
   addCensusTract: publicProcedure
     .input(z.object({ censusTract: z.string() }))

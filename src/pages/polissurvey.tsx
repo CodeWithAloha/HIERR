@@ -16,10 +16,13 @@ const PolisSurvey: NextPage = () => {
       localStorage.polisUserXID !== undefined
     ) {
       setUserID(String(localStorage.polisUserXID));
-      console.log("LocalStorage polisUserXID found:", localStorage.polisUserXID);
+      console.log(
+        "LocalStorage polisUserXID found:",
+        localStorage.polisUserXID
+      );
     } else {
       if (res.data) {
-        const xid = res.data as string;
+        const xid = res.data;
         console.log("Database User XID: ", xid);
         setUserID(xid);
         localStorage.polisUserXID = xid;
@@ -41,16 +44,16 @@ const PolisSurvey: NextPage = () => {
   }, []);
 
   useEffect(() => {
-    window.addEventListener('message', function (event) {
+    window.addEventListener("message", function (event) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const data = event.data;
       if (!event.origin.match(/pol.is$/)) {
         return;
       }
       console.log("Message: ", data);
-    })
+    });
   }, []);
-      
+
   if (!userID) {
     return <div>Loading...</div>;
   } else {
