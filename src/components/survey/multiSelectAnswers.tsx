@@ -69,6 +69,7 @@ export default function MultiSelectAnswers({
             className="border-rose-500 border-2"
             id={`${index}-userText`}
             type={"text"}
+            onChange={() => handleClick()}
           ></input>
         </label>
         <br />
