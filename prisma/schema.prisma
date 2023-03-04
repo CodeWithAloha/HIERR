@@ -82,9 +82,9 @@ model Session {
 }
 
 // model PolisUser {
-  // xid               String @id // This field gets tied to the xid field in the User model
-  // pid               String // This participant id is used to identify the user in the polis conversation, comes from polis on a survey basis
-  // sid               String // This is the polis survey id
+//   xid               String @id // This field gets tied to the xid field in the User model
+//   pid               String // This participant id is used to identify the user in the polis conversation, comes from polis on a survey basis
+//   sid               String // This is the polis survey id
 // }
 
 model User {

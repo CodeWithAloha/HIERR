@@ -42,7 +42,7 @@ const PolisSurvey: NextPage = () => {
 
   useEffect(() => {
     window.addEventListener('message', function (event) {
-      var data = event.data || {};
+      const data = (event.data as any) || {};
       if (!event.origin.match(/pol.is$/)) {
         return;
       }
