@@ -140,6 +140,9 @@ DECLARE @questionId8 uniqueidentifier = NEWID();
 DECLARE @questionId9 uniqueidentifier = NEWID();
 
 DECLARE @questionId10 uniqueidentifier = NEWID();
+DECLARE @questionId11 uniqueidentifier = NEWID();
+DECLARE @questionId12 uniqueidentifier = NEWID();
+DECLARE @questionId13 uniqueidentifier = NEWID();
 
 DECLARE @answerId1 uniqueidentifier = NEWID();
 
@@ -188,6 +191,49 @@ DECLARE @answerId22 uniqueidentifier = NEWID();
 DECLARE @answerId23 uniqueidentifier = NEWID();
 
 DECLARE @answerId24 uniqueidentifier = NEWID();
+DECLARE @answerId25 uniqueidentifier = NEWID();
+DECLARE @answerId26 uniqueidentifier = NEWID();
+DECLARE @answerId27 uniqueidentifier = NEWID();
+DECLARE @answerId28 uniqueidentifier = NEWID();
+DECLARE @answerId29 uniqueidentifier = NEWID();
+DECLARE @answerId30 uniqueidentifier = NEWID();
+DECLARE @answerId31 uniqueidentifier = NEWID();
+DECLARE @answerId32 uniqueidentifier = NEWID();
+DECLARE @answerId33 uniqueidentifier = NEWID();
+DECLARE @answerId34 uniqueidentifier = NEWID();
+DECLARE @answerId35 uniqueidentifier = NEWID();
+DECLARE @answerId36 uniqueidentifier = NEWID();
+DECLARE @answerId37 uniqueidentifier = NEWID();
+DECLARE @answerId38 uniqueidentifier = NEWID();
+DECLARE @answerId39 uniqueidentifier = NEWID();
+DECLARE @answerId40 uniqueidentifier = NEWID();
+DECLARE @answerId41 uniqueidentifier = NEWID();
+DECLARE @answerId42 uniqueidentifier = NEWID();
+DECLARE @answerId43 uniqueidentifier = NEWID();
+DECLARE @answerId44 uniqueidentifier = NEWID();
+DECLARE @answerId45 uniqueidentifier = NEWID();
+DECLARE @answerId46 uniqueidentifier = NEWID();
+DECLARE @answerId47 uniqueidentifier = NEWID();
+DECLARE @answerId48 uniqueidentifier = NEWID();
+DECLARE @answerId49 uniqueidentifier = NEWID();
+DECLARE @answerId50 uniqueidentifier = NEWID();
+DECLARE @answerId51 uniqueidentifier = NEWID();
+DECLARE @answerId52 uniqueidentifier = NEWID();
+DECLARE @answerId53 uniqueidentifier = NEWID();
+DECLARE @answerId54 uniqueidentifier = NEWID();
+DECLARE @answerId55 uniqueidentifier = NEWID();
+DECLARE @answerId56 uniqueidentifier = NEWID();
+DECLARE @answerId57 uniqueidentifier = NEWID();
+DECLARE @answerId58 uniqueidentifier = NEWID();
+DECLARE @answerId59 uniqueidentifier = NEWID();
+DECLARE @answerId60 uniqueidentifier = NEWID();
+DECLARE @answerId61 uniqueidentifier = NEWID();
+DECLARE @answerId62 uniqueidentifier = NEWID();
+DECLARE @answerId63 uniqueidentifier = NEWID();
+DECLARE @answerId64 uniqueidentifier = NEWID();
+DECLARE @answerId65 uniqueidentifier = NEWID();
+DECLARE @answerId66 uniqueidentifier = NEWID();
+DECLARE @answerId67 uniqueidentifier = NEWID();
 
 
 INSERT INTO
@@ -213,57 +259,54 @@ VALUES
         @questionId5,
         'Which of the following best describes your current employment status?',
         5, 'multiSelect'
+    ),
+    (
+        @questionId6,
+        'Do you currently have, or did you have a non-dial-up internet subscription (i.e., cellular data, cable, fiber optic, DSL, satellite) during the pandemic?',
+        6, 'option'
+    ),
+    (
+        @questionId7,
+        'Do you currently have, or did you have health insurance during the pandemic? 
+',
+        7, 'option'
+    ),
+    (
+        @questionId8,
+        'Are you currently living in a… (Select one answer)
+',
+        8, 'option'
+    ),
+    (
+        @questionId9,
+        'Is your housing structure above… (Select one answer)
+',
+        9, 'option'
     )
---     (
---         @questionId6,
---         'Do you currently have, or did you have a non-dial-up internet subscription (i.e., cellular data, cable, fiber optic, DSL, satellite) during the pandemic?',
---         6, 'option'
---     ),
--- ,
---     (
---         @questionId7,
---         'Do you currently have, or did you have health insurance during the pandemic? 
--- ',
---         7, 'option'
---     ),
--- ,
---     (
---         @questionId8,
---         'Are you currently living in a… (Select one answer)
--- ',
---         8, 'option'
---     ),
--- ,
---     (
---         @questionId9,
---         'Is your housing structure above… (Select one answer)
--- ',
---         9, 'option'
---     ),
--- ,
---     (
---         @questionId10,
---         'What is your ethnic identification? If more than one ethnicity, which do you identify most. 
--- If you cannot choose, please select mixed. If you have any Hawaiian in your ethnic mix, please select Hawaiian/Part Hawaiian
--- ',
---         10, 'option'
---     ),
---     (
---         @questionId11,
---         'What is the highest level of education you have completed? (Select one answer)
--- ',
---         11, 'option'
---     ),
---     (
---         @questionId12,
---         'Do you identify with having a disability?',
---         12, 'option'
---     ),
--- (
---         @questionId13,
---         'What was your household income in 2022, before taxes? Please consider and include in your thinking your best estimate of the income of all persons living in your household. (Select one answer)',
---         13, 'option'
---     )
+,
+    (
+        @questionId10,
+        'What is your ethnic identification? If more than one ethnicity, which do you identify most. 
+If you cannot choose, please select mixed. If you have any Hawaiian in your ethnic mix, please select Hawaiian/Part Hawaiian
+',
+        10, 'option'
+    ),
+    (
+        @questionId11,
+        'What is the highest level of education you have completed? (Select one answer)
+',
+        11, 'option'
+    ),
+    (
+        @questionId12,
+        'Do you identify with having a disability?',
+        12, 'option'
+    ),
+(
+        @questionId13,
+        'What was your household income in 2022, before taxes? Please consider and include in your thinking your best estimate of the income of all persons living in your household. (Select one answer)',
+        13, 'option'
+    )
 INSERT INTO
     [dbo].[SurveyAnswer] (id, questionId, answer, position, answerType)
 VALUES
@@ -281,7 +324,59 @@ VALUES
     (@answerId12, @questionId5, 'Homemaker', 5, 'option'),
     (@answerId13, @questionId5, 'Self-employed', 6, 'option'),
     (@answerId14, @questionId5, 'Student', 7, 'option'),
-    (@answerId15, @questionId5, 'Other:', 8, 'optionText')
+    (@answerId15, @questionId5, 'Other:', 8, 'optionText'),
+    (@answerId16, @questionId6, 'yes', 1, 'option'),
+    (@answerId17, @questionId6, 'no', 2, 'option'),
+    (@answerId18, @questionId7, 'yes', 1, 'option'),
+    (@answerId19, @questionId7, 'no', 2, 'option'),
+    (@answerId20, @questionId8, 'Permanent stable housing structure (e.g., house, apartment, condominium, accessory dwelling unit / ADU, ohana unit)', 1, 'option'),
+    (@answerId21, @questionId8, 'Mobile home (e.g., RV, vehicle, boat)', 2, 'option'),
+    (@answerId22, @questionId8, 'Group quarters (e.g., institutional facility, college dorms, military housing, correctional facility, transitional housing)', 3, 'option'),
+    (@answerId23, @questionId8, 'Other permanent housing (e.g., community village, tiny home)', 4, 'option'),
+    (@answerId24, @questionId8, 'I am houseless', 5, 'option'),
+    (@answerId25, @questionId8, 'Other', 6, 'optionText'),
+    (@answerId26, @questionId9, 'Owned by you or someone in the household, with mortgage / loan', 1, 'option'),
+    (@answerId27, @questionId9, 'Owned by you or someone in the household, without mortgage / loan', 2, 'option'),
+    (@answerId28, @questionId9, 'Rented by you or someone in the household', 3, 'option'),
+    (@answerId29, @questionId9, 'Rent free to you and your household', 4, 'option'),
+    (@answerId30, @questionId9, 'Not applicable', 5, 'option'),
+    (@answerId31, @questionId10, 'Caucasian / White', 1, 'option'),
+    (@answerId32, @questionId10, 'Black or African American', 2, 'option'),
+    (@answerId33, @questionId10, 'American Indian or Alaska Native', 3, 'optiontText'),
+    (@answerId34, @questionId10, 'Asian Indian', 4, 'option'),
+    (@answerId35, @questionId10, 'Japanese', 5, 'option'),
+    (@answerId36, @questionId10, 'Native Hawaiian', 6, 'option'),
+    (@answerId37, @questionId10, 'Chinese', 7, 'option'),
+    (@answerId38, @questionId10, 'Korean', 8, 'option'),
+    (@answerId39, @questionId10, 'Guamanian or Chamorro', 9, 'option'),
+    (@answerId40, @questionId10, 'Filipino', 10, 'option'),
+    (@answerId41, @questionId10, 'Vietnamese', 11, 'option'),
+    (@answerId42, @questionId10, 'Samoan', 12, 'option'),
+    (@answerId43, @questionId10, 'Mixed (not Hawaiian)', 13, 'option'),
+    (@answerId44, @questionId10, 'Other Asian', 14, 'optionText'),
+    (@answerId45, @questionId10, 'Other Pacific Islander', 15, 'optionText'),
+    (@answerId46, @questionId10, 'Some other race', 16, 'optionText'),
+    (@answerId47, @questionId10, 'Prefer not to say', 17, 'option'),
+    (@answerId48, @questionId11, 'Less than high school', 1, 'option'),
+    (@answerId49, @questionId11, 'High school/GED', 2, 'option'),
+    (@answerId50, @questionId11, 'Some college, no degree', 3, 'option'),
+    (@answerId51, @questionId11, 'Trade school', 4, 'option'),
+    (@answerId52, @questionId11, 'Associate degree', 5, 'option'),
+    (@answerId53, @questionId11, 'Bachelor’s degree', 6, 'option'),
+    (@answerId54, @questionId11, 'Graduate or professional degree', 7, 'option'),
+    (@answerId55, @questionId12, 'yes', 1, 'option'),
+    (@answerId56, @questionId12, 'no', 2, 'option'),
+    (@answerId57, @questionId13, 'Less than $10,000', 1, 'option'),
+    (@answerId58, @questionId13, '$10,000 but less than $15,000', 1, 'option'),
+    (@answerId59, @questionId13, '$15,000 but less than $25,000', 2, 'option'),
+    (@answerId60, @questionId13, '$25,000 but less than $35,000', 3, 'option'),
+    (@answerId61, @questionId13, '$35,000 but less than $50,000', 4, 'option'),
+    (@answerId62, @questionId13, '$50,000 but less than $75,000', 5, 'option'),
+    (@answerId63, @questionId13, '$75,000 but less than $100,000', 6, 'option'),
+    (@answerId64, @questionId13, '$100,000 but less than 150,000', 7, 'option'),
+    (@answerId65, @questionId13, '$150,000 but less than $200,000', 8, 'option'),
+    (@answerId66, @questionId13, '$200,000 or more', 9, 'option'),
+    (@answerId67, @questionId13, 'Don’t know/Prefer not to answer', 10, 'option')
 
 
 COMMIT TRAN;
