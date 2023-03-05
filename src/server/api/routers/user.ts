@@ -18,11 +18,10 @@ export const userRouter = createTRPCRouter({
     }
     return user.xid;
   }),
-  mergeUserIds: publicProcedure
+  retrieveAndMergeUserIds: publicProcedure
     .input(
       z.object({
         xid: z.string(),
-        pid: z.string(),
         sid: z.string(),
       })
     )
@@ -31,7 +30,25 @@ export const userRouter = createTRPCRouter({
         console.log("Not authenticated");
         return null;
       }
-      const { xid, pid, sid } = input;
+      const { xid, sid } = input;
+      let pid = null;
+
+      const params = new URLSearchParams();
+      params.append("xid", xid);
+      params.append("conversation_id", sid);
+      params.append("pid", "mypid"); // Seriously, this is the way to self-get a pid
+
+      fetch("https://pol.is/api/v3/participationInit?" + params.toString())
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Participation Init:", data);
+          const { ptpt: participant } = data;
+          pid = participant.pid;
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+
       // if this combination of xid, pid, sid already exists, return it
       const existingPolisUsers = await ctx.prisma.polisuser.findMany({
         where: { xid, pid, sid },

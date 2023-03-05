@@ -11,7 +11,7 @@ const PolisSurvey: NextPage = () => {
   const [userHasVoted, setUserHasVoted] = useState<boolean>(false);
 
   const xidData = api.user.retrieveXid.useQuery();
-  const mergeUserIds = api.user.mergeUserIds.useMutation();
+  const retrieveAndMergeUserIds = api.user.retrieveAndMergeUserIds.useMutation();
 
   useEffect(() => {
     if (
@@ -55,30 +55,21 @@ const PolisSurvey: NextPage = () => {
       }
       console.log("Message: ", data);
 
-      if (data.type === "vote" && !userHasVoted) {
+      if (data.name === "vote" && !userHasVoted) {
         console.log("User has voted for the first time!");
 
-        const params = new URLSearchParams();
-        params.append("xid", userID);
-        params.append("conversation_id", String(surveyId));
-        params.append("pid", "mypid"); // Seriously, this is the way to self-get a pid
-
-        this.fetch("https://pol.is/api/v3/participationInit?" + params.toString())
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("Participation Init:", data)
-            const { ptpt: participant } = data;
-            const { pid } = participant;
-            setPid(pid);
-            mergeUserIds.mutateAsync({
-              xid: String(userID),
-              pid: String(pid),
-              sid: String(surveyId),
-            });
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
+        retrieveAndMergeUserIds.mutateAsync({
+          xid: String(userID),
+          sid: String(surveyId),
+        })
+        .then((res) => {
+          console.log("User IDs merged successfully!");
+          console.log(res);
+          setPid(res.data.pid);
+        })
+        .catch((err) => {
+          console.log("Error merging user IDs: ", err);
+        });
         setUserHasVoted(true);
       }
     });
