@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
+const randomUserAgent = require("random-useragent");
 
 export const userRouter = createTRPCRouter({
   retrieveXid: publicProcedure.query(async ({ ctx }) => {
@@ -38,30 +39,22 @@ export const userRouter = createTRPCRouter({
       params.append("conversation_id", sid);
       params.append("pid", "mypid"); // Seriously, this is the way to self-get a pid
 
-      try {
-        console.error(
-          "URL IS",
-          "https://pol.is/api/v3/participationInit?" + params.toString()
-        );
-        const response = await fetch(
-          "https://pol.is/api/v3/participationInit?" + params.toString(),
-          {
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-        const htmlResponse = await response.text();
-        console.error(htmlResponse);
-        const responseJSON = await response.json();
-        console.error("RESPONSE JSON", responseJSON);
-        const { ptpt: participant } = responseJSON;
-        pid = participant.pid;
-      } catch (error) {
-        // .then((response) => response.json())
-        // .then((data) => {
-        //   console.log("Participation Init:", data);
-        // })
-        console.error("Error:", error);
-      }
+      const apiUrl = "https://pol.is/api/v3/participationInit?" + params.toString();
+      const response = await fetch(
+        apiUrl,
+        {
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "User-Agent": randomUserAgent.getRandom(),
+          },
+        });
+      const htmlResponse = await response.text();
+      console.error(htmlResponse);
+      const responseJSON = await response.json();
+      console.error("RESPONSE JSON", responseJSON);
+      const { ptpt: participant } = responseJSON;
+      pid = participant.pid;
 
       // if this combination of xid, pid, sid already exists, return it
       const existingPolisUsers = await ctx.prisma.polisUser.findMany({
