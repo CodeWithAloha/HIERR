@@ -31,40 +31,54 @@ export const userRouter = createTRPCRouter({
         return null;
       }
       const { xid, sid } = input;
-      let pid = null;
+      let pid = "";
 
       const params = new URLSearchParams();
       params.append("xid", xid);
       params.append("conversation_id", sid);
       params.append("pid", "mypid"); // Seriously, this is the way to self-get a pid
 
-      fetch("https://pol.is/api/v3/participationInit?" + params.toString())
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Participation Init:", data);
-          const { ptpt: participant } = data;
-          pid = participant.pid;
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+      try {
+        console.error(
+          "URL IS",
+          "https://pol.is/api/v3/participationInit?" + params.toString()
+        );
+        const response = await fetch(
+          "https://pol.is/api/v3/participationInit?" + params.toString(),
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        const htmlResponse = await response.text();
+        console.error(htmlResponse);
+        const responseJSON = await response.json();
+        console.error("RESPONSE JSON", responseJSON);
+        const { ptpt: participant } = responseJSON;
+        pid = participant.pid;
+      } catch (error) {
+        // .then((response) => response.json())
+        // .then((data) => {
+        //   console.log("Participation Init:", data);
+        // })
+        console.error("Error:", error);
+      }
 
       // if this combination of xid, pid, sid already exists, return it
-      const existingPolisUsers = await ctx.prisma.polisuser.findMany({
+      const existingPolisUsers = await ctx.prisma.polisUser.findMany({
         where: { xid, pid, sid },
       });
       if (existingPolisUsers.length > 0) {
         return existingPolisUsers[0];
       }
-    
-      return ctx.prisma.polisuser.create({
+
+      return ctx.prisma.polisUser.create({
         data: {
           xid,
           pid,
           sid,
         },
       });
-  }),
+    }),
   addCensusTract: publicProcedure
     .input(z.object({ censusTract: z.string() }))
     .mutation(async ({ input, ctx }) => {

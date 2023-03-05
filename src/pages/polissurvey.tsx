@@ -11,7 +11,8 @@ const PolisSurvey: NextPage = () => {
   const [userHasVoted, setUserHasVoted] = useState<boolean>(false);
 
   const xidData = api.user.retrieveXid.useQuery();
-  const retrieveAndMergeUserIds = api.user.retrieveAndMergeUserIds.useMutation();
+  const retrieveAndMergeUserIds =
+    api.user.retrieveAndMergeUserIds.useMutation();
 
   useEffect(() => {
     if (
@@ -46,34 +47,42 @@ const PolisSurvey: NextPage = () => {
     };
   }, []);
 
-  useEffect(() => {
-    window.addEventListener("message", function (event) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const data = event.data;
-      if (!event.origin.match(/pol.is$/)) {
-        return;
-      }
-      console.log("Message: ", data);
+  const setUserData = (event: MessageEvent<any>) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const data = event.data;
+    if (!event.origin.match(/pol.is$/)) {
+      return;
+    }
+    console.log("Message: ", data);
 
-      if (data.name === "vote" && !userHasVoted) {
-        console.log("User has voted for the first time!");
+    if (data.name === "vote" && !userHasVoted) {
+      console.log("User has voted for the first time!");
 
-        retrieveAndMergeUserIds.mutateAsync({
+      retrieveAndMergeUserIds
+        .mutateAsync({
           xid: String(userID),
           sid: String(surveyId),
         })
         .then((res) => {
           console.log("User IDs merged successfully!");
           console.log(res);
-          setPid(res.data.pid);
+          setPid(res.pid);
         })
         .catch((err) => {
           console.log("Error merging user IDs: ", err);
         });
-        setUserHasVoted(true);
-      }
-    });
-  }, []);
+      setUserHasVoted(true);
+    }
+  };
+
+  useEffect(() => {
+    console.log("Adding message event:", userID);
+    window.addEventListener("message", setUserData);
+
+    return () => {
+      window.removeEventListener("message", setUserData);
+    };
+  }, [userID, surveyId]);
 
   if (!userID) {
     return <div>Loading...</div>;
