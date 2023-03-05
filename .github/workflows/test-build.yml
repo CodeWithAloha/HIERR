@@ -28,7 +28,6 @@ jobs:
         env:
           CI: true
       # Todo: configure next/jest see https://nextjs.org/docs/testing#setting-up-jest-with-the-rust-compiler
-      # uncomment the run command below once jest is running
       # - run: jest --watch
       - name: upload build artifacts
         uses: actions/upload-artifact@v3
