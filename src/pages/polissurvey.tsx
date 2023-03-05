@@ -5,11 +5,12 @@ import { api } from "../utils/api";
 
 const PolisSurvey: NextPage = () => {
   const router = useRouter();
-  const { surveyId } = router.query;
-  const [userID, setUserID] = useState<string>();
-  const { xid } = api.user.retrieveXid.useQuery().data;
-  const [pid, setPid] = useState<string>("");
+  const { surveyId } = router.query; // This is the sid, unique to a given survey
+  const [userID, setUserID] = useState<string>(""); // This is the same as the XID, unique to a given user
+  const [pid, setPid] = useState<string>(""); // This is the participant ID (pid), unique only to a given survey
   const [userHasVoted, setUserHasVoted] = useState<boolean>(false);
+
+  const xidData = api.user.retrieveXid.useQuery();
   const mergeUserIds = api.user.mergeUserIds.useMutation();
 
   useEffect(() => {
@@ -23,13 +24,14 @@ const PolisSurvey: NextPage = () => {
         localStorage.polisUserXID
       );
     } else {
-      if (xid) {
+      if (xidData) {
+        const xid = xidData.data;
         console.log("Database User XID: ", xid);
         setUserID(xid);
         localStorage.polisUserXID = xid;
       }
     }
-  }, [xid]);
+  }, [xidData]);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -57,7 +59,7 @@ const PolisSurvey: NextPage = () => {
         console.log("User has voted for the first time!");
 
         const params = new URLSearchParams();
-        params.append("xid", xid);
+        params.append("xid", userID);
         params.append("conversation_id", String(surveyId));
 
         this.fetch("https://pol.is/api/v3/participationInit?" + params.toString())
@@ -67,10 +69,13 @@ const PolisSurvey: NextPage = () => {
             const { pid } = participant;
             setPid(pid);
             mergeUserIds.mutateAsync({
-              xid: String(xid),
+              xid: String(userID),
               pid: String(pid),
               sid: String(surveyId),
             });
+          })
+          .catch((error) => {
+            console.error("Error:", error);
           });
         setUserHasVoted(true);
       }

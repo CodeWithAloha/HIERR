@@ -32,6 +32,14 @@ export const userRouter = createTRPCRouter({
         return null;
       }
       const { xid, pid, sid } = input;
+      // if this combination of xid, pid, sid already exists, return it
+      const existingPolisUsers = await ctx.prisma.polisuser.findMany({
+        where: { xid, pid, sid },
+      });
+      if (existingPolisUsers.length > 0) {
+        return existingPolisUsers[0];
+      }
+    
       return ctx.prisma.polisuser.create({
         data: {
           xid,
