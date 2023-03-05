@@ -18,6 +18,28 @@ export const userRouter = createTRPCRouter({
     }
     return user.xid;
   }),
+  mergeUserIds: publicProcedure
+    .input(
+      z.object({
+        xid: z.string(),
+        pid: z.string(),
+        sid: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      if (!ctx.session) {
+        console.log("Not authenticated");
+        return null;
+      }
+      const { xid, pid, sid } = input;
+      return ctx.prisma.polisuser.create({
+        data: {
+          xid,
+          pid,
+          sid,
+        },
+      });
+  }),
   addCensusTract: publicProcedure
     .input(z.object({ censusTract: z.string() }))
     .mutation(async ({ input, ctx }) => {

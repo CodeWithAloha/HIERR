@@ -7,8 +7,10 @@ const PolisSurvey: NextPage = () => {
   const router = useRouter();
   const { surveyId } = router.query;
   const [userID, setUserID] = useState<string>();
-  const res = api.user.retrieveXid.useQuery();
-  // const [userHasVoted, setUserHasVoted] = useState<boolean>(false);
+  const { xid } = api.user.retrieveXid.useQuery().data;
+  const [pid, setPid] = useState<string>("");
+  const [userHasVoted, setUserHasVoted] = useState<boolean>(false);
+  const mergeUserIds = api.user.mergeUserIds.useMutation();
 
   useEffect(() => {
     if (
@@ -21,14 +23,13 @@ const PolisSurvey: NextPage = () => {
         localStorage.polisUserXID
       );
     } else {
-      if (res.data) {
-        const xid = res.data;
+      if (xid) {
         console.log("Database User XID: ", xid);
         setUserID(xid);
         localStorage.polisUserXID = xid;
       }
     }
-  }, [res.data]);
+  }, [xid]);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -51,6 +52,28 @@ const PolisSurvey: NextPage = () => {
         return;
       }
       console.log("Message: ", data);
+
+      if (data.type === "vote" && !userHasVoted) {
+        console.log("User has voted for the first time!");
+
+        const params = new URLSearchParams();
+        params.append("xid", xid);
+        params.append("conversation_id", String(surveyId));
+
+        this.fetch("https://pol.is/api/v3/participationInit?" + params.toString())
+          .then((response) => response.json())
+          .then((data) => {
+            const { ptpt: participant } = data;
+            const { pid } = participant;
+            setPid(pid);
+            mergeUserIds.mutateAsync({
+              xid: String(xid),
+              pid: String(pid),
+              sid: String(surveyId),
+            });
+          });
+        setUserHasVoted(true);
+      }
     });
   }, []);
 
