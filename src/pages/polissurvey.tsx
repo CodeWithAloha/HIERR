@@ -61,10 +61,12 @@ const PolisSurvey: NextPage = () => {
         const params = new URLSearchParams();
         params.append("xid", userID);
         params.append("conversation_id", String(surveyId));
+        params.append("pid", "mypid"); // Seriously, this is the way to self-get a pid
 
         this.fetch("https://pol.is/api/v3/participationInit?" + params.toString())
           .then((response) => response.json())
           .then((data) => {
+            console.log("Participation Init:", data)
             const { ptpt: participant } = data;
             const { pid } = participant;
             setPid(pid);
