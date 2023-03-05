@@ -38,7 +38,7 @@ export const userRouter = createTRPCRouter({
       params.append("conversation_id", sid);
       params.append("pid", "mypid"); // Seriously, this is the way to self-get a pid
 
-      fetch("https://pol.is/api/v3/participationInit?" + params.toString())
+      await fetch("https://pol.is/api/v3/participationInit?" + params.toString())
         .then((response) => response.json())
         .then((data) => {
           console.log("Participation Init:", data);
