@@ -34,6 +34,7 @@ jobs:
         with:
           name: build output ${{ matrix.node-version }}
           path: output/build
+          if-no-files-found: ignore
 
         # Uncomment the section below once Jest is running
         # - name: upload code coverage artifacts
