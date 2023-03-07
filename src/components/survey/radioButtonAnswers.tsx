@@ -1,4 +1,5 @@
 import type { SurveyAnswer } from "./demographicssurvey";
+import { useState } from 'react';
 
 interface RadioButtonAnswersProps {
   answers: SurveyAnswer[];
@@ -15,7 +16,7 @@ export default function RadioButtonAnswers({
           <input
             type="radio"
             name="myRadio"
-            value={a.answer}
+            value={a.answer}            
             onChange={(e) => updateCurrentAnswer(e.target.value)}
           />
           <span className="mx-2">{a.answer}</span>
@@ -23,8 +24,18 @@ export default function RadioButtonAnswers({
       </>
     );
   };
-
   const radioBtnText = (a: SurveyAnswer) => {
+    // document.querySelectorAll("[value=Female]")[0].checked
+    const isActive = (answerVal: string) => {
+      const answerInput = (document.querySelectorAll(`[value='${answerVal}']`)[0] as HTMLInputElement)
+      console.log("Answer Input:", answerInput)
+      if(answerInput)
+      {
+        console.log("Checked:", answerInput.checked)
+      }
+      return answerInput && !answerInput.checked;
+    }
+
     return (
       <>
         <label>
@@ -32,6 +43,7 @@ export default function RadioButtonAnswers({
           <span className="mx-2">
             {a.answer}
             <input
+            disabled={isActive(a.answer)}
               className="border-rose-500 border-2"
               type={"text"}
               onChange={(e) => updateCurrentAnswer(a.answer + e.target.value)}
@@ -41,6 +53,24 @@ export default function RadioButtonAnswers({
       </>
     );
   };
+
+  // const radioBtnText = (a: SurveyAnswer) => {
+  //   return (
+  //     <>
+  //       <label>
+  //         <input type="radio" name="myRadio" value={a.answer} />
+  //         <span className="mx-2">
+  //           {a.answer}
+  //           <input
+  //             className="border-rose-500 border-2"
+  //             type={"text"}
+  //             onChange={(e) => updateCurrentAnswer(a.answer + e.target.value)}
+  //           ></input>
+  //         </span>
+  //       </label>
+  //     </>
+  //   );
+  // };
   return (
     <>
       <ul>
