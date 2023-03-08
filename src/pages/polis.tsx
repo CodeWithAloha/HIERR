@@ -8,6 +8,7 @@ interface PolisSurvey {
 }
 
 const Polis: NextPage = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const surveys: PolisSurvey[] = JSON.parse(
     process.env.NEXT_PUBLIC_POLIS_SURVEYS ?? ""
   );
@@ -18,7 +19,7 @@ const Polis: NextPage = () => {
         Please select the Pol.is survey you wish to complete.
       </h1>
       <div className="justify-items-left flex flex-col">
-        {surveys?.map(({ id, title, description }, index) => {
+        {surveys?.map(({ id, title }, index) => {
           return (
             <div className="mb-4" key={`survey-button-next-page-${index}`}>
               <NextPageButtonLink
