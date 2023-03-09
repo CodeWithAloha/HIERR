@@ -10,7 +10,7 @@ import {
 import CensusTractData from "../data/census-tracts_min.json";
 import "leaflet/dist/leaflet.css";
 import type { GeoJsonObject, Feature, Geometry } from "geojson";
-import { Ref, useEffect, useRef, useState } from "react";
+import { Ref, useCallback, useEffect, useRef, useState } from "react";
 import { Layer, LeafletMouseEvent } from "leaflet";
 import { api } from "../utils/api";
 import CompletedCensusMap from "./completedcensusmap";
@@ -32,6 +32,7 @@ interface GeoJSONElement {
 const CensusTractMap: NextPage = () => {
   const [userCensusTract, setUserCensusTract] = useState("");
   const updateUserCensusTract = api.user.addCensusTract.useMutation();
+  const removeUserCensusTract = api.user.removeCensusTract.useMutation();
   const [existingCensusTractId, setExistingCensusTractId] = useState<
     string | undefined
   >(undefined);
@@ -95,12 +96,24 @@ const CensusTractMap: NextPage = () => {
     };
   };
 
+  const handleRemoveCensusTract = () => {
+    setExistingCensusTractId(undefined);
+    setUserCensusTract("");
+    removeUserCensusTract.mutate();
+  };
+
   return (
     <div className="flex h-screen flex-col items-center bg-blue-default">
       {existingCensusTractId ? (
-        <ExistingCensusMap existingCensusTract={existingCensusTractId} />
+        <ExistingCensusMap
+          existingCensusTract={existingCensusTractId}
+          handleRemoveCensusTract={handleRemoveCensusTract}
+        />
       ) : userCensusTract ? (
-        <CompletedCensusMap userSelectedCensusTract={userCensusTract} />
+        <CompletedCensusMap
+          userSelectedCensusTract={userCensusTract}
+          handleRemoveCensusTract={handleRemoveCensusTract}
+        />
       ) : (
         <>
           <div className="my-6 overflow-hidden rounded bg-white shadow-lg">

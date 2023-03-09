@@ -44,4 +44,19 @@ export const userRouter = createTRPCRouter({
       },
     });
   }),
+  removeCensusTract: publicProcedure.mutation(async ({ ctx }) => {
+    if (!ctx.session) {
+      console.log("Not authenticated");
+      return null;
+    }
+    const { id: userId } = ctx.session.user;
+
+    // TODO: Since each user is unique check if the user already has a zip code first
+    return ctx.prisma.user.update({
+      where: { id: userId },
+      data: {
+        censusTractId: null,
+      },
+    });
+  }),
 });
