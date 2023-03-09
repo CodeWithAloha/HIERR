@@ -10,7 +10,7 @@ import {
 import CensusTractData from "../data/census-tracts_min.json";
 import "leaflet/dist/leaflet.css";
 import type { GeoJsonObject, Feature, Geometry } from "geojson";
-import { Ref, useRef, useState } from "react";
+import { Ref, useEffect, useRef, useState } from "react";
 import { Layer, LeafletMouseEvent } from "leaflet";
 import { api } from "../utils/api";
 import CompletedCensusMap from "./completedcensusmap";
@@ -32,9 +32,16 @@ interface GeoJSONElement {
 const CensusTractMap: NextPage = () => {
   const [userCensusTract, setUserCensusTract] = useState("");
   const updateUserCensusTract = api.user.addCensusTract.useMutation();
-  const [existingCensusTractId, setExistingCensusTractId] = useState(
-    api.user.getCensusTract.useQuery().data?.censusTractId
-  );
+  const [existingCensusTractId, setExistingCensusTractId] = useState<
+    string | undefined
+  >(undefined);
+  const censusTractDB = api.user.getCensusTract.useQuery();
+
+  useEffect(() => {
+    if (censusTractDB && censusTractDB.data) {
+      setExistingCensusTractId(censusTractDB.data?.censusTractId);
+    }
+  }, [existingCensusTractId, censusTractDB]);
 
   const geoJsonRef = useRef();
   const handleFeature = (feature: Feature<Geometry, any>, layer: Layer) => {
