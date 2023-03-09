@@ -15,6 +15,7 @@ import { Layer, LeafletMouseEvent } from "leaflet";
 import { api } from "../utils/api";
 import CompletedCensusMap from "./completedcensusmap";
 import ExistingCensusMap from "./existingcensusmap";
+import SelectedCensusMap from "./selectedcensusmap";
 
 interface LayerEventTarget {
   feature: {
@@ -105,13 +106,13 @@ const CensusTractMap: NextPage = () => {
   return (
     <div className="flex h-screen flex-col items-center bg-blue-default">
       {existingCensusTractId ? (
-        <ExistingCensusMap
-          existingCensusTract={existingCensusTractId}
+        <SelectedCensusMap
+          msg={`User's existing census tract is: ${existingCensusTractId}`}
           handleRemoveCensusTract={handleRemoveCensusTract}
         />
       ) : userCensusTract ? (
-        <CompletedCensusMap
-          userSelectedCensusTract={userCensusTract}
+        <SelectedCensusMap
+          msg={`Census Tract Selected is: ${userCensusTract}`}
           handleRemoveCensusTract={handleRemoveCensusTract}
         />
       ) : (
