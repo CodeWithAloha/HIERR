@@ -13,8 +13,6 @@ import type { GeoJsonObject, Feature, Geometry } from "geojson";
 import { Ref, useCallback, useEffect, useRef, useState } from "react";
 import { Layer, LeafletMouseEvent } from "leaflet";
 import { api } from "../utils/api";
-import CompletedCensusMap from "./completedcensusmap";
-import ExistingCensusMap from "./existingcensusmap";
 import SelectedCensusMap from "./selectedcensusmap";
 
 interface LayerEventTarget {
@@ -32,13 +30,18 @@ interface GeoJSONElement {
 
 const CensusTractMap: NextPage = () => {
   const [userCensusTract, setUserCensusTract] = useState("");
+  const [loading, setLoading] = useState(false);
   const updateUserCensusTract = api.user.addCensusTract.useMutation();
   const removeUserCensusTract = api.user.removeCensusTract.useMutation();
 
   const censusTractDB = api.user.getCensusTract.useQuery();
 
   useEffect(() => {
-    if (censusTractDB && censusTractDB.data) {
+    if (
+      censusTractDB &&
+      censusTractDB.data &&
+      censusTractDB.data.censusTractId !== null
+    ) {
       setUserCensusTract(censusTractDB.data?.censusTractId);
     }
   }, [userCensusTract, censusTractDB]);
@@ -48,8 +51,10 @@ const CensusTractMap: NextPage = () => {
     layer.on("click", (e: LeafletMouseEvent) => {
       const selectedCensusTract = (e.target as LayerEventTarget).feature
         .properties["name20"];
+      setLoading(true);
       setUserCensusTract(selectedCensusTract);
       updateUserCensusTract.mutate({ censusTract: selectedCensusTract });
+      setLoading(false);
     });
     layer.on("mouseover", (e: LeafletMouseEvent) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
@@ -95,16 +100,25 @@ const CensusTractMap: NextPage = () => {
     };
   };
 
-  const handleRemoveCensusTract = () => {
-    setUserCensusTract("");
+  const handleRemoveCensusTract = useCallback(() => {
+    setLoading(true);
     removeUserCensusTract.mutate();
-  };
+    setUserCensusTract("");
+    setLoading(false);
+  }, []);
 
+  if (loading) {
+    return (
+      <div className="flex h-screen flex-col items-center bg-blue-default">
+        Loading...
+      </div>
+    );
+  }
   return (
     <div className="flex h-screen flex-col items-center bg-blue-default">
       {userCensusTract ? (
         <SelectedCensusMap
-          msg={`User's Census Tract is: ${userCensusTract}`}
+          msg={`Census Tract Selected is: ${userCensusTract}`}
           handleRemoveCensusTract={handleRemoveCensusTract}
         />
       ) : (
