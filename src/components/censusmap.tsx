@@ -34,16 +34,14 @@ const CensusTractMap: NextPage = () => {
   const [userCensusTract, setUserCensusTract] = useState("");
   const updateUserCensusTract = api.user.addCensusTract.useMutation();
   const removeUserCensusTract = api.user.removeCensusTract.useMutation();
-  const [existingCensusTractId, setExistingCensusTractId] = useState<
-    string | undefined
-  >(undefined);
+
   const censusTractDB = api.user.getCensusTract.useQuery();
 
   useEffect(() => {
     if (censusTractDB && censusTractDB.data) {
-      setExistingCensusTractId(censusTractDB.data?.censusTractId);
+      setUserCensusTract(censusTractDB.data?.censusTractId);
     }
-  }, [existingCensusTractId, censusTractDB]);
+  }, [userCensusTract, censusTractDB]);
 
   const geoJsonRef = useRef();
   const handleFeature = (feature: Feature<Geometry, any>, layer: Layer) => {
@@ -98,21 +96,15 @@ const CensusTractMap: NextPage = () => {
   };
 
   const handleRemoveCensusTract = () => {
-    setExistingCensusTractId(undefined);
     setUserCensusTract("");
     removeUserCensusTract.mutate();
   };
 
   return (
     <div className="flex h-screen flex-col items-center bg-blue-default">
-      {existingCensusTractId ? (
+      {userCensusTract ? (
         <SelectedCensusMap
-          msg={`User's existing census tract is: ${existingCensusTractId}`}
-          handleRemoveCensusTract={handleRemoveCensusTract}
-        />
-      ) : userCensusTract ? (
-        <SelectedCensusMap
-          msg={`Census Tract Selected is: ${userCensusTract}`}
+          msg={`User's Census Tract is: ${userCensusTract}`}
           handleRemoveCensusTract={handleRemoveCensusTract}
         />
       ) : (
