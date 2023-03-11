@@ -3,6 +3,16 @@ import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const zipcodeRouter = createTRPCRouter({
+  getUserZipCode: publicProcedure.query(({ ctx }) => {
+    if (!ctx.session) {
+      console.log("Not authenticated");
+      return null;
+    }
+    const { id: userId } = ctx.session.user;
+    return ctx.prisma.zipCode.findFirst({
+      where: { userId: userId },
+    });
+  }),
   postZipCode: publicProcedure
     .input(z.object({ zipcode: z.string() }))
     .mutation(({ input, ctx }) => {
@@ -20,8 +30,15 @@ export const zipcodeRouter = createTRPCRouter({
         },
       });
     }),
+  removeZipCode: publicProcedure.mutation(async ({ ctx }) => {
+    if (!ctx.session) {
+      console.log("Not authenticated");
+      return null;
+    }
+    const { id: userId } = ctx.session.user;
 
-  // getAllZipCodes: publicProcedure.query(({ ctx }) => {
-  //   return ctx.prisma.zipcodes.findMany();
-  // }),
+    return ctx.prisma.zipCode.delete({
+      where: { userId: userId },
+    });
+  }),
 });
