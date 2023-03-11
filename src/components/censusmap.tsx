@@ -30,31 +30,31 @@ interface GeoJSONElement {
 
 const CensusTractMap: NextPage = () => {
   const [userCensusTract, setUserCensusTract] = useState("");
-  const [loading, setLoading] = useState(false);
-  const updateUserCensusTract = api.user.addCensusTract.useMutation();
+  const [isRemoving, setIsRemoving] = useState(false);
+
   const removeUserCensusTract = api.user.removeCensusTract.useMutation();
 
-  const censusTractDB = api.user.getCensusTract.useQuery();
+  const censusTractDB = !isRemoving
+    ? api.user.getCensusTract.useQuery()
+    : undefined;
 
   useEffect(() => {
     if (
+      !isRemoving &&
       censusTractDB &&
       censusTractDB.data &&
       censusTractDB.data.censusTractId !== null
     ) {
       setUserCensusTract(censusTractDB.data?.censusTractId);
     }
-  }, [userCensusTract, censusTractDB]);
+  }, [userCensusTract, censusTractDB, isRemoving]);
 
   const geoJsonRef = useRef();
   const handleFeature = (feature: Feature<Geometry, any>, layer: Layer) => {
     layer.on("click", (e: LeafletMouseEvent) => {
       const selectedCensusTract = (e.target as LayerEventTarget).feature
         .properties["name20"];
-      setLoading(true);
       setUserCensusTract(selectedCensusTract);
-      updateUserCensusTract.mutate({ censusTract: selectedCensusTract });
-      setLoading(false);
     });
     layer.on("mouseover", (e: LeafletMouseEvent) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
@@ -101,25 +101,19 @@ const CensusTractMap: NextPage = () => {
   };
 
   const handleRemoveCensusTract = useCallback(() => {
-    setLoading(true);
+    setIsRemoving(true);
     removeUserCensusTract.mutate();
     setUserCensusTract("");
-    setLoading(false);
+    setIsRemoving(false);
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex h-screen flex-col items-center bg-blue-default">
-        Loading...
-      </div>
-    );
-  }
   return (
     <div className="flex h-screen flex-col items-center bg-blue-default">
       {userCensusTract ? (
         <SelectedCensusMap
           msg={`Census Tract Selected is: ${userCensusTract}`}
           handleRemoveCensusTract={handleRemoveCensusTract}
+          censusTract={userCensusTract}
         />
       ) : (
         <>
