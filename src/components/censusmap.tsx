@@ -29,25 +29,21 @@ interface GeoJSONElement {
 }
 
 const CensusTractMap: NextPage = () => {
-  const [userCensusTract, setUserCensusTract] = useState("");
-  const [isRemoving, setIsRemoving] = useState(false);
+  const [userCensusTract, setUserCensusTract] = useState<string | null>(null);
+  const [censusTractComplete, setCensusTractComplete] = useState(false);
 
   const removeUserCensusTract = api.user.removeCensusTract.useMutation();
 
-  const censusTractDB = !isRemoving
-    ? api.user.getCensusTract.useQuery()
-    : undefined;
+  const censusTractDB = api.user.getCensusTract.useQuery();
 
   useEffect(() => {
-    if (
-      !isRemoving &&
-      censusTractDB &&
-      censusTractDB.data &&
-      censusTractDB.data.censusTractId !== null
-    ) {
+    if (censusTractDB && censusTractDB.data) {
+      if (censusTractDB.data.censusTractId !== null) {
+        setCensusTractComplete(true);
+      }
       setUserCensusTract(censusTractDB.data?.censusTractId);
     }
-  }, [userCensusTract, censusTractDB, isRemoving]);
+  }, [censusTractDB.data?.censusTractId]);
 
   const geoJsonRef = useRef();
   const handleFeature = (feature: Feature<Geometry, any>, layer: Layer) => {
@@ -55,6 +51,7 @@ const CensusTractMap: NextPage = () => {
       const selectedCensusTract = (e.target as LayerEventTarget).feature
         .properties["name20"];
       setUserCensusTract(selectedCensusTract);
+      setCensusTractComplete(true);
     });
     layer.on("mouseover", (e: LeafletMouseEvent) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
@@ -101,19 +98,18 @@ const CensusTractMap: NextPage = () => {
   };
 
   const handleRemoveCensusTract = useCallback(() => {
-    setIsRemoving(true);
     removeUserCensusTract.mutate();
-    setUserCensusTract("");
-    setIsRemoving(false);
+    setUserCensusTract(null);
+    setCensusTractComplete(false);
   }, []);
 
   return (
     <div className="flex h-screen flex-col items-center bg-blue-default">
-      {userCensusTract ? (
+      {censusTractComplete ? (
         <SelectedCensusMap
-          msg={`Census Tract Selected is: ${userCensusTract}`}
+          msg={`Census Tract Selected is: ${String(userCensusTract)}`}
           handleRemoveCensusTract={handleRemoveCensusTract}
-          censusTract={userCensusTract}
+          censusTract={String(userCensusTract)}
         />
       ) : (
         <>
