@@ -10,11 +10,10 @@ import {
 import CensusTractData from "../data/census-tracts_min.json";
 import "leaflet/dist/leaflet.css";
 import type { GeoJsonObject, Feature, Geometry } from "geojson";
-import { Ref, useRef, useState } from "react";
+import { Ref, useCallback, useEffect, useRef, useState } from "react";
 import { Layer, LeafletMouseEvent } from "leaflet";
 import { api } from "../utils/api";
-import CompletedCensusMap from "./completedcensusmap";
-import ExistingCensusMap from "./existingcensusmap";
+import SelectedCensusMap from "./selectedcensusmap";
 
 interface LayerEventTarget {
   feature: {
@@ -30,11 +29,21 @@ interface GeoJSONElement {
 }
 
 const CensusTractMap: NextPage = () => {
-  const [userCensusTract, setUserCensusTract] = useState("");
-  const updateUserCensusTract = api.user.addCensusTract.useMutation();
-  const [existingCensusTractId, setExistingCensusTractId] = useState(
-    api.user.getCensusTract.useQuery().data?.censusTractId
-  );
+  const [userCensusTract, setUserCensusTract] = useState<string | null>(null);
+  const [censusTractComplete, setCensusTractComplete] = useState(false);
+
+  const removeUserCensusTract = api.user.removeCensusTract.useMutation();
+
+  const censusTractDB = api.user.getCensusTract.useQuery();
+
+  useEffect(() => {
+    if (censusTractDB && censusTractDB.data) {
+      if (censusTractDB.data.censusTractId !== null) {
+        setCensusTractComplete(true);
+      }
+      setUserCensusTract(censusTractDB.data?.censusTractId);
+    }
+  }, [censusTractDB.data?.censusTractId]);
 
   const geoJsonRef = useRef();
   const handleFeature = (feature: Feature<Geometry, any>, layer: Layer) => {
@@ -42,7 +51,7 @@ const CensusTractMap: NextPage = () => {
       const selectedCensusTract = (e.target as LayerEventTarget).feature
         .properties["name20"];
       setUserCensusTract(selectedCensusTract);
-      updateUserCensusTract.mutate({ censusTract: selectedCensusTract });
+      setCensusTractComplete(true);
     });
     layer.on("mouseover", (e: LeafletMouseEvent) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
@@ -88,12 +97,20 @@ const CensusTractMap: NextPage = () => {
     };
   };
 
+  const handleRemoveCensusTract = useCallback(() => {
+    removeUserCensusTract.mutate();
+    setUserCensusTract(null);
+    setCensusTractComplete(false);
+  }, []);
+
   return (
     <div className="flex h-screen flex-col items-center bg-blue-default">
-      {existingCensusTractId ? (
-        <ExistingCensusMap existingCensusTract={existingCensusTractId} />
-      ) : userCensusTract ? (
-        <CompletedCensusMap userSelectedCensusTract={userCensusTract} />
+      {censusTractComplete ? (
+        <SelectedCensusMap
+          msg={`Census Tract Selected is: ${String(userCensusTract)}`}
+          handleRemoveCensusTract={handleRemoveCensusTract}
+          censusTract={String(userCensusTract)}
+        />
       ) : (
         <>
           <div className="my-6 overflow-hidden rounded bg-white shadow-lg">

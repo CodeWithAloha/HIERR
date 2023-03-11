@@ -44,4 +44,18 @@ export const userRouter = createTRPCRouter({
       },
     });
   }),
+  removeCensusTract: publicProcedure.mutation(async ({ ctx }) => {
+    if (!ctx.session) {
+      console.log("Not authenticated");
+      return null;
+    }
+    const { id: userId } = ctx.session.user;
+
+    return ctx.prisma.user.update({
+      where: { id: userId },
+      data: {
+        censusTractId: null,
+      },
+    });
+  }),
 });
