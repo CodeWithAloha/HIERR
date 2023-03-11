@@ -13,12 +13,12 @@ const ZipCode: NextPage = () => {
 
   useEffect(() => {
     if (zipCodeDB && zipCodeDB.data) {
-      setZipCode(zipCodeDB.data?.zipcode);
       if (zipCodeDB.data.zipcode !== null) {
         setZipCodeComplete(true);
       }
+      setZipCode(zipCodeDB.data?.zipcode);
     }
-  }, [zipcode, zipCodeDB]);
+  }, [zipCodeDB.data?.zipcode]);
 
   const handleSubmit = () => {
     // postZipCodeResult.mutate({ zipcode: String(zipcode) });
@@ -26,8 +26,12 @@ const ZipCode: NextPage = () => {
   };
 
   const handleRemoveZipCode = useCallback(() => {
+    if (zipcode === null) {
+      setZipCodeComplete(false);
+      return;
+    }
     removeUserZipCode.mutate();
-    setZipCode("");
+    setZipCode(null);
     setZipCodeComplete(false);
   }, []);
 
