@@ -1,5 +1,5 @@
-import { MouseEvent, useRef, useState } from "react";
-import { AnswerType, SurveyAnswer } from "./demographicssurvey";
+import { useRef } from "react";
+import type { SurveyAnswer } from "./demographicssurvey";
 
 interface MultiSelectAnswersProps {
   answers: SurveyAnswer[];
@@ -53,7 +53,6 @@ export default function MultiSelectAnswers({
     );
   };
 
-  // TODO: Fix this
   const checkBoxText = (a: SurveyAnswer, index: number) => {
     return (
       <>
