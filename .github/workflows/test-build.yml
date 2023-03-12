@@ -31,10 +31,3 @@ jobs:
       - run: SKIP_ENV_VALIDATION=1 npm run build --if-present
         env:
           CI: true
-      - name: upload build artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: build output ${{ matrix.node-version }}
-          path: output/build
-          if-no-files-found: ignore
-
