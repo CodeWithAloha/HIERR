@@ -28,7 +28,7 @@ export default function SelectedZipCode({
           className="rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
           onClick={() => handleSubmit()}
         >
-          Submit Zip Code and start demographics survey
+          Submit your zip code and start the demographics survey
         </button>
       </Link>
       <button
