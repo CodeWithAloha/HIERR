@@ -24,21 +24,21 @@ model SurveyQuestion {
 }
 
 model SurveyAnswer {
-  id                String              @id @default(cuid())
-  questionId        String
-  question          SurveyQuestion      @relation(fields: [questionId], references: [id])
-  answer            String
-  position          Int
-  answerType        String
+  id         String         @id @default(cuid())
+  questionId String
+  question   SurveyQuestion @relation(fields: [questionId], references: [id])
+  answer     String
+  position   Int
+  answerType String
 }
 
 model UserSurveyAnswers {
-  id         String         @id @default(cuid())
-  userId     String
-  questionId String
+  id          String         @id @default(cuid())
+  userId      String
+  questionId  String
   answerValue String
-  user       User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  question   SurveyQuestion @relation(fields: [questionId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question    SurveyQuestion @relation(fields: [questionId], references: [id], onUpdate: NoAction, onDelete: NoAction)
 }
 
 model ZipCode {
@@ -82,17 +82,18 @@ model Session {
 }
 
 model User {
-  id                String              @id @default(cuid())
-  name              String?
-  email             String?             @unique
-  emailVerified     DateTime?
-  image             String?
-  censusTractId     String?             @unique
-  accounts          Account[]
-  sessions          Session[]
-  zipcode           ZipCode?
-  censustract       CensusTract?        @relation(fields: [censusTractId], references: [id])
-  UserSurveyAnswers UserSurveyAnswers[]
+  id                  String              @id @default(cuid())
+  name                String?
+  email               String?             @unique
+  emailVerified       DateTime?
+  image               String?
+  censusTractId       String?             @unique
+  demoSurveyCompleted Boolean             @default(false)
+  accounts            Account[]
+  sessions            Session[]
+  zipcode             ZipCode?
+  censustract         CensusTract?        @relation(fields: [censusTractId], references: [id])
+  UserSurveyAnswers   UserSurveyAnswers[]
 }
 
 model VerificationToken {

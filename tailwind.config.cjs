@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 // tailwind.config.js
-const { fontFamily } = require("tailwindcss/defaultTheme");
+// const { fontFamily } = require("tailwindcss/defaultTheme");
 
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
@@ -21,6 +21,6 @@ module.exports = {
       gray: "#4C4C4C",
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
   mode: "jit",
 };

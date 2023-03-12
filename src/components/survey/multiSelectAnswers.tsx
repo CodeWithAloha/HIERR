@@ -1,5 +1,5 @@
-import { MouseEvent, useRef, useState } from "react";
-import { AnswerType, SurveyAnswer } from "./demographicssurvey";
+import { useRef } from "react";
+import type { SurveyAnswer } from "./demographicssurvey";
 
 interface MultiSelectAnswersProps {
   answers: SurveyAnswer[];
@@ -41,6 +41,7 @@ export default function MultiSelectAnswers({
       <>
         <input
           type="checkbox"
+          className="form-checkbox rounded"
           id={`a-${index}-option`}
           name={`a-${index}`}
           value={a.answer}
@@ -52,12 +53,12 @@ export default function MultiSelectAnswers({
     );
   };
 
-  // TODO: Fix this
   const checkBoxText = (a: SurveyAnswer, index: number) => {
     return (
       <>
         <input
           type="checkbox"
+          className="form-checkbox rounded"
           id={`a-${index}-optionText`}
           name={`a-${index}-optionText`}
           value={a.answer}
@@ -66,7 +67,7 @@ export default function MultiSelectAnswers({
         <label htmlFor={`a-${index}-optionText`}>
           {a.answer}{" "}
           <input
-            className="border-rose-500 border-2"
+            className="form-input rounded"
             id={`${index}-userText`}
             type={"text"}
             onChange={() => handleClick()}
