@@ -21,7 +21,6 @@ const ZipCode: NextPage = () => {
   }, [zipCodeDB.data?.zipcode]);
 
   const handleSubmit = () => {
-    // postZipCodeResult.mutate({ zipcode: String(zipcode) });
     setZipCodeComplete(true);
   };
 
