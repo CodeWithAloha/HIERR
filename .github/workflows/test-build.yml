@@ -27,8 +27,6 @@ jobs:
       - run: SKIP_ENV_VALIDATION=1 npm run build --if-present
         env:
           CI: true
-      # Todo: configure next/jest see https://nextjs.org/docs/testing#setting-up-jest-with-the-rust-compiler
-      # - run: jest --watch
       - name: upload build artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -36,9 +34,3 @@ jobs:
           path: output/build
           if-no-files-found: ignore
 
-        # Uncomment the section below once Jest is running
-        # - name: upload code coverage artifacts
-        #   uses: actions/upload-artifact@v3
-        #   with:
-        #     name: code-coverage-report ${{ matrix.node-version }}
-        #     path: output/test/code-coverage.html
