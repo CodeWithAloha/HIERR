@@ -21,11 +21,11 @@ export default function SelectedZipCode({
   }
 
   return (
-    <>
+    <div className="justify-items-left flex flex-col">
       <h1 className="my-6 text-white">{msg}</h1>
       <Link href={{ pathname: "./survey" }}>
         <button
-          className="rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+          className="mb-4 rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
           onClick={() => handleSubmit()}
         >
           Submit your zip code and start the demographics survey
@@ -37,6 +37,6 @@ export default function SelectedZipCode({
       >
         Click here to re-enter your zip code
       </button>
-    </>
+    </div>
   );
 }

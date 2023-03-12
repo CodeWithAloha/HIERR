@@ -21,11 +21,11 @@ export default function SelectedCensusMap({
   }
 
   return (
-    <>
+    <div className="justify-items-left flex flex-col">
       <h1 className="my-6 text-white">{msg}</h1>
       <Link href={{ pathname: "./zipcode" }}>
         <button
-          className="rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+          className="mb-4 rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
           onClick={() => handleSubmit()}
         >
           Submit your census tract and continue to zip code
@@ -37,6 +37,6 @@ export default function SelectedCensusMap({
       >
         Click here to re-enter your census tract
       </button>
-    </>
+    </div>
   );
 }
