@@ -107,7 +107,9 @@ const CensusTractMap: NextPage = () => {
     <div className="flex h-screen flex-col items-center bg-blue-default">
       {censusTractComplete ? (
         <SelectedCensusMap
-          msg={`Census Tract Selected is: ${String(userCensusTract)}`}
+          msg={`The existing or selected census tract is: ${String(
+            userCensusTract
+          )}`}
           handleRemoveCensusTract={handleRemoveCensusTract}
           censusTract={String(userCensusTract)}
         />

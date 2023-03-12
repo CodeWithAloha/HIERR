@@ -21,7 +21,6 @@ const ZipCode: NextPage = () => {
   }, [zipCodeDB.data?.zipcode]);
 
   const handleSubmit = () => {
-    // postZipCodeResult.mutate({ zipcode: String(zipcode) });
     setZipCodeComplete(true);
   };
 
@@ -70,7 +69,7 @@ const ZipCode: NextPage = () => {
       ) : (
         <SelectedZipCode
           zipcode={String(zipcode)}
-          msg={`Is this zip code correct? ${String(zipcode)}`}
+          msg={`The existing or selected zip code is: ${String(zipcode)}`}
           handleRemoveZipCode={handleRemoveZipCode}
         />
       )}
