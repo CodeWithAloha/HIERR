@@ -48,11 +48,6 @@ model ZipCode {
   user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model CensusTract {
-  id   String @id
-  name String
-  user User?
-}
 
 // Necessary for Next auth
 model Account {
@@ -92,7 +87,7 @@ model User {
   accounts            Account[]
   sessions            Session[]
   zipcode             ZipCode?
-  censustract         CensusTract?        @relation(fields: [censusTractId], references: [id])
+  censustract         String?
   UserSurveyAnswers   UserSurveyAnswers[]
 }
 
