@@ -13,6 +13,7 @@ export default function RadioButtonAnswers({
       <>
         <label>
           <input
+            className="form-radio"
             type="radio"
             name="myRadio"
             value={a.answer}
@@ -28,11 +29,16 @@ export default function RadioButtonAnswers({
     return (
       <>
         <label>
-          <input type="radio" name="myRadio" value={a.answer} />
+          <input
+            type="radio"
+            className="form-radio"
+            name="myRadio"
+            value={a.answer}
+          />
           <span className="mx-2">
             {a.answer}
             <input
-              className="border-rose-500 border-2"
+              className="form-input rounded"
               type={"text"}
               onChange={(e) => updateCurrentAnswer(a.answer + e.target.value)}
             ></input>
