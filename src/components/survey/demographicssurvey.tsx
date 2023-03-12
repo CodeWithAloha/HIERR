@@ -23,6 +23,8 @@ export default function DemographicsSurvey() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [surveyCompleted, setSurveyCompleted] = useState(false);
   const surveyCompletedDB = api.user.getDemoSurveyCompleted.useQuery();
+  const removeAllUserSurveyAnswersDB =
+    api.survey.removeAllUserDemoSurveyAnswers.useMutation();
   const updateSurveyCompletedDB =
     api.user.postDemoSurveyCompleted.useMutation();
   const surveyDataDB = (api.survey.getSurveyData.useQuery()?.data ?? []).sort(
@@ -62,6 +64,7 @@ export default function DemographicsSurvey() {
     setSurveyCompleted(false);
     setCurrentQuestion(0);
     updateSurveyCompletedDB.mutate({ completed: false });
+    removeAllUserSurveyAnswersDB.mutate();
   };
 
   const updateCurrentQuestion = useCallback(
