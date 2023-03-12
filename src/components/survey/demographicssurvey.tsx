@@ -1,7 +1,7 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import SurveyQuestion from "./surveyquestion";
-import { NextPageButtonLink } from "../../UI/NextPageButtonLink";
 import { api } from "../../utils/api";
+import Link from "next/link";
 
 export interface SurveyData {
   questionId: string;
@@ -22,6 +22,9 @@ export type AnswerType = "option" | "text" | "number" | "optionText";
 export default function DemographicsSurvey() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [surveyCompleted, setSurveyCompleted] = useState(false);
+  const surveyCompletedDB = api.user.getDemoSurveyCompleted.useQuery();
+  const updateSurveyCompletedDB =
+    api.user.postDemoSurveyCompleted.useMutation();
   const surveyDataDB = (api.survey.getSurveyData.useQuery()?.data ?? []).sort(
     (d1, d2) => d1.position - d2.position
   );
@@ -41,6 +44,25 @@ export default function DemographicsSurvey() {
   const postUserAnswer = api.survey.addUserAnswer.useMutation();
 
   const userAnswers: string[] = useMemo(() => [], []);
+
+  useEffect(() => {
+    if (surveyCompletedDB && surveyCompletedDB.data) {
+      if (surveyCompletedDB.data.demoSurveyCompleted !== false) {
+        setSurveyCompleted(true);
+      }
+      // setUserCensusTract(censusTractDB.data?.censusTractId);
+    }
+  }, [surveyCompletedDB.data?.demoSurveyCompleted]);
+
+  const handleSubmit = () => {
+    updateSurveyCompletedDB.mutate({ completed: true });
+  };
+
+  const handleRetakeSurvey = () => {
+    setSurveyCompleted(false);
+    setCurrentQuestion(0);
+    updateSurveyCompletedDB.mutate({ completed: false });
+  };
 
   const updateCurrentQuestion = useCallback(
     (change: QuestionDirection, answer?: string) => {
@@ -84,10 +106,21 @@ export default function DemographicsSurvey() {
         <h1 className="mb-10 text-center text-2xl text-white">
           Survey Completed!
         </h1>
-        <NextPageButtonLink
-          pageName="polis"
-          msg="Click here to start the Pol.is survey."
-        />
+        <Link href={{ pathname: "./polis" }}>
+          <button
+            className="mb-4 rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+            onClick={() => handleSubmit()}
+          >
+            Click here to submit your survey answers and continue to the Pol.is
+            survey
+          </button>
+        </Link>
+        <button
+          className="rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+          onClick={() => handleRetakeSurvey()}
+        >
+          Click here to retake demographic survey
+        </button>
       </>
     );
   };
