@@ -1,4 +1,6 @@
-BEGIN TRY BEGIN TRAN;
+BEGIN TRY
+
+BEGIN TRAN;
 
 -- CreateTable
 CREATE TABLE [dbo].[SurveyQuestion] (
@@ -24,7 +26,7 @@ CREATE TABLE [dbo].[UserSurveyAnswers] (
     [id] NVARCHAR(1000) NOT NULL,
     [userId] NVARCHAR(1000) NOT NULL,
     [questionId] NVARCHAR(1000) NOT NULL,
-    [answerId] NVARCHAR(1000) NOT NULL,
+    [answerValue] NVARCHAR(1000) NOT NULL,
     CONSTRAINT [UserSurveyAnswers_pkey] PRIMARY KEY CLUSTERED ([id])
 );
 
@@ -59,7 +61,7 @@ CREATE TABLE [dbo].[Account] (
     [id_token] NVARCHAR(1000),
     [session_state] NVARCHAR(1000),
     CONSTRAINT [Account_pkey] PRIMARY KEY CLUSTERED ([id]),
-    CONSTRAINT [Account_provider_providerAccountId_key] UNIQUE NONCLUSTERED ([provider], [providerAccountId])
+    CONSTRAINT [Account_provider_providerAccountId_key] UNIQUE NONCLUSTERED ([provider],[providerAccountId])
 );
 
 -- CreateTable
@@ -80,6 +82,7 @@ CREATE TABLE [dbo].[User] (
     [emailVerified] DATETIME2,
     [image] NVARCHAR(1000),
     [censusTractId] NVARCHAR(1000),
+    [demoSurveyCompleted] BIT NOT NULL CONSTRAINT [User_demoSurveyCompleted_df] DEFAULT 0,
     CONSTRAINT [User_pkey] PRIMARY KEY CLUSTERED ([id]),
     CONSTRAINT [User_email_key] UNIQUE NONCLUSTERED ([email]),
     CONSTRAINT [User_censusTractId_key] UNIQUE NONCLUSTERED ([censusTractId])
@@ -91,58 +94,29 @@ CREATE TABLE [dbo].[VerificationToken] (
     [token] NVARCHAR(1000) NOT NULL,
     [expires] DATETIME2 NOT NULL,
     CONSTRAINT [VerificationToken_token_key] UNIQUE NONCLUSTERED ([token]),
-    CONSTRAINT [VerificationToken_identifier_token_key] UNIQUE NONCLUSTERED ([identifier], [token])
+    CONSTRAINT [VerificationToken_identifier_token_key] UNIQUE NONCLUSTERED ([identifier],[token])
 );
 
 -- AddForeignKey
-ALTER TABLE
-    [dbo].[SurveyAnswer]
-ADD
-    CONSTRAINT [SurveyAnswer_questionId_fkey] FOREIGN KEY ([questionId]) REFERENCES [dbo].[SurveyQuestion]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE [dbo].[SurveyAnswer] ADD CONSTRAINT [SurveyAnswer_questionId_fkey] FOREIGN KEY ([questionId]) REFERENCES [dbo].[SurveyQuestion]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE
-    [dbo].[UserSurveyAnswers]
-ADD
-    CONSTRAINT [UserSurveyAnswers_answerId_fkey] FOREIGN KEY ([answerId]) REFERENCES [dbo].[SurveyAnswer]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE [dbo].[UserSurveyAnswers] ADD CONSTRAINT [UserSurveyAnswers_userId_fkey] FOREIGN KEY ([userId]) REFERENCES [dbo].[User]([id]) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE
-    [dbo].[UserSurveyAnswers]
-ADD
-    CONSTRAINT [UserSurveyAnswers_userId_fkey] FOREIGN KEY ([userId]) REFERENCES [dbo].[User]([id]) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE [dbo].[UserSurveyAnswers] ADD CONSTRAINT [UserSurveyAnswers_questionId_fkey] FOREIGN KEY ([questionId]) REFERENCES [dbo].[SurveyQuestion]([id]) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
-ALTER TABLE
-    [dbo].[UserSurveyAnswers]
-ADD
-    CONSTRAINT [UserSurveyAnswers_questionId_fkey] FOREIGN KEY ([questionId]) REFERENCES [dbo].[SurveyQuestion]([id]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE [dbo].[ZipCode] ADD CONSTRAINT [ZipCode_userId_fkey] FOREIGN KEY ([userId]) REFERENCES [dbo].[User]([id]) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE
-    [dbo].[ZipCode]
-ADD
-    CONSTRAINT [ZipCode_userId_fkey] FOREIGN KEY ([userId]) REFERENCES [dbo].[User]([id]) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE [dbo].[Account] ADD CONSTRAINT [Account_userId_fkey] FOREIGN KEY ([userId]) REFERENCES [dbo].[User]([id]) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE
-    [dbo].[Account]
-ADD
-    CONSTRAINT [Account_userId_fkey] FOREIGN KEY ([userId]) REFERENCES [dbo].[User]([id]) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE [dbo].[Session] ADD CONSTRAINT [Session_userId_fkey] FOREIGN KEY ([userId]) REFERENCES [dbo].[User]([id]) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE
-    [dbo].[Session]
-ADD
-    CONSTRAINT [Session_userId_fkey] FOREIGN KEY ([userId]) REFERENCES [dbo].[User]([id]) ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE
-    [dbo].[User]
-ADD
-    CONSTRAINT [User_censusTractId_fkey] FOREIGN KEY ([censusTractId]) REFERENCES [dbo].[CensusTract]([id]) ON DELETE
-SET
-    NULL ON UPDATE CASCADE;
+ALTER TABLE [dbo].[User] ADD CONSTRAINT [User_censusTractId_fkey] FOREIGN KEY ([censusTractId]) REFERENCES [dbo].[CensusTract]([id]) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- Add Question Data
 DECLARE @questionId1 uniqueidentifier = NEWID();
@@ -822,11 +796,17 @@ VALUES
         'Don’t know/Prefer not to answer',
         11,
         'option'
-    ) COMMIT TRAN;
+    )
 
-END TRY BEGIN CATCH IF @ @TRANCOUNT > 0 BEGIN ROLLBACK TRAN;
+COMMIT TRAN;
 
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+    ROLLBACK TRAN;
 END;
-
 THROW
+
 END CATCH

@@ -58,4 +58,15 @@ export const surveyRouter = createTRPCRouter({
         data: data,
       });
     }),
+  removeAllUserDemoSurveyAnswers: publicProcedure.mutation(async ({ ctx }) => {
+    if (!ctx.session) {
+      console.log("Not authenticated");
+      return null;
+    }
+    const { id: userId } = ctx.session.user;
+
+    return ctx.prisma.userSurveyAnswers.deleteMany({
+      where: { userId: userId },
+    });
+  }),
 });
