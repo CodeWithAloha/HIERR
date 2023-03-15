@@ -48,7 +48,6 @@ model ZipCode {
   user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-
 // Necessary for Next auth
 model Account {
   id                String  @id @default(cuid())
@@ -78,6 +77,7 @@ model Session {
 
 model User {
   id                  String              @id @default(cuid())
+  xid                 String?             @unique @default(cuid())
   name                String?
   email               String?             @unique
   emailVerified       DateTime?
