@@ -16,7 +16,7 @@ export const userRouter = createTRPCRouter({
       return ctx.prisma.user.update({
         where: { id: userId },
         data: {
-          censusTractId: censusTract,
+          censustract: censusTract,
         },
       });
     }),
@@ -42,7 +42,7 @@ export const userRouter = createTRPCRouter({
     return ctx.prisma.user.findUnique({
       where: { id: userId },
       select: {
-        censusTractId: true,
+        censustract: true,
       },
     });
   }),
@@ -71,7 +71,7 @@ export const userRouter = createTRPCRouter({
     return ctx.prisma.user.update({
       where: { id: userId },
       data: {
-        censusTractId: null,
+        censustract: null,
       },
     });
   }),
