@@ -52,7 +52,6 @@ export default function DemographicsSurvey() {
       if (surveyCompletedDB.data.demoSurveyCompleted !== false) {
         setSurveyCompleted(true);
       }
-      // setUserCensusTract(censusTractDB.data?.censusTractId);
     }
   }, [surveyCompletedDB.data?.demoSurveyCompleted]);
 

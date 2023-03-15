@@ -38,12 +38,12 @@ const CensusTractMap: NextPage = () => {
 
   useEffect(() => {
     if (censusTractDB && censusTractDB.data) {
-      if (censusTractDB.data.censusTractId !== null) {
+      if (censusTractDB.data.censustract !== null) {
         setCensusTractComplete(true);
       }
-      setUserCensusTract(censusTractDB.data?.censusTractId);
+      setUserCensusTract(censusTractDB.data?.censustract);
     }
-  }, [censusTractDB.data?.censusTractId]);
+  }, [censusTractDB.data?.censustract]);
 
   const geoJsonRef = useRef();
   const handleFeature = (feature: Feature<Geometry, any>, layer: Layer) => {
