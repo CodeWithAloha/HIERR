@@ -82,7 +82,6 @@ model User {
   email               String?             @unique
   emailVerified       DateTime?
   image               String?
-  censusTractId       String?             @unique
   demoSurveyCompleted Boolean             @default(false)
   accounts            Account[]
   sessions            Session[]
