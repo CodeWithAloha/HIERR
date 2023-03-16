@@ -4,10 +4,12 @@ import type { SurveyAnswer } from "./demographicssurvey";
 interface MultiSelectAnswersProps {
   answers: SurveyAnswer[];
   updateCurrentAnswer: (val: string) => void;
+  setDisabled: (val: boolean) => void;
 }
 export default function MultiSelectAnswers({
   answers,
   updateCurrentAnswer,
+  setDisabled,
 }: MultiSelectAnswersProps) {
   const ref = useRef<HTMLFormElement>(null);
   const handleClick = () => {
@@ -34,6 +36,7 @@ export default function MultiSelectAnswers({
       )
       .join(";");
     updateCurrentAnswer(values + ";" + textValues);
+    setDisabled(false);
   };
 
   const checkBox = (a: SurveyAnswer, index: number) => {

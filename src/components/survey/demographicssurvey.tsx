@@ -22,6 +22,8 @@ export type AnswerType = "option" | "text" | "number" | "optionText";
 export default function DemographicsSurvey() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [surveyCompleted, setSurveyCompleted] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+
   const surveyCompletedDB = api.user.getDemoSurveyCompleted.useQuery();
   const removeAllUserSurveyAnswersDB =
     api.survey.removeAllUserDemoSurveyAnswers.useMutation();
@@ -60,6 +62,7 @@ export default function DemographicsSurvey() {
   };
 
   const handleRetakeSurvey = () => {
+    setDisabled(true);
     setSurveyCompleted(false);
     setCurrentQuestion(0);
     updateSurveyCompletedDB.mutate({ completed: false });
@@ -68,6 +71,7 @@ export default function DemographicsSurvey() {
 
   const updateCurrentQuestion = useCallback(
     (change: QuestionDirection, answer?: string) => {
+      setDisabled(true);
       if (change === "Prev" && currentQuestion !== 0) {
         setCurrentQuestion(currentQuestion - 1);
         return;
@@ -149,6 +153,8 @@ export default function DemographicsSurvey() {
           {surveyData[currentQuestion] !== undefined ? (
             // TODO: Fix these conditionals
             <SurveyQuestion
+              disabled={disabled}
+              setDisabled={setDisabled}
               question={surveyData[currentQuestion]}
               updateQuestion={updateCurrentQuestion}
             />

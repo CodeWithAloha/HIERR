@@ -3,11 +3,17 @@ import type { SurveyAnswer } from "./demographicssurvey";
 interface RadioButtonAnswersProps {
   answers: SurveyAnswer[];
   updateCurrentAnswer: (val: string) => void;
+  setDisabled: (val: boolean) => void;
 }
 export default function RadioButtonAnswers({
   answers,
   updateCurrentAnswer,
+  setDisabled,
 }: RadioButtonAnswersProps) {
+  const handleChange = (val: string) => {
+    updateCurrentAnswer(val);
+    setDisabled(false);
+  };
   const radioBtn = (a: SurveyAnswer) => {
     return (
       <>
@@ -17,7 +23,7 @@ export default function RadioButtonAnswers({
             type="radio"
             name="myRadio"
             value={a.answer}
-            onChange={(e) => updateCurrentAnswer(e.target.value)}
+            onChange={(e) => handleChange(e.target.value)}
           />
           <span className="mx-2">{a.answer}</span>
         </label>
@@ -40,7 +46,7 @@ export default function RadioButtonAnswers({
             <input
               className="form-input rounded"
               type={"text"}
-              onChange={(e) => updateCurrentAnswer(a.answer + e.target.value)}
+              onChange={(e) => handleChange(a.answer + e.target.value)}
             ></input>
           </span>
         </label>
