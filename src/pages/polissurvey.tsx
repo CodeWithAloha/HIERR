@@ -10,15 +10,15 @@ const PolisSurvey: NextPage = () => {
   const xidDataDB = api.user.getXID.useQuery();
 
   useEffect(() => {
-    if (
+    if (xidDataDB.data && xidDataDB.data.xid !== null) {
+      setUserID(String(xidDataDB.data.xid));
+      localStorage.polisUserXID = String(xidDataDB.data.xid);
+    } else if (
       localStorage.polisUserXID !== "undefined" &&
       localStorage.polisUserXID !== undefined
     ) {
       setUserID(String(localStorage.polisUserXID));
       console.log("Existing polisUserXID found:", localStorage.polisUserXID);
-    } else if (xidDataDB.data && xidDataDB.data.xid !== null) {
-      setUserID(String(xidDataDB.data.xid));
-      localStorage.polisUserXID = String(xidDataDB.data.xid);
     } else {
       console.log("Assigning new polisUserXID:", userID);
       localStorage.polisUserXID = userID;
