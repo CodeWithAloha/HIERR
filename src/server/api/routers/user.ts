@@ -33,6 +33,19 @@ export const userRouter = createTRPCRouter({
       },
     });
   }),
+  getXID: publicProcedure.query(async ({ ctx }) => {
+    if (!ctx.session) {
+      console.log("Not authenticated");
+      return null;
+    }
+    const { id: userId } = ctx.session.user;
+    return ctx.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        xid: true,
+      },
+    });
+  }),
   getCensusTract: publicProcedure.query(async ({ ctx }) => {
     if (!ctx.session) {
       console.log("Not authenticated");
