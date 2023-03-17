@@ -11,9 +11,8 @@ export default function RadioButtonAnswers({
   updateCurrentAnswer,
   setDisabled,
 }: RadioButtonAnswersProps) {
-  const [checkedValue, setCheckedValue] = useState("");
+  const [disabledInput, setDisabledInput] = useState(true);
   const handleChange = (val: string) => {
-    setCheckedValue(val);
     updateCurrentAnswer(val);
     setDisabled(false);
   };
@@ -26,9 +25,9 @@ export default function RadioButtonAnswers({
             type="radio"
             name="myRadio"
             value={a.answer}
-            checked={checkedValue === a.answer}
             onClick={(e) => handleChange((e.target as HTMLInputElement).value)}
             onChange={(e) => {
+              setDisabledInput(true);
               return;
             }}
           />
@@ -47,6 +46,7 @@ export default function RadioButtonAnswers({
             className="form-radio"
             name="myRadio"
             value={a.answer}
+            onClick={(e) => setDisabledInput(false)}
             onChange={(e) => {
               return;
             }}
@@ -56,6 +56,7 @@ export default function RadioButtonAnswers({
             <input
               className="form-input rounded"
               type={"text"}
+              disabled={disabledInput}
               onClick={(e) =>
                 handleChange(a.answer + (e.target as HTMLInputElement).value)
               }
