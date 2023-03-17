@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { SurveyAnswer } from "./demographicssurvey";
 
 interface RadioButtonAnswersProps {
@@ -10,7 +11,9 @@ export default function RadioButtonAnswers({
   updateCurrentAnswer,
   setDisabled,
 }: RadioButtonAnswersProps) {
+  const [checkedValue, setCheckedValue] = useState("");
   const handleChange = (val: string) => {
+    setCheckedValue(val);
     updateCurrentAnswer(val);
     setDisabled(false);
   };
@@ -23,7 +26,11 @@ export default function RadioButtonAnswers({
             type="radio"
             name="myRadio"
             value={a.answer}
+            checked={checkedValue === a.answer}
             onClick={(e) => handleChange((e.target as HTMLInputElement).value)}
+            onChange={(e) => {
+              return;
+            }}
           />
           <span className="mx-2">{a.answer}</span>
         </label>
@@ -40,6 +47,9 @@ export default function RadioButtonAnswers({
             className="form-radio"
             name="myRadio"
             value={a.answer}
+            onChange={(e) => {
+              return;
+            }}
           />
           <span className="mx-2">
             {a.answer}
