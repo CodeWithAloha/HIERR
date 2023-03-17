@@ -11,6 +11,8 @@ import MultiSelectAnswers from "./multiSelectAnswers";
 import TextAnswer from "./textAnswers";
 
 interface SurveyQuestionProps {
+  disabled: boolean;
+  setDisabled: (val: boolean) => void;
   question?: SurveyData;
   updateQuestion: (val: QuestionDirection, answer?: string) => void;
 }
@@ -18,6 +20,8 @@ interface SurveyQuestionProps {
 export default function SurveyQuestion({
   question,
   updateQuestion,
+  disabled,
+  setDisabled,
 }: SurveyQuestionProps) {
   const [selectedAnswer, setSelectedAnswer] = useState("");
   if (!question) {
@@ -29,6 +33,7 @@ export default function SurveyQuestion({
       case "option":
         return (
           <RadioButtonAnswers
+            setDisabled={setDisabled}
             answers={answers}
             updateCurrentAnswer={setSelectedAnswer}
           />
@@ -36,13 +41,20 @@ export default function SurveyQuestion({
       case "multiSelect":
         return (
           <MultiSelectAnswers
+            setDisabled={setDisabled}
             updateCurrentAnswer={setSelectedAnswer}
             answers={answers}
           />
         );
       case "text":
       case "number":
-        return <TextAnswer updateCurrentAnswer={setSelectedAnswer} number={questionType === "number"}/>;
+        return (
+          <TextAnswer
+            setDisabled={setDisabled}
+            updateCurrentAnswer={setSelectedAnswer}
+            number={questionType === "number"}
+          />
+        );
       default:
         return null;
     }
@@ -61,6 +73,7 @@ export default function SurveyQuestion({
         <button
           className="mx-1 rounded-full bg-blue-darker px-6 py-2 text-white hover:bg-blue-default"
           onClick={() => updateQuestion("Next", selectedAnswer)}
+          disabled={disabled}
         >
           Next
         </button>

@@ -1,13 +1,21 @@
+import { useState } from "react";
 import type { SurveyAnswer } from "./demographicssurvey";
 
 interface RadioButtonAnswersProps {
   answers: SurveyAnswer[];
   updateCurrentAnswer: (val: string) => void;
+  setDisabled: (val: boolean) => void;
 }
 export default function RadioButtonAnswers({
   answers,
   updateCurrentAnswer,
+  setDisabled,
 }: RadioButtonAnswersProps) {
+  const [disabledInput, setDisabledInput] = useState("");
+  const handleChange = (val: string) => {
+    updateCurrentAnswer(val);
+    setDisabled(false);
+  };
   const radioBtn = (a: SurveyAnswer) => {
     return (
       <>
@@ -17,7 +25,11 @@ export default function RadioButtonAnswers({
             type="radio"
             name="myRadio"
             value={a.answer}
-            onChange={(e) => updateCurrentAnswer(e.target.value)}
+            onClick={(e) => handleChange((e.target as HTMLInputElement).value)}
+            onChange={(e) => {
+              setDisabledInput("");
+              return;
+            }}
           />
           <span className="mx-2">{a.answer}</span>
         </label>
@@ -34,13 +46,20 @@ export default function RadioButtonAnswers({
             className="form-radio"
             name="myRadio"
             value={a.answer}
+            onClick={(e) => setDisabledInput(a.answer)}
+            onChange={(e) => {
+              return;
+            }}
           />
           <span className="mx-2">
             {a.answer}
             <input
               className="form-input rounded"
               type={"text"}
-              onChange={(e) => updateCurrentAnswer(a.answer + e.target.value)}
+              disabled={disabledInput !== a.answer}
+              onClick={(e) =>
+                handleChange(a.answer + (e.target as HTMLInputElement).value)
+              }
             ></input>
           </span>
         </label>
