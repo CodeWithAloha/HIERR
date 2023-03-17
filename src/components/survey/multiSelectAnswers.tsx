@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import type { SurveyAnswer } from "./demographicssurvey";
 
 interface MultiSelectAnswersProps {
@@ -11,6 +11,7 @@ export default function MultiSelectAnswers({
   updateCurrentAnswer,
   setDisabled,
 }: MultiSelectAnswersProps) {
+  const [disabledInput, setDisabledInput] = useState<string[]>([]);
   const ref = useRef<HTMLFormElement>(null);
   const handleClick = () => {
     const checkboxesNoText = (ref.current as HTMLFormElement).querySelectorAll(
@@ -28,14 +29,17 @@ export default function MultiSelectAnswers({
     const values = checkedAnswers
       .map((ca) => (ca as HTMLInputElement).value)
       .join(";");
-    const textValues = checkedTextAnswers
-      .map(
-        (ca) =>
-          (ca as HTMLInputElement).value +
-          (ca.nextElementSibling?.children[0] as HTMLInputElement).value
-      )
-      .join(";");
-    updateCurrentAnswer(values + ";" + textValues);
+    const textValues = checkedTextAnswers.map(
+      (ca) =>
+        (ca as HTMLInputElement).value +
+        (ca.nextElementSibling?.children[0] as HTMLInputElement).value
+    );
+    const answerValues = checkedTextAnswers.map(
+      (ca) => (ca as HTMLInputElement).value
+    );
+    setDisabledInput(answerValues);
+    const textValuesConcat = textValues.join(";");
+    updateCurrentAnswer(values + ";" + textValuesConcat);
     setDisabled(false);
   };
 
@@ -55,7 +59,7 @@ export default function MultiSelectAnswers({
       </>
     );
   };
-
+  console.log("Disabled inputs are:", disabledInput);
   const checkBoxText = (a: SurveyAnswer, index: number) => {
     return (
       <>
@@ -70,6 +74,7 @@ export default function MultiSelectAnswers({
         <label htmlFor={`a-${index}-optionText`}>
           {a.answer}{" "}
           <input
+            disabled={!disabledInput.includes(a.answer)}
             className="form-input rounded"
             id={`${index}-userText`}
             type={"text"}
