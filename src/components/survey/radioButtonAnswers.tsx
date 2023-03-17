@@ -23,7 +23,7 @@ export default function RadioButtonAnswers({
             type="radio"
             name="myRadio"
             value={a.answer}
-            onChange={(e) => handleChange(e.target.value)}
+            onClick={(e) => handleChange((e.target as HTMLInputElement).value)}
           />
           <span className="mx-2">{a.answer}</span>
         </label>
@@ -46,7 +46,9 @@ export default function RadioButtonAnswers({
             <input
               className="form-input rounded"
               type={"text"}
-              onChange={(e) => handleChange(a.answer + e.target.value)}
+              onClick={(e) =>
+                handleChange(a.answer + (e.target as HTMLInputElement).value)
+              }
             ></input>
           </span>
         </label>
