@@ -114,13 +114,13 @@ const CensusTractMap: NextPage = () => {
         demographic representation. This reporting ensures that our process
         seeks to hear from as many perspectives in our community as possible
       </p>
-      <div className="my-6 overflow-hidden rounded bg-white shadow-lg">
+      <div className="my-6 overflow-visible rounded bg-white shadow-lg">
         <div id="map" className="w-full">
           <MapContainer
             center={[21.43805, -157.985262]}
             zoom={11}
             scrollWheelZoom={true}
-            style={{ height: "600px" }}
+            style={{ height: "385px" }}
           >
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
