@@ -112,17 +112,13 @@ export default function DemographicsSurvey() {
 
   const completedSurvey = () => {
     return (
-      <>
-        <h1 className="mb-10 text-center text-2xl text-white">
-          Survey Completed!
-        </h1>
+      <div className="relative top-1/3 flex flex-col">
         <Link href={{ pathname: "./polis" }}>
           <button
-            className="mb-4 rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+            className="mb-12 rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
             onClick={() => handleSubmit()}
           >
-            Click here to submit your survey answers and continue to the Pol.is
-            survey
+            Click here to continue to the Pol.is survey
           </button>
         </Link>
         <button
@@ -131,7 +127,7 @@ export default function DemographicsSurvey() {
         >
           Click here to retake demographic survey
         </button>
-      </>
+      </div>
     );
   };
   return (
