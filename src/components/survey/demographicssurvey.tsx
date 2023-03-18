@@ -18,6 +18,10 @@ export interface SurveyAnswer {
 export type QuestionDirection = "Prev" | "Next";
 export type QuestionType = "option" | "multiSelect" | "text" | "number";
 export type AnswerType = "option" | "text" | "number" | "optionText";
+export interface DemographicSurveyInfo {
+  questionNumber: number;
+  totalQuestions: number;
+}
 
 export default function DemographicsSurvey() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -136,14 +140,17 @@ export default function DemographicsSurvey() {
         completedSurvey()
       ) : (
         <>
-          <p className="my-6 text-center text-2xl text-white">
+          <h1 className="mt-6 text-3xl font-bold text-white">
+            Demographic Survey
+          </h1>
+          <p className="my-6 w-3/5 text-center text-2xl text-white">
             Please answer the following questions.{" "}
             <u>
               These questions are to be answered anonymously and will not be
               attributed to you in any way.
             </u>
           </p>
-          <p className="my-6 text-center text-xl text-white">
+          <p className="my-6 w-3/5 text-center text-xl text-white">
             Answers to these questions will be collected from all Pol.is
             participants and will be used for the purposes of reporting on
             demographic representation. This reporting ensures that our process
@@ -153,6 +160,10 @@ export default function DemographicsSurvey() {
           {surveyData[currentQuestion] !== undefined ? (
             // TODO: Fix these conditionals
             <SurveyQuestion
+              surveyInfo={{
+                questionNumber: currentQuestion,
+                totalQuestions: surveyData.length,
+              }}
               disabled={disabled}
               setDisabled={setDisabled}
               question={surveyData[currentQuestion]}

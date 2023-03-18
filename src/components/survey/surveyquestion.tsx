@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   AnswerType,
+  DemographicSurveyInfo,
   QuestionDirection,
   QuestionType,
   SurveyAnswer,
@@ -11,6 +12,7 @@ import MultiSelectAnswers from "./multiSelectAnswers";
 import TextAnswer from "./textAnswers";
 
 interface SurveyQuestionProps {
+  surveyInfo: DemographicSurveyInfo;
   disabled: boolean;
   setDisabled: (val: boolean) => void;
   question?: SurveyData;
@@ -18,6 +20,7 @@ interface SurveyQuestionProps {
 }
 
 export default function SurveyQuestion({
+  surveyInfo,
   question,
   updateQuestion,
   disabled,
@@ -60,7 +63,7 @@ export default function SurveyQuestion({
     }
   };
   return (
-    <div className="rounded-md bg-[#FFFFFF] px-10 py-5 ">
+    <div className="flex flex-col rounded-md bg-[#FFFFFF] px-10 py-5 ">
       <h1 className="mb-2">{question.question}</h1>
       {getAnswers(question.questionType, question.answers)}
       <div className="mt-10 flex flex-row justify-between">
@@ -70,6 +73,10 @@ export default function SurveyQuestion({
         >
           Back
         </button>
+        <span className="my-2">
+          {surveyInfo.totalQuestions - surveyInfo.questionNumber} questions
+          remaining
+        </span>
         <button
           className="mx-1 rounded-full bg-blue-darker px-6 py-2 text-white hover:bg-blue-default"
           onClick={() => updateQuestion("Next", selectedAnswer)}
