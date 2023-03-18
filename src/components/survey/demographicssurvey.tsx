@@ -102,6 +102,7 @@ export default function DemographicsSurvey() {
 
       postUserAnswer.mutate(submissionData);
       setCurrentQuestion(currentQuestion + 1);
+      document.getElementById("radio-button").checked = false;
     },
     [currentQuestion, userAnswers, surveyData.length]
   );
