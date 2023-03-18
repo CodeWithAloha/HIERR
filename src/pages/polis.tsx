@@ -15,22 +15,24 @@ const Polis: NextPage = () => {
 
   return (
     <div className="flex h-screen flex-col items-center bg-blue-default">
-      <h1 className="my-6 text-white">
-        Please select the Pol.is survey you wish to complete.
-      </h1>
-      <div className="justify-items-left flex flex-col">
-        {surveys?.map(({ id, title }, index) => {
-          return (
-            <div className="mb-4" key={`survey-button-next-page-${index}`}>
-              <NextPageButtonLink
-                key="survey-{index}"
-                pageName="polissurvey"
-                msg={title}
-                query={{ surveyId: id }}
-              />
-            </div>
-          );
-        })}
+      <div className="relative top-1/3">
+        <h1 className="my-6 text-white">
+          Please select the Pol.is survey you wish to complete.
+        </h1>
+        <div className="justify-items-left flex flex-col">
+          {surveys?.map(({ id, title }, index) => {
+            return (
+              <div className="mb-12" key={`survey-button-next-page-${index}`}>
+                <NextPageButtonLink
+                  key="survey-{index}"
+                  pageName="polissurvey"
+                  msg={title}
+                  query={{ surveyId: id }}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
