@@ -31,7 +31,7 @@ interface GeoJSONElement {
 const CensusTractMap: NextPage = () => {
   const [userCensusTract, setUserCensusTract] = useState<string | null>(null);
   const [censusTractComplete, setCensusTractComplete] = useState(false);
-
+  const [disabled, setDisabled] = useState(true);
   const removeUserCensusTract = api.user.removeCensusTract.useMutation();
 
   const censusTractDB = api.user.getCensusTract.useQuery();
@@ -40,6 +40,7 @@ const CensusTractMap: NextPage = () => {
     if (censusTractDB && censusTractDB.data) {
       if (censusTractDB.data.censustract !== null) {
         setCensusTractComplete(true);
+        setDisabled(false);
       }
       setUserCensusTract(censusTractDB.data?.censustract);
     }
@@ -52,6 +53,7 @@ const CensusTractMap: NextPage = () => {
         .properties["name20"];
       setUserCensusTract(selectedCensusTract);
       setCensusTractComplete(true);
+      setDisabled(false);
     });
     layer.on("mouseover", (e: LeafletMouseEvent) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
@@ -151,6 +153,7 @@ const CensusTractMap: NextPage = () => {
             <button
               className="mb-4 rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
               onClick={() => handleSubmit()}
+              disabled={disabled}
             >
               Submit your census tract and continue to zip code
             </button>
