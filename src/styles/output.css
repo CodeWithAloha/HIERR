@@ -518,3 +518,9 @@ video {
   --tw-backdrop-saturate: ;
   --tw-backdrop-sepia: ;
 }
+
+html,
+body,
+#__next {
+  height: 100%;
+}
