@@ -44,10 +44,7 @@ const AuthShowcase: React.FC = () => {
     <div className="flex flex-col items-center justify-center gap-4">
       <p className="text-center text-2xl text-white">
         {sessionData ? (
-          <NextPageButtonLink
-            pageName="censusmap"
-            msg="Click here to enter your census tract information"
-          />
+          <NextPageButtonLink pageName="censusmap" msg="Click here to begin." />
         ) : null}
       </p>
       <button
