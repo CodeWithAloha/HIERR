@@ -32,7 +32,6 @@ const CensusTractMap: NextPage = () => {
   const [userCensusTract, setUserCensusTract] = useState<string | null>(null);
   const [censusTractComplete, setCensusTractComplete] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const removeUserCensusTract = api.user.removeCensusTract.useMutation();
 
   const censusTractDB = api.user.getCensusTract.useQuery();
 
