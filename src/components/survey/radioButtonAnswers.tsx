@@ -21,6 +21,7 @@ export default function RadioButtonAnswers({
       <>
         <label>
           <input
+            id="radio-button"
             className="form-radio"
             type="radio"
             name="myRadio"
@@ -42,6 +43,7 @@ export default function RadioButtonAnswers({
       <>
         <label>
           <input
+            id="radio-button"
             type="radio"
             className="form-radio"
             name="myRadio"
