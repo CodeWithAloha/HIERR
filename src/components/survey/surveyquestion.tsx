@@ -68,7 +68,7 @@ export default function SurveyQuestion({
       {getAnswers(question.questionType, question.answers)}
       <div className="mt-10 flex flex-row justify-between">
         <button
-          className="mx-1 rounded-full bg-blue-darker px-6 py-2 text-white hover:bg-blue-default"
+          className="mx-1 rounded-full border-2 border-blue-darker bg-white px-6 py-2 text-blue-darker hover:border-2 hover:border-[#777777] hover:bg-[#777777] hover:text-white "
           onClick={() => updateQuestion("Prev")}
         >
           Back
