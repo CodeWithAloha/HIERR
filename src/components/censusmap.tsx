@@ -105,7 +105,7 @@ const CensusTractMap: NextPage = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center bg-blue-default">
+    <div className="flex h-full flex-col items-center bg-blue-default">
       <h1 className="mt-6 text-3xl font-bold text-white">
         Select Your Census Tract
       </h1>
