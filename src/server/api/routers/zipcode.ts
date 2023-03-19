@@ -9,8 +9,11 @@ export const zipcodeRouter = createTRPCRouter({
       return null;
     }
     const { id: userId } = ctx.session.user;
-    return ctx.prisma.zipCode.findFirst({
-      where: { userId: userId },
+    return ctx.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        zipcode: true,
+      },
     });
   }),
   postZipCode: publicProcedure
@@ -21,12 +24,10 @@ export const zipcodeRouter = createTRPCRouter({
         return null;
       }
       const { id: userId } = ctx.session.user;
-      const zipcode = input.zipcode;
-      // TODO: Since each user is unique check if the user already has a zip code first
-      return ctx.prisma.zipCode.create({
+      return ctx.prisma.user.update({
+        where: { id: userId },
         data: {
-          userId,
-          zipcode,
+          zipcode: input.zipcode,
         },
       });
     }),
@@ -37,8 +38,11 @@ export const zipcodeRouter = createTRPCRouter({
     }
     const { id: userId } = ctx.session.user;
 
-    return ctx.prisma.zipCode.delete({
-      where: { userId: userId },
+    return ctx.prisma.user.update({
+      where: { id: userId },
+      data: {
+        zipcode: null,
+      },
     });
   }),
 });
