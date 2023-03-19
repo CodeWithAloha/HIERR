@@ -41,12 +41,6 @@ model UserSurveyAnswers {
   question    SurveyQuestion @relation(fields: [questionId], references: [id], onUpdate: NoAction, onDelete: NoAction)
 }
 
-model ZipCode {
-  id      String @id @default(cuid())
-  userId  String @unique
-  zipcode String
-  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
 
 // Necessary for Next auth
 model Account {
@@ -85,7 +79,7 @@ model User {
   demoSurveyCompleted Boolean             @default(false)
   accounts            Account[]
   sessions            Session[]
-  zipcode             ZipCode?
+  zipcode           String?
   censustract         String?
   UserSurveyAnswers   UserSurveyAnswers[]
 }
