@@ -8,7 +8,6 @@ export const surveyRouter = createTRPCRouter({
       console.log("Not authenticated");
       return null;
     }
-    const { id: userId } = ctx.session.user;
 
     return ctx.prisma.surveyQuestion.findMany({
       include: {
@@ -17,38 +16,57 @@ export const surveyRouter = createTRPCRouter({
     });
   }),
   addUserAnswer: publicProcedure
-    .input(z.object({ answerId: z.string(), questionId: z.string() }))
+    .input(
+      z.array(z.object({ questionId: z.string(), answerValue: z.string() }))
+    )
     .mutation(async ({ input, ctx }) => {
       if (!ctx.session) {
         console.log("Not authenticated");
         return null;
       }
       const { id: userId } = ctx.session.user;
-      const { answerId, questionId } = input;
-      const existingUserAnswer = await ctx.prisma.userSurveyAnswers.findFirst({
+      const userAnswers = input;
+      if (userAnswers.length < 1 || userAnswers[0]?.questionId === undefined) {
+        return null;
+      }
+      // userAnswers should be 1 or more values. All multiple values should have the same questionId
+      const questionId = userAnswers[0].questionId;
+
+      const existingUserAnswers = await ctx.prisma.userSurveyAnswers.findMany({
         where: {
           userId,
           questionId,
         },
       });
-      if (existingUserAnswer) {
-        return ctx.prisma.userSurveyAnswers.update({
+      if (existingUserAnswers) {
+        // Remove any existing answers tied to a certain question
+        await ctx.prisma.userSurveyAnswers.deleteMany({
           where: {
-            id: existingUserAnswer.id,
-          },
-          data: {
-            userId,
-            questionId,
-            answerId,
+            userId: userId,
+            questionId: questionId,
           },
         });
       }
-      return ctx.prisma.userSurveyAnswers.create({
-        data: {
-          userId,
-          questionId,
-          answerId,
-        },
+      const data = userAnswers.map((a) => {
+        return {
+          userId: userId,
+          questionId: questionId,
+          answerValue: a.answerValue,
+        };
+      });
+      return ctx.prisma.userSurveyAnswers.createMany({
+        data: data,
       });
     }),
+  removeAllUserDemoSurveyAnswers: publicProcedure.mutation(async ({ ctx }) => {
+    if (!ctx.session) {
+      console.log("Not authenticated");
+      return null;
+    }
+    const { id: userId } = ctx.session.user;
+
+    return ctx.prisma.userSurveyAnswers.deleteMany({
+      where: { userId: userId },
+    });
+  }),
 });

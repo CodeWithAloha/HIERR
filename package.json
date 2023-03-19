@@ -8,6 +8,7 @@
     "postinstall": "prisma generate",
     "lint": "next lint",
     "start": "next start",
+    "buildstyles": "tailwindcss -i ./src/styles/globals.css -o ./src/styles/output.css --watch",
     "prepare": "husky install",
     "prettier": "prettier --write **/*"
   },
@@ -21,7 +22,7 @@
     "@trpc/server": "^10.9.0",
     "leaflet": "^1.9.3",
     "next": "13.1.6",
-    "next-auth": "^4.19.0",
+    "next-auth": "^4.20.1",
     "nodemailer": "^6.9.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -30,6 +31,7 @@
     "zod": "^3.20.2"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.3",
     "@types/leaflet": "^1.9.0",
     "@types/node": "^18.11.18",
     "@types/prettier": "^2.7.2",

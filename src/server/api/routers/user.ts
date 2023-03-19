@@ -12,26 +12,15 @@ export const userRouter = createTRPCRouter({
       }
       const { id: userId } = ctx.session.user;
       const censusTract = input.censusTract;
-      const existingCensusTracts = await ctx.prisma.censusTract.findMany({
-        where: { id: censusTract },
-      });
-      if (existingCensusTracts.length === 0) {
-        await ctx.prisma.censusTract.create({
-          data: {
-            id: censusTract,
-            name: censusTract,
-          },
-        });
-      }
-      // TODO: Since each user is unique check if the user already has a zip code first
+
       return ctx.prisma.user.update({
         where: { id: userId },
         data: {
-          censusTractId: censusTract,
+          censustract: censusTract,
         },
       });
     }),
-  getCensusTract: publicProcedure.query(async ({ input, ctx }) => {
+  getDemoSurveyCompleted: publicProcedure.query(async ({ ctx }) => {
     if (!ctx.session) {
       console.log("Not authenticated");
       return null;
@@ -40,8 +29,49 @@ export const userRouter = createTRPCRouter({
     return ctx.prisma.user.findUnique({
       where: { id: userId },
       select: {
-        censusTractId: true,
+        demoSurveyCompleted: true,
       },
     });
   }),
+  getXID: publicProcedure.query(async ({ ctx }) => {
+    if (!ctx.session) {
+      console.log("Not authenticated");
+      return null;
+    }
+    const { id: userId } = ctx.session.user;
+    return ctx.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        xid: true,
+      },
+    });
+  }),
+  getCensusTract: publicProcedure.query(async ({ ctx }) => {
+    if (!ctx.session) {
+      console.log("Not authenticated");
+      return null;
+    }
+    const { id: userId } = ctx.session.user;
+    return ctx.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        censustract: true,
+      },
+    });
+  }),
+  postDemoSurveyCompleted: publicProcedure
+    .input(z.object({ completed: z.boolean() }))
+    .mutation(({ input, ctx }) => {
+      if (!ctx.session) {
+        console.log("Not authenticated");
+        return null;
+      }
+      const { id: userId } = ctx.session.user;
+      return ctx.prisma.user.update({
+        where: { id: userId },
+        data: {
+          demoSurveyCompleted: input.completed,
+        },
+      });
+    }),
 });

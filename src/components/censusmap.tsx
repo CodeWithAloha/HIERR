@@ -10,12 +10,10 @@ import {
 import CensusTractData from "../data/census-tracts_min.json";
 import "leaflet/dist/leaflet.css";
 import type { GeoJsonObject, Feature, Geometry } from "geojson";
-import { NextPageButtonLink } from "../UI/NextPageButtonLink";
-import { Ref, useRef, useState } from "react";
+import { Ref, useCallback, useEffect, useRef, useState } from "react";
 import { Layer, LeafletMouseEvent } from "leaflet";
 import { api } from "../utils/api";
-import CompletedCensusMap from "./completedcensusmap";
-import ExistingCensusMap from "./existingcensusmap";
+import Link from "next/link";
 
 interface LayerEventTarget {
   feature: {
@@ -31,11 +29,21 @@ interface GeoJSONElement {
 }
 
 const CensusTractMap: NextPage = () => {
-  const [userCensusTract, setUserCensusTract] = useState("");
-  const updateUserCensusTract = api.user.addCensusTract.useMutation();
-  const [existingCensusTractId, setExistingCensusTractId] = useState(
-    api.user.getCensusTract.useQuery().data?.censusTractId
-  );
+  const [userCensusTract, setUserCensusTract] = useState<string | null>(null);
+  const [censusTractComplete, setCensusTractComplete] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+
+  const censusTractDB = api.user.getCensusTract.useQuery();
+
+  useEffect(() => {
+    if (censusTractDB && censusTractDB.data) {
+      if (censusTractDB.data.censustract !== null) {
+        setCensusTractComplete(true);
+        setDisabled(false);
+      }
+      setUserCensusTract(censusTractDB.data?.censustract);
+    }
+  }, [censusTractDB.data?.censustract]);
 
   const geoJsonRef = useRef();
   const handleFeature = (feature: Feature<Geometry, any>, layer: Layer) => {
@@ -43,7 +51,8 @@ const CensusTractMap: NextPage = () => {
       const selectedCensusTract = (e.target as LayerEventTarget).feature
         .properties["name20"];
       setUserCensusTract(selectedCensusTract);
-      updateUserCensusTract.mutate({ censusTract: selectedCensusTract });
+      setCensusTractComplete(true);
+      setDisabled(false);
     });
     layer.on("mouseover", (e: LeafletMouseEvent) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
@@ -89,47 +98,67 @@ const CensusTractMap: NextPage = () => {
     };
   };
 
+  const updateUserCensusTract = api.user.addCensusTract.useMutation();
+  const handleSubmit = () => {
+    // TODO: Fix conditional
+    updateUserCensusTract.mutate({ censusTract: userCensusTract ?? "" });
+  };
+
   return (
-    <div className="flex h-screen flex-col items-center bg-blue-default">
-      {existingCensusTractId ? (
-        <ExistingCensusMap existingCensusTract={existingCensusTractId} />
-      ) : userCensusTract ? (
-        <CompletedCensusMap userSelectedCensusTract={userCensusTract} />
-      ) : (
-        <>
-          <div className="my-6 overflow-hidden rounded bg-white shadow-lg">
-            <div id="map" className="w-full">
-              <MapContainer
-                center={[21.43805, -157.985262]}
-                zoom={11}
-                scrollWheelZoom={true}
-                style={{ height: "600px" }}
-              >
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <GeoJSONComponent
-                  data={CensusTractData as GeoJsonObject}
-                  style={(
-                    val: Feature<Geometry, { pop20: number }> | undefined
-                  ) => censusTractStyle(val)}
-                  onEachFeature={(feature, layer) =>
-                    handleFeature(feature, layer)
-                  }
-                  ref={geoJsonRef as Ref<any>}
-                />
-              </MapContainer>
-              <div className="items-center px-6 py-4">
-                <p className="text-black">
-                  Use the ➕ and ➖ on the map to find the census tract area
-                  that contains your address
-                </p>
-              </div>
-            </div>
+    <div className="flex h-full flex-col items-center bg-blue-default">
+      <h1 className="mt-6 text-3xl font-bold text-white">
+        Select Your Census Tract
+      </h1>
+      <p className="mt-6 w-3/5 text-center text-white">
+        This information will be used for the purposes of reporting on
+        demographic representation. This reporting ensures that our process
+        seeks to hear from as many perspectives in our community as possible
+      </p>
+      <div className="my-6 overflow-visible rounded bg-white shadow-lg">
+        <div id="map" className="w-full">
+          <MapContainer
+            center={[21.43805, -157.985262]}
+            zoom={11}
+            scrollWheelZoom={true}
+            style={{ height: "385px" }}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <GeoJSONComponent
+              data={CensusTractData as GeoJsonObject}
+              style={(val: Feature<Geometry, { pop20: number }> | undefined) =>
+                censusTractStyle(val)
+              }
+              onEachFeature={(feature, layer) => handleFeature(feature, layer)}
+              ref={geoJsonRef as Ref<any>}
+            />
+          </MapContainer>
+          <div className="items-center px-6 py-4">
+            <p className="text-black">
+              Use the ➕ and ➖ on the map to find the census tract area that
+              contains your address
+            </p>
           </div>
+        </div>
+      </div>
+      {censusTractComplete ? (
+        <>
+          <h1 className="my-6 text-white">{`The existing or selected census tract is: ${String(
+            userCensusTract
+          )}`}</h1>
+          <Link href={{ pathname: "./zipcode" }}>
+            <button
+              className="mb-4 rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+              onClick={() => handleSubmit()}
+              disabled={disabled}
+            >
+              Submit your census tract and continue to zip code
+            </button>
+          </Link>
         </>
-      )}
+      ) : null}
     </div>
   );
 };

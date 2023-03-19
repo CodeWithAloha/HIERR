@@ -1,10 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { Theme } from "next-auth";
-
-import { api } from "../utils/api";
-import Link from "next/link";
 import { NextPageButtonLink } from "../UI/NextPageButtonLink";
 
 const Login: NextPage = () => {
@@ -47,14 +43,8 @@ const AuthShowcase: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <p className="text-center text-2xl text-white">
-        {sessionData && (
-          <p className="mb-2">Logged in as {sessionData.user?.name}</p>
-        )}
         {sessionData ? (
-          <NextPageButtonLink
-            pageName="censusmap"
-            msg="Ready to start the survey? Click here!"
-          />
+          <NextPageButtonLink pageName="censusmap" msg="Click here to begin." />
         ) : null}
       </p>
       <button
