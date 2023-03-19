@@ -108,8 +108,18 @@ Docs: https://www.prisma.io/docs/guides/database/developing-with-prisma-migrate/
 
 In the .env file, add the following environment variable with the survey ids comma separated.
 
+
 NEXT_PUBLIC_POLIS_SURVEYS='[{"id": "SurveyID1", "title": "SurveyTitle1", "description", "SurveyDescription1"}, ...]'
 
 # Exporting data from Pol.is survey data
 
 Visit http://<hierr server>/polisconvert. You must be an administrator to be able to export data. Upload a participant-votes.csv file when prompted by the form. A CSV with census tract and zip code data from users (joined by xid) will be returned.
+
+# Preparing a new release
+
+1. Open [the Github page to create a new release](https://github.com/CodeforHawaii/HIERR/releases/new).
+1. Enter a release title with the date (yyyy-mm-dd) and basic description of changes.
+1. Click the "Choose a tag" popup, enter the current date (yyyy-mm-dd) as a tag, and click "Create new tag: yyyy-mm-dd on publish".
+1. Click the "Publish release" at the bottom of the page.
+1. On the following page, copy the link for "Source code (zip)"
+1. Paste that link into the installation instructions [Google Document in the Node.js installation instructions](https://docs.google.com/document/d/1evPMUb8FKiK-BrtP1ILxUfEr9OE8Vwxyew7zUsragCw/edit#heading=h.c5qw6vbumyf6).
