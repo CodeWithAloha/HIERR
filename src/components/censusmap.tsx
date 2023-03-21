@@ -57,7 +57,7 @@ const CensusTractMap: NextPage = () => {
     layer.on("mouseover", (e: LeafletMouseEvent) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       e.target.setStyle({
-        fillOpacity: 0.8,
+        fillOpacity: 0.5,
       });
     });
     layer.on("mouseout", (e: LeafletMouseEvent) => {
@@ -70,17 +70,8 @@ const CensusTractMap: NextPage = () => {
     return null;
   };
 
-  const getCensusTractFillColor = (population2020: number) => {
-    if (population2020 <= 2500) {
-      return "#bd93f9";
-    }
-    if (population2020 > 2500 && population2020 < 5000) {
-      return "#ffb86c";
-    }
-    if (population2020 > 5000 && population2020 < 10000) {
-      return "#8be9fd";
-    }
-    return undefined;
+  const getCensusTractFillColor = () => {
+    return "#CCCCCC";
   };
   const censusTractStyle = (
     val: Feature<Geometry, { pop20: number }> | undefined
@@ -88,13 +79,12 @@ const CensusTractMap: NextPage = () => {
     if (!val) {
       return {};
     }
-    const pop20 = Number(val.properties.pop20);
     return {
-      fillColor: getCensusTractFillColor(pop20),
+      fillColor: getCensusTractFillColor(),
       color: "#44475a",
-      weight: 0.5,
+      weight: 1,
       opacity: 1,
-      fillOpacity: 0.4,
+      fillOpacity: 0.2,
     };
   };
 
