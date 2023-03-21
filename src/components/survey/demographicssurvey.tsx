@@ -111,7 +111,7 @@ export default function DemographicsSurvey() {
           document.getElementsByClassName("form-radio")
         );
         radioButtonArray.forEach((el: Element) => {
-          el.checked = false;
+          (el as HTMLInputElement).checked = false;
         });
       }
     },
