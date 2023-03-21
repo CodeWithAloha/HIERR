@@ -54,7 +54,7 @@ export default function MultiSelectAnswers({
           value={a.answer}
           onClick={() => handleClick()}
         />
-        <label htmlFor={`a-${index}`}>{a.answer}</label>
+        <label htmlFor={`a-${index}`}>&nbsp;{a.answer}</label>
         <br />
       </>
     );
@@ -72,7 +72,7 @@ export default function MultiSelectAnswers({
           onClick={() => handleClick()}
         />
         <label htmlFor={`a-${index}-optionText`}>
-          {a.answer}{" "}
+          &nbsp;{a.answer}{" "}
           <input
             disabled={!disabledInput.includes(a.answer)}
             className="form-input rounded"
@@ -91,6 +91,7 @@ export default function MultiSelectAnswers({
       {answers.map((a, index) => {
         return (
           <div key={index}>
+            &nbsp;
             {a.answerType === "option"
               ? checkBox(a, index)
               : a.answerType === "optionText"
