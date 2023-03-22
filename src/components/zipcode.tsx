@@ -59,9 +59,9 @@ const ZipCode: NextPage = () => {
   return (
     <div className="flex h-screen flex-col items-center bg-[#3276AE]">
       {!zipCodeComplete ? (
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         <form
           className="mt-6 overflow-hidden rounded bg-white px-8 py-6 shadow-lg"
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onSubmit={onSubmit}
         >
           <input
