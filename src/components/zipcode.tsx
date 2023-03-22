@@ -59,64 +59,48 @@ const ZipCode: NextPage = () => {
   return (
     <div className="flex h-screen flex-col items-center bg-[#3276AE]">
       {!zipCodeComplete ? (
-        <form
-          className="mt-6 overflow-hidden rounded bg-white px-8 py-6 shadow-lg"
-          // eslint-disable-next-line @typescript-eslint/no-misused-promises
-          onSubmit={onSubmit}
-        >
-          <input
-            className="form-input rounded"
-            {...register("zipCode", {
-              required: true,
-              pattern: {
-                value: /^[0-9]{5}/i,
-                message: "The zip code must be 5 digits",
-              },
-              validate: {
-                hawaiianZipCode: (v) =>
-                  checkValidHawaiiZipCode(v) ||
-                  "The zip code must be a valid Hawaiian zip code",
-              },
-            })}
-          />
-          <br />
-          {errors.zipCode && (
-            <>
-              <p style={{ color: "red" }}>{errors.zipCode.message}</p>
-            </>
-          )}
-          <input type="submit" />
-        </form>
+        <>
+          <h1 className="mt-6 text-3xl font-bold text-white">
+            Please Enter Your Zip Code
+          </h1>
+          <p className="mt-6 w-3/5 text-center text-white">
+            This information will be used for the purposes of reporting on
+            demographic representation. This reporting ensures that our process
+            seeks to hear from as many perspectives in our community as possible
+          </p>
+          <form
+            className="mt-6 overflow-hidden rounded bg-white px-8 py-6 shadow-lg"
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            onSubmit={onSubmit}
+          >
+            <input
+              className="form-input rounded"
+              {...register("zipCode", {
+                required: true,
+                pattern: {
+                  value: /^[0-9]{5}/i,
+                  message: "The zip code must be 5 digits",
+                },
+                validate: {
+                  hawaiianZipCode: (v) =>
+                    checkValidHawaiiZipCode(v) ||
+                    "The zip code must be a valid Hawaiian zip code",
+                },
+              })}
+            />
+            <br />
+            {errors.zipCode && (
+              <>
+                <p style={{ color: "red" }}>{errors.zipCode.message}</p>
+              </>
+            )}
+            <input
+              className="mt-5 cursor-pointer rounded-full border-2 border-blue-default px-5 py-1 hover:bg-blue-default hover:text-white"
+              type="submit"
+            />
+          </form>
+        </>
       ) : (
-        // <form
-        //   className="mt-6 overflow-hidden rounded bg-white px-8 py-6 shadow-lg"
-        //   onSubmit={handleSubmit}
-        // >
-        //   <label htmlFor="zipcode" className="text-gray-700 mb-2 block text-sm">
-        //     Enter your zipcode:
-        //     <br />
-        //     <input
-        //       type="text"
-        //       id="zipcode"
-        //       name="zipcode"
-        //       className="text-gray-700 focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight shadow focus:outline-none"
-        //       required
-        //       value={zipcode === null ? "" : String(zipcode)}
-        //       onChange={(e) => setZipCode(e.target.value)}
-        //       style={{ color: "#4C4C4C" }}
-        //       pattern="[0-9]{5}"
-        //       title="The zipcode must be 5 digits."
-        //     />
-        //   </label>
-        //   <br />
-        //   <button
-        //     type="submit"
-        //     className="rounded-full border-blue-default bg-blue-default px-10 py-3 text-white no-underline transition hover:bg-blue-default hover:text-white"
-        //     style={{ background: "#17364F" }}
-        //   >
-        //     Submit
-        //   </button>
-        // </form>
         <SelectedZipCode
           zipcode={String(zipcode)}
           msg={`The existing or selected zip code is: ${String(zipcode)}`}
