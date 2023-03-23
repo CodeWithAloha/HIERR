@@ -4,7 +4,7 @@ import { type NextPage } from "next";
 import { api } from "../utils/api";
 import { useCallback, useEffect, useState } from "react";
 import SelectedZipCode from "./selectedzipcode";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import stateZipCodes from "../data/2020_Zip_Code_Data.json";
 interface ZipCodeData {
   zipCode: string;
@@ -21,10 +21,6 @@ const ZipCode: NextPage = () => {
     formState: { errors },
   } = useForm<ZipCodeData>();
 
-  // const onSubmit: SubmitHandler<ZipCodeData> = (data) => {
-  //   setZipCodeComplete(true);
-  // }
-
   const onSubmit = handleSubmit((data) => {
     setZipCodeComplete(true);
     setZipCode(data.zipCode);
@@ -38,10 +34,6 @@ const ZipCode: NextPage = () => {
       setZipCode(zipCodeDB.data?.zipcode);
     }
   }, [zipCodeDB.data?.zipcode]);
-
-  // const handleSubmit = () => {
-  //   setZipCodeComplete(true);
-  // };
 
   const handleRemoveZipCode = useCallback(() => {
     if (zipcode === null) {
