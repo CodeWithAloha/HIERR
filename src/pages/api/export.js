@@ -15,11 +15,13 @@ export const config = {
   },
 };
 
+function handleError(error, res) {
+  console.error(error.stack);
+  res.status(500).end("Sorry, an error occured while processing a Pol.is export. The error has been logged for admistrators.d");
+}
+
 const handler = nc({
-  onError: (err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).end("Something broke!");
-  },
+  onError: (err, req, res, next) => handleError(err, res),
   onNoMatch: (req, res) => {
     res.status(404).end("Page is not found");
   },
@@ -49,27 +51,26 @@ const handler = nc({
             where: {
               xid: row.xid,
             },
-            include: {
-              zipcode: true,
-            },
           });
 
           // add census tract and zipcode to the row if they are available
           const rowPromise = userPromise.then((user) => {
-            row.censustract = "";
-            row.zipcode = "";
+            var censusTract = "";
+            var zipCode = "";
             if (user != null) {
-              row.censustract = user.censustract;
-              if (user.zipcode != null) {
-                row.zipcode = user.zipcode.zipcode;
-              }
+              censusTract = user.censustract;
+              zipCode = user.zipcode;
             }
+            row.censustract = censusTract;
+            row.zipcode = zipCode;
             return row;
           });
 
           // push the row into an array to resolve during end callback
           output.push(rowPromise);
         } else {
+          row.censustract = "";
+          row.zipcode = "";
           output.push(Promise.resolve(row));
         }
       })
@@ -83,6 +84,9 @@ const handler = nc({
             res.setHeader("Content-Type", "text/csv");
             res.end(text);
           });
+        })
+        .catch(error => {
+          handleError(error, res);
         });
       });
   });
