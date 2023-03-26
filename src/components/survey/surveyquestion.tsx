@@ -63,7 +63,7 @@ export default function SurveyQuestion({
     }
   };
   return (
-    <div className="flex flex-col rounded-md bg-[#FFFFFF] px-10 py-5 ">
+    <div className="flex w-[32rem] flex-col rounded-md bg-[#FFFFFF] px-10 py-5 ">
       <h1 className="mb-2">{question.question}</h1>
       {getAnswers(question.questionType, question.answers)}
       <div className="mt-10 flex flex-row justify-between">
