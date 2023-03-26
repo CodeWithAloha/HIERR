@@ -26,7 +26,7 @@ export default function RadioButtonAnswers({
             name="myRadio"
             value={a.answer}
             onClick={(e) => handleChange((e.target as HTMLInputElement).value)}
-            onChange={(e) => {
+            onChange={() => {
               setDisabledInput("");
               return;
             }}
@@ -46,8 +46,8 @@ export default function RadioButtonAnswers({
             className="form-radio"
             name="myRadio"
             value={a.answer}
-            onClick={(e) => setDisabledInput(a.answer)}
-            onChange={(e) => {
+            onClick={() => setDisabledInput(a.answer)}
+            onChange={() => {
               return;
             }}
           />

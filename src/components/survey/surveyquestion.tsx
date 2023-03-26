@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import {
-  AnswerType,
+import type {
   DemographicSurveyInfo,
   QuestionDirection,
   QuestionType,

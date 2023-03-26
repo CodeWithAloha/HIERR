@@ -10,7 +10,7 @@ import {
 import CensusTractData from "../data/census-tracts_min.json";
 import "leaflet/dist/leaflet.css";
 import type { GeoJsonObject, Feature, Geometry } from "geojson";
-import { Ref, useCallback, useEffect, useRef, useState } from "react";
+import { Ref, useEffect, useRef, useState } from "react";
 import { Layer, LeafletMouseEvent } from "leaflet";
 import { api } from "../utils/api";
 import Link from "next/link";
