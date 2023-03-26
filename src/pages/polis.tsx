@@ -14,7 +14,7 @@ const Polis: NextPage = () => {
   );
 
   return (
-    <div className="flex h-screen flex-col items-center bg-blue-default">
+    <div className="flex h-screen flex-col items-center">
       <div className="relative top-1/3">
         <h1 className="my-6 text-white">
           Please select the Pol.is survey you wish to complete.
