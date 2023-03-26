@@ -121,20 +121,25 @@ export default function DemographicsSurvey() {
   const completedSurvey = () => {
     return (
       <div className="relative top-1/3 flex flex-col">
-        <Link href={{ pathname: "./polis" }}>
+        <h1 className="my-6 self-center text-white">
+          <strong>You have completed the demographics survey</strong>
+        </h1>
+        <div className="flex gap-5">
           <button
-            className="mb-12 rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
-            onClick={() => handleSubmit()}
+            className="rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+            onClick={() => handleRetakeSurvey()}
           >
-            Click here to continue to the Pol.is survey
+            Retake demographic survey
           </button>
-        </Link>
-        <button
-          className="rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
-          onClick={() => handleRetakeSurvey()}
-        >
-          Click here to retake demographic survey
-        </button>
+          <Link href={{ pathname: "./polis" }}>
+            <button
+              className="rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+              onClick={() => handleSubmit()}
+            >
+              Continue
+            </button>
+          </Link>
+        </div>
       </div>
     );
   };
