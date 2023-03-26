@@ -21,22 +21,26 @@ export default function SelectedZipCode({
   }
 
   return (
-    <div className="justify-items-left relative top-1/3 flex flex-col">
-      <h1 className="my-6 text-white">{msg}</h1>
-      <Link href={{ pathname: "./survey" }}>
+    <div className="relative top-1/3 flex flex-col">
+      <h1 className="my-6 self-center text-white">
+        <strong>{msg}</strong>
+      </h1>
+      <div className="flex gap-5">
         <button
-          className="mb-12 rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
-          onClick={() => handleSubmit()}
+          className="rounded-full bg-white/90 px-5 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+          onClick={() => handleRemoveZipCode()}
         >
-          Submit your zip code and start the demographics survey
+          Re-enter your zip code
         </button>
-      </Link>
-      <button
-        className="rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
-        onClick={() => handleRemoveZipCode()}
-      >
-        Click here to re-enter your zip code
-      </button>
+        <Link href={{ pathname: "./survey" }}>
+          <button
+            className="rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+            onClick={() => handleSubmit()}
+          >
+            Continue
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
