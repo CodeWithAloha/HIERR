@@ -135,9 +135,11 @@ const CensusTractMap: NextPage = () => {
       </div>
       {censusTractComplete ? (
         <>
-          <h1 className="my-6 text-white">{`The existing or selected census tract is: ${String(
-            userCensusTract
-          )}`}</h1>
+          <h1 className="my-6 text-white">
+            <strong>{`The existing or selected census tract is: ${String(
+              userCensusTract
+            )}`}</strong>
+          </h1>
           <Link href={{ pathname: "./zipcode" }}>
             <button
               className="mb-4 rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
