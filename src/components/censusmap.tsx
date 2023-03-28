@@ -10,7 +10,7 @@ import {
 import CensusTractData from "../data/census-tracts_min.json";
 import "leaflet/dist/leaflet.css";
 import type { GeoJsonObject, Feature, Geometry } from "geojson";
-import { Ref, useCallback, useEffect, useRef, useState } from "react";
+import { Ref, useEffect, useRef, useState } from "react";
 import { Layer, LeafletMouseEvent } from "leaflet";
 import { api } from "../utils/api";
 import Link from "next/link";
@@ -95,7 +95,7 @@ const CensusTractMap: NextPage = () => {
   };
 
   return (
-    <div className="flex h-full flex-col items-center bg-blue-default">
+    <div className="flex h-full flex-col items-center">
       <h1 className="mt-6 text-3xl font-bold text-white">
         Select Your Census Tract
       </h1>
@@ -104,7 +104,7 @@ const CensusTractMap: NextPage = () => {
         demographic representation. This reporting ensures that our process
         seeks to hear from as many perspectives in our community as possible
       </p>
-      <div className="my-6 overflow-visible rounded bg-white shadow-lg">
+      <div className="my-4 overflow-visible rounded bg-white shadow-lg">
         <div id="map" className="w-full">
           <MapContainer
             center={[21.43805, -157.985262]}
@@ -135,16 +135,18 @@ const CensusTractMap: NextPage = () => {
       </div>
       {censusTractComplete ? (
         <>
-          <h1 className="my-6 text-white">{`The existing or selected census tract is: ${String(
-            userCensusTract
-          )}`}</h1>
-          <Link href={{ pathname: "./zipcode" }}>
+          <h1 className="mb-2 text-white">
+            <strong>{`You selected census tract is ${String(
+              userCensusTract
+            )}`}</strong>
+          </h1>
+          <Link className="flex flex-col" href={{ pathname: "./zipcode" }}>
             <button
-              className="mb-4 rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+              className="mb-4 self-center rounded-full bg-white/90 px-5 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
               onClick={() => handleSubmit()}
               disabled={disabled}
             >
-              Submit your census tract and continue to zip code
+              Continue
             </button>
           </Link>
         </>

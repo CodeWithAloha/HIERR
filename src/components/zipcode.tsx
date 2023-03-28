@@ -95,7 +95,7 @@ const ZipCode: NextPage = () => {
       ) : (
         <SelectedZipCode
           zipcode={String(zipcode)}
-          msg={`The existing or selected zip code is: ${String(zipcode)}`}
+          msg={`Your selected zip code is ${String(zipcode)}`}
           handleRemoveZipCode={handleRemoveZipCode}
         />
       )}
