@@ -12,6 +12,7 @@ import "leaflet/dist/leaflet.css";
 import type { GeoJsonObject, Feature, Geometry } from "geojson";
 import { Ref, useEffect, useRef, useState } from "react";
 import { Layer, LeafletMouseEvent } from "leaflet";
+import EsriLeafletGeoSearch from "react-esri-leaflet/plugins/EsriLeafletGeoSearch";
 import { api } from "../utils/api";
 import Link from "next/link";
 
@@ -112,6 +113,11 @@ const CensusTractMap: NextPage = () => {
             scrollWheelZoom={true}
             style={{ height: "385px" }}
           >
+            <EsriLeafletGeoSearch
+              providers={{
+                arcgisOnlineProvider: { apikey: process.env.SEARCH_API },
+              }}
+            />
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
