@@ -115,6 +115,9 @@ const CensusTractMap: NextPage = () => {
             style={{ height: "385px" }}
           >
             <EsriLeafletGeoSearch
+                 position="topleft"
+                 expanded={true}
+                 placeholder="Search for your address"
               searchBounds={[
                 [18.367807, -162.171387],
                 [23.131708, -153.404297],
