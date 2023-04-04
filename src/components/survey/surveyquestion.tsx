@@ -77,7 +77,7 @@ export default function SurveyQuestion({
           remaining
         </span>
         <button
-          className="mx-1 rounded-full bg-blue-darker px-6 py-2 text-white hover:bg-blue-default"
+          className="mx-1 rounded-full bg-blue-darker px-6 py-2 text-white enabled:hover:bg-blue-default disabled:cursor-not-allowed disabled:opacity-75"
           onClick={() => updateQuestion("Next", selectedAnswer)}
           disabled={disabled}
         >
