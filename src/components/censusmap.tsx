@@ -12,6 +12,7 @@ import "leaflet/dist/leaflet.css";
 import type { GeoJsonObject, Feature, Geometry } from "geojson";
 import { Ref, useEffect, useRef, useState } from "react";
 import { Layer, LeafletMouseEvent } from "leaflet";
+import EsriLeafletGeoSearch from "react-esri-leaflet/plugins/EsriLeafletGeoSearch";
 import { api } from "../utils/api";
 import Link from "next/link";
 
@@ -94,6 +95,7 @@ const CensusTractMap: NextPage = () => {
     updateUserCensusTract.mutate({ censusTract: userCensusTract ?? "" });
   };
 
+  const searchKey = process.env.NEXT_PUBLIC_SEARCH_API;
   return (
     <div className="flex h-full flex-col items-center">
       <h1 className="mt-6 text-3xl font-bold text-white">
@@ -112,6 +114,18 @@ const CensusTractMap: NextPage = () => {
             scrollWheelZoom={true}
             style={{ height: "385px" }}
           >
+            <EsriLeafletGeoSearch
+                 position="topleft"
+                 expanded={true}
+                 placeholder="Search for your address"
+              searchBounds={[
+                [18.367807, -162.171387],
+                [23.131708, -153.404297],
+              ]}
+              providers={{
+                arcgisOnlineProvider: { apikey: searchKey },
+              }}
+            />
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

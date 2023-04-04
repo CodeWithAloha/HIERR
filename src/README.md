@@ -12,6 +12,8 @@ touch .env
   2.  NEXTAUTH_URL="http://localhost:3000"
   3.  EMAIL_SERVER={your email server}
   4.  EMAIL_FROM={the email to send the verification link}
+  5.  NEXT_PUBLIC_POLIS_SURVEYS='[{"id": "{yourSurveyID1}", "title": "{yourSurveyTitle1}", "description", "{yourSurveyDescription1}"}, ...]'
+  6.  NEXT_PUBLIC_SEARCH_API='{your ArcGIS Search Api Key}'
 
 ```
 npx prisma db push
@@ -107,7 +109,6 @@ Docs: https://www.prisma.io/docs/guides/database/developing-with-prisma-migrate/
 # Adding Pol.is surveys to the application
 
 In the .env file, add the following environment variable with the survey ids comma separated.
-
 
 NEXT_PUBLIC_POLIS_SURVEYS='[{"id": "SurveyID1", "title": "SurveyTitle1", "description", "SurveyDescription1"}, ...]'
 

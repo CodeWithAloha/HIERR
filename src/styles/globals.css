@@ -8,3 +8,17 @@ body,
   height: 100%;
   background-color: rgb(50 118 174);
 }
+
+.geocoder-control-suggestions .geocoder-control-suggestion {
+  overflow-wrap: break-word;
+  word-break: break-all;
+  overflow: visible;
+  white-space: break-spaces;
+  background-color: white;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.geocoder-control-suggestion:hover {
+  background-color: #f2f2f2;
+}
