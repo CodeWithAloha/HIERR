@@ -57,9 +57,19 @@ const CensusTractMap: NextPage = () => {
     });
     layer.on("mouseover", (e: LeafletMouseEvent) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-      e.target.setStyle({
-        fillOpacity: 0.5,
-      });
+      e.target
+        .setStyle({
+          fillOpacity: 0.5,
+        })
+        .bindPopup(
+          "Name: " +
+            feature.properties["tractname"] +
+            " <br> Tract: " +
+            feature.properties["name20"] +
+            " <br> Population: " +
+            feature.properties["pop20"]
+        )
+        .openPopup();
     });
     layer.on("mouseout", (e: LeafletMouseEvent) => {
       if (!geoJsonRef.current) {
@@ -115,9 +125,9 @@ const CensusTractMap: NextPage = () => {
             style={{ height: "385px" }}
           >
             <EsriLeafletGeoSearch
-                 position="topleft"
-                 expanded={true}
-                 placeholder="Search for your address"
+              position="topleft"
+              expanded={true}
+              placeholder="Search for your address"
               searchBounds={[
                 [18.367807, -162.171387],
                 [23.131708, -153.404297],
