@@ -25,6 +25,12 @@ interface LayerEventTarget {
   };
 }
 
+interface FeatureProperties {
+  tractname: string;
+  name20: string;
+  pop20: number;
+}
+
 interface GeoJSONElement {
   resetStyle: (element: any) => void;
 }
@@ -56,18 +62,14 @@ const CensusTractMap: NextPage = () => {
       setDisabled(false);
     });
     layer.on("mouseover", (e: LeafletMouseEvent) => {
+      const featureProperties = feature.properties as FeatureProperties;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       e.target
         .setStyle({
           fillOpacity: 0.5,
         })
         .bindPopup(
-          "Name: " +
-            feature.properties["tractname"] +
-            " <br> Tract: " +
-            feature.properties["name20"] +
-            " <br> Population: " +
-            feature.properties["pop20"]
+           `Name: ${featureProperties["tractname"]} <br> Tract: ${featureProperties["name20"]} <br> Population: ${featureProperties["pop20"]}`
         )
         .openPopup();
     });
