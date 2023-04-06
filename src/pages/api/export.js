@@ -5,6 +5,8 @@ import multiparty from "multiparty";
 import ObjectsToCsv from "objects-to-csv";
 import csv from "csv-parser";
 import fs from "fs";
+import { authOptions } from './../../server/auth'
+import { getServerSession } from "next-auth/next"
 
 import { prisma } from "../../server/db";
 
@@ -15,9 +17,12 @@ export const config = {
   },
 };
 
+export const authorizedEmails = fs.readFileSync(process.env.AUTHORIZED_POLIS_CONVERT_EMAILS_FILE, 'utf8').split(/\r?\n/);
+console.log("Emails authorized to export POLIS data: " + authorizedEmails);
+
 function handleError(error, res) {
   console.error(error.stack);
-  res.status(500).end("Sorry, an error occured while processing a Pol.is export. The error has been logged for admistrators.d");
+  res.status(500).end("Sorry, an error occured while processing a Pol.is export. The error has been logged for admistrators.");
 }
 
 const handler = nc({
@@ -26,7 +31,18 @@ const handler = nc({
     res.status(404).end("Page is not found");
   },
 }).post(async (req, res) => {
-  // TODO - add authentication / authorization so that only admins can access this, as it extracts census tract and zip code data for users
+
+  const sessionData = await getServerSession(req, res, authOptions);
+
+  if (!sessionData) {
+    res.status(401).end("Not authenticated; please log in on homepage.");
+    return;
+  }
+  const email = sessionData.user.email;
+  if (!authorizedEmails.includes(email)) {
+    res.status(403).end(email + ", you are not authorized to export Pol.is data.");
+    return;
+  }
 
   const form = new multiparty.Form();
 

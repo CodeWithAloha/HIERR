@@ -14,6 +14,7 @@ touch .env
   4.  EMAIL_FROM={the email to send the verification link}
   5.  NEXT_PUBLIC_POLIS_SURVEYS='[{"id": "{yourSurveyID1}", "title": "{yourSurveyTitle1}", "description", "{yourSurveyDescription1}"}, ...]'
   6.  NEXT_PUBLIC_SEARCH_API='{your ArcGIS Search Api Key}'
+  7.  AUTHORIZED_POLIS_CONVERT_EMAILS_FILE={path to file that contains a list of email addresses (one per line) whose users are authorized to export POLIS data}
 
 ```
 npx prisma db push
