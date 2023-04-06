@@ -25,6 +25,12 @@ interface LayerEventTarget {
   };
 }
 
+interface FeatureProperties {
+  tractname: string;
+  name20: string;
+  pop20: number;
+}
+
 interface GeoJSONElement {
   resetStyle: (element: any) => void;
 }
@@ -56,10 +62,16 @@ const CensusTractMap: NextPage = () => {
       setDisabled(false);
     });
     layer.on("mouseover", (e: LeafletMouseEvent) => {
+      const featureProperties = feature.properties as FeatureProperties;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-      e.target.setStyle({
-        fillOpacity: 0.5,
-      });
+      e.target
+        .setStyle({
+          fillOpacity: 0.5,
+        })
+        .bindPopup(
+           `Name: ${featureProperties["tractname"]} <br> Tract: ${featureProperties["name20"]} <br> Population: ${featureProperties["pop20"]}`
+        )
+        .openPopup();
     });
     layer.on("mouseout", (e: LeafletMouseEvent) => {
       if (!geoJsonRef.current) {
@@ -115,9 +127,9 @@ const CensusTractMap: NextPage = () => {
             style={{ height: "385px" }}
           >
             <EsriLeafletGeoSearch
-                 position="topleft"
-                 expanded={true}
-                 placeholder="Search for your address"
+              position="topleft"
+              expanded={true}
+              placeholder="Search for your address"
               searchBounds={[
                 [18.367807, -162.171387],
                 [23.131708, -153.404297],
