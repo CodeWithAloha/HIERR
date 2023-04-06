@@ -11,6 +11,7 @@ const PolisConvert: NextPage = () => {
     <div>
       <h2>Polis Data Conversion</h2>
       {sessionData ? "You are signed in" : "You are not signed in"}<br />
+      Please select a participant-votes.csv file to upload, then click submit.<br />
       <form method="post" action="/api/export" encType="multipart/form-data">
         <input type="file" id="polisdata" name="polisdata" />
         <input type="submit" />

@@ -22,7 +22,7 @@ console.log("Emails authorized to export POLIS data: " + authorizedEmails);
 
 function handleError(error, res) {
   console.error(error.stack);
-  res.status(500).end("Sorry, an error occured while processing a Pol.is export. The error has been logged for admistrators.d");
+  res.status(500).end("Sorry, an error occured while processing a Pol.is export. The error has been logged for admistrators.");
 }
 
 const handler = nc({
