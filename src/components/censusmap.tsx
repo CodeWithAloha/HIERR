@@ -69,7 +69,8 @@ const CensusTractMap: NextPage = () => {
           fillOpacity: 0.5,
         })
         .bindPopup(
-           `Name: ${featureProperties["tractname"]} <br> Tract: ${featureProperties["name20"]} <br> Population: ${featureProperties["pop20"]}`
+          `Name: ${featureProperties["tractname"]} <br> Tract: ${featureProperties["name20"]} <br> Population: ${featureProperties["pop20"]}`,
+          { autoPan: false }
         )
         .openPopup();
     });
