@@ -124,7 +124,27 @@ const CensusTractMap: NextPage = () => {
         demographic representation. This reporting ensures that our process
         seeks to hear from as many perspectives in our community as possible
       </p>
-      <div className="my-4 overflow-visible rounded bg-white shadow-lg">
+      {censusTractComplete ? (
+        <div className="mt-5 mb-5 flex items-center">
+          <h1 className="mb-2 mr-5 text-white">
+            <strong>{`You selected census tract is ${String(
+              userCensusTract
+            )}`}</strong>
+          </h1>
+          <Link className="flex" href={{ pathname: "./zipcode" }}>
+            <button
+              className="mb-4 self-center rounded-full bg-white/90 px-5 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+              onClick={() => handleSubmit()}
+              disabled={disabled}
+            >
+              Continue
+            </button>
+          </Link>
+        </div>
+      ) : (
+        <div className="mt-5 mb-5"></div>
+      )}
+      <div className="overflow-visible rounded bg-white shadow-lg">
         <div id="map" className="w-full">
           <MapContainer
             center={[21.43805, -157.985262]}
@@ -167,24 +187,6 @@ const CensusTractMap: NextPage = () => {
           </div>
         </div>
       </div>
-      {censusTractComplete ? (
-        <>
-          <h1 className="mb-2 text-white">
-            <strong>{`You selected census tract is ${String(
-              userCensusTract
-            )}`}</strong>
-          </h1>
-          <Link className="flex flex-col" href={{ pathname: "./zipcode" }}>
-            <button
-              className="mb-4 self-center rounded-full bg-white/90 px-5 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
-              onClick={() => handleSubmit()}
-              disabled={disabled}
-            >
-              Continue
-            </button>
-          </Link>
-        </>
-      ) : null}
     </div>
   );
 };
