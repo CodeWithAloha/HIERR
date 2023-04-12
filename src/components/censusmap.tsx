@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 "use client";
 
 import { type NextPage } from "next";
@@ -31,14 +33,18 @@ interface FeatureProperties {
   pop20: number;
 }
 
-interface GeoJSONElement {
-  resetStyle: (element: any) => void;
-}
-
 const CensusTractMap: NextPage = () => {
   const [userCensusTract, setUserCensusTract] = useState<string | null>(null);
   const [censusTractComplete, setCensusTractComplete] = useState(false);
   const [disabled, setDisabled] = useState(true);
+  const selectedStyle = { weight: 2, color: "#00FFFF" };
+  const defaultStyle = {
+    fillColor: "#CCCCCC",
+    color: "#44475a",
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.2,
+  };
 
   const censusTractDB = api.user.getCensusTract.useQuery();
 
@@ -60,10 +66,11 @@ const CensusTractMap: NextPage = () => {
       setUserCensusTract(selectedCensusTract);
       setCensusTractComplete(true);
       setDisabled(false);
+      e.target.setStyle(selectedStyle);
+      e.target._recordedStyle = selectedStyle;
     });
     layer.on("mouseover", (e: LeafletMouseEvent) => {
       const featureProperties = feature.properties as FeatureProperties;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       e.target
         .setStyle({
           fillOpacity: 0.5,
@@ -78,28 +85,26 @@ const CensusTractMap: NextPage = () => {
       if (!geoJsonRef.current) {
         return;
       }
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      (geoJsonRef.current as GeoJSONElement).resetStyle(e.target);
+      if (e.target && e.target._recordedStyle == selectedStyle) {
+        return;
+      }
+      e.target.setStyle(defaultStyle);
     });
     return null;
   };
 
-  const getCensusTractFillColor = () => {
-    return "#CCCCCC";
-  };
   const censusTractStyle = (
-    val: Feature<Geometry, { pop20: number }> | undefined
+    val: Feature<Geometry, { pop20: number; name20: string }> | undefined
   ) => {
     if (!val) {
       return {};
     }
-    return {
-      fillColor: getCensusTractFillColor(),
-      color: "#44475a",
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.2,
-    };
+
+    if (val.properties.name20 === userCensusTract) {
+      return selectedStyle;
+    }
+
+    return defaultStyle;
   };
 
   const updateUserCensusTract = api.user.addCensusTract.useMutation();
@@ -145,9 +150,11 @@ const CensusTractMap: NextPage = () => {
             />
             <GeoJSONComponent
               data={CensusTractData as GeoJsonObject}
-              style={(val: Feature<Geometry, { pop20: number }> | undefined) =>
-                censusTractStyle(val)
-              }
+              style={(
+                val:
+                  | Feature<Geometry, { pop20: number; name20: string }>
+                  | undefined
+              ) => censusTractStyle(val)}
               onEachFeature={(feature, layer) => handleFeature(feature, layer)}
               ref={geoJsonRef as Ref<any>}
             />
