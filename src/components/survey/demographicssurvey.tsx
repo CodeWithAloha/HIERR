@@ -160,11 +160,10 @@ export default function DemographicsSurvey() {
             </u>
           </p>
           <p className="my-6 w-3/5 text-center text-xl text-white">
-            Answers to these questions will be collected from all Pol.is
-            participants and will be used for the purposes of reporting on
-            demographic representation. This reporting ensures that our process
-            seeks to hear from as many perspectives in our community as
-            possible.
+            Answers to these questions will be collected from all participants
+            and will be used for the purposes of reporting on demographic
+            representation. This reporting ensures that our process seeks to
+            hear from as many perspectives in our community as possible.
           </p>
           {surveyData[currentQuestion] !== undefined ? (
             // TODO: Fix these conditionals
