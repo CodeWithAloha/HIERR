@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 "use client";
 
 import { type NextPage } from "next";
@@ -31,14 +33,18 @@ interface FeatureProperties {
   pop20: number;
 }
 
-interface GeoJSONElement {
-  resetStyle: (element: any) => void;
-}
-
 const CensusTractMap: NextPage = () => {
   const [userCensusTract, setUserCensusTract] = useState<string | null>(null);
   const [censusTractComplete, setCensusTractComplete] = useState(false);
   const [disabled, setDisabled] = useState(true);
+  const selectedStyle = { weight: 2, color: "#00FFFF" };
+  const defaultStyle = {
+    fillColor: "#CCCCCC",
+    color: "#44475a",
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.2,
+  };
 
   const censusTractDB = api.user.getCensusTract.useQuery();
 
@@ -60,16 +66,18 @@ const CensusTractMap: NextPage = () => {
       setUserCensusTract(selectedCensusTract);
       setCensusTractComplete(true);
       setDisabled(false);
+      e.target.setStyle(selectedStyle);
+      e.target._recordedStyle = selectedStyle;
     });
     layer.on("mouseover", (e: LeafletMouseEvent) => {
       const featureProperties = feature.properties as FeatureProperties;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       e.target
         .setStyle({
           fillOpacity: 0.5,
         })
         .bindPopup(
-           `Name: ${featureProperties["tractname"]} <br> Tract: ${featureProperties["name20"]} <br> Population: ${featureProperties["pop20"]}`
+          `Name: ${featureProperties["tractname"]} <br> Tract: ${featureProperties["name20"]} <br> Population: ${featureProperties["pop20"]}`,
+          { autoPan: false }
         )
         .openPopup();
     });
@@ -77,28 +85,26 @@ const CensusTractMap: NextPage = () => {
       if (!geoJsonRef.current) {
         return;
       }
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      (geoJsonRef.current as GeoJSONElement).resetStyle(e.target);
+      if (e.target && e.target._recordedStyle == selectedStyle) {
+        return;
+      }
+      e.target.setStyle(defaultStyle);
     });
     return null;
   };
 
-  const getCensusTractFillColor = () => {
-    return "#CCCCCC";
-  };
   const censusTractStyle = (
-    val: Feature<Geometry, { pop20: number }> | undefined
+    val: Feature<Geometry, { pop20: number; name20: string }> | undefined
   ) => {
     if (!val) {
       return {};
     }
-    return {
-      fillColor: getCensusTractFillColor(),
-      color: "#44475a",
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.2,
-    };
+
+    if (val.properties.name20 === userCensusTract) {
+      return selectedStyle;
+    }
+
+    return defaultStyle;
   };
 
   const updateUserCensusTract = api.user.addCensusTract.useMutation();
@@ -118,7 +124,27 @@ const CensusTractMap: NextPage = () => {
         demographic representation. This reporting ensures that our process
         seeks to hear from as many perspectives in our community as possible
       </p>
-      <div className="my-4 overflow-visible rounded bg-white shadow-lg">
+      {censusTractComplete ? (
+        <div className="mt-5 mb-5 flex items-center">
+          <h1 className="mb-2 mr-5 text-white">
+            <strong>{`You selected census tract is ${String(
+              userCensusTract
+            )}`}</strong>
+          </h1>
+          <Link className="flex" href={{ pathname: "./zipcode" }}>
+            <button
+              className="mb-4 self-center rounded-full bg-white/90 px-5 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+              onClick={() => handleSubmit()}
+              disabled={disabled}
+            >
+              Continue
+            </button>
+          </Link>
+        </div>
+      ) : (
+        <div className="mt-5 mb-5"></div>
+      )}
+      <div className="overflow-visible rounded bg-white shadow-lg">
         <div id="map" className="w-full">
           <MapContainer
             center={[21.43805, -157.985262]}
@@ -144,9 +170,11 @@ const CensusTractMap: NextPage = () => {
             />
             <GeoJSONComponent
               data={CensusTractData as GeoJsonObject}
-              style={(val: Feature<Geometry, { pop20: number }> | undefined) =>
-                censusTractStyle(val)
-              }
+              style={(
+                val:
+                  | Feature<Geometry, { pop20: number; name20: string }>
+                  | undefined
+              ) => censusTractStyle(val)}
               onEachFeature={(feature, layer) => handleFeature(feature, layer)}
               ref={geoJsonRef as Ref<any>}
             />
@@ -159,24 +187,6 @@ const CensusTractMap: NextPage = () => {
           </div>
         </div>
       </div>
-      {censusTractComplete ? (
-        <>
-          <h1 className="mb-2 text-white">
-            <strong>{`You selected census tract is ${String(
-              userCensusTract
-            )}`}</strong>
-          </h1>
-          <Link className="flex flex-col" href={{ pathname: "./zipcode" }}>
-            <button
-              className="mb-4 self-center rounded-full bg-white/90 px-5 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
-              onClick={() => handleSubmit()}
-              disabled={disabled}
-            >
-              Continue
-            </button>
-          </Link>
-        </>
-      ) : null}
     </div>
   );
 };
