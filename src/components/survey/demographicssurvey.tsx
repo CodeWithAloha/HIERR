@@ -23,6 +23,8 @@ export interface DemographicSurveyInfo {
   totalQuestions: number;
 }
 
+export const SURVEY_DELIMITER = ";";
+
 export default function DemographicsSurvey() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [surveyCompleted, setSurveyCompleted] = useState(false);
@@ -86,8 +88,8 @@ export default function DemographicsSurvey() {
       }
       const questionId = surveyData[currentQuestion]?.questionId;
       let answers = [answer];
-      if (answer?.includes(";")) {
-        answers = answer.split(";");
+      if (answer?.includes(SURVEY_DELIMITER)) {
+        answers = answer.split(SURVEY_DELIMITER);
       }
 
       // TODO: Fix these conditionals
