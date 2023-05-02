@@ -39,7 +39,12 @@ export default function MultiSelectAnswers({
     );
     setDisabledInput(answerValues);
     const textValuesConcat = textValues.join(";");
-    updateCurrentAnswer(values + ";" + textValuesConcat);
+    if (values.length > 0) {
+      updateCurrentAnswer(values + ";" + textValuesConcat);
+    } else {
+      updateCurrentAnswer(textValuesConcat);
+    }
+
     setDisabled(false);
   };
 
