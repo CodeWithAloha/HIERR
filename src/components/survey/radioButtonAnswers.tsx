@@ -57,7 +57,7 @@ export default function RadioButtonAnswers({
               className="form-input rounded"
               type={"text"}
               disabled={disabledInput !== a.answer}
-              onClick={(e) =>
+              onChange={(e) =>
                 handleChange(a.answer + (e.target as HTMLInputElement).value)
               }
             ></input>
