@@ -23,7 +23,7 @@ export interface DemographicSurveyInfo {
   totalQuestions: number;
 }
 
-export const SURVEY_DELIMITER = ";";
+export const SURVEY_DELIMITER = "---";
 
 export default function DemographicsSurvey() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
