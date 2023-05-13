@@ -16,7 +16,12 @@ export interface SurveyAnswer {
 }
 
 export type QuestionDirection = "Prev" | "Next";
-export type QuestionType = "option" | "multiSelect" | "text" | "number";
+export type QuestionType =
+  | "option"
+  | "multiSelect"
+  | "text"
+  | "number"
+  | "dropdown";
 export type AnswerType = "option" | "text" | "number" | "optionText";
 export interface DemographicSurveyInfo {
   questionNumber: number;
