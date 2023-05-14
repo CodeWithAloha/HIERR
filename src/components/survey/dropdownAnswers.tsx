@@ -52,8 +52,8 @@ export default function DropdownAnswers({
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center">
-        <span>
+      <div className="flex flex-col">
+        <>
           <label htmlFor="county" className="text-med mb-5 mr-2">
             Select your county
           </label>
@@ -68,15 +68,15 @@ export default function DropdownAnswers({
               </option>
             ))}
           </select>
-        </span>
+        </>
         {countyWorkshops.length > 0 && (
-          <span>
+          <>
             <label htmlFor="workshop" className="mb-5 mr-2 text-base">
               Select your workshop
             </label>
             <select
               id="workshop"
-              className="form-select w-64 rounded"
+              className="form-select mb-5 w-64 rounded"
               onChange={(e) =>
                 handleChange((e.target as HTMLSelectElement).value)
               }
@@ -87,7 +87,7 @@ export default function DropdownAnswers({
                 </option>
               ))}
             </select>
-          </span>
+          </>
         )}
       </div>
     </>
