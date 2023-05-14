@@ -37,23 +37,17 @@ export default function DropdownAnswers({
     setDisabled(false);
   };
 
-  const countiesDropdown = uniqueCounties.map((c, index) => {
+  const dropdown = (a: string, index: number) => {
     return (
       <>
-        <option key={index} value={c}>
-          {c}
+        <option key={index} value={a}>
+          {a}
         </option>
       </>
     );
-  });
-
-  const dropdown = (a: string) => {
-    return (
-      <>
-        <option value={a}>{a}</option>
-      </>
-    );
   };
+
+  const countiesDropdown = uniqueCounties.map((c, index) => dropdown(c, index));
 
   return (
     <>
@@ -85,7 +79,7 @@ export default function DropdownAnswers({
                   handleChange((e.target as HTMLSelectElement).value)
                 }
               >
-                {countyWorkshops.map((w) => dropdown(w))}
+                {countyWorkshops.map((w, index) => dropdown(w, index))}
               </select>
             </span>
           </>

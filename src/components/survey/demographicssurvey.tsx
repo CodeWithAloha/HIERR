@@ -92,7 +92,7 @@ export default function DemographicsSurvey() {
       const questionId = surveyData[currentQuestion]?.questionId;
       let answers = [answer];
       if (answer?.includes(";")) {
-        answers = answer.split(";");
+        answers = answer.split(";").filter((a) => a !== "");
       }
 
       // TODO: Fix these conditionals
