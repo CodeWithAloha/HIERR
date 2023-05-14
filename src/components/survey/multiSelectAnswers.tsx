@@ -67,7 +67,6 @@ export default function MultiSelectAnswers({
       </>
     );
   };
-  console.log("Disabled inputs are:", disabledInput);
   const checkBoxText = (a: SurveyAnswer, index: number) => {
     return (
       <>
