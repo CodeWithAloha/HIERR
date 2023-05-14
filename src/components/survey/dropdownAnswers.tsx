@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { SurveyAnswer } from "./demographicssurvey";
 
 interface DropdownAnswersProps {
@@ -12,8 +12,11 @@ export default function DropdownAnswers({
   updateCurrentAnswer,
   setDisabled,
 }: DropdownAnswersProps) {
-  const counties = answers.map((a) => a.answer.split("-")[0]);
-  const uniqueCounties = [...new Set(counties)] as string[];
+  const uniqueCounties = useMemo(() => {
+    const counties = answers.map((a) => a.answer.split("-")[0]);
+    return [...new Set(counties)] as string[];
+  }, [answers]);
+
   const [county, setCounty] = useState(uniqueCounties[0] ?? "");
 
   const getFilteredWorkshopsByCounty = (val: string) => {
@@ -27,27 +30,14 @@ export default function DropdownAnswers({
     getFilteredWorkshopsByCounty(uniqueCounties[0] ?? "")
   );
 
-  const handleCountyChange = (val: string) => {
-    setCounty(val);
-    setCountyWorkshops(getFilteredWorkshopsByCounty(val));
-  };
+  useEffect(() => {
+    setCountyWorkshops(getFilteredWorkshopsByCounty(county));
+  }, [county, answers]);
 
   const handleChange = (val: string) => {
     updateCurrentAnswer(`${county}-${val}`);
     setDisabled(false);
   };
-
-  const dropdown = (a: string, index: number) => {
-    return (
-      <>
-        <option key={index} value={a}>
-          {a}
-        </option>
-      </>
-    );
-  };
-
-  const countiesDropdown = uniqueCounties.map((c, index) => dropdown(c, index));
 
   return (
     <>
@@ -59,31 +49,35 @@ export default function DropdownAnswers({
           <select
             id="county"
             className="form-select mb-5 w-64 rounded"
-            onChange={(e) =>
-              handleCountyChange((e.target as HTMLSelectElement).value)
-            }
+            onChange={(e) => setCounty((e.target as HTMLSelectElement).value)}
           >
-            {countiesDropdown}
+            {uniqueCounties.map((c, index) => (
+              <option key={index} value={c}>
+                {c}
+              </option>
+            ))}
           </select>
         </span>
-        {countyWorkshops.length > 0 ? (
-          <>
-            <span>
-              <label htmlFor="workshop" className="mb-5 mr-2 text-base">
-                Select your workshop
-              </label>
-              <select
-                id="workshop"
-                className="form-select w-64 rounded"
-                onChange={(e) =>
-                  handleChange((e.target as HTMLSelectElement).value)
-                }
-              >
-                {countyWorkshops.map((w, index) => dropdown(w, index))}
-              </select>
-            </span>
-          </>
-        ) : null}
+        {countyWorkshops.length > 0 && (
+          <span>
+            <label htmlFor="workshop" className="mb-5 mr-2 text-base">
+              Select your workshop
+            </label>
+            <select
+              id="workshop"
+              className="form-select w-64 rounded"
+              onChange={(e) =>
+                handleChange((e.target as HTMLSelectElement).value)
+              }
+            >
+              {countyWorkshops.map((w, index) => (
+                <option key={index} value={w}>
+                  {w}
+                </option>
+              ))}
+            </select>
+          </span>
+        )}
       </div>
     </>
   );
