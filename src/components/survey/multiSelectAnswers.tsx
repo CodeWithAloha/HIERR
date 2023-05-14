@@ -1,5 +1,8 @@
 import { useRef, useState } from "react";
-import type { SurveyAnswer } from "./demographicssurvey";
+import {
+  MULTI_ANSWER_DELIMITER,
+  type SurveyAnswer,
+} from "./demographicssurvey";
 
 interface MultiSelectAnswersProps {
   answers: SurveyAnswer[];
@@ -28,7 +31,7 @@ export default function MultiSelectAnswers({
     );
     const values = checkedAnswers
       .map((ca) => (ca as HTMLInputElement).value)
-      .join(";");
+      .join(MULTI_ANSWER_DELIMITER);
     const textValues = checkedTextAnswers.map(
       (ca) =>
         (ca as HTMLInputElement).value +
@@ -38,9 +41,9 @@ export default function MultiSelectAnswers({
       (ca) => (ca as HTMLInputElement).value
     );
     setDisabledInput(answerValues);
-    const textValuesConcat = textValues.join(";");
+    const textValuesConcat = textValues.join(MULTI_ANSWER_DELIMITER);
     if (values.length > 0) {
-      updateCurrentAnswer(values + ";" + textValuesConcat);
+      updateCurrentAnswer(values + MULTI_ANSWER_DELIMITER + textValuesConcat);
     } else {
       updateCurrentAnswer(textValuesConcat);
     }

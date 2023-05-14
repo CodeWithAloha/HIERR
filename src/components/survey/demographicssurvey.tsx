@@ -28,6 +28,8 @@ export interface DemographicSurveyInfo {
   totalQuestions: number;
 }
 
+export const MULTI_ANSWER_DELIMITER = "---";
+
 export default function DemographicsSurvey() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [surveyCompleted, setSurveyCompleted] = useState(false);
@@ -91,8 +93,8 @@ export default function DemographicsSurvey() {
       }
       const questionId = surveyData[currentQuestion]?.questionId;
       let answers = [answer];
-      if (answer?.includes(";")) {
-        answers = answer.split(";").filter((a) => a !== "");
+      if (answer?.includes(MULTI_ANSWER_DELIMITER)) {
+        answers = answer.split(MULTI_ANSWER_DELIMITER).filter((a) => a !== "");
       }
 
       // TODO: Fix these conditionals
