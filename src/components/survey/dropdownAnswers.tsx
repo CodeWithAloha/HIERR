@@ -14,7 +14,7 @@ export default function DropdownAnswers({
 }: DropdownAnswersProps) {
   const uniqueCounties = useMemo(() => {
     const counties = answers.map((a) => a.answer.split("-")[0]);
-    return [...new Set(counties)] as string[];
+    return ["--", ...new Set(counties)] as string[];
   }, [answers]);
 
   const [county, setCounty] = useState(uniqueCounties[0] ?? "");
@@ -23,7 +23,10 @@ export default function DropdownAnswers({
     const filteredWorkshops: string[] = answers
       .map((a) => a.answer)
       .filter((c) => c.includes(val));
-    return filteredWorkshops.map((c) => c.split("-")[1]) as string[];
+    return [
+      "--",
+      ...(filteredWorkshops.map((c) => c.split("-")[1]) as string[]),
+    ];
   };
 
   const [countyWorkshops, setCountyWorkshops] = useState<string[]>(
@@ -31,12 +34,20 @@ export default function DropdownAnswers({
   );
 
   useEffect(() => {
+    if (county === "--") {
+      setDisabled(true);
+    }
     setCountyWorkshops(getFilteredWorkshopsByCounty(county));
   }, [county, answers]);
 
   const handleChange = (val: string) => {
     updateCurrentAnswer(`${county}-${val}`);
-    setDisabled(false);
+    if (county !== "--" && val !== "--") {
+      setDisabled(false);
+    }
+    if (county === "--" || val === "--") {
+      setDisabled(true);
+    }
   };
 
   return (
