@@ -29,9 +29,13 @@ export default function MultiSelectAnswers({
     const checkedTextAnswers = Array.from(checkboxesText).filter(
       (cb) => (cb as HTMLInputElement).checked
     );
+    const uncheckedTextAnswers = Array.from(checkboxesText).filter(
+      (cb) => !(cb as HTMLInputElement).checked
+    );
     const values = checkedAnswers
       .map((ca) => (ca as HTMLInputElement).value)
       .join(MULTI_ANSWER_DELIMITER);
+
     const textValues = checkedTextAnswers.map(
       (ca) =>
         (ca as HTMLInputElement).value +
@@ -47,7 +51,17 @@ export default function MultiSelectAnswers({
     } else {
       updateCurrentAnswer(textValuesConcat);
     }
-
+    if (textValuesConcat.length === 0) {
+      // clear text boxes
+      uncheckedTextAnswers.forEach((ca) => {
+        (ca.nextElementSibling?.children[0] as HTMLInputElement).value = "";
+        return;
+      });
+    }
+    if (values.length === 0 && textValuesConcat.length === 0) {
+      setDisabled(true);
+      return;
+    }
     setDisabled(false);
   };
 
