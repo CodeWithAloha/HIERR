@@ -3,7 +3,17 @@ import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { NextPageButtonLink } from "../UI/NextPageButtonLink";
 
+import React, { useState } from "react";
+import { IoCloseSharp } from "react-icons/io5";
+import { BsChevronDown } from "react-icons/bs";
+
 const Login: NextPage = () => {
+  const [showMore, setShowMore] = useState(false);
+
+  const toggleMoreInformation = () => {
+    setShowMore(!showMore);
+  };
+
   return (
     <>
       <Head>
@@ -25,15 +35,96 @@ const Login: NextPage = () => {
           async
         />
       </Head>
-      <main className="bg-blue flex min-h-screen flex-col items-center justify-center bg-farmer-working bg-cover bg-center bg-no-repeat">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-          <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
+      <main className="relative mb-12 flex  h-screen flex-col items-center justify-center  overflow-hidden">
+        <div className="bg-cyan-300 relative z-30 flex h-screen flex-col items-center justify-center ">
+          <h1 className="pb-10 text-center text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
             Welcome to HIERR
           </h1>
-          <div className="flex flex-col items-center gap-2">
-            <AuthShowcase />
+          {/* <h2 className="w-2/3 pb-6 text-center text-lg font-semibold leading-none text-white/90 sm:text-[4rem]">
+            Hawaiʻi Economic Recovery & Resilience
+          </h2> */}
+          <div
+            className="flex flex-row items-center justify-center gap-2"
+            onClick={toggleMoreInformation}
+          >
+            <p className="border-white py-6 text-2xl text-white underline-offset-4 hover:underline">
+              What is HIEER?
+            </p>
+            {!showMore && (
+              <div className="text-xl text-white">
+                <BsChevronDown />
+              </div>
+            )}
           </div>
+          {showMore && (
+            <div className="relative mx-auto w-2/3 rounded-xl bg-white/50 p-10 text-lg ease-in-out  hover:bg-white/60 xl:w-1/2">
+              <button
+                onClick={toggleMoreInformation}
+                className="absolute top-4 right-4 text-4xl"
+              >
+                <IoCloseSharp />
+              </button>
+              <p className="mb-4 text-center">HIERR stands for</p>
+              <h2 className="pb-6 text-center text-3xl">
+                Hawai'i Economic Recovery & Resilience
+              </h2>
+              <p className="mb-4">
+                At HIERR we aim to enable actions toward a more resilient,
+                equitable, and sustainable economy. We want to learn from the
+                economic impacts and experiences of hardship associated with the
+                COVID-19 pandemic to inform and enable impactful actions.
+              </p>
+              <h2 className="pb-4 text-2xl font-semibold">Our Objectives</h2>
+              <ul className="ml-8 mb-4 list-disc">
+                <li className="mb-2">
+                  Identifying gaps and strategies to mitigate Hawaii's economic
+                  vulnerabilities and hardships revealed during the COVID-19
+                  pandemic;
+                </li>
+                <li className="mb-2">
+                  Compiling specific projects/programs that address the
+                  identified gaps;
+                </li>
+                <li className="mb-2">
+                  Aligning project/program needs to resources and enabling
+                  conditions necessary for implementation;
+                </li>
+                <li className="mb-2">
+                  Advancing pre-disaster economic recovery planning across all
+                  hazards.
+                </li>
+              </ul>
+              <h2 className="pb-4 text-2xl font-semibold">
+                How you can help us
+              </h2>
+              <p className="pb-4">
+                You can make an impact for the economic development of Hawaii.
+                By answering the questions of this survey, you help us
+                understand the impact and challenges that the pandemic had on
+                our communities. With this precious information we can identify
+                strategies and projects to build economic resilience for Hawaii.
+                Mahalo!
+              </p>
+            </div>
+          )}
+
+          <AuthShowcase />
+
+          <p className="absolute bottom-8 right-4 text-white/70 hover:text-white">
+            Video credit: Jess Loiterton
+          </p>
+
+          <div className="flex flex-col items-center gap-2"></div>
         </div>
+        <video
+          autoPlay
+          loop
+          muted
+          className="absolute z-10 min-h-full w-auto min-w-full max-w-none"
+        >
+          <source src="./bg-video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </main>
     </>
   );
@@ -52,10 +143,11 @@ const AuthShowcase: React.FC = () => {
         ) : null}
       </p>
       <button
-        className="rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+        className="text-black mt-2 rounded-full bg-white/80 px-10 py-3 text-2xl  
+        no-underline transition ease-in-out hover:bg-white"
         onClick={sessionData ? () => void signOut() : () => void signIn()}
       >
-        {sessionData ? "Sign out" : "Sign in"}
+        {sessionData ? "Sign out" : "Sign in to begin"}
       </button>
     </div>
   );
