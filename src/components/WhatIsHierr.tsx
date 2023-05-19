@@ -5,7 +5,7 @@ const WhatIsHierr = () => {
     <>
       <p className="mb-4 text-center">HIERR stands for</p>
       <h2 className="pb-6 text-center text-3xl">
-        Hawai'i Economic Recovery & Resilience
+        Hawai&apos;i Economic Recovery & Resilience
       </h2>
       <p className="mb-4">
         At HIERR we aim to enable actions toward a more resilient, equitable,
@@ -18,7 +18,7 @@ const WhatIsHierr = () => {
       <h2 className="pb-4 text-2xl font-semibold">Our Objectives</h2>
       <ul className="ml-8 mb-4 list-disc">
         <li className="mb-2">
-          Identifying gaps and strategies to mitigate Hawaii's economic
+          Identifying gaps and strategies to mitigate Hawaii&apos;s economic
           vulnerabilities and hardships revealed during the COVID-19 pandemic;
         </li>
         <li className="mb-2">
@@ -34,7 +34,7 @@ const WhatIsHierr = () => {
       </ul>
       <h2 className="pb-4 text-2xl font-semibold">How you can help</h2>
       <p className="pb-4">
-        You can make an impact for the economic development of Hawaii. By
+        You can make an impact for the economic development of Hawai&apos;i. By
         answering the questions of this survey, you help us understand the
         impact and challenges that the pandemic had on our communities. With
         this valuable information we can identify strategies and projects to
