@@ -33,8 +33,8 @@ const WhatIsHierr = () => {
       <h2 className="pb-4 text-xl font-semibold">How you can help</h2>
       <p className="pb-4">
         Make an impact on Hawaii&apos;s economic development. Answering this
-        survey helps us understand the pandemic's impact and challenges in our
-        communities.
+        survey helps us understand the pandemic&apos;s impact and challenges in
+        our communities.
       </p>
     </>
   );
