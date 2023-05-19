@@ -221,7 +221,7 @@ VALUES
         '16',
         'What is your workshop location? (Select one answer)',
         16,
-        'option'
+        'dropdown'
     );
 
 INSERT INTO
