@@ -9,6 +9,7 @@ import type {
 import RadioButtonAnswers from "./radioButtonAnswers";
 import MultiSelectAnswers from "./multiSelectAnswers";
 import TextAnswer from "./textAnswers";
+import DropdownAnswers from "./dropdownAnswers";
 
 interface SurveyQuestionProps {
   surveyInfo: DemographicSurveyInfo;
@@ -55,6 +56,14 @@ export default function SurveyQuestion({
             setDisabled={setDisabled}
             updateCurrentAnswer={setSelectedAnswer}
             number={questionType === "number"}
+          />
+        );
+      case "dropdown":
+        return (
+          <DropdownAnswers
+            setDisabled={setDisabled}
+            updateCurrentAnswer={setSelectedAnswer}
+            answers={answers}
           />
         );
       default:

@@ -16,12 +16,19 @@ export interface SurveyAnswer {
 }
 
 export type QuestionDirection = "Prev" | "Next";
-export type QuestionType = "option" | "multiSelect" | "text" | "number";
+export type QuestionType =
+  | "option"
+  | "multiSelect"
+  | "text"
+  | "number"
+  | "dropdown";
 export type AnswerType = "option" | "text" | "number" | "optionText";
 export interface DemographicSurveyInfo {
   questionNumber: number;
   totalQuestions: number;
 }
+
+export const MULTI_ANSWER_DELIMITER = "---";
 
 export default function DemographicsSurvey() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -86,8 +93,8 @@ export default function DemographicsSurvey() {
       }
       const questionId = surveyData[currentQuestion]?.questionId;
       let answers = [answer];
-      if (answer?.includes(";")) {
-        answers = answer.split(";");
+      if (answer?.includes(MULTI_ANSWER_DELIMITER)) {
+        answers = answer.split(MULTI_ANSWER_DELIMITER).filter((a) => a !== "");
       }
 
       // TODO: Fix these conditionals
