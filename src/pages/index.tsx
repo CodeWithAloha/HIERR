@@ -36,14 +36,15 @@ const Login: NextPage = () => {
           async
         />
       </Head>
-      <main className="mb-12  flex h-screen flex-col items-center  justify-center bg-spectrum bg-blend-screen ">
-        <div className=" flex  flex-col items-center justify-center ">
+      <main className="relative mb-12  flex h-screen flex-col items-center justify-center  overflow-hidden bg-spectrum bg-blend-screen ">
+        <div className="3xl:top-96 fixed top-36 flex flex-col items-center  justify-center lg:top-48 2xl:top-60 ">
           <h1
-            className="pb-10 text-center text-5xl font-extrabold tracking-tight 
+            className="pb-10 text-center text-5xl font-extrabold leading-none tracking-tight
           text-white sm:text-[5rem]"
           >
             Welcome to HIERR
           </h1>
+          <AuthShowcase />
 
           <div
             className="flex flex-row items-center justify-center gap-2"
@@ -60,8 +61,8 @@ const Login: NextPage = () => {
           </div>
           {showMore && (
             <div
-              className="relative mx-auto w-2/3 rounded-xl bg-white/50 p-10 text-lg ease-in-out  
-            hover:bg-white/60 xl:w-1/2"
+              className="fixed bottom-10  z-30  w-4/5 rounded-xl bg-white/50 p-12 text-lg  
+              shadow-xl backdrop-blur-md ease-in-out hover:bg-white/60  sm:mx-auto lg:w-2/3 xl:w-1/2 2xl:bottom-24"
             >
               <button
                 onClick={toggleMoreInformation}
@@ -72,8 +73,6 @@ const Login: NextPage = () => {
               <WhatIsHierr />
             </div>
           )}
-
-          <AuthShowcase />
 
           <div className="flex flex-col items-center gap-2"></div>
         </div>

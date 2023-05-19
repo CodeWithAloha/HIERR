@@ -3,42 +3,38 @@ import React from "react";
 const WhatIsHierr = () => {
   return (
     <>
-      <p className="mb-4 text-center">HIERR stands for</p>
-      <h2 className="pb-6 text-center text-3xl">
-        Hawai&apos;i Economic Recovery & Resilience
-      </h2>
-      <p className="mb-4">
-        At HIERR we aim to enable actions toward a more resilient, equitable,
-        and sustainable economy. We want to learn from the economic impacts and
-        experiences of hardship associated with the COVID-19 pandemic to inform
-        and enable impactful actions. Rather than assume what these hardships
-        were like, we are conducting a statewide study to learn from diverse
-        stories told by residents and businesses across the state.
+      <p className="mb-4 ">
+        HIERR stands for
+        <span className="pb-4 pl-2 text-xl font-semibold">
+          Hawai&apos;i Economic Recovery & Resilience
+        </span>
       </p>
-      <h2 className="pb-4 text-2xl font-semibold">Our Objectives</h2>
+      <p className="mb-4">
+        At HIERR, we learn from COVID-19 hardships statewide to empower
+        impactful actions for a resilient, equitable, and sustainable economy.
+      </p>
+      <h2 className="pb-4 text-xl font-semibold">Our Objectives</h2>
       <ul className="ml-8 mb-4 list-disc">
         <li className="mb-2">
-          Identifying gaps and strategies to mitigate Hawaii&apos;s economic
-          vulnerabilities and hardships revealed during the COVID-19 pandemic;
+          Identify and mitigate Hawaii&apos;s economic vulnerabilities and
+          hardships exposed during the COVID-19 pandemic.
         </li>
         <li className="mb-2">
-          Compiling specific projects/programs that address the identified gaps;
+          Compile targeted projects/programs to address identified gaps.
         </li>
         <li className="mb-2">
-          Aligning project/program needs to resources and enabling conditions
-          necessary for implementation;
+          Align project/program needs with necessary resources and enabling
+          conditions for implementation.
         </li>
         <li className="mb-2">
-          Advancing pre-disaster economic recovery planning across all hazards.
+          Advance pre-disaster economic recovery planning for all hazards.{" "}
         </li>
       </ul>
-      <h2 className="pb-4 text-2xl font-semibold">How you can help</h2>
+      <h2 className="pb-4 text-xl font-semibold">How you can help</h2>
       <p className="pb-4">
-        You can make an impact for the economic development of Hawai&apos;i. By
-        answering the questions of this survey, you help us understand the
-        impact and challenges that the pandemic had on our communities. With
-        this valuable information we can identify strategies and projects to
-        build economic resilience for Hawaii.
+        Make an impact on Hawaii&apos;s economic development. Answering this
+        survey helps us understand the pandemic's impact and challenges in our
+        communities.
       </p>
     </>
   );
