@@ -11,6 +11,15 @@ module.exports = {
         spectrum:
           "linear-gradient(orange, transparent), linear-gradient(to top left, cyan, transparent), linear-gradient(to top right, purple, transparent)",
       }),
+      animation: {
+        "slide-in": "slide-in 0.7s ease-out",
+      },
+      keyframes: {
+        "slide-in": {
+          "0%": { transform: "translateY(100%)", opacity: 0 },
+          "100%": { transform: "translateY(0)", opacity: 100 },
+        },
+      },
     },
     colors: {
       green: "#1A9432",

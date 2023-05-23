@@ -56,7 +56,10 @@ const Login: NextPage = () => {
             className="flex flex-row items-center justify-center gap-2"
             onClick={toggleMoreInformation}
           >
-            <p className="border-white py-6 text-2xl text-white underline-offset-4 hover:underline">
+            <p
+              className="border-white py-6 text-2xl text-white underline-offset-4 
+            hover:underline"
+            >
               What is HIERR?
             </p>
             {!showMore && (
@@ -67,9 +70,10 @@ const Login: NextPage = () => {
           </div>
           {showMore && (
             <div
-              className="fixed bottom-2  z-30  w-[95%] rounded-xl bg-white/50 p-4 text-sm  
-              shadow-xl backdrop-blur-md ease-in-out hover:bg-white/60  sm:mx-auto 
-              lg:w-2/3 xl:w-1/2 2xl:bottom-24"
+              className="fixed bottom-2 z-30 w-[95%] animate-slide-in rounded-xl  bg-white/50 p-4 
+              text-sm shadow-xl backdrop-blur-md  
+              ease-in-out hover:bg-white/60 sm:mx-auto lg:bottom-12  lg:w-2/3 
+              xl:w-1/2 2xl:bottom-24 "
             >
               <button
                 onClick={toggleMoreInformation}
