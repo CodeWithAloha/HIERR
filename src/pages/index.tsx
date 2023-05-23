@@ -36,11 +36,17 @@ const Login: NextPage = () => {
           async
         />
       </Head>
-      <main className="relative mb-12  flex h-screen flex-col items-center justify-center  overflow-hidden bg-spectrum bg-blend-screen ">
-        <div className="3xl:top-96 fixed top-36 flex flex-col items-center  justify-center lg:top-48 2xl:top-60 ">
+      <main
+        className="relative mb-12  flex h-screen flex-col items-center justify-center  
+      overflow-hidden bg-spectrum bg-blend-screen "
+      >
+        <div
+          className="3xl:top-96 fixed top-28 flex flex-col items-center  justify-center 
+        lg:top-48 2xl:top-60 "
+        >
           <h1
-            className="pb-10 text-center text-5xl font-extrabold leading-none tracking-tight
-          text-white sm:text-[5rem]"
+            className="mx-2 pb-20 text-center text-5xl font-extrabold leading-none tracking-tight text-white
+          sm:text-[5rem] lg:pb-16"
           >
             Welcome to HIERR
           </h1>
@@ -61,12 +67,13 @@ const Login: NextPage = () => {
           </div>
           {showMore && (
             <div
-              className="fixed bottom-10  z-30  w-4/5 rounded-xl bg-white/50 p-12 text-lg  
-              shadow-xl backdrop-blur-md ease-in-out hover:bg-white/60  sm:mx-auto lg:w-2/3 xl:w-1/2 2xl:bottom-24"
+              className="fixed bottom-2  z-30  w-[95%] rounded-xl bg-white/50 p-4 text-sm  
+              shadow-xl backdrop-blur-md ease-in-out hover:bg-white/60  sm:mx-auto 
+              lg:w-2/3 xl:w-1/2 2xl:bottom-24"
             >
               <button
                 onClick={toggleMoreInformation}
-                className="absolute top-4 right-4 text-4xl"
+                className="absolute top-4 right-4 text-2xl lg:text-4xl"
               >
                 <IoCloseSharp />
               </button>
