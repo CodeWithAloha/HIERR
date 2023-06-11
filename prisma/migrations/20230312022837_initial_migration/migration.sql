@@ -135,7 +135,7 @@ VALUES
     ),
     (
         '2',
-        'What was your age on your last birthday?',
+        'How old are you?',
         2,
         'number'
     ),
@@ -219,7 +219,7 @@ VALUES
     ),
     (
         '16',
-        'What is your workshop location? (Select one answer)',
+        'In what region do you live? Note: for workshop participants, this information will be provided by your moderator.',
         16,
         'dropdown'
     );
