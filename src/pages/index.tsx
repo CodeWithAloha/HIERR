@@ -45,7 +45,7 @@ const AuthShowcase: React.FC = () => {
   const { data: sessionData } = useSession();
 
   const handleSignOut = async () => {
-    localStorage.polisUserXID = undefined;
+    localStorage.clear();
     await signOut();
   };
 
