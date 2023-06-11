@@ -44,6 +44,11 @@ export default Login;
 const AuthShowcase: React.FC = () => {
   const { data: sessionData } = useSession();
 
+  const handleSignOut = async () => {
+    localStorage.polisUserXID = undefined;
+    await signOut();
+  };
+
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <p className="text-center text-2xl text-white">
@@ -53,7 +58,7 @@ const AuthShowcase: React.FC = () => {
       </p>
       <button
         className="rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
+        onClick={sessionData ? () => void handleSignOut() : () => void signIn()}
       >
         {sessionData ? "Sign out" : "Sign in"}
       </button>
