@@ -76,7 +76,7 @@ const ZipCode: NextPage = () => {
                 validate: {
                   hawaiianZipCode: (v) =>
                     checkValidHawaiiZipCode(v) ||
-                    "The zip code must be a valid Hawaiian zip code",
+                    "The zip code must be a valid state zip code",
                 },
               })}
             />
