@@ -10,8 +10,8 @@ const TextBlock = () => {
       </h3>
       <p className="mb-2 mt-4 text-center 2xl:text-lg">
         Our engagement portal is set up to remember your progress by associating
-        your responses with your email address. This means you don't have to
-        complete everything in one sitting, but can come back to finish later
+        your responses with your email address. This means you don&apos;t have
+        to complete everything in one sitting, but can come back to finish later
         without having to start over.
       </p>
     </>
