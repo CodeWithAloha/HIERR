@@ -3,18 +3,13 @@ import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { NextPageButtonLink } from "../UI/NextPageButtonLink";
 
-import React, { useState } from "react";
-import { IoCloseSharp } from "react-icons/io5";
-import { BsChevronDown } from "react-icons/bs";
+import React from "react";
+
 import WhatIsHierr from "../components/WhatIsHierr";
+import AboutThisEngagementPortal from "../components/AboutThisEngagement";
+import WhyCreateAccount from "../components/WhyCreateAccount";
 
 const Login: NextPage = () => {
-  const [showMore, setShowMore] = useState(false);
-
-  const toggleMoreInformation = () => {
-    setShowMore(!showMore);
-  };
-
   return (
     <>
       <Head>
@@ -37,55 +32,32 @@ const Login: NextPage = () => {
         />
       </Head>
       <main
-        className="relative mb-12  flex h-screen flex-col items-center justify-center  
+        className="relative flex  h-screen flex-col items-center justify-center  
       overflow-hidden bg-spectrum bg-blend-screen "
       >
         <div
-          className="3xl:top-96 fixed top-28 flex flex-col items-center  justify-center 
-        lg:top-48 2xl:top-60 "
+          className="3xl:top-96 fixed  top-28 
+        flex flex-col items-center justify-center  md:top-48 2xl:top-60"
         >
           <h1
-            className="mx-2 pb-20 text-center text-5xl font-extrabold leading-none tracking-tight text-white
-          sm:text-[5rem] lg:pb-16"
+            className="mx-2 pb-5 text-center text-4xl 
+            font-extrabold leading-none tracking-tight text-white
+           md:text-6xl"
           >
-            Welcome to HIERR
+            Welcome to the HIERR Project
           </h1>
-          <AuthShowcase />
-
-          <div
-            className="flex flex-row items-center justify-center gap-2"
-            onClick={toggleMoreInformation}
+          <h2
+            className="mx-2 pb-20 text-center text-2xl font-bold leading-none 
+            tracking-tight
+             text-white
+             md:text-5xl lg:pb-16"
           >
-            <p
-              className="border-white py-6 text-2xl text-white underline-offset-4 
-            hover:underline"
-            >
-              What is HIERR?
-            </p>
-            {!showMore && (
-              <div className="text-xl text-white">
-                <BsChevronDown />
-              </div>
-            )}
-          </div>
-          {showMore && (
-            <div
-              className="fixed bottom-2 z-30 w-[95%] animate-slide-in rounded-xl  bg-white/50 p-4 
-              text-sm shadow-xl backdrop-blur-md  
-              ease-in-out hover:bg-white/60 sm:mx-auto lg:bottom-12  lg:w-2/3 
-              xl:w-1/2 2xl:bottom-24 "
-            >
-              <button
-                onClick={toggleMoreInformation}
-                className="absolute top-4 right-4 text-2xl lg:text-4xl"
-              >
-                <IoCloseSharp />
-              </button>
-              <WhatIsHierr />
-            </div>
-          )}
-
-          <div className="flex flex-col items-center gap-2"></div>
+            Engagement Portal
+          </h2>
+          <AuthShowcase />
+          <WhatIsHierr />
+          <AboutThisEngagementPortal />
+          <WhyCreateAccount />
         </div>
       </main>
     </>
@@ -105,7 +77,7 @@ const AuthShowcase: React.FC = () => {
         ) : null}
       </p>
       <button
-        className="text-black mt-2 rounded-full bg-white/80 px-10 py-3 text-2xl  
+        className="text-black rounded-full bg-white/80 px-6 py-2 text-lg  
         no-underline transition ease-in-out hover:bg-white"
         onClick={sessionData ? () => void signOut() : () => void signIn()}
       >

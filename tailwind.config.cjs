@@ -6,6 +6,14 @@ module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      screens: {
+        sm: "375px", //mobile M
+        md: "768px", //tablet
+        lg: "1024px", //laptop
+        xl: "1280px", //laptop L
+        "2xl": "2560px", //4k
+      },
+
       backgroundImage: (theme) => ({
         "farmer-working": "url('/State-CEDS-Shawn-Uehira-p29.png')",
         spectrum:
