@@ -14,8 +14,8 @@ const Goals = () => {
         revealed during the COVID-19 pandemic.
       </li>
       <li className="md:mb-2">
-        Build upon and operationalize Hawai&apos;i's strategic framework for
-        economic resilience.
+        Build upon and operationalize Hawai&#699;i&apos;s strategic framework
+        for economic resilience.
       </li>
     </ol>
   );
@@ -33,7 +33,7 @@ const ByTheEndOfThisProject = () => {
         economic resilience.
       </li>
       <li className="md:mb-2">
-        Cultivate communities of practice around Hawai&apos;i's regional
+        Cultivate communities of practice around Hawai&#699;i&apos;s regional
         economic development and resilience.
       </li>
     </ul>
