@@ -33,7 +33,7 @@ const Login: NextPage = () => {
       </Head>
       <main
         className="relative flex  h-screen flex-col items-center justify-center  
-      overflow-hidden bg-spectrum bg-blend-screen "
+      overflow-hidden bg-spectrum2 bg-bgBig"
       >
         <div
           className="3xl:top-96 fixed  top-28 
@@ -55,6 +55,7 @@ const Login: NextPage = () => {
             Engagement Portal
           </h2>
           <AuthShowcase />
+
           <WhatIsHierr />
           <AboutThisEngagementPortal />
           <WhyCreateAccount />
@@ -73,12 +74,22 @@ const AuthShowcase: React.FC = () => {
     <div className="flex flex-col items-center justify-center gap-4">
       <p className="text-center text-2xl text-white">
         {sessionData ? (
-          <NextPageButtonLink pageName="censusmap" msg="Click here to begin." />
+          <>
+            <NextPageButtonLink
+              pageName="censusmap"
+              msg="Start the survey"
+              text="You are currently logged in. 
+              You can begin the survey now, and rest assured that all responses will remain 
+              anonymous. Please note that we do not store any email credentials. 
+              If you need to take a break, simply sign out, and your progress will be saved. 
+              When you return, remember to sign in using the same email address."
+            />
+          </>
         ) : null}
       </p>
       <button
-        className="text-black rounded-full bg-white/80 px-6 py-2 text-lg  
-        no-underline transition ease-in-out hover:bg-white"
+        className="text-black text-md rounded-full bg-white/80 px-6 py-2 
+        no-underline shadow-xl transition ease-in-out hover:translate-y-1 hover:bg-white "
         onClick={sessionData ? () => void signOut() : () => void signIn()}
       >
         {sessionData ? "Sign out" : "Sign in to begin"}

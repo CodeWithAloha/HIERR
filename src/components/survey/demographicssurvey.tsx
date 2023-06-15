@@ -151,26 +151,23 @@ export default function DemographicsSurvey() {
     );
   };
   return (
-    <div className="flex h-screen flex-col items-center bg-[#3276AE]">
+    <div className="flex h-screen flex-col items-center justify-center bg-spectrum2">
       {surveyCompleted ? (
         completedSurvey()
       ) : (
         <>
-          <h1 className="mt-6 text-3xl font-bold text-white">
-            Demographic Survey
+          <h1 className="mb-12 text-lg font-semibold text-white md:mt-6 md:text-3xl ">
+            Step 4: Complete the Demographic Survey
           </h1>
-          <p className="my-6 w-3/5 text-center text-2xl text-white">
-            Please answer the following questions.{" "}
-            <u>
-              These questions are to be answered anonymously and will not be
-              attributed to you in any way.
-            </u>
-          </p>
-          <p className="my-6 w-3/5 text-center text-xl text-white">
-            Answers to these questions will be collected from all participants
-            and will be used for the purposes of reporting on demographic
-            representation. This reporting ensures that our process seeks to
-            hear from as many perspectives in our community as possible.
+
+          <p
+            className="mx-auto mt-4 w-[80%] border border-dashed border-white p-1
+        text-center text-sm text-white md:m-4 md:w-1/2 md:p-4 xl:w-1/3 2xl:text-lg "
+          >
+            Please answer the following questions <strong>anonymously</strong>.
+            Your answers will be combined with others and used to report on the
+            diversity of our community. This helps us make sure that we hear
+            from as many different perspectives as possible during our process.
           </p>
           {surveyData[currentQuestion] !== undefined ? (
             // TODO: Fix these conditionals

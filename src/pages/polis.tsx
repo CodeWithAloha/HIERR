@@ -28,6 +28,7 @@ const Polis: NextPage = () => {
                   pageName="polissurvey"
                   msg={title}
                   query={{ surveyId: id }}
+                  text=""
                 />
               </div>
             );

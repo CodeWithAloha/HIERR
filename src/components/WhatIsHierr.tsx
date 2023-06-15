@@ -74,7 +74,7 @@ const TextBlock = () => {
         Visit our{" "}
         <a
           href="https://www.hierr.online/"
-          className="cursor-pointer text-blue-darker underline underline-offset-2"
+          className="cursor-pointer text-blue-darker underline underline-offset-2 hover:text-green"
         >
           project website{" "}
         </a>
@@ -114,7 +114,7 @@ const WhatIsHierr = () => {
         <div
           className="md:bottom-22 lg:bottom-18 fixed bottom-2 z-30 w-[98%]
                animate-slide-in rounded-md 
-              bg-white/80 p-1 text-sm 
+              bg-white/90 p-1 text-sm 
               shadow-xl
               backdrop-blur-md ease-in-out sm:bottom-8 
               sm:w-[94%]  sm:p-2
