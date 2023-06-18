@@ -17,7 +17,8 @@ const TextBlock = () => {
           Demographic information of those who participate in the project.
         </li>
         <li className="md:mb-2">
-          Demographic information of those who participate in the project.
+          What Hawai&#699;i residents value and envision for our State&apos;s
+          economic future.
         </li>
         <li className="md:mb-2">
           Hardships faced by residents during the COVID-19 pandemic and economic
