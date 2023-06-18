@@ -27,7 +27,7 @@ const WhyCreateAccount = () => {
   return (
     <>
       <div
-        className="flex flex-row items-center justify-center gap-1"
+        className="flex cursor-pointer flex-row items-center justify-center gap-1"
         onClick={toggleMoreInformation}
       >
         <p

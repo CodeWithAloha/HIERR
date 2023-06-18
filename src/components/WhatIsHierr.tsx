@@ -94,7 +94,7 @@ const WhatIsHierr = () => {
   return (
     <>
       <div
-        className="flex flex-row items-center justify-center gap-1 pt-10"
+        className="flex cursor-pointer flex-row items-center justify-center gap-1 pt-10"
         onClick={toggleMoreInformation}
       >
         <p
