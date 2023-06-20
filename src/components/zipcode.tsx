@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import stateZipCodes from "../data/2020_Zip_Code_Data.json";
 import { GrLinkNext } from "react-icons/gr";
 import { BiError } from "react-icons/bi";
-// import ProgressBar from "./ProgressBar";
+import ProgressBar from "./ProgressBar";
 interface ZipCodeData {
   zipCode: string;
 }
@@ -56,13 +56,17 @@ const ZipCode: NextPage = () => {
       {!zipCodeComplete ? (
         <>
           <h1
-            className="mb-3 text-lg font-semibold text-white md:mt-6 md:text-3xl
+            className="mb-4 text-lg font-semibold text-white md:mt-6 md:text-3xl
         "
           >
             Step 2: Enter Your Zip Code
           </h1>
-          {/* <ProgressBar completed={20} /> */}
 
+          {!errors.zipCode ? (
+            <ProgressBar completed={29} />
+          ) : (
+            <ProgressBar completed={14} />
+          )}
           <form
             className="my-6 flex w-[60%] flex-col items-center justify-center overflow-hidden rounded px-8 py-6  md:w-1/2 xl:w-1/3"
             // eslint-disable-next-line @typescript-eslint/no-misused-promises

@@ -2,7 +2,7 @@ import { GrLinkNext } from "react-icons/gr";
 import { IoMdArrowBack } from "react-icons/io";
 import { api } from "../utils/api";
 import Link from "next/link";
-// import ProgressBar from "./ProgressBar";
+import ProgressBar from "./ProgressBar";
 
 interface SelectedZipCodeProps {
   msg: string;
@@ -25,10 +25,10 @@ export default function SelectedZipCode({
 
   return (
     <div className=" flex w-full flex-col items-center justify-center">
-      <h1 className="mb-3 text-lg font-semibold text-white md:mt-6 md:text-3xl ">
+      <h1 className="mb-4 text-lg font-semibold text-white md:mt-6 md:text-3xl ">
         Step 3: Confirm ZIP code
       </h1>
-      {/* <ProgressBar completed={30}/> */}
+      <ProgressBar completed={43} />
       <h2 className="my-12 text-lg text-white md:mt-6 md:text-3xl">{msg}</h2>
       <div className="flex flex-col-reverse items-center justify-center gap-5">
         <button

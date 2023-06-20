@@ -19,7 +19,7 @@ import { api } from "../utils/api";
 import Link from "next/link";
 import { GrLinkNext } from "react-icons/gr";
 import { TiInputChecked } from "react-icons/ti";
-// import ProgressBar from "./ProgressBar.js";
+import ProgressBar from "./ProgressBar.js";
 
 interface LayerEventTarget {
   feature: {
@@ -119,13 +119,17 @@ const CensusTractMap: NextPage = () => {
   const searchKey = process.env.NEXT_PUBLIC_SEARCH_API;
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-spectrum2">
-      <h1 className="mb-3 text-lg font-semibold text-white md:mt-6 md:text-3xl">
+      <h1 className="mb-4 text-lg font-semibold text-white md:mt-6 md:text-3xl">
         Step 1: Select Your Census Tract
       </h1>
-      {/* <ProgressBar completed={10} /> */}
+      {censusTractComplete ? (
+        <ProgressBar completed={14} />
+      ) : (
+        <ProgressBar completed={2} />
+      )}
 
       {censusTractComplete ? (
-        <div className="mt-5 mb-5 flex items-center">
+        <div className="mt-6 mb-5 flex items-center">
           <h1 className="mb-2 mr-5 flex flex-row items-center justify-center gap-1 font-thin text-white">
             <TiInputChecked className="text-2xl text-green " />
             <strong>{`You selected track ${String(

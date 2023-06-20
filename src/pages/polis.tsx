@@ -1,5 +1,6 @@
 import { type NextPage } from "next";
 import { NextPageButtonLink } from "../UI/NextPageButtonLink";
+import ProgressBar from "../components/ProgressBar";
 
 interface PolisSurvey {
   id: string;
@@ -15,10 +16,11 @@ const Polis: NextPage = () => {
 
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-spectrum2">
-      <div className="">
+      <div className="flex flex-col items-center">
         <h1 className="mb-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
           Step 5: Please select the Pol.is survey you wish to complete.
         </h1>
+        <ProgressBar completed={85} />
         <div className="flex flex-col items-center justify-center  ">
           {surveys?.map(({ id, title }, index) => {
             return (

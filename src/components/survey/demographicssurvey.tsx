@@ -3,7 +3,7 @@ import SurveyQuestion from "./surveyquestion";
 import { api } from "../../utils/api";
 import Link from "next/link";
 import { TiInputChecked } from "react-icons/ti";
-// import ProgressBar from "../ProgressBar";
+import ProgressBar from "../ProgressBar";
 
 export interface SurveyData {
   questionId: string;
@@ -130,11 +130,15 @@ export default function DemographicsSurvey() {
   const completedSurvey = () => {
     return (
       <div className="relative top-2 flex flex-col items-center justify-center">
-        <h1 className=" my-6 mb-12 w-96 self-center border border-dashed  p-4 text-center text-white">
+        <h1 className="mb-6 text-lg font-semibold text-white md:mt-6 md:text-3xl ">
+          Step 4 complete!
+        </h1>
+        <ProgressBar completed={71} />
+        <h2 className=" my-6 mb-12 w-96 self-center border border-dashed  p-4 text-center text-white">
           <TiInputChecked className="mx-auto text-6xl text-lightGreen" /> Thank
           you for completing the demographics survey! Please click continue to
           start the last part of the HIERR survey.
-        </h1>
+        </h2>
         <div className="flex flex-row items-center justify-center gap-5">
           <button
             className="mb-1 mt-4 rounded-full bg-white/80 px-6 py-2 text-blue-darker no-underline
@@ -166,7 +170,7 @@ export default function DemographicsSurvey() {
           <h1 className="mb-6 text-lg font-semibold text-white md:mt-6 md:text-3xl ">
             Step 4: Complete the Demographic Survey
           </h1>
-          {/* <ProgressBar completed={40} /> */}
+          <ProgressBar completed={57} />
 
           {surveyData[currentQuestion] !== undefined ? (
             // TODO: Fix these conditionals

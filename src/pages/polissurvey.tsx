@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { api } from "../utils/api";
 import Link from "next/link";
+import ProgressBar from "../components/ProgressBar";
 
 const PolisSurvey: NextPage = () => {
   const router = useRouter();
@@ -40,13 +41,14 @@ const PolisSurvey: NextPage = () => {
   }, []);
   return (
     <div className="flex h-full flex-col items-center bg-spectrum2 shadow-xl">
-      <h1 className="my-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
-        Step 6: Fill Out The Pol.is Survey
+      <h1 className="mt-8 mb-4 text-lg font-semibold text-white md:mt-6 md:text-3xl">
+        Step 6: Fill out the Pol.is survey
       </h1>
+      <ProgressBar completed={90} />
 
       <div
         id="polis-container"
-        className="mx-auto h-[80%] w-[80%] overflow-y-scroll"
+        className="mx-auto mt-8 h-[80%] w-[80%] overflow-y-scroll"
       >
         <div
           className="polis"
