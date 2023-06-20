@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import SurveyQuestion from "./surveyquestion";
 import { api } from "../../utils/api";
 import Link from "next/link";
+import { TiInputChecked } from "react-icons/ti";
 // import ProgressBar from "../ProgressBar";
 
 export interface SurveyData {
@@ -128,20 +129,25 @@ export default function DemographicsSurvey() {
 
   const completedSurvey = () => {
     return (
-      <div className="relative top-1/3 flex flex-col">
-        <h1 className="my-6 self-center text-white">
-          <strong>You have completed the demographics survey</strong>
+      <div className="relative top-2 flex flex-col items-center justify-center">
+        <h1 className=" my-6 mb-12 w-96 self-center border border-dashed  p-4 text-center text-white">
+          <TiInputChecked className="mx-auto text-6xl text-lightGreen" /> Thank
+          you for completing the demographics survey! Please click continue to
+          start the last part of the HIERR survey.
         </h1>
-        <div className="flex gap-5">
+        <div className="flex flex-row items-center justify-center gap-5">
           <button
-            className="rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+            className="mb-1 mt-4 rounded-full bg-white/80 px-6 py-2 text-blue-darker no-underline
+             transition hover:translate-y-1 hover:bg-white hover:text-blue-darker "
             onClick={() => handleRetakeSurvey()}
           >
             Retake demographic survey
           </button>
           <Link href={{ pathname: "./polis" }}>
             <button
-              className="rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+              className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full border-2 
+              border-dashed border-lightGreen bg-yellowGreen px-6 py-1 text-right text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out 
+           hover:translate-y-1  hover:bg-lightGreen"
               onClick={() => handleSubmit()}
             >
               Continue

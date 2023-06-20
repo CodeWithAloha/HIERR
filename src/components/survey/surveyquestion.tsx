@@ -71,8 +71,10 @@ export default function SurveyQuestion({
     }
   };
   return (
-    <div className="mt-12 flex w-[32rem] flex-col rounded-md bg-[#FFFFFF] px-10 py-5 ">
-      <h1 className="mb-2">{question.question}</h1>
+    <div className="mt-8 flex w-[32rem] flex-col rounded-md bg-[#FFFFFF] px-8 py-8 shadow-xl">
+      <h1 className="mb-8 font-semibold">
+        {surveyInfo.questionNumber + 1}. {question.question}
+      </h1>
       {getAnswers(question.questionType, question.answers)}
       <div className="mt-10 flex flex-row justify-between">
         <button
@@ -84,9 +86,8 @@ export default function SurveyQuestion({
         >
           Back
         </button>
-        <span className="my-2">
-          {surveyInfo.totalQuestions - surveyInfo.questionNumber} questions
-          remaining
+        <span className="my-2 pt-8 opacity-75">
+          Question {surveyInfo.questionNumber + 1} /{surveyInfo.totalQuestions}
         </span>
         <button
           className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full border-2 

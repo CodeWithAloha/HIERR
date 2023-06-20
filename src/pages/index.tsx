@@ -83,6 +83,8 @@ const AuthShowcase: React.FC = () => {
               anonymous. Please note that we do not store any email credentials. 
               If you need to take a break, simply sign out, and your progress will be saved. 
               When you return, remember to sign in using the same email address."
+              successMessage={true}
+              whiteDesignButton={false}
             />
           </>
         ) : null}
