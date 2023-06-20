@@ -40,7 +40,7 @@ const PolisSurvey: NextPage = () => {
   }, []);
   return (
     <div className="flex h-full flex-col items-center bg-spectrum2 shadow-xl">
-      <h1 className="mb-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
+      <h1 className="my-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
         Step 6: Fill Out The Pol.is Survey
       </h1>
 
