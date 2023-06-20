@@ -19,6 +19,7 @@ import { api } from "../utils/api";
 import Link from "next/link";
 import { GrLinkNext } from "react-icons/gr";
 import { TiInputChecked } from "react-icons/ti";
+// import ProgressBar from "./ProgressBar.js";
 
 interface LayerEventTarget {
   feature: {
@@ -121,6 +122,7 @@ const CensusTractMap: NextPage = () => {
       <h1 className="mb-3 text-lg font-semibold text-white md:mt-6 md:text-3xl">
         Step 1: Select Your Census Tract
       </h1>
+      {/* <ProgressBar completed={10} /> */}
 
       {censusTractComplete ? (
         <div className="mt-5 mb-5 flex items-center">

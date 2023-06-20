@@ -94,17 +94,18 @@ const WhatIsHierr = () => {
   return (
     <>
       <div
-        className="flex cursor-pointer flex-row items-center justify-center gap-1 pt-10"
+        className="flex cursor-pointer flex-row items-center justify-center gap-2 pt-10  hover:scale-[102%]
+        "
         onClick={toggleMoreInformation}
       >
         <p
           className="text-md border-white py-1 text-white underline-offset-4 
-            hover:underline 2xl:text-xl"
+              hover:text-lightGreen 2xl:text-xl"
         >
           What is HIERR?
         </p>
         {!showMore && (
-          <div className="text-xl text-white">
+          <div className="text-lg text-white">
             <BsChevronDown />
           </div>
         )}

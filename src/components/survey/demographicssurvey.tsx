@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import SurveyQuestion from "./surveyquestion";
 import { api } from "../../utils/api";
 import Link from "next/link";
+// import ProgressBar from "../ProgressBar";
 
 export interface SurveyData {
   questionId: string;
@@ -156,19 +157,11 @@ export default function DemographicsSurvey() {
         completedSurvey()
       ) : (
         <>
-          <h1 className="mb-12 text-lg font-semibold text-white md:mt-6 md:text-3xl ">
+          <h1 className="mb-6 text-lg font-semibold text-white md:mt-6 md:text-3xl ">
             Step 4: Complete the Demographic Survey
           </h1>
+          {/* <ProgressBar completed={40} /> */}
 
-          <p
-            className="mx-auto mt-4 w-[80%] border border-dashed border-white p-1
-        text-center text-sm text-white md:m-4 md:w-1/2 md:p-4 xl:w-1/3 2xl:text-lg "
-          >
-            Please answer the following questions <strong>anonymously</strong>.
-            Your answers will be combined with others and used to report on the
-            diversity of our community. This helps us make sure that we hear
-            from as many different perspectives as possible during our process.
-          </p>
           {surveyData[currentQuestion] !== undefined ? (
             // TODO: Fix these conditionals
             <SurveyQuestion
@@ -182,6 +175,15 @@ export default function DemographicsSurvey() {
               updateQuestion={updateCurrentQuestion}
             />
           ) : null}
+          <p
+            className="mx-auto mt-8 w-[70%] border border-dashed border-white p-1
+        text-center text-sm text-white md:m-4 md:w-1/2 md:p-4 xl:w-1/3 2xl:text-lg "
+          >
+            Please answer the following questions <strong>anonymously</strong>.
+            Your answers will be combined with others and used to report on the
+            diversity of our community. This helps us make sure that we hear
+            from as many different perspectives as possible during our process.
+          </p>
         </>
       )}
     </div>

@@ -38,17 +38,14 @@ const AboutThisEngagementPortal = () => {
   return (
     <>
       <div
-        className="flex cursor-pointer flex-row items-center justify-center gap-1"
+        className="flex cursor-pointer flex-row items-center justify-center gap-2  hover:scale-[102%] "
         onClick={toggleMoreInformation}
       >
-        <p
-          className="text-md border-white py-1 text-white underline-offset-4 
-            hover:underline 2xl:text-xl"
-        >
+        <p className="text-md border-white py-1 text-white   hover:text-lightGreen 2xl:text-xl">
           About this Engagement Portal
         </p>
         {!showMore && (
-          <div className="text-xl text-white">
+          <div className="text-lg text-white ">
             <BsChevronDown />
           </div>
         )}

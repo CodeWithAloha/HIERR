@@ -71,12 +71,15 @@ export default function SurveyQuestion({
     }
   };
   return (
-    <div className="flex w-[32rem] flex-col rounded-md bg-[#FFFFFF] px-10 py-5 ">
+    <div className="mt-12 flex w-[32rem] flex-col rounded-md bg-[#FFFFFF] px-10 py-5 ">
       <h1 className="mb-2">{question.question}</h1>
       {getAnswers(question.questionType, question.answers)}
       <div className="mt-10 flex flex-row justify-between">
         <button
-          className="mx-1 rounded-full border-2 border-blue-darker bg-white px-6 py-2 text-blue-darker hover:border-2 hover:border-[#777777] hover:bg-[#777777] hover:text-white "
+          className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full border-2 
+              border-dashed border-blue-darker  bg-white px-6 py-1
+          text-right text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out 
+           hover:translate-y-1  hover:bg-blue-darker/20"
           onClick={() => updateQuestion("Prev")}
         >
           Back
@@ -86,7 +89,11 @@ export default function SurveyQuestion({
           remaining
         </span>
         <button
-          className="mx-1 rounded-full bg-blue-darker px-6 py-2 text-white enabled:hover:bg-blue-default disabled:cursor-not-allowed disabled:opacity-75"
+          className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full border-2 
+              border-dashed border-lightGreen
+            bg-yellowGreen px-6 py-1
+          text-right text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out 
+           hover:translate-y-1  hover:bg-lightGreen"
           onClick={() => updateQuestion("Next", selectedAnswer)}
           disabled={disabled}
         >
