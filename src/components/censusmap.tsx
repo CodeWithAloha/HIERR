@@ -40,12 +40,12 @@ const CensusTractMap: NextPage = () => {
   const [userCensusTract, setUserCensusTract] = useState<string | null>(null);
   const [censusTractComplete, setCensusTractComplete] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const selectedStyle = { weight: 2, color: "#00FFFF" };
+  const selectedStyle = { weight: 3, color: "red", opacity: 1 };
   const defaultStyle = {
     fillColor: "#CCCCCC",
     color: "#44475a",
     weight: 1,
-    opacity: 1,
+    opacity: 0.7,
     fillOpacity: 0.2,
   };
 
@@ -128,7 +128,7 @@ const CensusTractMap: NextPage = () => {
         <div className="mt-5 mb-5 flex items-center">
           <h1 className="mb-2 mr-5 flex flex-row items-center justify-center gap-1 font-thin text-white">
             <TiInputChecked className="text-2xl text-green " />
-            <strong>{`You selected: ${String(
+            <strong>{`You selected track ${String(
               userCensusTract //we need to add a check for null
             )}`}</strong>
           </h1>
