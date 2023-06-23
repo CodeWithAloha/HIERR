@@ -36,8 +36,8 @@ const Login: NextPage = () => {
       overflow-hidden bg-spectrum2 bg-bgBig"
       >
         <div
-          className="3xl:top-96 fixed  top-28 
-        flex flex-col items-center justify-center  md:top-48 2xl:top-60"
+          className="3xl:top-96 fixed 
+        flex flex-col items-center justify-center 2xl:top-60"
         >
           <h1
             className="mx-2 pb-5 text-center text-4xl 

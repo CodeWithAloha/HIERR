@@ -119,7 +119,7 @@ const CensusTractMap: NextPage = () => {
   const searchKey = process.env.NEXT_PUBLIC_SEARCH_API;
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-spectrum2">
-      <h1 className="mb-4 text-lg font-semibold text-white md:mt-6 md:text-3xl">
+      <h1 className="text-lg font-semibold text-white md:mt-4 md:text-3xl">
         Step 1: Select Your Census Tract
       </h1>
       {censusTractComplete ? (
