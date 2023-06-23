@@ -70,6 +70,11 @@ export default Login;
 const AuthShowcase: React.FC = () => {
   const { data: sessionData } = useSession();
 
+  const handleSignOut = async () => {
+    localStorage.clear();
+    await signOut();
+  };
+
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <p className="text-center text-2xl text-white">
@@ -92,7 +97,7 @@ const AuthShowcase: React.FC = () => {
       <button
         className="text-black text-md rounded-full bg-white/80 px-6 py-2 
         no-underline shadow-xl transition ease-in-out hover:translate-y-1 hover:bg-white "
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
+        onClick={sessionData ? () => void handleSignOut() : () => void signIn()}
       >
         {sessionData ? "Sign out" : "Sign in to begin"}
       </button>
