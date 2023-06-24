@@ -6,9 +6,7 @@ html,
 body,
 #__next {
   height: 100%;
-  background-image: linear-gradient(steelBlue, black, transparent),
-    linear-gradient(to bottom left, cyan, transparent),
-    linear-gradient(to top right, plum, transparent);
+  background-color: #4682b4;
 }
 
 .geocoder-control-suggestions .geocoder-control-suggestion {

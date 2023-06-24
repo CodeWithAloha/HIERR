@@ -15,7 +15,7 @@ const Polis: NextPage = () => {
   );
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center bg-spectrum2">
+    <div className="flex h-screen flex-col items-center justify-center">
       <div className="flex flex-col items-center">
         <h1 className="mb-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
           Step 5: Please select the Pol.is survey you wish to complete.

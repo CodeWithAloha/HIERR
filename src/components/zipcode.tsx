@@ -52,7 +52,7 @@ const ZipCode: NextPage = () => {
     return stateZipCodes.includes(Number(val));
   };
   return (
-    <div className="flex h-screen flex-col items-center justify-center bg-spectrum2">
+    <div className="flex h-screen flex-col items-center justify-center">
       {!zipCodeComplete ? (
         <>
           <h1

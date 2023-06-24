@@ -33,7 +33,7 @@ const Login: NextPage = () => {
       </Head>
       <main
         className="relative flex  h-screen flex-col items-center justify-center  
-      overflow-hidden bg-spectrum2 bg-bgBig"
+      overflow-hidden bg-bgBig"
       >
         <div
           className="3xl:top-96 fixed 
