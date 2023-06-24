@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { BsChevronDown } from "react-icons/bs";
-import { IoCloseSharp } from "react-icons/io5";
+import React from "react";
 
 const Goals = () => {
   return (
@@ -40,12 +38,12 @@ const ByTheEndOfThisProject = () => {
   );
 };
 
-const TextBlock = () => {
+const WhatIsHierr = () => {
   return (
     <>
       <p className="mb-2 mt-4 text-center 2xl:text-lg">HIERR stands for </p>
       <h3 className="text-md pb-2 pl-2 text-center font-semibold 2xl:text-xl">
-        Hawai&apos;i Economic Recovery and Resilience
+        Hawai&#699;i Economic Recovery and Resilience
       </h3>
 
       <div className="h-[1px] w-full bg-blue-darker/40 md:my-4"></div>
@@ -81,57 +79,6 @@ const TextBlock = () => {
         to view recorded presentations, track progress, and discover engagement
         opportunities.
       </p>
-    </>
-  );
-};
-
-const WhatIsHierr = () => {
-  const [showMore, setShowMore] = useState(false);
-
-  const toggleMoreInformation = () => {
-    setShowMore(!showMore);
-  };
-  return (
-    <>
-      <div
-        className="flex cursor-pointer flex-row items-center justify-center gap-2 pt-10  hover:scale-[102%]
-        "
-        onClick={toggleMoreInformation}
-      >
-        <p
-          className="text-md border-white py-1 text-white underline-offset-4 
-              hover:text-lightGreen 2xl:text-xl"
-        >
-          What is HIERR?
-        </p>
-        {!showMore && (
-          <div className="text-lg text-white">
-            <BsChevronDown />
-          </div>
-        )}
-      </div>
-
-      {showMore && (
-        <div
-          className="md:bottom-22 lg:bottom-18 fixed bottom-2 z-30 w-[98%]
-               animate-slide-in rounded-md 
-              bg-white/90 p-1 text-sm 
-              shadow-xl
-              backdrop-blur-md ease-in-out sm:bottom-8 
-              sm:w-[94%]  sm:p-2
-              md:p-8 lg:w-[84%]
-              xl:bottom-12 xl:w-[80%]
-              2xl:bottom-20 2xl:w-[60%]"
-        >
-          <button
-            onClick={toggleMoreInformation}
-            className="absolute top-4 right-4 text-2xl lg:text-4xl"
-          >
-            <IoCloseSharp />
-          </button>
-          <TextBlock />
-        </div>
-      )}
     </>
   );
 };

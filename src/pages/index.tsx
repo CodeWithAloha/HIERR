@@ -8,6 +8,7 @@ import React from "react";
 import WhatIsHierr from "../components/WhatIsHierr";
 import AboutThisEngagementPortal from "../components/AboutThisEngagement";
 import WhyCreateAccount from "../components/WhyCreateAccount";
+import InfoPopup from "../components/InfoPopup";
 
 const Login: NextPage = () => {
   return (
@@ -56,9 +57,17 @@ const Login: NextPage = () => {
           </h2>
           <AuthShowcase />
 
-          <WhatIsHierr />
-          <AboutThisEngagementPortal />
-          <WhyCreateAccount />
+          <div className="mt-4 flex flex-col items-center justify-center">
+            <InfoPopup title="What is HIERR?" PopupInfo={WhatIsHierr} />
+            <InfoPopup
+              title="About this Engagement Portal"
+              PopupInfo={AboutThisEngagementPortal}
+            />
+            <InfoPopup
+              title="Why am I creating an account?"
+              PopupInfo={WhyCreateAccount}
+            />
+          </div>
         </div>
       </main>
     </>

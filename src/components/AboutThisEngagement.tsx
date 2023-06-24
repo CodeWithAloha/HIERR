@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import { BsChevronDown } from "react-icons/bs";
-import { IoCloseSharp } from "react-icons/io5";
+import React from "react";
 
-const TextBlock = () => {
+const AboutThisEngagementPortal = () => {
   return (
     <>
       <h3 className="text-md p-4 pl-2 text-center font-semibold 2xl:text-xl">
@@ -25,53 +23,6 @@ const TextBlock = () => {
           shutdown.
         </li>
       </ol>
-    </>
-  );
-};
-
-const AboutThisEngagementPortal = () => {
-  const [showMore, setShowMore] = useState(false);
-
-  const toggleMoreInformation = () => {
-    setShowMore(!showMore);
-  };
-  return (
-    <>
-      <div
-        className="flex cursor-pointer flex-row items-center justify-center gap-2  hover:scale-[102%] "
-        onClick={toggleMoreInformation}
-      >
-        <p className="text-md border-white py-1 text-white   hover:text-lightGreen 2xl:text-xl">
-          About this Engagement Portal
-        </p>
-        {!showMore && (
-          <div className="text-lg text-white ">
-            <BsChevronDown />
-          </div>
-        )}
-      </div>
-
-      {showMore && (
-        <div
-          className=" fixed bottom-[6rem] z-30 w-[94%]
-               animate-slide-in rounded-md border
-              bg-white/80 p-2 pt-8 text-sm 
-              shadow-xl backdrop-blur-md ease-in-out 
-              sm:bottom-[8rem]  sm:w-[94%] 
-              md:bottom-[2rem]
-              lg:bottom-[4rem] lg:w-[84%] lg:p-4
-              xl:bottom-12 xl:w-[70%]
-              2xl:bottom-[26%] 2xl:w-[50%]"
-        >
-          <button
-            onClick={toggleMoreInformation}
-            className="absolute top-4 right-4 text-2xl lg:text-4xl"
-          >
-            <IoCloseSharp />
-          </button>
-          <TextBlock />
-        </div>
-      )}
     </>
   );
 };
