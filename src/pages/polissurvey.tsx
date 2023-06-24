@@ -44,7 +44,7 @@ const PolisSurvey: NextPage = () => {
       <h1 className="mt-8 mb-4 text-lg font-semibold text-white md:mt-6 md:text-3xl">
         Step 6: Fill out the Pol.is survey
       </h1>
-      <ProgressBar completed={90} />
+      <ProgressBar completed={100} />
 
       <div
         id="polis-container"
