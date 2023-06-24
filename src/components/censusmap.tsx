@@ -20,6 +20,8 @@ import Link from "next/link";
 import { GrLinkNext } from "react-icons/gr";
 import { TiInputChecked } from "react-icons/ti";
 import ProgressBar from "./ProgressBar.js";
+import InfoPopup from "./InfoPopup";
+import CensusMapInfo from "./CensusMapInfo";
 
 interface LayerEventTarget {
   feature: {
@@ -194,16 +196,10 @@ const CensusTractMap: NextPage = () => {
           </div>
         </div>
       </div>
-      <p
-        className="mx-auto mt-4 w-[90%] border border-dashed border-white p-1
-        text-center text-sm text-white md:m-4 md:w-1/2 md:p-4 xl:w-1/3 2xl:text-lg"
-      >
-        Please select your neighborhood. We use this information to report on
-        the diverse representation of people in our community. By collecting and
-        analyzing demographic data, we aim to include perspectives from a wide
-        range of individuals. This helps us ensure that our processes are
-        inclusive and reflect the voices of our community as much as possible.
-      </p>
+      <InfoPopup
+        title="What do we use this data for?"
+        PopupInfo={CensusMapInfo}
+      />
     </div>
   );
 };
