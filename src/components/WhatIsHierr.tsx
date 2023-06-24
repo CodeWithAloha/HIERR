@@ -51,12 +51,12 @@ const WhatIsHierr = () => {
         Project Overview
       </h2>
       <p className="mb-2 2xl:text-lg">
-        The State of Hawai&apos;i Office of Planning & Sustainable
+        The State of Hawai&#699;i Office of Planning & Sustainable
         Development&apos;s (OPSD) Special Plans Branch was awarded a Statewide
         Planning Grant (SPG) funded by the U.S. Department of Commerce, Economic
         Development Administration (EDA) to develop an economic recovery and
-        resiliency plan for Hawaiʻi. This project is designed to learn from the
-        economic impacts and experiences of hardship associated with the
+        resiliency plan for Hawai&#699;i. This project is designed to learn from
+        the economic impacts and experiences of hardship associated with the
         COVID-19 pandemic to inform and enable actions toward a more resilient,
         equitable, and sustainable economy.
       </p>
