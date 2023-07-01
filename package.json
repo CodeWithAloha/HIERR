@@ -33,6 +33,7 @@
     "react-dom": "18.2.0",
     "react-esri-leaflet": "^2.0.1",
     "react-hook-form": "^7.43.7",
+    "react-icons": "^4.10.1",
     "react-leaflet": "^4.2.0",
     "superjson": "1.9.1",
     "zod": "^3.20.2"
