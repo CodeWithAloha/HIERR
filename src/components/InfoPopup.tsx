@@ -35,7 +35,7 @@ const InfoPopup = ({ title, PopupInfo }: InfoPopupProps) => {
 
       {showMore && (
         <div
-          className="md:bottom-22 lg:bottom-18 fixed bottom-2 z-[1000] w-[98%]
+          className="md:bottom-22 lg:bottom-18 fixed bottom-2 z-[1500] w-[98%]
                animate-slide-in rounded-md 
               bg-white/90 p-1 text-sm 
               shadow-xl
