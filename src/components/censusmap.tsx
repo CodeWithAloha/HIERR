@@ -19,7 +19,7 @@ import { api } from "../utils/api";
 import Link from "next/link";
 import { GrLinkNext } from "react-icons/gr";
 import { TiInputChecked } from "react-icons/ti";
-import ProgressBar from "./ProgressBar.js";
+import ProgressBar from "./ProgressBar";
 import InfoPopup from "./InfoPopup";
 import CensusMapInfo from "./CensusMapInfo";
 
