@@ -5,6 +5,7 @@ interface NextPageButtonLinkProps {
   msg: string;
   disabled?: boolean;
   query?: { [key: string]: string };
+  path?: string;
 }
 
 export const NextPageButtonLink = ({
@@ -12,8 +13,10 @@ export const NextPageButtonLink = ({
   msg,
   disabled,
   query,
+  path,
 }: NextPageButtonLinkProps) => {
-  const href = { pathname: `./${pageName}`, query: query };
+  const pathValue = path ? `${path}/${pageName}` : `./${pageName}`;
+  const href = { pathname: pathValue, query: query };
   return (
     <div>
       <Link href={href}>
