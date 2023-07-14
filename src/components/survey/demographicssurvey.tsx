@@ -135,7 +135,7 @@ export default function DemographicsSurvey() {
         </h1>
         <ProgressBar completed={71} />
         <h2 className=" my-6 mb-12 w-96 self-center border border-dashed  p-4 text-center text-white">
-          <TiInputChecked className="mx-auto text-6xl text-lightGreen" /> Thank
+          <TiInputChecked className="mx-auto text-6xl text-yellowGreen" /> Thank
           you for completing the demographics survey! Please click continue to
           start the last part of the HIERR survey.
         </h2>

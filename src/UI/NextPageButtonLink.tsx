@@ -30,7 +30,7 @@ export const NextPageButtonLink = ({
         >
           {" "}
           <span>
-            <TiInputChecked className="mx-auto text-4xl text-lightGreen" />
+            <TiInputChecked className="mx-auto text-4xl text-yellowGreen" />
           </span>{" "}
           {text}
         </p>

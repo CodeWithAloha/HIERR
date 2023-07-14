@@ -136,7 +136,7 @@ const CensusTractMap: NextPage = () => {
       {censusTractComplete ? (
         <div className="mt-6 mb-5 flex items-center">
           <h1 className="mb-2 mr-5 flex flex-row items-center justify-center gap-1 font-thin text-white">
-            <TiInputChecked className="text-2xl text-green " />
+            <TiInputChecked className="text-2xl text-yellowGreen " />
             <strong>{`You selected track ${String(
               userCensusTract //we need to add a check for null
             )}`}</strong>
