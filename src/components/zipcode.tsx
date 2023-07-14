@@ -6,6 +6,9 @@ import { useCallback, useEffect, useState } from "react";
 import SelectedZipCode from "./selectedzipcode";
 import { useForm } from "react-hook-form";
 import stateZipCodes from "../data/2020_Zip_Code_Data.json";
+import { GrLinkNext } from "react-icons/gr";
+import { BiError } from "react-icons/bi";
+import ProgressBar from "./ProgressBar";
 interface ZipCodeData {
   zipCode: string;
 }
@@ -49,24 +52,29 @@ const ZipCode: NextPage = () => {
     return stateZipCodes.includes(Number(val));
   };
   return (
-    <div className="flex h-screen flex-col items-center bg-[#3276AE]">
+    <div className="flex h-screen flex-col items-center justify-center">
       {!zipCodeComplete ? (
         <>
-          <h1 className="mt-6 text-3xl font-bold text-white">
-            Please Enter Your Zip Code
+          <h1
+            className="mb-4 text-lg font-semibold text-white md:mt-6 md:text-3xl
+        "
+          >
+            Step 2: Enter Your Zip Code
           </h1>
-          <p className="mt-6 w-3/5 text-center text-white">
-            This information will be used for the purposes of reporting on
-            demographic representation. This reporting ensures that our process
-            seeks to hear from as many perspectives in our community as possible
-          </p>
+
+          {!errors.zipCode ? (
+            <ProgressBar completed={29} />
+          ) : (
+            <ProgressBar completed={14} />
+          )}
           <form
-            className="mt-6 overflow-hidden rounded bg-white px-8 py-6 shadow-lg"
+            className="my-6 flex w-[60%] flex-col items-center justify-center overflow-hidden rounded px-8 py-6  md:w-1/2 xl:w-1/3"
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             onSubmit={onSubmit}
           >
             <input
-              className="form-input rounded"
+              className="form-input w-full rounded border outline-none focus:border-green"
+              placeholder="Enter ZIP code"
               {...register("zipCode", {
                 required: true,
                 pattern: {
@@ -83,14 +91,35 @@ const ZipCode: NextPage = () => {
             <br />
             {errors.zipCode && (
               <>
-                <p style={{ color: "red" }}>{errors.zipCode.message}</p>
+                <p
+                  className=" flex flex-row items-center justify-center 
+                gap-1 whitespace-nowrap text-red drop-shadow-md"
+                >
+                  <BiError className="text-xl" /> {errors.zipCode.message}
+                </p>
               </>
             )}
-            <input
-              className="mt-5 cursor-pointer rounded-full border-2 border-blue-default px-5 py-1 hover:bg-blue-default hover:text-white"
+            <button
+              className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full border-2 
+              border-dashed border-lightGreen
+            bg-yellowGreen px-6 py-1
+          text-right text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out 
+           hover:translate-y-1  hover:bg-lightGreen"
               type="submit"
-            />
+            >
+              {" "}
+              Submit <GrLinkNext />
+            </button>
           </form>
+          <p
+            className="mx-auto mt-4 w-[80%] border border-dashed border-white p-1
+        text-center text-sm text-white md:m-4 md:w-1/2 md:p-4 xl:w-1/3 2xl:text-lg "
+          >
+            This information will be used for the purposes of reporting on
+            demographic representation. This reporting ensures that our process
+            seeks to hear from as many perspectives in our community as
+            possible.
+          </p>
         </>
       ) : (
         <SelectedZipCode

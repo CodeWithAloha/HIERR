@@ -17,6 +17,11 @@ import { Layer, LeafletMouseEvent } from "leaflet";
 import EsriLeafletGeoSearch from "react-esri-leaflet/plugins/EsriLeafletGeoSearch";
 import { api } from "../utils/api";
 import Link from "next/link";
+import { GrLinkNext } from "react-icons/gr";
+import { TiInputChecked } from "react-icons/ti";
+import ProgressBar from "./ProgressBar";
+import InfoPopup from "./InfoPopup";
+import CensusMapInfo from "./CensusMapInfo";
 
 interface LayerEventTarget {
   feature: {
@@ -37,12 +42,12 @@ const CensusTractMap: NextPage = () => {
   const [userCensusTract, setUserCensusTract] = useState<string | null>(null);
   const [censusTractComplete, setCensusTractComplete] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const selectedStyle = { weight: 2, color: "#00FFFF" };
+  const selectedStyle = { weight: 3, color: "red", opacity: 1 };
   const defaultStyle = {
     fillColor: "#CCCCCC",
     color: "#44475a",
     weight: 1,
-    opacity: 1,
+    opacity: 0.7,
     fillOpacity: 0.2,
   };
 
@@ -115,36 +120,43 @@ const CensusTractMap: NextPage = () => {
 
   const searchKey = process.env.NEXT_PUBLIC_SEARCH_API;
   return (
-    <div className="flex h-full flex-col items-center">
-      <h1 className="mt-6 text-3xl font-bold text-white">
-        Select Your Census Tract
+    <div className="flex h-screen flex-col items-center justify-center">
+      <h1 className="text-lg font-semibold text-white md:mt-4 md:text-3xl">
+        Step 1: Select Your Census Tract
       </h1>
-      <p className="mt-6 w-3/5 text-center text-white">
-        This information will be used for the purposes of reporting on
-        demographic representation. This reporting ensures that our process
-        seeks to hear from as many perspectives in our community as possible
-      </p>
       {censusTractComplete ? (
-        <div className="mt-5 mb-5 flex items-center">
-          <h1 className="mb-2 mr-5 text-white">
-            <strong>{`You selected census tract is ${String(
-              userCensusTract
+        <ProgressBar completed={14} />
+      ) : (
+        <ProgressBar completed={2} />
+      )}
+      <InfoPopup
+        title="What do we use this data for?"
+        PopupInfo={CensusMapInfo}
+      />
+      {censusTractComplete ? (
+        <div className="mt-6 mb-5 flex items-center">
+          <h1 className="mb-2 mr-5 flex flex-row items-center justify-center gap-1 font-thin text-white">
+            <TiInputChecked className="text-2xl text-yellowGreen " />
+            <strong>{`You selected track ${String(
+              userCensusTract //we need to add a check for null
             )}`}</strong>
           </h1>
           <Link className="flex" href={{ pathname: "./zipcode" }}>
             <button
-              className="mb-4 self-center rounded-full bg-white/90 px-5 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+              className="mb-1 flex flex-row items-center justify-center rounded-full border-2 border-dashed border-lightGreen bg-yellowGreen px-6
+          py-1 text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out 
+           hover:translate-y-1  hover:bg-lightGreen"
               onClick={() => handleSubmit()}
               disabled={disabled}
             >
-              Continue
+              Next <GrLinkNext />
             </button>
           </Link>
         </div>
       ) : (
         <div className="mt-5 mb-5"></div>
       )}
-      <div className="overflow-visible rounded bg-white shadow-lg">
+      <div className="overflow-visible rounded bg-white shadow-xl">
         <div id="map" className="w-full">
           <MapContainer
             center={[21.43805, -157.985262]}
@@ -180,7 +192,7 @@ const CensusTractMap: NextPage = () => {
             />
           </MapContainer>
           <div className="items-center px-6 py-4">
-            <p className="text-black">
+            <p className="text-black md:text-md text-sm">
               Use the ➕ and ➖ on the map to find the census tract area that
               contains your address
             </p>

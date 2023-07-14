@@ -1,5 +1,6 @@
 import { type NextPage } from "next";
 import { NextPageButtonLink } from "../UI/NextPageButtonLink";
+import ProgressBar from "../components/ProgressBar";
 
 interface PolisSurvey {
   id: string;
@@ -14,20 +15,27 @@ const Polis: NextPage = () => {
   );
 
   return (
-    <div className="flex h-screen flex-col items-center">
-      <div className="relative top-1/3">
-        <h1 className="my-6 text-white">
-          Please select the Pol.is survey you wish to complete.
+    <div className="flex h-screen flex-col items-center justify-center">
+      <div className="flex flex-col items-center">
+        <h1 className="mb-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
+          Step 5: Please select the Pol.is survey you wish to complete.
         </h1>
-        <div className="justify-items-left flex flex-col">
+        <ProgressBar completed={85} />
+        <div className="flex flex-col items-center justify-center  ">
           {surveys?.map(({ id, title }, index) => {
             return (
-              <div className="mb-12" key={`survey-button-next-page-${index}`}>
+              <div
+                className="mb-4 flex translate-y-10 flex-col items-center justify-center"
+                key={`survey-button-next-page-${index}`}
+              >
                 <NextPageButtonLink
                   key="survey-{index}"
                   pageName="polissurvey"
                   msg={title}
                   query={{ surveyId: id }}
+                  text=""
+                  successMessage={false}
+                  whiteDesignButton={true}
                 />
               </div>
             );

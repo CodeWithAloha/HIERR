@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import SurveyQuestion from "./surveyquestion";
 import { api } from "../../utils/api";
 import Link from "next/link";
+import { TiInputChecked } from "react-icons/ti";
+import ProgressBar from "../ProgressBar";
 
 export interface SurveyData {
   questionId: string;
@@ -127,20 +129,29 @@ export default function DemographicsSurvey() {
 
   const completedSurvey = () => {
     return (
-      <div className="relative top-1/3 flex flex-col">
-        <h1 className="my-6 self-center text-white">
-          <strong>You have completed the demographics survey</strong>
+      <div className="relative top-2 flex flex-col items-center justify-center">
+        <h1 className="mb-6 text-lg font-semibold text-white md:mt-6 md:text-3xl ">
+          Step 4 complete!
         </h1>
-        <div className="flex gap-5">
+        <ProgressBar completed={71} />
+        <h2 className=" my-6 mb-12 w-96 self-center border border-dashed  p-4 text-center text-white">
+          <TiInputChecked className="mx-auto text-6xl text-yellowGreen" /> Thank
+          you for completing the demographics survey! Please click continue to
+          start the last part of the HIERR survey.
+        </h2>
+        <div className="flex flex-row items-center justify-center gap-5">
           <button
-            className="rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+            className="mb-1 mt-4 rounded-full bg-white/80 px-6 py-2 text-blue-darker no-underline
+             transition hover:translate-y-1 hover:bg-white hover:text-blue-darker "
             onClick={() => handleRetakeSurvey()}
           >
             Retake demographic survey
           </button>
           <Link href={{ pathname: "./polis" }}>
             <button
-              className="rounded-full bg-white/90 px-10 py-3 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+              className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full border-2 
+              border-dashed border-lightGreen bg-yellowGreen px-6 py-1 text-right text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out 
+           hover:translate-y-1  hover:bg-lightGreen"
               onClick={() => handleSubmit()}
             >
               Continue
@@ -151,27 +162,16 @@ export default function DemographicsSurvey() {
     );
   };
   return (
-    <div className="flex h-screen flex-col items-center bg-[#3276AE]">
+    <div className="flex h-screen flex-col items-center justify-center">
       {surveyCompleted ? (
         completedSurvey()
       ) : (
         <>
-          <h1 className="mt-6 text-3xl font-bold text-white">
-            Demographic Survey
+          <h1 className="mb-6 text-lg font-semibold text-white md:mt-6 md:text-3xl ">
+            Step 4: Complete the Demographic Survey
           </h1>
-          <p className="my-6 w-3/5 text-center text-2xl text-white">
-            Please answer the following questions.{" "}
-            <u>
-              These questions are to be answered anonymously and will not be
-              attributed to you in any way.
-            </u>
-          </p>
-          <p className="my-6 w-3/5 text-center text-xl text-white">
-            Answers to these questions will be collected from all participants
-            and will be used for the purposes of reporting on demographic
-            representation. This reporting ensures that our process seeks to
-            hear from as many perspectives in our community as possible.
-          </p>
+          <ProgressBar completed={57} />
+
           {surveyData[currentQuestion] !== undefined ? (
             // TODO: Fix these conditionals
             <SurveyQuestion
@@ -185,6 +185,15 @@ export default function DemographicsSurvey() {
               updateQuestion={updateCurrentQuestion}
             />
           ) : null}
+          <p
+            className="mx-auto mt-8 w-[70%] border border-dashed border-white p-1
+        text-center text-sm text-white md:m-4 md:w-1/2 md:p-4 xl:w-1/3 2xl:text-lg "
+          >
+            Please answer the following questions <strong>anonymously</strong>.
+            Your answers will be combined with others and used to report on the
+            diversity of our community. This helps us make sure that we hear
+            from as many different perspectives as possible during our process.
+          </p>
         </>
       )}
     </div>

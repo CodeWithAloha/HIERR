@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { api } from "../utils/api";
 import Link from "next/link";
+import ProgressBar from "../components/ProgressBar";
 
 const PolisSurvey: NextPage = () => {
   const router = useRouter();
@@ -39,24 +40,30 @@ const PolisSurvey: NextPage = () => {
     };
   }, []);
   return (
-    <div className="flex h-max flex-col items-center bg-[#3276AE]">
-      <h1 className="mt-6 text-3xl font-bold text-white">
-        Please Fill Out The Pol.is Survey
+    <div className="flex h-full flex-col items-center shadow-xl">
+      <h1 className="mt-8 mb-4 text-lg font-semibold text-white md:mt-6 md:text-3xl">
+        Step 6: Fill out the Pol.is survey
       </h1>
-      <div className="mt-6 mb-6 flex justify-between align-middle">
-        <p className="mr-5 py-2 text-white">Return to polis survey selection</p>
-        <Link href={"./polis"}>
-          <button className="rounded-full bg-white/90 px-10 py-2 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker">
-            Back
-          </button>
-        </Link>
-      </div>
-      <div id="polis-container" style={{ width: "70vw", margin: "0 auto" }}>
+      <ProgressBar completed={100} />
+
+      <div
+        id="polis-container"
+        className="mx-auto mt-8 h-[80%] w-[80%] overflow-y-scroll"
+      >
         <div
           className="polis"
           data-conversation_id={surveyId}
           data-xid={userID}
         ></div>
+      </div>
+      <div className="mt-6 mb-6 flex justify-between align-middle">
+        <Link
+          href={"./polis"}
+          className="rounded-full bg-white/90 px-10 py-2 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
+        >
+          {" "}
+          Return to polis survey selection
+        </Link>
       </div>
     </div>
   );
