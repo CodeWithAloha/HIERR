@@ -13,7 +13,7 @@ const PolisSurvey: NextPage = () => {
   //   it is completely fine if the id and xid in the user table are the same.
   //   ideally, we would not have created a separate xid column in the user table, and would have just used the id column as the polis id
   // TODO - we need a database migration to add xids for any rows in the user table that are empty. any users who have logged in and don't have an xid value in the database will never work correctly (polis export will always break)
-  const userID = api.api.user.getXID.useQuery().data.xid;
+  const userID = api.user.getXID.useQuery().data.xid;
 
   useEffect(() => {
     const script = document.createElement("script");
