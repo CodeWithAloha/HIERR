@@ -8,24 +8,12 @@ import ProgressBar from "../components/ProgressBar";
 const PolisSurvey: NextPage = () => {
   const router = useRouter();
   const { surveyId } = router.query;
-  const [userID, setUserID] = useState<string>();
-  const xidDataDB = api.user.getXID.useQuery();
-
-  useEffect(() => {
-    if (xidDataDB.data && xidDataDB.data.xid !== null) {
-      setUserID(String(xidDataDB.data.xid));
-      localStorage.polisUserXID = String(xidDataDB.data.xid);
-    } else if (
-      localStorage.polisUserXID !== "undefined" &&
-      localStorage.polisUserXID !== undefined
-    ) {
-      setUserID(String(localStorage.polisUserXID));
-      console.log("Existing polisUserXID found:", localStorage.polisUserXID);
-    } else {
-      console.log("Assigning new polisUserXID:", userID);
-      localStorage.polisUserXID = userID;
-    }
-  }, [userID, xidDataDB.data?.xid]);
+  // TODO - whereever in code the user object is initially stored in the database (I can't find anywhere that user.create is called to do this with Prisma),
+  //   the a new UUID needs to be generated and stored in the xid field in the user table
+  //   it is completely fine if the id and xid in the user table are the same.
+  //   ideally, we would not have created a separate xid column in the user table, and would have just used the id column as the polis id
+  // TODO - we need a database migration to add xids for any rows in the user table that are empty. any users who have logged in and don't have an xid value in the database will never work correctly (polis export will always break)
+  const userID = api.api.user.getXID.useQuery().data.xid;
 
   useEffect(() => {
     const script = document.createElement("script");
