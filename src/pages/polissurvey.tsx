@@ -26,7 +26,7 @@ const PolisSurvey: NextPage = () => {
       document.body.removeChild(script);
     };
   }, []);
-  const userID = api.user.getXID.useQuery()?.data?.xid;
+  const userID = api.user.getId.useQuery()?.data?.id;
   return (
     <div className="flex h-full flex-col items-center shadow-xl">
       <h1 className="mt-8 mb-4 text-lg font-semibold text-white md:mt-6 md:text-3xl">
