@@ -6,7 +6,7 @@ html,
 body,
 #__next {
   height: 100%;
-  background-color: rgb(50 118 174);
+  background-color: #4682b4;
 }
 
 .geocoder-control-suggestions .geocoder-control-suggestion {
