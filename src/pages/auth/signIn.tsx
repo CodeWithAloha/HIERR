@@ -52,9 +52,9 @@ const LoginForm = () => {
             />
             <button
               type="submit"
-              className=" border-lightGreen bg-yellowGreen hover:bg-lightGreen mt-12 mb-8 flex min-w-[200px] flex-row items-center justify-center rounded-full
-             border-2 border-dashed px-6 py-1 text-lg font-semibold text-blue-darker no-underline 
-              shadow-xl  transition ease-in-out hover:translate-y-1"
+              className=" mt-12 mb-8 flex min-w-[200px] flex-row items-center justify-center rounded-full border-2 border-dashed border-lightGreen
+             bg-yellowGreen px-6 py-1 text-lg font-semibold text-blue-darker no-underline shadow-xl 
+              transition  ease-in-out hover:translate-y-1 hover:bg-lightGreen"
             >
               Sign In <AiOutlineMail className="ml-2 text-2xl" />
             </button>
@@ -63,8 +63,10 @@ const LoginForm = () => {
         </>
       ) : (
         <div className="flex max-w-[400px] flex-row items-center justify-start gap-1 pt-4">
-          {success && <MdDownloadDone className="mr-2 text-3xl text-green" />}
-          {err && <BiCommentError className="text-red  mr-1 text-3xl" />}
+          {success && (
+            <MdDownloadDone className="mr-2 text-3xl text-lightGreen" />
+          )}
+          {err && <BiCommentError className="mr-1  text-3xl text-red" />}
           <p className="mt-1 w-full  text-sm text-white  2xl:text-lg">
             {" "}
             {message}
@@ -78,16 +80,27 @@ const LoginForm = () => {
 const SigninPage = () => {
   const { data: sessionData } = useSession();
   return (
-    <div className="bg-spectrum2 flex h-screen w-full flex-col items-center justify-center">
-      {sessionData ? (
-        <NextPageButtonLink
-          pageName="censusmap"
-          msg="Click here to begin."
-          path=".."
-        />
-      ) : (
-        <LoginForm />
-      )}
+    <div className="flex h-screen w-full flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center gap-4">
+        <p className="text-center text-2xl text-white">
+          {sessionData ? (
+            <NextPageButtonLink
+              pageName="censusmap"
+              msg="Start the survey"
+              text="You are currently logged in. 
+          You can begin the survey now, and rest assured that all responses will remain 
+          anonymous. Please note that we do not store any email credentials. 
+          If you need to take a break, simply sign out, and your progress will be saved. 
+          When you return, remember to sign in using the same email address."
+              successMessage={true}
+              whiteDesignButton={false}
+              path=".."
+            />
+          ) : (
+            <LoginForm />
+          )}
+        </p>
+      </div>
     </div>
   );
 };
