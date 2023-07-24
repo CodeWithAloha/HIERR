@@ -5,7 +5,7 @@ import { BiCommentError } from "react-icons/bi";
 import { signIn } from "next-auth/react";
 import WhyCreateAccount from "../../components/WhyCreateAccount";
 
-export const LoginForm = () => {
+export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
@@ -74,4 +74,4 @@ export const LoginForm = () => {
       )}
     </>
   );
-};
+}

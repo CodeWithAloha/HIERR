@@ -1,7 +1,7 @@
 import React from "react";
 import { useSession } from "next-auth/react";
 import { NextPageButtonLink } from "../../UI/NextPageButtonLink";
-import { LoginForm } from "./loginform";
+import LoginForm from "./loginform";
 
 const SigninPage = () => {
   const { data: sessionData } = useSession();
