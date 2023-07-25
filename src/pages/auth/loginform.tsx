@@ -34,16 +34,19 @@ export default function LoginForm() {
   return (
     <>
       {!success ? (
-        <>
-          <h1 className="mb-12 text-2xl font-semibold text-white md:mt-6 md:text-3xl">
-            Sign in with your email
+        <div
+          className="m-4 flex max-w-[500px] flex-col items-center 
+        justify-center rounded-md bg-white/10 p-2 pb-8 shadow-xl sm:m-4 md:min-w-[500px]"
+        >
+          <h1 className="mb-8 pt-3 text-4xl font-semibold uppercase text-white md:mt-6 md:text-3xl">
+            Sign in
           </h1>
           <form
             onSubmit={(e) => void handleSubmit(e)}
-            className="flex flex-col items-center justify-center focus:bg-white"
+            className="flex flex-col items-center justify-center focus:bg-white "
           >
             <input
-              className="min-w-[400px] rounded border-2 text-lg font-semibold focus:border-green"
+              className="w-fit min-w-[250px] rounded border-2 focus:border-green"
               type="email"
               placeholder="Type your email..."
               value={email}
@@ -51,15 +54,16 @@ export default function LoginForm() {
             />
             <button
               type="submit"
-              className=" mt-12 mb-8 flex min-w-[200px] flex-row items-center justify-center rounded-full border-2 border-dashed border-lightGreen
-             bg-yellowGreen px-6 py-1 text-lg font-semibold text-blue-darker no-underline shadow-xl 
+              className=" mt-8 mb-8 flex min-w-[200px] flex-row items-center justify-center gap-2 rounded-full border-2 border-dashed border-lightGreen
+             bg-yellowGreen px-4 py-1 text-lg font-semibold text-blue-darker no-underline shadow-xl 
               transition  ease-in-out hover:translate-y-1 hover:bg-lightGreen"
             >
-              Sign In <AiOutlineMail className="ml-2 text-2xl" />
+              <AiOutlineMail className=" text-xl " />
+              Sign In
             </button>
           </form>
           <WhyCreateAccount />
-        </>
+        </div>
       ) : (
         <div className="flex max-w-[400px] flex-row items-center justify-start gap-1 pt-4">
           {success && (
