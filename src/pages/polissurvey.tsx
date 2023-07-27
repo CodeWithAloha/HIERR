@@ -8,44 +8,36 @@ import ProgressBar from "../components/ProgressBar";
 const PolisSurvey: NextPage = () => {
   const router = useRouter();
   const { surveyId } = router.query;
-  const [userID, setUserID] = useState<string>();
-  const xidDataDB = api.user.getXID.useQuery();
+  const userID = api.user.getId.useQuery()?.data?.id;
 
   useEffect(() => {
-    if (xidDataDB.data && xidDataDB.data.xid !== null) {
-      setUserID(String(xidDataDB.data.xid));
-      localStorage.polisUserXID = String(xidDataDB.data.xid);
-    } else if (
-      localStorage.polisUserXID !== "undefined" &&
-      localStorage.polisUserXID !== undefined
-    ) {
-      setUserID(String(localStorage.polisUserXID));
-      console.log("Existing polisUserXID found:", localStorage.polisUserXID);
-    } else {
-      console.log("Assigning new polisUserXID:", userID);
-      localStorage.polisUserXID = userID;
+    if (userID !== undefined && userID !== "") {
+      const script = document.createElement("script");
+
+      script.src = "https://pol.is/embed.js";
+      script.async = true;
+
+      document.body.appendChild(script);
+
+      return () => {
+        document.body.removeChild(script);
+      };
     }
-  }, [userID, xidDataDB.data?.xid]);
+  }, [userID]);
 
-  useEffect(() => {
-    const script = document.createElement("script");
-
-    script.src = "https://pol.is/embed.js";
-    script.async = true;
-
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
+  if (userID === "" || userID === undefined) {
+    return (
+      <>
+        <h1 className="text-white">Loading Surveys</h1>
+      </>
+    );
+  }
   return (
     <div className="flex h-full flex-col items-center shadow-xl">
       <h1 className="mt-8 mb-4 text-lg font-semibold text-white md:mt-6 md:text-3xl">
         Step 6: Fill out the Pol.is survey
       </h1>
       <ProgressBar completed={100} />
-
       <div
         id="polis-container"
         className="mx-auto mt-8 h-[80%] w-[80%] overflow-y-scroll"
