@@ -57,13 +57,13 @@ npx prisma db push
   - Fill in the .env variables for EMAIL_SERVER and EMAIL_FROM
     - EMAIL_SERVER="smtps://{username}:{password}@{smtpserver}:{port}"
     - EMAIL_FROM={Email sending the verification link}
-- [Sendinblue](https://app.sendinblue.com)
+- [Brevo (formerly Sendinblue)](https://app.brevo.com)
   - Create an account
   - Fill in the .env variables for EMAIL_SERVER and EMAIL_FROM
-    - EMAIL_SERVER=smtp://LOGIN:SMTP_KEY_VALUE@smtp-relay.sendinblue.com:587
-      - Replace LOGIN and SMTP_KEY_VALUE from [SMTP Credentials](https://app.sendinblue.com/settings/keys/smtp)
+    - EMAIL_SERVER=smtp://LOGIN:SMTP_KEY_VALUE@smtp-relay.brevo.com:587
+      - Replace LOGIN and SMTP_KEY_VALUE from [SMTP Credentials](https://app.brevo.com/settings/keys/smtp)
     - EMAIL_FROM={Email sending the verification link}
-  - Debugging [Log](https://app-smtp.sendinblue.com/log)
+  - Debugging [Log](https://app-smtp.brevo.com/log)
 
 # Prisma SQL Server Migration
 
