@@ -2,20 +2,36 @@
 import { type NextPage } from "next";
 
 import { useSession } from "next-auth/react";
+import LoggedInAs from "./loggedinas";
 
 const PolisConvert: NextPage = () => {
-
   const { data: sessionData } = useSession();
 
   return (
-    <div>
-      <h2>Polis Data Conversion</h2>
-      {sessionData ? "You are signed in" : "You are not signed in"}<br />
-      Please select a participant-votes.csv file to upload, then click submit.<br />
-      <form method="post" action="/api/export" encType="multipart/form-data">
-        <input type="file" id="polisdata" name="polisdata" />
-        <input type="submit" />
-      </form>
+    <div className="flex flex-col">
+      <h1 className="text-2xl text-white">Polis Data Conversion</h1>
+      <LoggedInAs email={sessionData?.user.email} />
+      {!sessionData ? (
+        <p className="text-white">You are not signed in</p>
+      ) : null}
+      <br />
+      <p className="text-white">
+        Please select a participant-votes.csv file to upload, then click submit.
+      </p>
+      <div className="m-5">
+        <form method="post" action="/api/export" encType="multipart/form-data">
+          <input
+            className="text-white"
+            type="file"
+            id="polisdata"
+            name="polisdata"
+          />
+          <input
+            className="cursor-pointer border-2 border-white p-2 text-white"
+            type="submit"
+          />
+        </form>
+      </div>
     </div>
   );
 };
