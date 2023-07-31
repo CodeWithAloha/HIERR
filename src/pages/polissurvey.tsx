@@ -4,9 +4,12 @@ import { useEffect, useState } from "react";
 import { api } from "../utils/api";
 import Link from "next/link";
 import ProgressBar from "../components/ProgressBar";
+import LoggedInAs from "./loggedinas";
+import { useSession } from "next-auth/react";
 
 const PolisSurvey: NextPage = () => {
   const router = useRouter();
+  const { data: sessionData } = useSession();
   const { surveyId } = router.query;
   const userID = api.user.getId.useQuery()?.data?.id;
 
@@ -38,6 +41,7 @@ const PolisSurvey: NextPage = () => {
         Step 6: Fill out the Pol.is survey
       </h1>
       <ProgressBar completed={100} />
+      <LoggedInAs email={sessionData?.user.email} />
       <div
         id="polis-container"
         className="mx-auto mt-8 h-[80%] w-[80%] overflow-y-scroll"
