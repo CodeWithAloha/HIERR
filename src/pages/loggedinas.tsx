@@ -5,7 +5,6 @@ interface LoggedInAsProps {
 }
 
 export default function LoggedInAs({ email }: LoggedInAsProps) {
-  console.log("Email is:", email);
   if (!email) {
     return null;
   }
