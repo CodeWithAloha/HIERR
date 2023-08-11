@@ -71,7 +71,7 @@ const handler = nc({
           // look up user's zip code and census tract based on xid
           const userPromise = prisma.user.findUnique({
             where: {
-              xid: row.xid,
+              id: row.xid,
             },
           });
 
