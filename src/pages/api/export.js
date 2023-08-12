@@ -85,12 +85,12 @@ const handler = nc({
           });
           const surveyPromise = surveyAnswerPromise.then((answer) => {
             if (answer !== null) {
-              let [county, location] = answer.answerValue.split("-");
+              let [county, region] = answer.answerValue.split("-");
               row.county = county;
-              row.location = location;
+              row.region = region;
             } else {
               row.county = "";
-              row.location = "";
+              row.region = "";
             }
             return row;
           });
@@ -115,7 +115,7 @@ const handler = nc({
           row.censustract = "";
           row.zipcode = "";
           row.county = "";
-          row.location = "";
+          row.region = "";
           output.push(Promise.resolve(row));
         }
       })
