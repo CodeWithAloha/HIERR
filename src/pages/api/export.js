@@ -75,6 +75,26 @@ const handler = nc({
             },
           });
 
+          // Gets the row for the survey answer for the question "What is your workshop?"
+          // This is question 16 in the survey
+          const surveyAnswerPromise = prisma.userSurveyAnswers.findFirst({
+            where: {
+              userId: row.xid,
+              questionId: "16",
+            },
+          });
+          const surveyPromise = surveyAnswerPromise.then((answer) => {
+            if (answer !== null) {
+              let [county, location] = answer.answerValue.split("-");
+              row.county = county;
+              row.location = location;
+            } else {
+              row.county = "";
+              row.location = "";
+            }
+            return row;
+          });
+
           // add census tract and zipcode to the row if they are available
           const rowPromise = userPromise.then((user) => {
             var censusTract = "";
@@ -90,9 +110,12 @@ const handler = nc({
 
           // push the row into an array to resolve during end callback
           output.push(rowPromise);
+          output.push(surveyPromise);
         } else {
           row.censustract = "";
           row.zipcode = "";
+          row.county = "";
+          row.location = "";
           output.push(Promise.resolve(row));
         }
       })
