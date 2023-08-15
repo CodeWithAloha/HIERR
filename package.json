@@ -8,6 +8,7 @@
     "postinstall": "prisma generate",
     "lint": "next lint",
     "start": "next start",
+    "cypress": "cypress open",
     "buildstyles": "tailwindcss -i ./src/styles/globals.css -o ./src/styles/output.css --watch",
     "prepare": "husky install",
     "prettier": "prettier --write **/*"
@@ -48,6 +49,7 @@
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
     "autoprefixer": "^10.4.7",
+    "cypress": "^12.17.3",
     "eslint": "^8.30.0",
     "eslint-config-next": "13.1.6",
     "husky": "^8.0.3",

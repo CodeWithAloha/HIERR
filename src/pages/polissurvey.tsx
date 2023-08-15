@@ -14,7 +14,7 @@ const PolisSurvey: NextPage = () => {
     if (userID !== undefined && userID !== "") {
       const script = document.createElement("script");
 
-      script.src = "https://pol.is/embed.js";
+      script.src = "https://localhost/embed.js";
       script.async = true;
 
       document.body.appendChild(script);
