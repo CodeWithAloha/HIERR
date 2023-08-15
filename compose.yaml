@@ -1,0 +1,15 @@
+services:
+  sql:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: <YourStrong@Passw0rd>
+    ports:
+      - 1433:1433
+  smtp:
+    image: rnwood/smtp4dev:v3
+    ports:
+      - 3001:80
+      - 25:25
+    environment:
+       - ServerOptions__HostName=smtp4dev
