@@ -8,7 +8,7 @@ cd HIERR
 # Use nvm to set the NodeJS version https://github.com/nvm-sh/nvm
 nvm use
 npm install
-cp -f .env.defaults .env # Note: You may have to update the .env file with your specific secret values.
+cp -f .env.example .env # Note: You may have to update the .env file with your specific secret values.
 # Use docker to set up SQL and SMTP servers locally https://www.docker.com/
 # See "SMTP Cloud Server Setup" and "Prisma SQL Server Migration" sections if
 # wanting to use a different set up.
