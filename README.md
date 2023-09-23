@@ -32,6 +32,12 @@ The HIERR Project aims to enable actions toward a more resilient, equitable, and
 - Aligning project / program needs to resources and enabling conditions necessary for implementation; and
 - Advancing pre-disaster economic recovery planning across all hazards.
 
+### What is Pol.is?
+
+https://pol.is/ is an [open source](https://github.com/compdemocracy/polis) engagement platform that identifies areas of consensus. It maps out communities of thought on any given issues, and enables participants to participate in the conversation.
+
+Read more about how Pol.is was used in a case study in Taiwan here: https://blog.pol.is/pol-is-in-taiwan-da7570d372b5
+
 ### CFH Project Focus
 
-The CFH project is focused on developing a digital engagement platform via Pol.is and onboarding materials to solicit resident sentiments on vision and value statements for Hawaii's economic future. Residents will be invited to in-person workshops for onboarding and introduction to the established Pol.is, where they will be invited to interact with seeded vision and value statements as well as add new ones. The results from this engagement process will be a direct input into the broader HIERR Project by orienting identified strategies and projects for Hawaii's economic resilience to the vision and values statements generating concurrence via Pol.is.
+The CFH project is focused on developing a digital engagement platform wrapping around Pol.is and onboarding materials to solicit resident sentiments on vision and value statements for Hawaii's economic future. Residents will be invited to in-person workshops for onboarding and introduction to the established Pol.is, where they will be invited to interact with seeded vision and value statements as well as add new ones. The results from this engagement process will be a direct input into the broader HIERR Project by orienting identified strategies and projects for Hawaii's economic resilience to the vision and values statements generating concurrence via Pol.is.
