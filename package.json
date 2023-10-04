@@ -52,7 +52,7 @@
     "eslint-config-next": "13.1.6",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.2",
-    "postcss": "^8.4.14",
+    "postcss": "^8.4.31",
     "prettier": "^2.8.4",
     "prettier-plugin-tailwindcss": "^0.2.3",
     "prisma": "^4.10.0",
