@@ -134,6 +134,21 @@ Follow these directions for easier database editing.
   - `npx prisma db push`
 - Run the application and confirm it works
 
+# Prisma SQLite
+
+* Update the schema.prisma file to use the following provider
+```
+provider = "sqlite"
+```
+* Update the env file to specify the database file
+```
+DATABASE_URL="file:./db.sqlite"
+```
+* Run the following command to update the database
+```
+npx prisma db push
+```
+
 # Working with prisma
 
 When the data model changes, run the following to update your local database with the latest migrations
