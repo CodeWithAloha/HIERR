@@ -136,18 +136,23 @@ Follow these directions for easier database editing.
 
 # Prisma SQLite
 
-* Update the schema.prisma file to use the following provider
-```
-provider = "sqlite"
-```
-* Update the env file to specify the database file
-```
-DATABASE_URL="file:./db.sqlite"
-```
-* Run the following command to update the database
-```
+- Update the schema.prisma file to use the following provider
+
+`provider = "sqlite"`
+
+- Update the env file to specify the database file
+
+`DATABASE_URL="file:./db.sqlite"`
+
+- Run the following command to update the database
+
+```bash
 npx prisma db push
 ```
+
+> **_NOTE:_** SQLite is a [cross-platform](https://en.wikipedia.org/wiki/Cross-platform_software) database management system that provides a highly reliable, fast, and lightweight SQL database engine for everyone to use for any purpose.
+>
+>Learn more of why someone would want to use this free & open source library here: [When to use SQLite?](https://www.sqlite.org/whentouse.html)
 
 # Working with prisma
 
