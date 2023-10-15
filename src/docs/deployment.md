@@ -5,7 +5,7 @@
 
 
 # Update Instructions
-1. Download the HIERR application package from the link above.
+1. Download the HIERR application package from the [releases page](https://github.com/CodeWithAloha/HIERR/releases).
 2. Expand the zip file to a new directory (do not overwrite the existing HIERR application directory).
 3. Open PowerShell and run the following commands (open a new PowerShell window if one running the HIERR application is already open)
      1. `cd <new expanded HIERR directory>`
