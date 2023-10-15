@@ -3,10 +3,6 @@
 
 > Some additional components may need to be installed if this is not the version of Windows used
 
-# HIERR Application Download link
-You will be prompted to download this file in the instructions below.
-
-[Releases · CodeWithAloha/HIERR · GitHub](https://github.com/CodeWithAloha/HIERR/releases)
 
 # Update Instructions
 1. Download the HIERR application package from the link above.
