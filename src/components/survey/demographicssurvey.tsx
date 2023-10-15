@@ -162,7 +162,7 @@ export default function DemographicsSurvey() {
     );
   };
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
+    <div className="flex h-screen flex-col items-center">
       {surveyCompleted ? (
         completedSurvey()
       ) : (

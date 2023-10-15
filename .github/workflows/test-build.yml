@@ -24,10 +24,8 @@ jobs:
           cache: "npm"
 
       - run: npm ci
-      - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1.3
-        with:
-          envkey_NEXT_PUBLIC_POLIS_SURVEYS: ${{ secrets.NEXT_PUBLIC_POLIS_SURVEYS }}
-      - run: SKIP_ENV_VALIDATION=1 npm run build --if-present
+      - name: Create .env file
+        run: cp -f .env.example .env
+      - run: npm run build --if-present
         env:
           CI: true

@@ -9,6 +9,7 @@ import WhatIsHierr from "../components/WhatIsHierr";
 import AboutThisEngagementPortal from "../components/AboutThisEngagement";
 import WhyCreateAccount from "../components/WhyCreateAccount";
 import InfoPopup from "../components/InfoPopup";
+import LoggedInAs from "./loggedinas";
 
 const Login: NextPage = () => {
   return (
@@ -53,8 +54,8 @@ const Login: NextPage = () => {
           <h2
             className="mx-2 pb-20 text-center text-2xl font-bold leading-none 
             tracking-tight
-             text-white
-             md:text-5xl lg:pb-16"
+            text-white
+            md:text-5xl lg:pb-16"
           >
             Engagement Portal
           </h2>
@@ -83,7 +84,6 @@ const AuthShowcase: React.FC = () => {
   const { data: sessionData } = useSession();
 
   const handleSignOut = async () => {
-    localStorage.clear();
     await signOut();
   };
 
@@ -113,6 +113,7 @@ const AuthShowcase: React.FC = () => {
       >
         {sessionData ? "Sign out" : "Sign in to begin"}
       </button>
+      <LoggedInAs email={sessionData?.user?.email} />
     </div>
   );
 };

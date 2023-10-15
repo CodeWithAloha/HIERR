@@ -5,8 +5,8 @@ import multiparty from "multiparty";
 import ObjectsToCsv from "objects-to-csv";
 import csv from "csv-parser";
 import fs from "fs";
-import { authOptions } from './../../server/auth'
-import { getServerSession } from "next-auth/next"
+import { authOptions } from "./../../server/auth";
+import { getServerSession } from "next-auth/next";
 
 import { prisma } from "../../server/db";
 
@@ -17,12 +17,17 @@ export const config = {
   },
 };
 
-export const authorizedEmails = fs.readFileSync(process.env.AUTHORIZED_POLIS_CONVERT_EMAILS_FILE, 'utf8').split(/\r?\n/);
-console.log("Emails authorized to export POLIS data: " + authorizedEmails);
+export const authorizedEmails = fs
+  .readFileSync(process.env.AUTHORIZED_POLIS_CONVERT_EMAILS_FILE, "utf8")
+  .split(/\r?\n/);
 
 function handleError(error, res) {
   console.error(error.stack);
-  res.status(500).end("Sorry, an error occured while processing a Pol.is export. The error has been logged for admistrators.");
+  res
+    .status(500)
+    .end(
+      "Sorry, an error occured while processing a Pol.is export. The error has been logged for admistrators."
+    );
 }
 
 const handler = nc({
@@ -31,7 +36,6 @@ const handler = nc({
     res.status(404).end("Page is not found");
   },
 }).post(async (req, res) => {
-
   const sessionData = await getServerSession(req, res, authOptions);
 
   if (!sessionData) {
@@ -40,7 +44,9 @@ const handler = nc({
   }
   const email = sessionData.user.email;
   if (!authorizedEmails.includes(email)) {
-    res.status(403).end(email + ", you are not authorized to export Pol.is data.");
+    res
+      .status(403)
+      .end(email + ", you are not authorized to export Pol.is data.");
     return;
   }
 
@@ -65,8 +71,28 @@ const handler = nc({
           // look up user's zip code and census tract based on xid
           const userPromise = prisma.user.findUnique({
             where: {
-              xid: row.xid,
+              id: row.xid,
             },
+          });
+
+          // Gets the row for the survey answer for the question "What is your workshop?"
+          // This is question 16 in the survey
+          const surveyAnswerPromise = prisma.userSurveyAnswers.findFirst({
+            where: {
+              userId: row.xid,
+              questionId: "16",
+            },
+          });
+          const surveyPromise = surveyAnswerPromise.then((answer) => {
+            if (answer !== null) {
+              let [county, region] = answer.answerValue.split("-");
+              row.county = county;
+              row.region = region;
+            } else {
+              row.county = "";
+              row.region = "";
+            }
+            return row;
           });
 
           // add census tract and zipcode to the row if they are available
@@ -84,26 +110,30 @@ const handler = nc({
 
           // push the row into an array to resolve during end callback
           output.push(rowPromise);
+          output.push(surveyPromise);
         } else {
           row.censustract = "";
           row.zipcode = "";
+          row.county = "";
+          row.region = "";
           output.push(Promise.resolve(row));
         }
       })
       .on("end", function () {
         // wait for all promises to be completed
-        Promise.all(output).then((resolved) => {
-          // convert all rows back to CSV
-          // TODO - remove numeral keys from object, so that they are not added as extra columns in export
-          new ObjectsToCsv(resolved).toString().then((text) => {
-            // write CSV to output stream
-            res.setHeader("Content-Type", "text/csv");
-            res.end(text);
+        Promise.all(output)
+          .then((resolved) => {
+            // convert all rows back to CSV
+            // TODO - remove numeral keys from object, so that they are not added as extra columns in export
+            new ObjectsToCsv(resolved).toString().then((text) => {
+              // write CSV to output stream
+              res.setHeader("Content-Type", "text/csv");
+              res.end(text);
+            });
+          })
+          .catch((error) => {
+            handleError(error, res);
           });
-        })
-        .catch(error => {
-          handleError(error, res);
-        });
       });
   });
 });

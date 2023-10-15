@@ -1,27 +1,60 @@
 # Local project installation and setup
 
-```
+Run these commands to set up and run the project locally for the first time.
+
+```bash
 git clone https://github.com/CodeforHawaii/HIERR.git
 cd HIERR
+# Use nvm to set the NodeJS version https://github.com/nvm-sh/nvm
+nvm use
 npm install
-touch .env
+cp -f .env.example .env # Note: You may have to update the .env file with your specific secret values.
+# Use docker to set up SQL and SMTP servers locally https://www.docker.com/
+# See "SMTP Cloud Server Setup" and "Prisma SQL Server Migration" sections if
+# wanting to use a different set up.
+docker compose up -d
 ```
 
-- Add the following to the .env:
-  1.  DATABASE_URL="file:./db.sqlite"
-  2.  NEXTAUTH_URL="http://localhost:3000"
-  3.  EMAIL_SERVER={your email server}
-  4.  EMAIL_FROM={the email to send the verification link}
-  5.  NEXT_PUBLIC_POLIS_SURVEYS='[{"id": "{yourSurveyID1}", "title": "{yourSurveyTitle1}", "description", "{yourSurveyDescription1}"}, ...]'
-  6.  NEXT_PUBLIC_SEARCH_API='{your ArcGIS Search Api Key}'
-  7.  AUTHORIZED_POLIS_CONVERT_EMAILS_FILE={path to file that contains a list of email addresses (one per line) whose users are authorized to export POLIS data}
+Next, create database table `HIERR`. Enter the bash shell in the docker image:
 
+```bash
+docker exec -it hierr-sql-1 "bash"
 ```
+
+Enter the SQL Server CLI tool
+
+```bash
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "<YourStrong@Passw0rd>"
+```
+
+Create a new database and check that it was created
+
+```bash
+CREATE DATABASE HIERR;
+SELECT Name from sys.databases;
+GO
+```
+
+Then, you may exit:
+
+```bash
+exit
+```
+
+Finally, run the DB migration scripts and run the dev server:
+
+```bash
+npx prisma migrate dev
 npx prisma db push
+# Run dev server on http://localhost:3000
 npm run dev
 ```
 
+The SMTP email web interface is available at http://localhost:3001.
+
 # Update Prisma
+
+Run these commands for specific Prisma tasks.
 
 1. Update schema.prisma with your model
 
@@ -49,7 +82,9 @@ Update the database
 npx prisma db push
 ```
 
-# SMTP Server Setup
+# SMTP Cloud Server Setup
+
+Follow these directions for setting up an SMTP server in the cloud, as opposed to setting one up on your local machine.
 
 - Gmail
   - Follow the steps at this YouTube video for setting up an SMTP gmail account
@@ -57,15 +92,17 @@ npx prisma db push
   - Fill in the .env variables for EMAIL_SERVER and EMAIL_FROM
     - EMAIL_SERVER="smtps://{username}:{password}@{smtpserver}:{port}"
     - EMAIL_FROM={Email sending the verification link}
-- [Sendinblue](https://app.sendinblue.com)
+- [Brevo (formerly Sendinblue)](https://app.brevo.com)
   - Create an account
   - Fill in the .env variables for EMAIL_SERVER and EMAIL_FROM
-    - EMAIL_SERVER=smtp://LOGIN:SMTP_KEY_VALUE@smtp-relay.sendinblue.com:587
-      - Replace LOGIN and SMTP_KEY_VALUE from [SMTP Credentials](https://app.sendinblue.com/settings/keys/smtp)
+    - EMAIL_SERVER=smtp://LOGIN:SMTP_KEY_VALUE@smtp-relay.brevo.com:587
+      - Replace LOGIN and SMTP_KEY_VALUE from [SMTP Credentials](https://app.brevo.com/settings/keys/smtp)
     - EMAIL_FROM={Email sending the verification link}
-  - Debugging [Log](https://app-smtp.sendinblue.com/log)
+  - Debugging [Log](https://app-smtp.brevo.com/log)
 
 # Prisma SQL Server Migration
+
+Follow these directions for easier database editing.
 
 - Windows
   - Install SQL Server
@@ -73,7 +110,7 @@ npx prisma db push
       - [Docker Microsoft SQL Server Images Download](https://hub.docker.com/_/microsoft-mssql-server)
         - docker pull mcr.microsoft.com/mssql/server:2017-latest
       - Start SQL Server (2017)
-        - docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=yourStrong(!)Password" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-latest
+        - docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=<YourStrong@Passw0rd>" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-latest
     - Microsoft
       - [Miscrosoft SQL Server Download](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
       - Enable SQL Server TCP/IP
@@ -86,10 +123,10 @@ npx prisma db push
   - SQL Server 2019 (local install):
     - sqlserver://localhost:1433;initial catalog=HIERR;integratedSecurity=true;trustServerCertificate=true;
   - SQL Server 2017 (docker):
-    - sqlserver://localhost:1433;database=HIERR;user=sa;password=yourStrong(!)Password;encrypt=DANGER_PLAINTEXT;
+    - sqlserver://localhost:1433;database=HIERR;user=sa;password=<YourStrong@Passw0rd>;encrypt=DANGER_PLAINTEXT;
     - Note: Connection string uses the default user and password from docker. Also the DANGER_PLAINTEXT is used because of an issue with TLS.
   - Other OS systems:
-    - sqlserver://HOST:PORT;database=HIERR;user=USER;password=PASSWORD;encrypt=true
+    - sqlserver://HOST:PORT;database=HIERR;user=sa;password=<YourStrong@Passw0rd>;encrypt=true
     - Note: Be sure to change USER and PASSWORD to your system's requirements
   - Docs: https://www.prisma.io/docs/concepts/database-connectors/sql-server
 - Run the following prisma commands
