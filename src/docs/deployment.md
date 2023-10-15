@@ -1,7 +1,7 @@
 # HIERR Application Assumptions
 1. Windows Server 2022
 
-Some additional components may need to be installed if this is not the version of Windows used
+> Some additional components may need to be installed if this is not the version of Windows used
 
 # HIERR Application Download link
 You will be prompted to download this file in the instructions below.
