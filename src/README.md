@@ -136,6 +136,12 @@ Follow these directions for easier database editing.
 
 # Prisma SQLite
 
+## Why use SQLite?
+
+SQLite is a light-weight alternative to Microsoft SQL Server which may provide an easier setup solution for those running the project locally.
+
+> Note: The demographic questions will not populate because they are hard-coded in the SQL migrations.
+
 - Update the schema.prisma file to use the following provider
 
 `provider = "sqlite"`
@@ -149,10 +155,6 @@ Follow these directions for easier database editing.
 ```bash
 npx prisma db push
 ```
-
-> **_NOTE:_** SQLite is a [cross-platform](https://en.wikipedia.org/wiki/Cross-platform_software) database management system that provides a highly reliable, fast, and lightweight SQL database engine for everyone to use for any purpose.
->
->Learn more of why someone would want to use this free & open source library here: [When to use SQLite?](https://www.sqlite.org/whentouse.html)
 
 # Working with prisma
 
