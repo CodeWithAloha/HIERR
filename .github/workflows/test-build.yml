@@ -26,6 +26,8 @@ jobs:
       - run: npm ci
       - name: Create .env file
         run: cp -f .env.example .env
+      - run: npm run lint
+      - run: npm run prettier:ci
       - run: npm run build --if-present
         env:
           CI: true
