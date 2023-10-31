@@ -1,0 +1,6 @@
+*.png
+*.ico
+*.prisma
+*.sql
+*.otf
+.next/

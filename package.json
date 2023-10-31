@@ -10,8 +10,8 @@
     "start": "next start",
     "buildstyles": "tailwindcss -i ./src/styles/globals.css -o ./src/styles/output.css --watch",
     "prepare": "husky install",
-    "prettier": "prettier --write src",
-    "prettier:ci": "prettier --check src"
+    "prettier": "prettier --write .",
+    "prettier:ci": "prettier --check ."
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.5",
