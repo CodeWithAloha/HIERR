@@ -24,7 +24,8 @@ docker exec -it hierr-sql-1 "bash"
 Enter the SQL Server CLI tool
 
 ```bash
-/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "<YourStrong@Passw0rd>"
+
+
 ```
 
 Create a new database and check that it was created
@@ -136,11 +137,48 @@ Follow these directions for easier database editing.
 
 # Prisma SQLite
 
-## Why use SQLite?
+Why use SQLite?
 
-SQLite is a light-weight alternative to Microsoft SQL Server which may provide an easier setup solution for those running the project locally.
+SQLite is a light-weight alternative to Microsoft SQL Server that provides an easier setup solution for those running the project locally.
 
-> Note: The demographic questions will not populate because they are hard-coded in the SQL migrations.
+Getting started with SQLite
+
+Firstly, check if your machine already has SQLite. Many operating systems today come with SQLite pre-installed, but to verify run the following command:
+
+```bash
+$sqlite3 
+```
+
+If already installed, a message similar to the following will display:
+
+```bash
+SQLite version 3.37.2 2022-01-06 13:25:41
+Enter ".help" for usage hints.
+Connected to a transient in-memory database.
+Use ".open FILENAME" to reopen on a persistent database.
+sqlite>
+```
+
+If not already installed, continue below:
+
+ Windows Users
+
+- Checkout [SQLiteTutorial.net](https://www.sqlitetutorial.net/download-install-sqlite/) for a quick and simple Windows setup.
+
+Mac and Linux Users
+
+1. Go to the [SQLite download page](https://www.sqlite.org/download.html) and download sqlite-autoconf-*.tar.gz from the **Source Code** section.
+2. Run the following commands:
+
+```bash
+$tar xvfz sqlite-autoconf-3071502.tar.gz
+$cd sqlite-autoconf-3071502
+$./configure --prefix=/usr/local
+$make
+$make install
+```
+
+Configuration
 
 - Update the schema.prisma file to use the following provider
 
@@ -155,6 +193,8 @@ SQLite is a light-weight alternative to Microsoft SQL Server which may provide a
 ```bash
 npx prisma db push
 ```
+
+> Note: The demographic questions will not populate because they are hard-coded in the SQL migrations.
 
 # Working with prisma
 
