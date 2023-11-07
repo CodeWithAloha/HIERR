@@ -24,8 +24,7 @@ docker exec -it hierr-sql-1 "bash"
 Enter the SQL Server CLI tool
 
 ```bash
-
-
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "<YourStrong@Passw0rd>"
 ```
 
 Create a new database and check that it was created
