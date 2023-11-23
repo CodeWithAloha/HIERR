@@ -12,8 +12,9 @@ import {
 import CensusTractData from "../data/census-tracts_min.json";
 import "leaflet/dist/leaflet.css";
 import type { GeoJsonObject, Feature, Geometry } from "geojson";
-import { Ref, useEffect, useRef, useState } from "react";
-import { Layer, LeafletMouseEvent } from "leaflet";
+import type { Ref } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { Layer, LeafletMouseEvent } from "leaflet";
 import EsriLeafletGeoSearch from "react-esri-leaflet/plugins/EsriLeafletGeoSearch";
 import { api } from "../utils/api";
 import Link from "next/link";

@@ -12,4 +12,4 @@ services:
       - 3001:80
       - 25:25
     environment:
-       - ServerOptions__HostName=smtp4dev
+      - ServerOptions__HostName=smtp4dev
