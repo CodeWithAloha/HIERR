@@ -20,7 +20,7 @@
     "@trpc/client": "^10.9.0",
     "@trpc/next": "^10.9.0",
     "@trpc/react-query": "^10.9.0",
-    "@trpc/server": "^10.9.0",
+    "@trpc/server": "^10.43.1",
     "csv-parser": "^3.0.0",
     "esri-leaflet": "^3.0.10",
     "leaflet": "^1.9.3",
