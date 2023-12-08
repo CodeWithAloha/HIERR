@@ -12,7 +12,7 @@
 <div align="center">
   <h3>
   	<a href="https://hierr.online/">
-      Website
+      Website - test update training
     </a>
     <span> | </span>
     <a href="https://github.com/CodeforHawaii/HIERR/">
