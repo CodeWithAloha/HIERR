@@ -1,0 +1,17 @@
+id,question,position,questionType
+1,Are you a full-time resident of Hawaii (lived in Hawaii  at least six months each year)?,1,option
+2,How old are you?,2,number
+3,What is your gender?,3,option
+4,"Including yourself, how many persons, in total, live in your household?",4,number
+5,Which of the following best describes your current employment status?,5,multiSelect
+6,"Do you currently have a non-dial-up internet subscription (i.e., cellular data, cable, fiber optic, DSL, satellite)?",6,option
+7,"Did you have a non-dial-up internet subscription (i.e., cellular data, cable, fiber optic, DSL, satellite) during the pandemic?",7,option
+8,Do you currently have health insurance?,8,option
+9,Did you have health insurance during the pandemic?,9,option
+10,Are you currently living in a… (Select one answer),10,option
+11,Is your housing structure below… (Select one answer),11,option
+12,"What is your ethnic identification? If more than one ethnicity, which do you identify most. If you cannot choose, please select mixed. If you have any Hawaiian in your ethnic mix, please select Hawaiian/Part Hawaiian",12,option
+13,What is the highest level of education you have completed? (Select one answer),13,option
+14,Do you identify with having a disability?,14,option
+15,"What was your household income in 2022, before taxes? Please consider and include in your thinking your best estimate of the income of all persons living in your household. (Select one answer)",15,option
+16,"In what region do you live? Note: for workshop participants, this information will be provided by your moderator.",16,dropdown
