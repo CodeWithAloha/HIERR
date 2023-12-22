@@ -145,7 +145,7 @@ Getting started with SQLite
 Firstly, check if your machine already has SQLite. Many operating systems today come with SQLite pre-installed, but to verify run the following command:
 
 ```bash
-$sqlite3 
+$sqlite3
 ```
 
 If already installed, a message similar to the following will display:
@@ -160,13 +160,13 @@ sqlite>
 
 If not already installed, continue below:
 
- Windows Users
+Windows Users
 
 - Checkout [SQLiteTutorial.net](https://www.sqlitetutorial.net/download-install-sqlite/) for a quick and simple Windows setup.
 
 Mac and Linux Users
 
-1. Go to the [SQLite download page](https://www.sqlite.org/download.html) and download sqlite-autoconf-*.tar.gz from the **Source Code** section.
+1. Go to the [SQLite download page](https://www.sqlite.org/download.html) and download sqlite-autoconf-\*.tar.gz from the **Source Code** section.
 2. Run the following commands:
 
 ```bash
