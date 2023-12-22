@@ -1,0 +1,11 @@
+/* TEAM */
+    Software Developer: Tyler Chong
+    Contact: tcchong [at] hawaii.edu
+    GitHub: @tyliec
+
+    Software Developer: Michael Avendano
+    Contact: mavenmia92 [at] gmail.com
+    GitHub: @avenmia
+
+/* SITE */
+	Last update: 2023/11/26
