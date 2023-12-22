@@ -31,7 +31,7 @@ function handleError(error, res) {
 }
 
 const handler = nc({
-  onError: (err, req, res, next) => handleError(err, res),
+  onError: (err, req, res) => handleError(err, res),
   onNoMatch: (req, res) => {
     res.status(404).end("Page is not found");
   },
