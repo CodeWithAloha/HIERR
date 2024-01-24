@@ -76,16 +76,9 @@ const CensusTractMap: NextPage = () => {
       e.target._recordedStyle = selectedStyle;
     });
     layer.on("mouseover", (e: LeafletMouseEvent) => {
-      const featureProperties = feature.properties as FeatureProperties;
-      e.target
-        .setStyle({
-          fillOpacity: 0.5,
-        })
-        .bindPopup(
-          `Name: ${featureProperties["tractname"]} <br> Tract: ${featureProperties["name20"]} <br> Population: ${featureProperties["pop20"]}`,
-          { autoPan: false }
-        )
-        .openPopup();
+      e.target.setStyle({
+        fillOpacity: 0.5,
+      });
     });
     layer.on("mouseout", (e: LeafletMouseEvent) => {
       if (!geoJsonRef.current) {
