@@ -50,6 +50,7 @@ IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='PolisSurvey' and xtype='U')
         id NVARCHAR(255) PRIMARY KEY,
         title NVARCHAR(255),
         description NVARCHAR(MAX),
+        showForAnswers NVARCHAR(MAX)
     )
 ''')
 
@@ -67,6 +68,8 @@ def insert_data(df, table_name):
         END
         '''
     for index, row in df.iterrows():
+        if('showForAnswers' in row and pd.isna(row['showForAnswers'])):
+            row['showForAnswers'] = None
         cursor.execute(sql, (row['id'],) + tuple(row))
 
 # Insert data into the tables
