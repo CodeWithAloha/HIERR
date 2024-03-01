@@ -1,7 +1,4 @@
 <h1 align="center">Project Hawaiʻi Economic Recovery & Resilience ("HIERR")</h1>
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <div align="center">
 	:cherry_blossom:
@@ -44,25 +41,3 @@ Read more about how Pol.is was used in a case study in Taiwan here: https://blog
 ### CFH Project Focus
 
 The CFH project is focused on developing a digital engagement platform wrapping around Pol.is and onboarding materials to solicit resident sentiments on vision and value statements for Hawaii's economic future. Residents will be invited to in-person workshops for onboarding and introduction to the established Pol.is, where they will be invited to interact with seeded vision and value statements as well as add new ones. The results from this engagement process will be a direct input into the broader HIERR Project by orienting identified strategies and projects for Hawaii's economic resilience to the vision and values statements generating concurrence via Pol.is.
-
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tbody>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/lprimiano"><img src="https://avatars.githubusercontent.com/u/8732710?v=4?s=100" width="100px;" alt="lprimiano"/><br /><sub><b>lprimiano</b></sub></a><br /><a href="#ideas-lprimiano" title="Ideas, Planning, & Feedback">🤔</a></td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
