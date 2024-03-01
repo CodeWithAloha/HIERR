@@ -36,11 +36,24 @@ model UserSurveyAnswers {
   id          String         @id @default(cuid())
   userId      String
   questionId  String
+  answerId    String
   answerValue String
   user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   question    SurveyQuestion @relation(fields: [questionId], references: [id], onUpdate: NoAction, onDelete: NoAction)
 }
 
+model PolisSurveys {
+  id          String @id @default(cuid())
+  title       String
+  description String
+}
+
+model SurveyRules {
+  id               String @id @default(cuid())
+  surveyId         String
+  questionId       String
+  requiredAnswerId String
+}
 
 // Necessary for Next auth
 model Account {
@@ -78,7 +91,7 @@ model User {
   demoSurveyCompleted Boolean             @default(false)
   accounts            Account[]
   sessions            Session[]
-  zipcode           String?
+  zipcode             String?
   censustract         String?
   UserSurveyAnswers   UserSurveyAnswers[]
 }
