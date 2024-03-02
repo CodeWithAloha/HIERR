@@ -13,6 +13,7 @@ export interface SurveyData {
 }
 
 export interface SurveyAnswer {
+  id: string;
   answer: string;
   answerType: AnswerType;
 }
@@ -53,7 +54,11 @@ export default function DemographicsSurvey() {
       answers: sd.answers
         .sort((a1, a2) => a1.position - a2.position)
         .map((a) => {
-          return { answer: a.answer, answerType: a.answerType as AnswerType };
+          return {
+            id: a.id,
+            answer: a.answer,
+            answerType: a.answerType as AnswerType,
+          };
         }),
     };
   });
@@ -83,7 +88,7 @@ export default function DemographicsSurvey() {
   };
 
   const updateCurrentQuestion = useCallback(
-    (change: QuestionDirection, answer?: string) => {
+    (change: QuestionDirection, answer?: { id: string; val: string }) => {
       setDisabled(true);
       if (change === "Prev" && currentQuestion !== 0) {
         setCurrentQuestion(currentQuestion - 1);
@@ -93,25 +98,38 @@ export default function DemographicsSurvey() {
       if (change === "Prev" && currentQuestion === 0) {
         return;
       }
+      if (answer === undefined) {
+        return;
+      }
       const questionId = surveyData[currentQuestion]?.questionId;
       let answers = [answer];
-      if (answer?.includes(MULTI_ANSWER_DELIMITER)) {
-        answers = answer.split(MULTI_ANSWER_DELIMITER).filter((a) => a !== "");
+      if (answer?.val.includes(MULTI_ANSWER_DELIMITER)) {
+        const multiAnswerId = answer?.id.split(",");
+        answers = answer?.val
+          .split(MULTI_ANSWER_DELIMITER)
+          .filter((a) => a !== "")
+          .map((a, i) => {
+            return { id: multiAnswerId[i] ?? "", val: a };
+          });
       }
 
       // TODO: Fix these conditionals
       const submissionData = answers.map((a) => {
-        return { questionId: questionId ?? "", answerValue: a ?? "" };
+        return {
+          answerId: a?.id,
+          questionId: questionId ?? "",
+          answerValue: a.val ?? "",
+        };
       });
 
       if (currentQuestion === surveyData.length - 1) {
-        userAnswers.push(answer ?? "");
+        userAnswers.push(answer?.val ?? "");
         postUserAnswer.mutate(submissionData);
         setSurveyCompleted(true);
         return;
       }
 
-      userAnswers.push(answer ?? "");
+      userAnswers.push(answer?.val ?? "");
 
       postUserAnswer.mutate(submissionData);
       setCurrentQuestion(currentQuestion + 1);

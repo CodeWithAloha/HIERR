@@ -3,7 +3,7 @@ import type { SurveyAnswer } from "./demographicssurvey";
 
 interface DropdownAnswersProps {
   answers: SurveyAnswer[];
-  updateCurrentAnswer: (val: string) => void;
+  updateCurrentAnswer: (ans: { id: string; val: string }) => void;
   setDisabled: (val: boolean) => void;
 }
 
@@ -41,7 +41,9 @@ export default function DropdownAnswers({
   }, [county, answers]);
 
   const handleChange = (val: string) => {
-    updateCurrentAnswer(`${county}-${val}`);
+    const answerId =
+      answers.find((a) => a.answer.includes(`${county}-${val}`))?.id ?? "";
+    updateCurrentAnswer({ id: answerId, val: `${county}-${val}` });
     if (county !== "--" && val !== "--") {
       setDisabled(false);
     }

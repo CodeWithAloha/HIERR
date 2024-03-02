@@ -16,7 +16,10 @@ interface SurveyQuestionProps {
   disabled: boolean;
   setDisabled: (val: boolean) => void;
   question?: SurveyData;
-  updateQuestion: (val: QuestionDirection, answer?: string) => void;
+  updateQuestion: (
+    val: QuestionDirection,
+    answer?: { id: string; val: string }
+  ) => void;
 }
 
 export default function SurveyQuestion({
@@ -26,7 +29,7 @@ export default function SurveyQuestion({
   disabled,
   setDisabled,
 }: SurveyQuestionProps) {
-  const [selectedAnswer, setSelectedAnswer] = useState("");
+  const [selectedAnswer, setSelectedAnswer] = useState({ id: "", val: "" });
   if (!question) {
     return null;
   }
@@ -56,6 +59,7 @@ export default function SurveyQuestion({
             setDisabled={setDisabled}
             updateCurrentAnswer={setSelectedAnswer}
             number={questionType === "number"}
+            answers={answers}
           />
         );
       case "dropdown":

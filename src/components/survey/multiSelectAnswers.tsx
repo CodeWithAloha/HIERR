@@ -6,7 +6,7 @@ import {
 
 interface MultiSelectAnswersProps {
   answers: SurveyAnswer[];
-  updateCurrentAnswer: (val: string) => void;
+  updateCurrentAnswer: (ans: { id: string; val: string }) => void;
   setDisabled: (val: boolean) => void;
 }
 export default function MultiSelectAnswers({
@@ -16,7 +16,7 @@ export default function MultiSelectAnswers({
 }: MultiSelectAnswersProps) {
   const [disabledInput, setDisabledInput] = useState<string[]>([]);
   const ref = useRef<HTMLFormElement>(null);
-  const handleClick = () => {
+  const handleClick = (answerId: string) => {
     const checkboxesNoText = (ref.current as HTMLFormElement).querySelectorAll(
       "[type=checkbox]:not([id*=optionText])"
     );
@@ -29,12 +29,22 @@ export default function MultiSelectAnswers({
     const checkedTextAnswers = Array.from(checkboxesText).filter(
       (cb) => (cb as HTMLInputElement).checked
     );
+
     const uncheckedTextAnswers = Array.from(checkboxesText).filter(
       (cb) => !(cb as HTMLInputElement).checked
     );
+
+    const justValues = checkedAnswers.map(
+      (ca) => (ca as HTMLInputElement).value
+    );
+
     const values = checkedAnswers
       .map((ca) => (ca as HTMLInputElement).value)
       .join(MULTI_ANSWER_DELIMITER);
+
+    const justCheckedTextAnswers = checkedTextAnswers.map(
+      (ca) => (ca as HTMLInputElement).value
+    );
 
     const textValues = checkedTextAnswers.map(
       (ca) =>
@@ -46,10 +56,22 @@ export default function MultiSelectAnswers({
     );
     setDisabledInput(answerValues);
     const textValuesConcat = textValues.join(MULTI_ANSWER_DELIMITER);
+    const valuesAnswerIds = justValues
+      .map((v) => answers.find((a) => a.answer === v)?.id)
+      .join(",");
+    const textAnswerIds = justCheckedTextAnswers
+      .map((v) => answers.find((a) => a.answer === v)?.id)
+      .join(",");
     if (values.length > 0) {
-      updateCurrentAnswer(values + MULTI_ANSWER_DELIMITER + textValuesConcat);
+      updateCurrentAnswer({
+        id: valuesAnswerIds + "," + textAnswerIds,
+        val: values + MULTI_ANSWER_DELIMITER + textValuesConcat,
+      });
     } else {
-      updateCurrentAnswer(textValuesConcat);
+      updateCurrentAnswer({
+        id: valuesAnswerIds + "," + textAnswerIds,
+        val: textValuesConcat,
+      });
     }
     if (textValuesConcat.length === 0) {
       // clear text boxes
@@ -74,7 +96,7 @@ export default function MultiSelectAnswers({
           id={`a-${index}-option`}
           name={`a-${index}`}
           value={a.answer}
-          onClick={() => handleClick()}
+          onClick={() => handleClick(a.id)}
         />
         <label htmlFor={`a-${index}`}>&nbsp;{a.answer}</label>
         <br />
@@ -90,7 +112,7 @@ export default function MultiSelectAnswers({
           id={`a-${index}-optionText`}
           name={`a-${index}-optionText`}
           value={a.answer}
-          onClick={() => handleClick()}
+          onClick={() => handleClick(a.id)}
         />
         <label htmlFor={`a-${index}-optionText`}>
           &nbsp;{a.answer}{" "}
@@ -99,7 +121,7 @@ export default function MultiSelectAnswers({
             className="form-input rounded"
             id={`${index}-userText`}
             type={"text"}
-            onChange={() => handleClick()}
+            onChange={() => handleClick(a.id)}
           ></input>
         </label>
         <br />
