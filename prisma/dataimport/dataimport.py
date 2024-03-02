@@ -56,7 +56,7 @@ IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='PolisSurveys' and xtype='U')
 
 cursor.execute('''
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='SurveyRules' and xtype='U')
-    CREATE TABLE PolisSurveys (
+    CREATE TABLE SurveyRules (
         id NVARCHAR(255) PRIMARY KEY,
         surveyId NVARCHAR(255),
         questionId INT,
