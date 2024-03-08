@@ -1,6 +1,10 @@
 <h1 align="center">Project Hawaiʻi Economic Recovery & Resilience ("HIERR")</h1>
 
 <div align="center">
+  <img src="./docs/logos/hierr.png" />
+</div>
+
+<div align="center">
 	:cherry_blossom:
 </div>
 
