@@ -17,7 +17,6 @@ const Polis: NextPage = () => {
 
   useEffect(() => {
     if (polisSurveys.data) {
-      console.log("Survey data is:", polisSurveys.data);
       setSurveys(polisSurveys.data);
     }
   }, [polisSurveys.data]);

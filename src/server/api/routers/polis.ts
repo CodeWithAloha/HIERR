@@ -52,7 +52,11 @@ export const polisRouter = createTRPCRouter({
         (answer) => answer.questionId === questionId
       );
 
-      if (userAnswer && userAnswer.answerId === requiredAnswerId) {
+      if (
+        userAnswer &&
+        userAnswer.questionId == questionId &&
+        userAnswer.answerId === requiredAnswerId
+      ) {
         const filteredSurvey = allSurveys.find(
           (survey) => survey.id === surveyId
         );
