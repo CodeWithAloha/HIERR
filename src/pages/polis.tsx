@@ -1,6 +1,8 @@
 import { type NextPage } from "next";
 import ProgressBar from "../components/ProgressBar";
 import Link from "next/link";
+import { api } from "../utils/api";
+import { useEffect, useState } from "react";
 
 interface PolisSurvey {
   id: string;
@@ -9,10 +11,16 @@ interface PolisSurvey {
 }
 
 const Polis: NextPage = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const surveys: PolisSurvey[] = JSON.parse(
-    process.env.NEXT_PUBLIC_POLIS_SURVEYS ?? ""
-  );
+  const [surveys, setSurveys] = useState<PolisSurvey[]>([]);
+
+  const polisSurveys = api.polis.getSurveys.useQuery();
+
+  useEffect(() => {
+    if (polisSurveys.data) {
+      console.log("Survey data is:", polisSurveys.data);
+      setSurveys(polisSurveys.data);
+    }
+  }, [polisSurveys.data]);
 
   const gridItemStyle = surveys.length > 2 ? "grid-cols-3" : "grid-cols-1";
   return (

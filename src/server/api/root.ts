@@ -2,6 +2,7 @@ import { createTRPCRouter } from "./trpc";
 import { zipcodeRouter } from "./routers/zipcode";
 import { userRouter } from "./routers/user";
 import { surveyRouter } from "./routers/survey";
+import { polisRouter } from "./routers/polis";
 
 /**
  * This is the primary router for your server.
@@ -12,6 +13,7 @@ export const appRouter = createTRPCRouter({
   zipcode: zipcodeRouter,
   user: userRouter,
   survey: surveyRouter,
+  polis: polisRouter,
 });
 
 // export type definition of API
