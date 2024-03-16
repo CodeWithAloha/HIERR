@@ -23,49 +23,49 @@ export default function MultiSelectAnswers({
     const checkboxesText = (ref.current as HTMLFormElement).querySelectorAll(
       "[type=checkbox][id*=optionText]"
     );
-    const checkedAnswers = Array.from(checkboxesNoText).filter(
+    const checkedAnswersNoText = Array.from(checkboxesNoText).filter(
       (cb) => (cb as HTMLInputElement).checked
     );
-    const checkedTextAnswers = Array.from(checkboxesText).filter(
+    const checkedAnswersText = Array.from(checkboxesText).filter(
       (cb) => (cb as HTMLInputElement).checked
     );
 
-    const uncheckedTextAnswers = Array.from(checkboxesText).filter(
+    const uncheckedAnswersText = Array.from(checkboxesText).filter(
       (cb) => !(cb as HTMLInputElement).checked
     );
 
-    const justValues = checkedAnswers.map(
+    const checkedValuesNoText = checkedAnswersNoText.map(
       (ca) => (ca as HTMLInputElement).value
     );
 
-    const values = checkedAnswers
-      .map((ca) => (ca as HTMLInputElement).value)
-      .join(MULTI_ANSWER_DELIMITER);
+    const joinedCheckedValuesNoText = checkedValuesNoText.join(
+      MULTI_ANSWER_DELIMITER
+    );
 
-    const justCheckedTextAnswers = checkedTextAnswers.map(
+    const checkedValuesText = checkedAnswersText.map(
       (ca) => (ca as HTMLInputElement).value
     );
 
-    const textValues = checkedTextAnswers.map(
+    const valuesText = checkedAnswersText.map(
       (ca) =>
         (ca as HTMLInputElement).value +
         (ca.nextElementSibling?.children[0] as HTMLInputElement).value
     );
-    const answerValues = checkedTextAnswers.map(
-      (ca) => (ca as HTMLInputElement).value
-    );
-    setDisabledInput(answerValues);
-    const textValuesConcat = textValues.join(MULTI_ANSWER_DELIMITER);
-    const valuesAnswerIds = justValues
+
+    setDisabledInput(checkedValuesText);
+    const textValuesConcat = valuesText.join(MULTI_ANSWER_DELIMITER);
+    const valuesAnswerIds = checkedValuesNoText
       .map((v) => answers.find((a) => a.answer === v)?.id)
       .join(",");
-    const textAnswerIds = justCheckedTextAnswers
+    const textAnswerIds = checkedValuesText
       .map((v) => answers.find((a) => a.answer === v)?.id)
       .join(",");
-    if (values.length > 0) {
+
+    if (joinedCheckedValuesNoText.length > 0) {
       updateCurrentAnswer({
         id: valuesAnswerIds + "," + textAnswerIds,
-        val: values + MULTI_ANSWER_DELIMITER + textValuesConcat,
+        val:
+          joinedCheckedValuesNoText + MULTI_ANSWER_DELIMITER + textValuesConcat,
       });
     } else {
       updateCurrentAnswer({
@@ -75,12 +75,15 @@ export default function MultiSelectAnswers({
     }
     if (textValuesConcat.length === 0) {
       // clear text boxes
-      uncheckedTextAnswers.forEach((ca) => {
+      uncheckedAnswersText.forEach((ca) => {
         (ca.nextElementSibling?.children[0] as HTMLInputElement).value = "";
         return;
       });
     }
-    if (values.length === 0 && textValuesConcat.length === 0) {
+    if (
+      joinedCheckedValuesNoText.length === 0 &&
+      textValuesConcat.length === 0
+    ) {
       setDisabled(true);
       return;
     }
