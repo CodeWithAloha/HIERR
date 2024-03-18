@@ -9,6 +9,7 @@ load_dotenv()
 questions_df = pd.read_csv('questions.csv')
 answers_df = pd.read_csv('answers.csv')
 polis_surveys_df = pd.read_csv('polis_surveys.csv')
+survey_rules_df = pd.read_csv('survey_rules.csv')
 
 # Database connection parameters - adjust these to your own server
 server = os.getenv('DB_SERVER') 
@@ -45,11 +46,21 @@ IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='SurveyAnswer' and xtype='U')
 ''')
 
 cursor.execute('''
-IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='PolisSurvey' and xtype='U')
-    CREATE TABLE PolisSurvey (
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='PolisSurveys' and xtype='U')
+    CREATE TABLE PolisSurveys (
         id NVARCHAR(255) PRIMARY KEY,
         title NVARCHAR(255),
         description NVARCHAR(MAX),
+    )
+''')
+
+cursor.execute('''
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='SurveyRules' and xtype='U')
+    CREATE TABLE SurveyRules (
+        id NVARCHAR(255) PRIMARY KEY,
+        surveyId NVARCHAR(255),
+        questionId INT,
+        requiredAnswerId INT,
     )
 ''')
 
@@ -72,7 +83,8 @@ def insert_data(df, table_name):
 # Insert data into the tables
 insert_data(questions_df, 'SurveyQuestion')
 insert_data(answers_df, 'SurveyAnswer')
-insert_data(polis_surveys_df, 'PolisSurvey')
+insert_data(polis_surveys_df, 'PolisSurveys')
+insert_data(survey_rules_df, 'SurveyRules')
 
 # Commit the changes and close the connection
 conn.commit()

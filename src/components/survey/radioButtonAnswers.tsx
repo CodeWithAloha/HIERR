@@ -3,7 +3,7 @@ import type { SurveyAnswer } from "./demographicssurvey";
 
 interface RadioButtonAnswersProps {
   answers: SurveyAnswer[];
-  updateCurrentAnswer: (val: string) => void;
+  updateCurrentAnswer: (ans: { id: string; val: string }) => void;
   setDisabled: (val: boolean) => void;
 }
 export default function RadioButtonAnswers({
@@ -12,8 +12,8 @@ export default function RadioButtonAnswers({
   setDisabled,
 }: RadioButtonAnswersProps) {
   const [disabledInput, setDisabledInput] = useState("");
-  const handleChange = (val: string) => {
-    updateCurrentAnswer(val);
+  const handleChange = (id: string, val: string) => {
+    updateCurrentAnswer({ id, val });
     setDisabled(false);
   };
   const radioBtn = (a: SurveyAnswer) => {
@@ -25,7 +25,9 @@ export default function RadioButtonAnswers({
             type="radio"
             name="myRadio"
             value={a.answer}
-            onClick={(e) => handleChange((e.target as HTMLInputElement).value)}
+            onClick={(e) =>
+              handleChange(a.id, (e.target as HTMLInputElement).value)
+            }
             onChange={() => {
               setDisabledInput("");
               return;
@@ -58,7 +60,10 @@ export default function RadioButtonAnswers({
               type={"text"}
               disabled={disabledInput !== a.answer}
               onChange={(e) =>
-                handleChange(a.answer + (e.target as HTMLInputElement).value)
+                handleChange(
+                  a.id,
+                  a.answer + (e.target as HTMLInputElement).value
+                )
               }
             ></input>
           </span>

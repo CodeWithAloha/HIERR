@@ -1,16 +1,20 @@
 interface TextAnswerProps {
-  updateCurrentAnswer: (val: string) => void;
+  updateCurrentAnswer: (ans: { id: string; val: string }) => void;
   number?: boolean;
   setDisabled: (val: boolean) => void;
+  answers: { id: string; answer: string }[];
 }
 
 export default function TextAnswer({
   updateCurrentAnswer,
   number,
   setDisabled,
+  answers,
 }: TextAnswerProps) {
   const handleChange = (val: string) => {
-    updateCurrentAnswer(val);
+    if (answers === undefined || answers.length === 0) return;
+    const answerId = answers[0]?.id ?? "";
+    updateCurrentAnswer({ id: answerId, val });
     setDisabled(false);
   };
   return (

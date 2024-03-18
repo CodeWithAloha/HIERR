@@ -17,7 +17,13 @@ export const surveyRouter = createTRPCRouter({
   }),
   addUserAnswer: publicProcedure
     .input(
-      z.array(z.object({ questionId: z.string(), answerValue: z.string() }))
+      z.array(
+        z.object({
+          questionId: z.string(),
+          answerId: z.string(),
+          answerValue: z.string(),
+        })
+      )
     )
     .mutation(async ({ input, ctx }) => {
       if (!ctx.session) {
@@ -51,6 +57,7 @@ export const surveyRouter = createTRPCRouter({
         return {
           userId: userId,
           questionId: questionId,
+          answerId: a.answerId,
           answerValue: a.answerValue,
         };
       });

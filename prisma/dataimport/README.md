@@ -11,7 +11,10 @@
 3. polis_surveys.csv
    - Required Format
      - id,title,description
-4. Add a .env file to the dataimport folder based on the .env.example
+4. survey_rules.csv
+   - Required Format
+     - id,surveyId,questionId,requiredAnswerId
+5. Add a .env file to the dataimport folder based on the .env.example
 
 ## Creating questions.csv, answers.csv, and polis_surveys.csv
 
@@ -50,12 +53,22 @@
       1. id: The ID is the polis survey ID from polis
       2. title: The title of the polis survey
       3. description: A short description of the pol.is survey
-7. Add your questions to the questions sheet
-8. Add your answers to the answers sheet
-9. Download the Questions sheet as a csv and name it "questions.csv"
-10. Download the Answers sheet as a csv and name it "answers.csv"
-11. Add questions.csv and answers.csv to the dataimport folder
-12. Run
+7. In the SurveyRules sheet, add the following headers:
+   1. id surveyId questionId requiredAnswerId
+      1. id: The ID of the survey rule
+      2. surveyId: The ID of the pol.is survey that requires the rule
+      3. questionId: The ID of the question in the pol.is survey that requires the specific answer
+      4. requiredAnswerId: The answerId that qualifies as a correct answer to show that pol.is survey
+8. Add your questions to the questions sheet
+9. Add your answers to the answers sheet
+10. Add any survey rules to the survey rules sheet
+    1. **Note:** Any rules that are added will mean that the assoicated pol.is survey will not display unless that corresponding answer ID is selected
+11. Download the Questions sheet as a csv and name it "questions.csv"
+12. Download the Answers sheet as a csv and name it "answers.csv"
+13. Download the SurveyRules sheet as a csv and name it "survey_rules.csv"
+14. Download the PolisSurveys sheet as a csv and name it "polis_surveys.csv"
+15. Add the downloaded csvs to the data import folder
+16. Run
 
 ```console
 pip install -r requirements.txt
