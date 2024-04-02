@@ -15,6 +15,15 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "scottfallen",
+      "name": "scottfallen",
+      "avatar_url": "https://robohash.org/scottfallen",
+      "profile": "https://www.linkedin.com/in/scottfallen/",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
