@@ -75,7 +75,7 @@ export default function SurveyQuestion({
     }
   };
   return (
-    <div className="mt-8 flex max-w-[32rem] flex-col rounded-md bg-[#FFFFFF] px-8 py-8 shadow-xl">
+    <div className="mt-8 flex flex-col rounded-md bg-[#FFFFFF] px-8 py-8 shadow-xl sm:w-[300px] md:w-[500px] lg:w-[600px]">
       <h1 className="mb-8 font-semibold">
         {surveyInfo.questionNumber + 1}. {question.question}
       </h1>
@@ -83,9 +83,9 @@ export default function SurveyQuestion({
       <div className="mt-10 flex flex-row justify-between">
         <button
           className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full border-2 
-              border-dashed border-blue-darker  bg-white px-6 py-1
-          text-right text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out 
-           hover:translate-y-1  hover:bg-blue-darker/20"
+              border-dashed border-blue-darker  bg-white py-1 text-right text-lg text-blue-darker
+          no-underline shadow-xl transition  ease-in-out hover:translate-y-1 hover:bg-blue-darker/20 sm:px-2 
+           md:px-4  lg:px-6"
           onClick={() => updateQuestion("Prev")}
         >
           Back
@@ -96,9 +96,9 @@ export default function SurveyQuestion({
         <button
           className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full border-2 
               border-dashed border-lightGreen
-            bg-yellowGreen px-6 py-1
-          text-right text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out 
-           hover:translate-y-1  hover:bg-lightGreen"
+            bg-yellowGreen py-1 text-right text-lg text-blue-darker
+          no-underline shadow-xl transition  ease-in-out hover:translate-y-1 hover:bg-lightGreen sm:px-2 
+           md:px-4  lg:px-6"
           onClick={() => updateQuestion("Next", selectedAnswer)}
           disabled={disabled}
         >
