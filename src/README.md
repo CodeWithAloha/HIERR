@@ -224,7 +224,7 @@ Visit http://<hierr server>/polisconvert. You must be an administrator to be abl
 1. On the following page, copy the link for "Source code (zip)"
 1. Paste that link into the installation instructions [Google Document in the Node.js installation instructions](https://docs.google.com/document/d/1evPMUb8FKiK-BrtP1ILxUfEr9OE8Vwxyew7zUsragCw/edit#heading=h.c5qw6vbumyf6).
 
-# Running HIERR as a Service
+# Running HIERR as a Windows Service
 
 1. Download [Non-Sucking Service Manager](https://nssm.cc/download)
 2. Unzip the downloaded folder
