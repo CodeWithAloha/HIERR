@@ -195,6 +195,16 @@ npx prisma db push
 
 > Note: The demographic questions will not populate because they are hard-coded in the SQL migrations.
 
+# Add Google Analytics Environment variable
+
+- In the .env file add
+
+```
+NEXT_PUBLIC_GA_ID = {MyGoogleAnalyticsID}
+```
+
+- This will enable google analytics on the site
+
 # Working with prisma
 
 When the data model changes, run the following to update your local database with the latest migrations
