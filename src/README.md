@@ -262,4 +262,4 @@ nssm install HIERR
    - Select Save
    - Right click the new user and select Properties
    - Go to Membership and select: db_datareader, db_datawriter
-10. Run `nssm start HIERR` in powershell as Administrator 
+10. Run `nssm start HIERR` in powershell as Administrator
