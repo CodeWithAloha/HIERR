@@ -47,33 +47,31 @@ npm run start
 7. Download HIERR application package from Github (link)
 8. Expand the zip file
 9. Do this N times (for each environment you want to create: production, test, etc.)
-   1. Open PowerShell and run the following commands (and leave PowerShell open)
-      1. `cd <expanded HIERR directory>`
-      2. `dir`
-         * Make sure that you see a README.md file in this directory
-      3. `New-Item .env -type file`
-
-   2. Open Notepad, and open the newly created .env file in the expanded HIERR directory (you may need to select all files in the open file dialog box), and add the following four lines:
-      * `DATABASE_URL="sqlserver://localhost:1433;initialcatalog=<YourDBName>;integratedSecurity=true;trustServerCertificate=true;"`
-      * `NEXTAUTH_URL="<YourURL>"`
-      * `NEXTAUTH_SECRET=<YourSecret>`
-      * `EMAIL_SERVER=<YourEmailServer>`
-      * `EMAIL_FROM=<YourEmailAddress>`
-      * `AUTHORIZED_POLIS_CONVERT_EMAILS_FILE={path to file that contains a list of email addresses (one per line) whose users are authorized to export POLIS data}`
-         * For example: AUTHORIZED_POLIS_CONVERT_EMAILS_FILE={YourAuthorizedEmailTextFile}
-   3. Save and close the Nodepad file.
-   4. Back in PowerShell, run the following commands (each environment needs a unique port; 3000 for production, 4000 for test, etc):
-
-```
-npm install
-npx prisma db push
-npm run build
-PORT=<Environment PORT> npm run start
-```
-
-10.  Visit http://localhost:<Environment port> from the same computer and verify that you can see the HIERR application.
-    * Do not proceed if you cannot load the HIERR main page through this link.
-11.  Turn on IIS
+    1. Open PowerShell and run the following commands (and leave PowerShell open)
+        1. `cd <expanded HIERR directory>`
+        2. `dir`
+            * Make sure that you see a README.md file in this directory
+        3. `New-Item .env -type file`
+    2. Open Notepad, and open the newly created .env file in the expanded HIERR directory (you may need to select all files in the open file dialog box), and add the following four lines:
+        * `DATABASE_URL="sqlserver://localhost:1433;initial catalog=<YourDBName for Environment>;integratedSecurity=true;trustServerCertificate=true;"`
+        * `NEXTAUTH_URL="<YourURL>"`
+        * `NEXTAUTH_SECRET=<YourSecret>`
+        * `EMAIL_SERVER=<YourEmailServer>`
+        * `EMAIL_FROM=<YourEmailAddress>`
+        * `AUTHORIZED_POLIS_CONVERT_EMAILS_FILE={path to file that contains a list of email addresses (one per line) whose users are authorized to export POLIS data}`
+           * For example: `AUTHORIZED_POLIS_CONVERT_EMAILS_FILE={YourAuthorizedEmailTextFile}`
+    3. Save and close the Nodepad file.
+    4. Run the HIERR with for the given environment as a service:
+        1. TODO - Back in PowerShell, run the following commands (each environment needs a unique port; 3000 for production, 4000 for test, etc):
+            ```
+            npm install
+            npx prisma db push
+            npm run build
+            PORT=<Environment PORT> npm run start
+            ```
+10. Visit http://localhost:<Environment port> from the same computer and verify that you can see the HIERR application.
+    * **Do not proceed if you cannot load the HIERR main page through this link**. Go to the instructions above and verify that you have set everything up as written.
+11. Turn on IIS
     1. Open “Control Panel”
     2. Click “Turn Windows Features on and off”
     3. Click “Add Roles and Features”
@@ -103,7 +101,7 @@ PORT=<Environment PORT> npm run start
 15. Open “Internet Information Services (IIS) manager”:
     1. Do this N times (for each environment you want to create: production, test, etc.) inside of Certify the Web
         1. Add a reverse proxy in IIS from inbound port 80 to port <Environment port> in the VM and inbound port 443 to port <Environment port> in the VM
-            1. Click on the “Default Web Site” from the tree view on the left under the server tree under “Sites”
+            1. Right-click "Sites" on the left under the server and select "Add Website"
             2. Double check the “URL Rewrite” Icon from the middle pane.
             3. Click “Add Rule(s)…”
             4. Select “Blank rule” in the Inbound rules section, then click the OK button.
@@ -130,12 +128,13 @@ PORT=<Environment PORT> npm run start
             13. Choose the ‘Add Rule’ action from the right pane of the management console, and select the ‘Reverse Proxy Rule’ from the ‘Inbound and Outbound Rules’ category.
             14. If asked to enable proxy functionality, click “OK”.
             15. Enter localhost:<Environment port> as where requests will be forwarded
-            16. Click on enable SSL offloading
+            16. Click on enable SSL offloading.
+            17. Click on Use Server Name Indication.
             17. Click on Rewrite domain names
                 * From localhost:<Environment port> to <YourDomain>
             18. Click the OK button.
             19. You should now see a second condition in the list.
-        2.  Turn on TLS on port 443:
+        2.  Turn on TLS on port 443. This will use [Server Name Indication](https://en.wikipedia.org/wiki/Server_Name_Indication) to use multiple TLS certs, one for each environment:
             1. Navigate to your website in IIS (left sidebar) and select “Bindings…” on the right hand side.
             2. Specify https and hostname is <YourDomain>
             3. Save that
