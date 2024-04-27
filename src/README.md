@@ -238,7 +238,7 @@ nssm install HIERR
 
 5. Set up the service details:
    - Path: Point this to your npm executable, usually located at C:\Program Files\nodejs\npm.cmd (adjust if your installation path is different).
-   - Startup directory: Set this to the directory of your Node.js application where the package.json is located.
+   - Startup directory: Set this to the directory of the HIERR application where the package.json is located.
    - Arguments: run start.
    - Service name: Enter a name for your service, HIERR.
 6. Dependencies: Configure the service to start after your database service.
@@ -252,6 +252,7 @@ nssm install HIERR
    - In SSMS, go to the Security folder under your server instance.
    - Right-click on Logins and select New Login….
    - Enter NT AUTHORITY\SYSTEM in the login name.
+   - If there's an error saying the user already exists, continue to the next step
    - In the Default database dropdown, select HIERR.
    - Expand Security > Users
    - Right click users and select New User
@@ -261,4 +262,4 @@ nssm install HIERR
    - Select Save
    - Right click the new user and select Properties
    - Go to Membership and select: db_datareader, db_datawriter
-10. Run `nssm start HIERR`
+10. Run `nssm start HIERR` in powershell as Administrator 
