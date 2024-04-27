@@ -46,97 +46,98 @@ npm run start
    d. Restart SQL Server
 7. Download HIERR application package from Github (link)
 8. Expand the zip file
-9. Open PowerShell and run the following commands (and leave PowerShell open)
-   a. `cd <expanded HIERR directory>`
-   b. `dir`
+9. Do this N times (for each environment you want to create: production, test, etc.)
+   1. Open PowerShell and run the following commands (and leave PowerShell open)
+      1. `cd <expanded HIERR directory>`
+      2. `dir`
+         * Make sure that you see a README.md file in this directory
+      3. `New-Item .env -type file`
 
-   1. Make sure that you see a README.md file in this directory
-
-   c. `New-Item .env -type file`
-
-10. Open Notepad, and open the newly created .env file in the expanded HIERR directory (you may need to select all files in the open file dialog box), and add the following four lines:
-    a. `DATABASE_URL="sqlserver://localhost:1433;initial catalog=<YourDBName>;integratedSecurity=true;trustServerCertificate=true;"`
-    b. `NEXTAUTH_URL="<YourURL>"`
-    c. `NEXTAUTH_SECRET=<YourSecret>`
-    d. `EMAIL_SERVER=<YourEmailServer>`
-    e. `EMAIL_FROM=<YourEmailAddress>`
-    f. `AUTHORIZED_POLIS_CONVERT_EMAILS_FILE={path to file that contains a list of email addresses (one per line) whose users are authorized to export POLIS data}`
-    For example: AUTHORIZED_POLIS_CONVERT_EMAILS_FILE={YourAuthorizedEmailTextFile}
-11. Save and close the Nodepad file.
-12. Back in PowerShell, run the following commands:
+   2. Open Notepad, and open the newly created .env file in the expanded HIERR directory (you may need to select all files in the open file dialog box), and add the following four lines:
+      * `DATABASE_URL="sqlserver://localhost:1433;initialcatalog=<YourDBName>;integratedSecurity=true;trustServerCertificate=true;"`
+      * `NEXTAUTH_URL="<YourURL>"`
+      * `NEXTAUTH_SECRET=<YourSecret>`
+      * `EMAIL_SERVER=<YourEmailServer>`
+      * `EMAIL_FROM=<YourEmailAddress>`
+      * `AUTHORIZED_POLIS_CONVERT_EMAILS_FILE={path to file that contains a list of email addresses (one per line) whose users are authorized to export POLIS data}`
+         * For example: AUTHORIZED_POLIS_CONVERT_EMAILS_FILE={YourAuthorizedEmailTextFile}
+   3. Save and close the Nodepad file.
+   4. Back in PowerShell, run the following commands (each environment needs a unique port; 3000 for production, 4000 for test, etc):
 
 ```
 npm install
 npx prisma db push
 npm run build
-npm run start
+PORT=<Environment PORT> npm run start
 ```
 
-1.  Visit http://localhost:3000 from the same computer and verify that you can see the HIERR application.
-    a. Do not proceed if you cannot load the HIERR main page through this link.
-1.  Turn on IIS
-    a. Open “Control Panel”
-    b. Click “Turn Windows Features on and off”
-    c. Click “Add Roles and Features”
-    d. Click “Next” on “Before You Begin” screen (if it appears)
-    e. Select “Role or feature-based installation”
-    f. On the server selection screen, click “Next”.
-    g. Click “Web Server (IIS)” and click Management tools on, then click “Next”
-    h. Click “Next” on the Features screen. If “Next” is greyed out, then this is likely already installed. Skip to step j.
-    i. Run that installation until it completes
-    j. Download and install URL rewrite module https://www.iis.net/downloads/microsoft/application-request-routing - use x64 version
-    k. Download and install Application Request Routing 3.0 https://iis-umbraco.azurewebsites.net/downloads/microsoft/application-request-routing - use x64 version
-1.  Download Certify the Web (https://certifytheweb.s3.amazonaws.com/downloads/archive/CertifyTheWebSetup_V5.6.8.exe)
-1.  Run Certify the Web installer.
-1.  Run Certify the Web once it’s installed.
-    a. Click “New Certificate”
-    b. Click “OK” when prompted to register a new contact.
-    c. Enter an email address for the HIERR application administrator. Scott’s email is fine.
-    d. Click “Yes, I agree” with the terms for the Let’s Encrypt Certificate Authority, then click “Register Contact”.
-    e. In the next window, select “Default web site”, type “<YourDomain>” in the “Add domains to certificate” field, then click the green Plus sign.
-    f. Click the “Test” button in the top right of the screen and verify that the test succeeds.
-    g. Click the back left arrow button.
-    h. Click the “Request Certificate” button
-    i. Wait until page says “Success” and “Request Completed”.
-    j. Click the back left arrow button if one shows up.
-    k. Close Certify the Web
-1.  Add a reverse proxy in IIS from inbound port 80 to port 3000 in the VM and inbound port 443 to port 3000 in the VM
-    a. Open “Internet Information Services (IIS) manager”
-    b. Click on the “Default Web Site” from the tree view on the left under the server tree under “Sites”
-    c. Double check the “URL Rewrite” Icon from the middle pane.
-    d. Click “Add Rule(s)…”
-    e. Select “Blank rule” in the Inbound rules section, then click the OK button.
-    f. Type “HTTPS Redirect” for the name.
-    g. In the Matched URL section:
-    i. Set Requested URL: to Matches the Pattern.
-    ii. Set Using to Regular Expressions.
-    iii. Enter (.\*) as the Pattern.
-    iv. Check Ignore case.
-    h. Scroll down to Conditions and expand the section if necessary. Select Match All for Logical grouping, then click the Add… button.
-    i. A dialog box will open:
-    i. Type {HTTPS} in the Condition input field.
-    ii. Set Check if input string to Matches the Pattern.
-    iii. Type ^OFF$ in the Pattern field.
-    iv. Check Ignore case.
-    v. Click the OK button.
-    j. You should now see your condition in the list.
-    k. Scroll down to the Action section and enter these settings:
-    i. Select Redirect as the Action type.
-    ii. Type https://{HTTP_HOST}/{REQUEST_URI} in the Redirect URL field.
-    iii. Uncheck Append query string.
-    iv. Set Redirect type to Permanent (301).
-    l. Click Apply in the right-hand Actions menu.
-    m. Choose the ‘Add Rule’ action from the right pane of the management console, and select the ‘Reverse Proxy Rule’ from the ‘Inbound and Outbound Rules’ category.
-    n. If asked to enable proxy functionality, click “OK”.
-    o. Enter localhost:3000 as where requests will be forwarded
-    p. Click on enable SSL offloading
-    q. Click on Rewrite domain names
-    i. From localhost:3000 to <YourDomain>
-    r. Click the OK button.
-    s. You should now see a second condition in the list.
-1.  Turn on TLS on port 443
-    a. Navigate to your website in IIS (left sidebar) and select “Bindings…” on the right hand side.
-    b. Specify https and hostname is <YourDomain>
-    c. Save that
-    d. This page should now show http and https bindings. Close the window.
-1.  Visit http://<YourDomain> from a web browser other than the VM. Your browser should be redirected to https://<YourDomain> and it should use TLS to secure the website.
+10.  Visit http://localhost:<Environment port> from the same computer and verify that you can see the HIERR application.
+    * Do not proceed if you cannot load the HIERR main page through this link.
+11.  Turn on IIS
+    1. Open “Control Panel”
+    2. Click “Turn Windows Features on and off”
+    3. Click “Add Roles and Features”
+    4. Click “Next” on “Before You Begin” screen (if it appears)
+    5. Select “Role or feature-based installation”
+    6. On the server selection screen, click “Next”.
+    7. Click “Web Server (IIS)” and click Management tools on, then click “Next”
+    8. Click “Next” on the Features screen. If “Next” is greyed out, then this is likely already installed. Skip to step j.
+    9. Run that installation until it completes
+    10. Download and install URL rewrite module https://www.iis.net/downloads/microsoft/application-request-routing - use x64 version
+    11. Download and install Application Request Routing 3.0 https://iis-umbraco.azurewebsites.net/downloads/microsoft/application-request-routing - use x64 version
+12.  Download Certify the Web (https://certifytheweb.s3.amazonaws.com/downloads/archive/CertifyTheWebSetup_V5.6.8.exe)
+13.  Run Certify the Web installer.
+14.  Run Certify the Web once it’s installed.
+    1. Do this N times (for each environment you want to create: production, test, etc.) inside of Certify the Web
+        1. Click “New Certificate”
+        2. Click “OK” when prompted to register a new contact.
+        3. Enter an email address for the HIERR application administrator. Scott’s email is fine.
+        4. Click “Yes, I agree” with the terms for the Let’s Encrypt certificate Authority, then click “Register Contact”.
+        5. In the next window, select “Default web site”, type “<YourDomainForEnvironment>” in the “Add domains to certificate” field, then click the green Plus sign.
+        6. Click the “Test” button in the top right of the screen  and verify that the test succeeds.
+        7. Click the back left arrow button.
+        8. Click the “Request Certificate” button
+        9. Wait until page says “Success” and “Request Completed”.
+        10. Click the back left arrow button if one shows up.
+        11. Close Certify the Web
+15. Open “Internet Information Services (IIS) manager”:
+    1. Do this N times (for each environment you want to create: production, test, etc.) inside of Certify the Web
+        1. Add a reverse proxy in IIS from inbound port 80 to port <Environment port> in the VM and inbound port 443 to port <Environment port> in the VM
+            1. Click on the “Default Web Site” from the tree view on the left under the server tree under “Sites”
+            2. Double check the “URL Rewrite” Icon from the middle pane.
+            3. Click “Add Rule(s)…”
+            4. Select “Blank rule” in the Inbound rules section, then click the OK button.
+            5. Type “HTTPS Redirect” for the name.
+            6. In the Matched URL section:
+                1. Set Requested URL: to Matches the Pattern.
+                2. Set Using to Regular Expressions.
+                3. Enter (.\*) as the Pattern.
+                4. Check Ignore case.
+            7. Scroll down to Conditions and expand the section if necessary. Select Match All for Logical grouping, then click the Add… button.
+            8. A dialog box will open:
+                1. Type {HTTPS} in the Condition input field.
+                2. Set Check if input string to Matches the Pattern.
+                3. Type ^OFF$ in the Pattern field.
+                4. Check Ignore case.
+            9. Click the OK button.
+            10. You should now see your condition in the list.
+            11. Scroll down to the Action section and enter these settings:
+                1. Select Redirect as the Action type.
+                2. Type https://{HTTP_HOST}/{REQUEST_URI} in the Redirect URL field.
+                3. Uncheck Append query string.
+                4. Set Redirect type to Permanent (301).
+            12. Click Apply in the right-hand Actions menu.
+            13. Choose the ‘Add Rule’ action from the right pane of the management console, and select the ‘Reverse Proxy Rule’ from the ‘Inbound and Outbound Rules’ category.
+            14. If asked to enable proxy functionality, click “OK”.
+            15. Enter localhost:<Environment port> as where requests will be forwarded
+            16. Click on enable SSL offloading
+            17. Click on Rewrite domain names
+                * From localhost:<Environment port> to <YourDomain>
+            18. Click the OK button.
+            19. You should now see a second condition in the list.
+        2.  Turn on TLS on port 443:
+            1. Navigate to your website in IIS (left sidebar) and select “Bindings…” on the right hand side.
+            2. Specify https and hostname is <YourDomain>
+            3. Save that
+            4. This page should now show http and https bindings. Close the window.
+        3. Visit http://<YourDomain> from a web browser other than the VM. Your browser should be redirected to https://<YourDomain> and it should use TLS to secure the website.
