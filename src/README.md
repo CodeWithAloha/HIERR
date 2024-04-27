@@ -223,3 +223,43 @@ Visit http://<hierr server>/polisconvert. You must be an administrator to be abl
 1. Click the "Publish release" at the bottom of the page.
 1. On the following page, copy the link for "Source code (zip)"
 1. Paste that link into the installation instructions [Google Document in the Node.js installation instructions](https://docs.google.com/document/d/1evPMUb8FKiK-BrtP1ILxUfEr9OE8Vwxyew7zUsragCw/edit#heading=h.c5qw6vbumyf6).
+
+# Running HIERR as a Windows Service
+
+1. Download [Non-Sucking Service Manager](https://nssm.cc/download)
+2. Unzip the downloaded folder
+3. Add the location of the x64 executable to your PATH
+   - [Add directory to path tutorial](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)
+4. Install the service by running the following in powershell
+
+```
+nssm install HIERR
+```
+
+5. Set up the service details:
+   - Path: Point this to your npm executable, usually located at C:\Program Files\nodejs\npm.cmd (adjust if your installation path is different).
+   - Startup directory: Set this to the directory of the HIERR application where the package.json is located.
+   - Arguments: run start.
+   - Service name: Enter a name for your service, HIERR.
+6. Dependencies: Configure the service to start after your database service.
+   - Go to the Dependencies tab.
+   - Enter the name of your database service (e.g., MSSQLSERVER).
+7. Redirect output (optional): If you want to log the output:
+   - Go to the I/O tab.
+   - Set the output (stdout) and error (stderr) logs to files on your disk, like C:\logs\hierr-out.log and C:\logs\hierr-err.log.
+8. Install the service: Click the "Install service" button.
+9. Configure SQL Server
+   - In SSMS, go to the Security folder under your server instance.
+   - Right-click on Logins and select New Login….
+   - Enter NT AUTHORITY\SYSTEM in the login name.
+   - If there's an error saying the user already exists, continue to the next step
+   - In the Default database dropdown, select HIERR.
+   - Expand Security > Users
+   - Right click users and select New User
+   - User name: NT AUTHORITY\SYSTEM
+   - Login name: NT AUTHORITY\SYSTEM
+   - Default schema: dbo
+   - Select Save
+   - Right click the new user and select Properties
+   - Go to Membership and select: db_datareader, db_datawriter
+10. Run `nssm start HIERR` in powershell as Administrator
