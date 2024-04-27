@@ -1,9 +1,9 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 // Importing the Google Analytics Measurement ID from the environment variable
-const gtag = `https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`;
+const gaTag = process.env.NEXT_PUBLIC_GA_ID ?? "";
+const gtag = `https://www.googletagmanager.com/gtag/js?id=${gaTag}`;
 export default class MyDocument extends Document {
   render() {
-    const gaTag = process.env.NEXT_PUBLIC_GA_ID ?? "";
     return (
       <Html>
         <Head>
