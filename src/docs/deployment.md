@@ -67,7 +67,10 @@ npm run start
             npm install
             npx prisma db push
             npm run build
-            PORT=<Environment PORT> npm run start
+            // Linux
+            PORT=<Environment Port> npm run start
+            // Windows
+            npm run start -- --port=<Environment Port>
             ```
 10. Visit http://localhost:<Environment port> from the same computer and verify that you can see the HIERR application.
     * **Do not proceed if you cannot load the HIERR main page through this link**. Go to the instructions above and verify that you have set everything up as written.
@@ -125,12 +128,13 @@ npm run start
                 3. Uncheck Append query string.
                 4. Set Redirect type to Permanent (301).
             12. Click Apply in the right-hand Actions menu.
+            13. Click "Back to Rules"
             13. Choose the ‘Add Rule’ action from the right pane of the management console, and select the ‘Reverse Proxy Rule’ from the ‘Inbound and Outbound Rules’ category.
             14. If asked to enable proxy functionality, click “OK”.
             15. Enter localhost:<Environment port> as where requests will be forwarded
             16. Click on enable SSL offloading.
             17. Click on Use Server Name Indication.
-            17. Click on Rewrite domain names
+            17. In Outbound rules, Click on Rewrite domain names
                 * From localhost:<Environment port> to <YourDomain>
             18. Click the OK button.
             19. You should now see a second condition in the list.
