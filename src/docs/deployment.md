@@ -105,7 +105,7 @@ npm run start
     1. Do this N times (for each environment you want to create: production, test, etc.) inside of Certify the Web
         1. Add a reverse proxy in IIS from inbound port 80 to port <Environment port> in the VM and inbound port 443 to port <Environment port> in the VM
             1. Right-click "Sites" on the left under the server and select "Add Website"
-            2. Double check the “URL Rewrite” Icon from the middle pane.
+            2. Double click the “URL Rewrite” Icon from the middle pane.
             3. Click “Add Rule(s)…”
             4. Select “Blank rule” in the Inbound rules section, then click the OK button.
             5. Type “HTTPS Redirect” for the name.
@@ -138,9 +138,12 @@ npm run start
                 * From localhost:<Environment port> to <YourDomain>
             18. Click the OK button.
             19. You should now see a second condition in the list.
-        2.  Turn on TLS on port 443. This will use [Server Name Indication](https://en.wikipedia.org/wiki/Server_Name_Indication) to use multiple TLS certs, one for each environment:
+        2. Turn off other features
+            1. Turn off dynamic content compression
+            2. Turn off Output caching - turn off enable cache and enable kernel cache
+        3.  Turn on TLS on port 443. This will use [Server Name Indication](https://en.wikipedia.org/wiki/Server_Name_Indication) to use multiple TLS certs, one for each environment:
             1. Navigate to your website in IIS (left sidebar) and select “Bindings…” on the right hand side.
             2. Specify https and hostname is <YourDomain>
             3. Save that
             4. This page should now show http and https bindings. Close the window.
-        3. Visit http://<YourDomain> from a web browser other than the VM. Your browser should be redirected to https://<YourDomain> and it should use TLS to secure the website.
+        4. Visit http://<YourDomain> from a web browser other than the VM. Your browser should be redirected to https://<YourDomain> and it should use TLS to secure the website.
