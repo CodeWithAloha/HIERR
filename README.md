@@ -45,3 +45,11 @@ Read more about how Pol.is was used in a case study in Taiwan here: https://blog
 ### CFH Project Focus
 
 The CFH project is focused on developing a digital engagement platform wrapping around Pol.is and onboarding materials to solicit resident sentiments on vision and value statements for Hawaii's economic future. Residents will be invited to in-person workshops for onboarding and introduction to the established Pol.is, where they will be invited to interact with seeded vision and value statements as well as add new ones. The results from this engagement process will be a direct input into the broader HIERR Project by orienting identified strategies and projects for Hawaii's economic resilience to the vision and values statements generating concurrence via Pol.is.
+
+# Attribution
+
+Many thanks to the [The Computational Democracy Project](https://github.com/compdemocracy) for their work on [Pol.is](https://github.com/compdemocracy/polis).
+
+Thanks to the [State of Hawai‘i Office of Planning & Sustainable Development’s (OPSD) Special Plans Branch]([https://www.publicfirstlaw.org/](https://planning.hawaii.gov/spb/)) being the community partner for this project by providing guidance and hosting the infrastructure for the project.
+
+<img src="https://github.com/CodeWithAloha/HIERR/assets/15609358/5da09a21-159a-4d8a-8903-8bfec331bbde" alt="State of Hawaii Office of Planning and Sustainable Development Logo" width="200" />
