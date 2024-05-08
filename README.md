@@ -50,6 +50,6 @@ The CFH project is focused on developing a digital engagement platform wrapping 
 
 Many thanks to the [The Computational Democracy Project](https://github.com/compdemocracy) for their work on [Pol.is](https://github.com/compdemocracy/polis).
 
-Thanks to the [State of Hawai‘i Office of Planning & Sustainable Development’s (OPSD) Special Plans Branch]([https://www.publicfirstlaw.org/](https://planning.hawaii.gov/spb/)) being the community partner for this project by providing guidance and hosting the infrastructure for the project.
+Thanks to the [State of Hawai‘i Office of Planning & Sustainable Development’s (OPSD) Special Plans Branch](https://planning.hawaii.gov/spb/) for being the community partner for this project by providing guidance and hosting the infrastructure for the project.
 
 <img src="https://github.com/CodeWithAloha/HIERR/assets/15609358/5da09a21-159a-4d8a-8903-8bfec331bbde" alt="State of Hawaii Office of Planning and Sustainable Development Logo" width="200" />
