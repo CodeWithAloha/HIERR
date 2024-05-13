@@ -72,7 +72,7 @@
          // Windows
          npm run start -- --port=<Environment Port>
          ```
-1. Visit http://localhost:<Environment port> from the same computer and verify that you can see the HIERR application.
+1. Visit http://localhost:`<Environment port>` from the same computer and verify that you can see the HIERR application.
    - **Do not proceed if you cannot load the HIERR main page through this link**. Go to the instructions above and verify that you have set everything up as written.
 1. Turn on IIS
    1. Open “Control Panel”
@@ -94,7 +94,7 @@
       1. Click “OK” when prompted to register a new contact.
       1. Enter an email address for the HIERR application administrator. Scott’s email is fine.
       1. Click “Yes, I agree” with the terms for the Let’s Encrypt certificate Authority, then click “Register Contact”.
-      1. In the next window, select “Default web site”, type “<YourDomainForEnvironment>” in the “Add domains to certificate” field, then click the green Plus sign.
+      1. In the next window, select “Default web site”, type `<YourDomainForEnvironment>` in the “Add domains to certificate” field, then click the green Plus sign.
       1. Click the “Test” button in the top right of the screen and verify that the test succeeds.
       1. Click the back left arrow button.
       1. Click the “Request Certificate” button
@@ -103,7 +103,7 @@
       1. Close Certify the Web
 1. Open “Internet Information Services (IIS) manager”:
    1. Do this N times (for each environment you want to create: production, test, etc.) inside of Certify the Web
-      1. Add a reverse proxy in IIS from inbound port 80 to port <Environment port> in the VM and inbound port 443 to port <Environment port> in the VM
+      1. Add a reverse proxy in IIS from inbound port 80 to port `<Environment port>` in the VM and inbound port 443 to port `<Environment port>` in the VM
          1. Right-click "Sites" on the left under the server and select "Add Website"
          1. Double click the “URL Rewrite” Icon from the middle pane.
          1. Click “Add Rule(s)…”
@@ -112,7 +112,7 @@
          1. In the Matched URL section:
             1. Set Requested URL: to Matches the Pattern.
             1. Set Using to Regular Expressions.
-            1. Enter (.\*) as the Pattern.
+            1. Enter `(.\*)` as the Pattern.
             1. Check Ignore case.
          1. Scroll down to Conditions and expand the section if necessary. Select Match All for Logical grouping, then click the Add… button.
          1. A dialog box will open:
@@ -124,18 +124,18 @@
          1. You should now see your condition in the list.
          1. Scroll down to the Action section and enter these settings:
             1. Select Redirect as the Action type.
-            1. Type https://<Replace with your host name>/ in the Redirect URL field.
+            1. Type https://`<Replace with your host name>`/ in the Redirect URL field.
             1. Uncheck Append query string.
             1. Set Redirect type to Permanent (301).
          1. Click Apply in the right-hand Actions menu.
          1. Click "Back to Rules"
          1. Choose the ‘Add Rule’ action from the right pane of the management console, and select the ‘Reverse Proxy Rule’ from the ‘Inbound and Outbound Rules’ category.
          1. If asked to enable proxy functionality, click “OK”.
-         1. Enter localhost:<Environment port> as where requests will be forwarded
+         1. Enter localhost:`<Environment port>` as where requests will be forwarded
          1. Click on enable SSL offloading.
          1. Click on Use Server Name Indication.
          1. In Outbound rules, Click on Rewrite domain names
-            - From localhost:<Environment port> to <YourDomain>
+            - From localhost:`<Environment port>` to `<YourDomain>`
          1. Click the OK button.
          1. You should now see a second condition in the list.
       1. Turn off other features
@@ -143,7 +143,7 @@
          1. Turn off Output caching - turn off enable cache and enable kernel cache
       1. Turn on TLS on port 443. This will use [Server Name Indication](https://en.wikipedia.org/wiki/Server_Name_Indication) to use multiple TLS certs, one for each environment:
          1. Navigate to your website in IIS (left sidebar) and select “Bindings…” on the right hand side.
-         1. Specify https and hostname is <YourDomain>
+         1. Specify https and hostname is `<YourDomain>`
          1. Save that
          1. This page should now show http and https bindings. Close the window.
-      1. Visit http://<YourDomain> from a web browser other than the VM. Your browser should be redirected to https://<YourDomain> and it should use TLS to secure the website.
+      1. Visit http://`<YourDomain>` from a web browser other than the VM. Your browser should be redirected to https://`<YourDomain>` and it should use TLS to secure the website.
