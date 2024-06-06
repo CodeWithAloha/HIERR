@@ -1,32 +1,37 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import React from 'react'; 
 import "@testing-library/jest-dom";
+import { render, screen, fireEvent } from "@testing-library/react";
 import TextAnswer, { TextAnswerProps } from "./textAnswers";
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi } from 'vitest';
 
-// passing in the properties
-describe("TextAnswers component",() => {
-    it("renders the input field", () => {
-        const props: TextAnswerProps = {
-            updateCurrentAnswer: vi.fn(),
-            setDisabled: vi.fn(),
-            answers: [{ id: "1", answer: "test"}],
-        }
+describe("TextAnswers component", () => {
+  it("renders the input field", () => {
+    const props: TextAnswerProps = {
+      updateCurrentAnswer: vi.fn(),
+      setDisabled: vi.fn(),
+      answers: [{ id: "1", answer: "test" }],
+    };
 
-        render(<TextAnswer {...props} />)
-        const inputElement = screen.getByRole("textbox", {name: /textQuestion/i})
-        expect(inputElement).toBeInTheDocument();
-    })
+    render(<TextAnswer {...props} />);
+    const inputElement = screen.getByLabelText(/textQuestion/i); // attaches to aria-label for accessibility purposes
+    expect(inputElement).toBeInTheDocument();
+  });
 
-    it("calls updateCurrentAnswer and setDisabled on input change", () => {
-        // const update
-    })
+  it("calls updateCurrentAnswer and setDisabled on input change", () => {
+    const updateCurrentAnswer = vi.fn();
+    const setDisabled = vi.fn();
+    const props: TextAnswerProps = {
+      updateCurrentAnswer,
+      setDisabled,
+      answers: [{ id: "1", answer: "test" }]
+    };
 
+    render(<TextAnswer {...props} />);
+    const inputElement = screen.getByLabelText(/textQuestion/i);
 
+    fireEvent.change(inputElement, { target: { value: "new answer" } });
 
-
-
-
-
-
-
-})
+    expect(updateCurrentAnswer).toHaveBeenCalledWith({ id: "1", val: "new answer" });
+    expect(setDisabled).toHaveBeenCalledWith(false);
+  });
+});
