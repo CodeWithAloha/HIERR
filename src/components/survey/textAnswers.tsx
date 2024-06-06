@@ -29,7 +29,7 @@ return (
         name="textQuestion"
         pattern={number ? "^1?[0-9]{1,2}$1[0-9][0-9]" : ""}
         title={number ? "Please enter a number." : ""}
-        aria-label="textQuestion" // added for testing & accessibility
+        aria-label="textQuestion" // testing & accessibility
         onChange={(e) => handleChange(e.target.value)}
       />
     </>

@@ -13,7 +13,7 @@ describe("TextAnswers component", () => {
     };
 
     render(<TextAnswer {...props} />);
-    const inputElement = screen.getByLabelText(/textQuestion/i); // attaches to aria-label for accessibility purposes
+    const inputElement = screen.getByLabelText(/textQuestion/i); // attaches to aria-label
     expect(inputElement).toBeInTheDocument();
   });
 
@@ -34,4 +34,13 @@ describe("TextAnswers component", () => {
     expect(updateCurrentAnswer).toHaveBeenCalledWith({ id: "1", val: "new answer" });
     expect(setDisabled).toHaveBeenCalledWith(false);
   });
+
+  //! does not call updateCurrentAnswer or setDisabled if answers array is empty
+
+
+  //! applies the correct pattern and title when number prop is true
+
+
+  //! does not apply pattern and title when number prop is false
+
 });
