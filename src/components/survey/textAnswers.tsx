@@ -1,4 +1,4 @@
-interface TextAnswerProps {
+export interface TextAnswerProps {
   updateCurrentAnswer: (ans: { id: string; val: string }) => void;
   number?: boolean;
   setDisabled: (val: boolean) => void;
