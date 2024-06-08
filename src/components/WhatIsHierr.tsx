@@ -2,7 +2,7 @@ import React from "react";
 
 const Goals = () => {
   return (
-    <ol className="ml-4 mb-2 list-decimal 2xl:text-lg">
+    <ol className="mb-2 ml-4 list-decimal 2xl:text-lg">
       <li className="md:mb-2">
         Support competitive project proposals designed to address economic
         hardships experienced by residents during the COVID-19 pandemic.
@@ -21,7 +21,7 @@ const Goals = () => {
 
 const ByTheEndOfThisProject = () => {
   return (
-    <ul className="ml-4 mb-2 list-disc 2xl:text-lg">
+    <ul className="mb-2 ml-4 list-disc 2xl:text-lg">
       <li className="md:mb-2">
         Develop a series of information products grounded in resident
         experiences and values.

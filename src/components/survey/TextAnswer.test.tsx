@@ -1,11 +1,11 @@
-import React from 'react'; 
+import React from "react";
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 import TextAnswer from "./textAnswers";
 import type { TextAnswerProps } from "./textAnswers";
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi } from "vitest";
 
-  //! Ensure default rendering of the input area
+//! Ensure default rendering of the input area
 
 describe("TextAnswers component", () => {
   it("renders the input field", () => {
@@ -20,7 +20,7 @@ describe("TextAnswers component", () => {
     expect(inputElement).toBeInTheDocument();
   });
 
-    //! Calling Functions 
+  //! Calling Functions
 
   it("calls updateCurrentAnswer and setDisabled on input change", () => {
     const updateCurrentAnswer = vi.fn();
@@ -28,7 +28,7 @@ describe("TextAnswers component", () => {
     const props: TextAnswerProps = {
       updateCurrentAnswer,
       setDisabled,
-      answers: [{ id: "1", answer: "test" }]
+      answers: [{ id: "1", answer: "test" }],
     };
 
     render(<TextAnswer {...props} />);
@@ -36,7 +36,10 @@ describe("TextAnswers component", () => {
 
     fireEvent.change(inputElement, { target: { value: "new answer" } });
 
-    expect(updateCurrentAnswer).toHaveBeenCalledWith({ id: "1", val: "new answer" });
+    expect(updateCurrentAnswer).toHaveBeenCalledWith({
+      id: "1",
+      val: "new answer",
+    });
     expect(setDisabled).toHaveBeenCalledWith(false);
   });
 
@@ -71,7 +74,10 @@ describe("TextAnswers component", () => {
     render(<TextAnswer {...props} />);
     const inputElement = screen.getByRole("textbox", { name: /textQuestion/i });
 
-    expect(inputElement).toHaveAttribute("pattern", "^1?[0-9]{1,2}$1[0-9][0-9]");
+    expect(inputElement).toHaveAttribute(
+      "pattern",
+      "^1?[0-9]{1,2}$1[0-9][0-9]"
+    );
     expect(inputElement).toHaveAttribute("title", "Please enter a number.");
   });
 

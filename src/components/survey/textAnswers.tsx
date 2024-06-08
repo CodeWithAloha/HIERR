@@ -1,4 +1,4 @@
-import React from 'react'; 
+import React from "react";
 
 export interface TextAnswerProps {
   updateCurrentAnswer: (ans: { id: string; val: string }) => void;
@@ -20,7 +20,7 @@ export default function TextAnswer({
     setDisabled(false);
   };
 
-return (
+  return (
     <>
       <input
         className="form-input rounded"
