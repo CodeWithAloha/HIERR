@@ -1,7 +1,8 @@
 import React from 'react'; 
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
-import TextAnswer, { TextAnswerProps } from "./textAnswers";
+import TextAnswer from "./textAnswers";
+import type { TextAnswerProps } from "./textAnswers";
 import { describe, it, expect, vi } from 'vitest';
 
   //! Ensure default rendering of the input area
