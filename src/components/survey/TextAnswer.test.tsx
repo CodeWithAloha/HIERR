@@ -8,16 +8,17 @@ import { describe, it, expect, vi } from "vitest";
 //! Ensure default rendering of the input area
 
 describe("TextAnswers component", () => {
-  it("renders the input field", () => {
+  it("renders the input field correctly", () => {
     const props: TextAnswerProps = {
       updateCurrentAnswer: vi.fn(),
       setDisabled: vi.fn(),
       answers: [{ id: "1", answer: "test" }],
     };
 
-    render(<TextAnswer {...props} />);
-    const inputElement = screen.getByLabelText(/textQuestion/i); // attaches to aria-label
+    const { asFragment } = render(<TextAnswer {...props} />);
+    const inputElement = screen.getByLabelText(/textQuestion/i);
     expect(inputElement).toBeInTheDocument();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   //! Calling Functions
