@@ -10,7 +10,7 @@
 
 <div align="center">
     <p>The HIERR Project aims to enable actions toward a more resilient, equitable, and sustainable economy</p>
-    <strong>Developed by Code for Hawaii</strong>
+    <strong>Developed by Code with Aloha</strong>
 </div>
 
 <div align="center">
@@ -33,7 +33,7 @@ The HIERR Project aims to enable actions toward a more resilient, equitable, and
 
 - Identifying gaps and strategies to mitigate Hawaii's economic vulnerabilities and hardships revealed during the COVID-19 pandemic;
 - Compiling specific projects / programs that address the identified gaps;
-- Aligning project / program needs to resources and enabling conditions necessary for implementation; and
+- Aligning project / program needs to resources and enabling conditions necessary for implementation;
 - Advancing pre-disaster economic recovery planning across all hazards.
 
 ### What is Pol.is?
@@ -42,9 +42,9 @@ https://pol.is/ is an [open source](https://github.com/compdemocracy/polis) enga
 
 Read more about how Pol.is was used in a case study in Taiwan here: https://blog.pol.is/pol-is-in-taiwan-da7570d372b5
 
-### CFH Project Focus
+### Code With Aloha Project Focus
 
-The CFH project is focused on developing a digital engagement platform wrapping around Pol.is and onboarding materials to solicit resident sentiments on vision and value statements for Hawaii's economic future. Residents will be invited to in-person workshops for onboarding and introduction to the established Pol.is, where they will be invited to interact with seeded vision and value statements as well as add new ones. The results from this engagement process will be a direct input into the broader HIERR Project by orienting identified strategies and projects for Hawaii's economic resilience to the vision and values statements generating concurrence via Pol.is.
+The CWA project is focused on developing a digital engagement platform wrapping around Pol.is and onboarding materials to solicit resident sentiments on vision and value statements for Hawaii's economic future. Residents will be invited to in-person workshops for onboarding and introduction to the established Pol.is, where they will be invited to interact with seeded vision and value statements as well as add new ones. The results from this engagement process will be a direct input into the broader HIERR Project by orienting identified strategies and projects for Hawaii's economic resilience to the vision and values statements generating concurrence via Pol.is.
 
 # Attribution
 
