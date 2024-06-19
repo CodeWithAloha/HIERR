@@ -136,11 +136,11 @@ Follow these directions for easier database editing.
 
 # Prisma SQLite
 
-Why use SQLite?
+## Why use SQLite?
 
 SQLite is a light-weight alternative to Microsoft SQL Server that provides an easier setup solution for those running the project locally.
 
-Getting started with SQLite
+## Getting started with SQLite
 
 Firstly, check if your machine already has SQLite. Many operating systems today come with SQLite pre-installed, but to verify run the following command:
 
@@ -223,7 +223,7 @@ NEXT_PUBLIC_POLIS_SURVEYS='[{"id": "SurveyID1", "title": "SurveyTitle1", "descri
 
 # Exporting data from Pol.is survey data
 
-Visit http://<hierr server>/polisconvert. You must be an administrator to be able to export data. Upload a participant-votes.csv file when prompted by the form. A CSV with census tract and zip code data from users (joined by xid) will be returned.
+Visit http://{hierr server}/polisconvert. You must be an administrator to be able to export data. Upload a participant-votes.csv file when prompted by the form. A CSV with census tract and zip code data from users (joined by xid) will be returned.
 
 # Preparing a new release
 
