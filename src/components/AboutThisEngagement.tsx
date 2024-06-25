@@ -10,7 +10,7 @@ const AboutThisEngagementPortal = () => {
         This engagement portal is designed to help our project team understand:{" "}
       </p>
 
-      <ol className="ml-4 mb-2 list-decimal pb-4 2xl:text-lg">
+      <ol className="mb-2 ml-4 list-decimal pb-4 2xl:text-lg">
         <li className="md:mb-2">
           Demographic information of those who participate in the project.
         </li>

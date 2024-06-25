@@ -1,4 +1,6 @@
-interface TextAnswerProps {
+import React from "react";
+
+export interface TextAnswerProps {
   updateCurrentAnswer: (ans: { id: string; val: string }) => void;
   number?: boolean;
   setDisabled: (val: boolean) => void;
@@ -17,6 +19,7 @@ export default function TextAnswer({
     updateCurrentAnswer({ id: answerId, val });
     setDisabled(false);
   };
+
   return (
     <>
       <input
@@ -26,6 +29,7 @@ export default function TextAnswer({
         name="textQuestion"
         pattern={number ? "^1?[0-9]{1,2}$1[0-9][0-9]" : ""}
         title={number ? "Please enter a number." : ""}
+        aria-label="textQuestion" // testing & accessibility
         onChange={(e) => handleChange(e.target.value)}
       />
     </>

@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`TextAnswers component > renders the input field correctly 1`] = `
+<DocumentFragment>
+  <input
+    aria-label="textQuestion"
+    class="form-input rounded"
+    id="textQuestion"
+    name="textQuestion"
+    pattern=""
+    title=""
+    type="text"
+  />
+</DocumentFragment>
+`;

@@ -22,7 +22,9 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    "**/*.js"
+    "**/*.js",
+    "vitest.config.ts",
+    "setupTests.ts"
   ],
   "exclude": ["node_modules"]
 }
