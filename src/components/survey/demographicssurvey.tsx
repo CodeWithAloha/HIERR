@@ -165,7 +165,7 @@ export default function DemographicsSurvey() {
           >
             Retake demographic survey
           </button>
-          <Link href={{ pathname: "./polis" }}>
+          <Link href={{ pathname: "./querysummary" }}>
             <button
               className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full border-2 
               border-dashed border-lightGreen bg-yellowGreen px-6 py-1 text-right text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out 
