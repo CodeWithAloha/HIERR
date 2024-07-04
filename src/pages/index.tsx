@@ -93,7 +93,7 @@ const AuthShowcase: React.FC = () => {
         {sessionData ? (
           <>
             <NextPageButtonLink
-              pageName="censusmap"
+              pageName="address"
               msg="Start the survey"
               text="You are currently logged in. 
               You can begin the survey now, and rest assured that all responses will remain 
