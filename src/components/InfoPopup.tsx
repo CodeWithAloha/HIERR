@@ -48,8 +48,7 @@ const InfoPopup = ({ title, PopupInfo }: InfoPopupProps) => {
         >
           <button
             onClick={toggleMoreInformation}
-            /* prettier-ignore */
-            className="absolute top-4 right-4 text-2xl lg:text-4xl"
+            className="absolute right-4 top-4 text-2xl lg:text-4xl"
           >
             <IoCloseSharp />
           </button>
