@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { LoadScript, Autocomplete } from "@react-google-maps/api";
+import { LoadScript, Autocomplete, Libraries } from "@react-google-maps/api";
 
 interface GoogleMapsResponseData {
   results: google.maps.places.PlaceResult[];
@@ -23,6 +23,7 @@ const AddressSearch: React.FC = () => {
   const [zipCode, setZipCode] = useState<string | null>(null);
   const [planningRegion, setPlanningRegion] = useState<string | null>(null);
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
+  const libraries: Libraries = ["places"];
 
   const fetchCensusTract = async (latitude: number, longitude: number) => {
     const url = `https://geocoding.geo.census.gov/geocoder/geographies/coordinates?x=${longitude}&y=${latitude}&benchmark=2020&vintage=2020&format=json`;
@@ -91,7 +92,10 @@ const AddressSearch: React.FC = () => {
   };
 
   return (
-    <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
+    <LoadScript
+      googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
+      libraries={libraries}
+    >
       <div className="flex h-screen items-center justify-center">
         <div className="flex flex-col items-center">
           <Autocomplete
