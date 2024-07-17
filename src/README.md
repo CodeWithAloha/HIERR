@@ -5,14 +5,11 @@ Run these commands to set up and run the project locally for the first time.
 ```bash
 git clone https://github.com/CodeforHawaii/HIERR.git
 cd HIERR
-# Use nvm to set the NodeJS version https://github.com/nvm-sh/nvm
-nvm use
-npm install
 cp -f .env.example .env # Note: You may have to update the .env file with your specific secret values.
 # Use docker to set up SQL and SMTP servers locally https://www.docker.com/
 # See "SMTP Cloud Server Setup" and "Prisma SQL Server Migration" sections if
 # wanting to use a different set up.
-docker compose up -d
+UID_GID="$(id -u):$(id -g)" USER_HOME=$HOME docker compose up -d
 ```
 
 Next, create database table `HIERR`. Enter the bash shell in the docker image:
@@ -41,14 +38,33 @@ Then, you may exit:
 exit
 ```
 
+Prepare the HIERR container:
+
+```bash
+# instal curl in hierr container
+docker exec -u 0:0 -it hierr-node-1 bash -c "apt update && apt install -y curl"
+# open hierr container and run
+docker exec -it hierr-node-1 bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+exit
+docker exec -it hierr-node-1 bash
+cd /HIERR
+nvm install
+nvm use
+npm install
+```
+
 Finally, run the DB migration scripts and run the dev server:
 
 ```bash
+# still inside the HIERR container...
 npx prisma migrate dev
 npx prisma db push
 # Run dev server on http://localhost:3000
 npm run dev
 ```
+
+You can now access HIERR from http://localhost:3000
 
 The SMTP email web interface is available at http://localhost:3001.
 
