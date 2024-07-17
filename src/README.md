@@ -55,6 +55,7 @@ npm install
 ```
 
 Finally, run the DB migration scripts and run the dev server:
+
 ```bash
 # still inside the HIERR container...
 npx prisma migrate dev

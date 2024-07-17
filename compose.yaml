@@ -23,5 +23,5 @@ services:
     environment:
       HOME: "${USER_HOME}"
     volumes:
-    - ./:/HIERR
-    - ${USER_HOME}:${USER_HOME}
+      - ./:/HIERR
+      - ${USER_HOME}:${USER_HOME}
