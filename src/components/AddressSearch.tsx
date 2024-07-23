@@ -129,8 +129,8 @@ const AddressSearch: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="flex flex-col items-center">
+    <div className="relative flex h-screen items-center justify-center">
+      <div className="flex flex-col items-center sm:w-2/3 md:w-2/3 lg:w-1/2 xl:w-1/2">
         <input
           type="text"
           value={query}
@@ -139,11 +139,11 @@ const AddressSearch: React.FC = () => {
           className="border-gray-300 w-full rounded border p-2"
         />
         {suggestions.length > 0 && (
-          <div className="border-gray-300 z-10 mt-20 rounded border bg-white">
+          <div className="border-gray-300 absolute z-10 mt-10 rounded border bg-white sm:w-2/3 md:w-2/3 lg:w-1/2 xl:w-1/2">
             {suggestions.map((suggestion, index) => (
               <div
                 key={index}
-                className="hover:bg-gray-100 cursor-pointer p-2"
+                className="cursor-pointer bg-white p-2 hover:bg-gray/20"
                 onClick={() => handleSuggestionClick(suggestion)}
               >
                 {suggestion.text}
@@ -151,7 +151,7 @@ const AddressSearch: React.FC = () => {
             ))}
           </div>
         )}
-        <div className="mt-4 text-center">
+        <div className="absolute mt-20 text-center">
           {zipCode && <p className="text-white">ZIP Code: {zipCode}</p>}
           {censusTract && (
             <p className="text-white">Census Tract: {censusTract}</p>
