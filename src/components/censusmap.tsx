@@ -128,7 +128,7 @@ const CensusTractMap: NextPage = () => {
         PopupInfo={CensusMapInfo}
       />
       {censusTractComplete ? (
-        <div className="mt-6 mb-5 flex items-center">
+        <div className="mb-5 mt-6 flex items-center">
           <h1 className="mb-2 mr-5 flex flex-row items-center justify-center gap-1 font-thin text-white">
             <TiInputChecked className="text-2xl text-yellowGreen " />
             <strong>{`You selected track ${String(
@@ -148,7 +148,7 @@ const CensusTractMap: NextPage = () => {
           </Link>
         </div>
       ) : (
-        <div className="mt-5 mb-5"></div>
+        <div className="mb-5 mt-5"></div>
       )}
       <div className="overflow-visible rounded bg-white shadow-xl">
         <div id="map" className="w-full">
