@@ -58,7 +58,11 @@ const AddressSearch: React.FC = () => {
         console.error("API token is not defined.");
         return;
       }
+
       const geocodeServiceResult = window.L.esri.Geocoding.geocodeService({
+        // The typing system for leaflet is not working so ignoring the error here.
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         apikey: apiToken,
       });
 
@@ -93,6 +97,9 @@ const AddressSearch: React.FC = () => {
 
   const handleSuggestionClick = (suggestion: AddressSuggestion) => {
     const geocodeService = window.L.esri.Geocoding.geocodeService({
+      // The typing system for leaflet is not working so ignoring the error here.
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       apikey: apiToken,
     });
     const geocode = geocodeService.geocode();
