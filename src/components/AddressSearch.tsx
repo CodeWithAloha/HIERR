@@ -1,4 +1,3 @@
-/// <reference types="leaflet" />
 import React, { useRef, useState, ChangeEvent } from "react";
 import ZipCodesGeojson from "../data/zipcodes.json";
 import CensusTractGeojson from "../data/census-tracts_min.json";
