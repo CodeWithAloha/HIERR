@@ -21,20 +21,6 @@ const Login: NextPage = () => {
           content="Share your voice to help shape Hawai&#699;i's resilient future."
         />
         <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
-        />
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css"
-        />
-        <script
-          src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-          integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
-          async
-        />
       </Head>
       <main
         className="relative flex  h-screen flex-col items-center justify-center  

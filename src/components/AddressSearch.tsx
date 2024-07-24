@@ -1,15 +1,19 @@
+/// <reference types="leaflet" />
 import React, { useRef, useState, ChangeEvent } from "react";
-import { LoadScript, Autocomplete, Libraries } from "@react-google-maps/api";
 import ZipCodesGeojson from "../data/zipcodes.json";
 import CensusTractGeojson from "../data/census-tracts_min.json";
 import PlanningAreaGeojson from "../data/Plan_Areas.json";
 import * as turf from "@turf/turf";
 import { FeatureCollection, Feature, Polygon } from "geojson";
-import * as ELG from "esri-leaflet-geocoder";
+
+declare global {
+  interface Window {
+    L: typeof import("leaflet");
+  }
+}
 
 interface AddressSuggestion {
   text: string;
-  magicKey: string;
 }
 
 interface AddressResponse {
@@ -23,6 +27,10 @@ interface Address {
 interface LatLng {
   lat: number;
   lng: number;
+}
+
+interface GeocodeServiceResponse {
+  suggestions: AddressSuggestion[];
 }
 
 const AddressSearch: React.FC = () => {
@@ -46,26 +54,37 @@ const AddressSearch: React.FC = () => {
     setQuery(value);
 
     if (value.length > 2) {
-      const geocodeService = ELG.geocodeService({ apikey: apiToken });
+      if (!apiToken) {
+        console.error("API token is not defined.");
+        return;
+      }
+      const geocodeServiceResult = window.L.esri.Geocoding.geocodeService({
+        apikey: apiToken,
+      });
 
-      geocodeService
+      geocodeServiceResult
         .suggest()
         .text(value)
         .within([
           [boundaryBox.ymin, boundaryBox.xmin],
           [boundaryBox.ymax, boundaryBox.xmax],
         ])
-        .run((err: any, response: any) => {
+        .run((err, response: GeocodeServiceResponse) => {
           if (err) {
             console.error(err);
             return;
           }
-          setSuggestions(
-            response.suggestions.map((suggestion: any) => ({
-              text: suggestion.text,
-              magicKey: suggestion.magicKey,
-            }))
-          );
+          if (
+            response &&
+            response.suggestions &&
+            response.suggestions.length > 0
+          ) {
+            setSuggestions(
+              response.suggestions.map((suggestion: AddressSuggestion) => ({
+                text: suggestion.text,
+              }))
+            );
+          }
         });
     } else {
       setSuggestions([]);
@@ -73,7 +92,9 @@ const AddressSearch: React.FC = () => {
   };
 
   const handleSuggestionClick = (suggestion: AddressSuggestion) => {
-    const geocodeService = ELG.geocodeService({ apikey: apiToken });
+    const geocodeService = window.L.esri.Geocoding.geocodeService({
+      apikey: apiToken,
+    });
     const geocode = geocodeService.geocode();
     const geocodeText = geocode.text(suggestion.text);
 
@@ -82,9 +103,18 @@ const AddressSearch: React.FC = () => {
         console.error(err);
         return;
       }
-      const { lat, lng } = result.results[0]?.latlng;
+      if (
+        !result.results ||
+        result.results.length === 0 ||
+        result.results[0] === undefined
+      ) {
+        console.error("No results found.");
+        return;
+      }
 
-      setLocation({ text: suggestion.text, latlng: result.results[0]?.latlng });
+      const { lat, lng } = result.results[0].latlng;
+
+      setLocation({ text: suggestion.text, latlng: result.results[0].latlng });
       setDemographicData(lat, lng);
       setSuggestions([]);
       setQuery(suggestion.text);
@@ -100,7 +130,7 @@ const AddressSearch: React.FC = () => {
       ZipCodesGeojson as FeatureCollection<Polygon>,
       (currentFeature, featureIndex) => {
         if (turf.booleanPointInPolygon(point, currentFeature)) {
-          zip = currentFeature.properties.ZIP ?? "Not Found";
+          zip = (currentFeature.properties?.ZIP as string) ?? "Not Found";
         }
       }
     );
@@ -108,7 +138,8 @@ const AddressSearch: React.FC = () => {
       CensusTractGeojson as FeatureCollection<Polygon>,
       (currentFeature, featureIndex) => {
         if (turf.booleanPointInPolygon(point, currentFeature)) {
-          censusTract = currentFeature.properties.name20 ?? "Not Found";
+          censusTract =
+            (currentFeature.properties?.name20 as string) ?? "Not Found";
         }
       }
     );
@@ -116,9 +147,8 @@ const AddressSearch: React.FC = () => {
       PlanningAreaGeojson as FeatureCollection<Polygon>,
       (currentFeature, featureIndex) => {
         if (turf.booleanPointInPolygon(point, currentFeature)) {
-          console.log("FOUND PLANNING REGION!");
           featurePlanningRegion =
-            currentFeature.properties.COMMUNITY_ ?? "Not Found";
+            (currentFeature.properties?.COMMUNITY_ as string) ?? "Not Found";
         }
       }
     );
