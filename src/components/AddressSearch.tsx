@@ -12,6 +12,8 @@ import * as turf from "@turf/turf";
 import { FeatureCollection, Feature, Polygon } from "geojson";
 import ProgressBar from "./ProgressBar";
 import * as ELG from "esri-leaflet-geocoder";
+import Link from "next/link";
+import { GrLinkNext } from "react-icons/gr";
 
 declare global {
   interface Window {
@@ -55,6 +57,10 @@ const AddressSearch: React.FC = () => {
     ymin: 18.367807,
     xmax: -153.404297,
     ymax: 23.131708,
+  };
+
+  const handleSubmit = () => {
+    console.log("Submitted!");
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -213,6 +219,17 @@ const AddressSearch: React.FC = () => {
               <p className="text-white">Planning Region: {planningRegion}</p>
             )}
           </div>
+          <Link href={{ pathname: "./survey" }}>
+            <button
+              className="mb-1 flex flex-row items-center justify-center gap-1 rounded-full border-2 border-dashed border-lightGreen bg-yellowGreen
+          px-6 py-1 text-lg  text-blue-darker no-underline shadow-xl transition 
+           ease-in-out  hover:translate-y-1 hover:bg-lightGreen"
+              onClick={() => handleSubmit()}
+              disabled={!complete}
+            >
+              Submit <GrLinkNext />
+            </button>
+          </Link>
         </div>
       </div>
     </div>
