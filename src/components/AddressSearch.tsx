@@ -1,9 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+/// <reference types="leaflet" />
 import React, { useRef, useState, ChangeEvent } from "react";
 import ZipCodesGeojson from "../data/zipcodes.json";
 import CensusTractGeojson from "../data/census-tracts_min.json";
 import PlanningAreaGeojson from "../data/Plan_Areas.json";
 import * as turf from "@turf/turf";
 import { FeatureCollection, Feature, Polygon } from "geojson";
+import ProgressBar from "./ProgressBar";
+import * as ELG from "esri-leaflet-geocoder";
 
 declare global {
   interface Window {
@@ -39,6 +47,7 @@ const AddressSearch: React.FC = () => {
   const [zipCode, setZipCode] = useState<string | null>(null);
   const [planningRegion, setPlanningRegion] = useState<string | null>(null);
   const [location, setLocation] = useState<Address | null>(null);
+  const [complete, setComplete] = useState<boolean>(false);
   const apiToken = process.env.NEXT_PUBLIC_SEARCH_API;
 
   const boundaryBox = {
@@ -58,10 +67,9 @@ const AddressSearch: React.FC = () => {
         return;
       }
 
-      const geocodeServiceResult = window.L.esri.Geocoding.geocodeService({
-        // The typing system for leaflet is not working so ignoring the error here.
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const geocodeServiceResult = ELG.geocodeService({
         apikey: apiToken,
       });
 
@@ -72,7 +80,7 @@ const AddressSearch: React.FC = () => {
           [boundaryBox.ymin, boundaryBox.xmin],
           [boundaryBox.ymax, boundaryBox.xmax],
         ])
-        .run((err, response: GeocodeServiceResponse) => {
+        .run((err: any, response: GeocodeServiceResponse) => {
           if (err) {
             console.error(err);
             return;
@@ -95,10 +103,9 @@ const AddressSearch: React.FC = () => {
   };
 
   const handleSuggestionClick = (suggestion: AddressSuggestion) => {
-    const geocodeService = window.L.esri.Geocoding.geocodeService({
-      // The typing system for leaflet is not working so ignoring the error here.
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const geocodeService = ELG.geocodeService({
       apikey: apiToken,
     });
     const geocode = geocodeService.geocode();
@@ -162,39 +169,50 @@ const AddressSearch: React.FC = () => {
     setZipCode(zip);
     setCensusTract(censusTract);
     setPlanningRegion(featurePlanningRegion);
+    setComplete(true);
   };
 
   return (
-    <div className="relative flex h-screen items-center justify-center">
+    <div className="flex h-screen items-center justify-center">
       <div className="flex flex-col items-center sm:w-2/3 md:w-2/3 lg:w-1/2 xl:w-1/2">
-        <input
-          type="text"
-          value={query}
-          onChange={handleInputChange}
-          placeholder="Enter address"
-          className="border-gray-300 w-full rounded border p-2"
-        />
-        {suggestions.length > 0 && (
-          <div className="border-gray-300 absolute z-10 mt-10 rounded border bg-white sm:w-2/3 md:w-2/3 lg:w-1/2 xl:w-1/2">
-            {suggestions.map((suggestion, index) => (
-              <div
-                key={index}
-                className="cursor-pointer bg-white p-2 hover:bg-gray/20"
-                onClick={() => handleSuggestionClick(suggestion)}
-              >
-                {suggestion.text}
-              </div>
-            ))}
-          </div>
+        <h1 className="text-lg font-semibold text-white md:mt-4 md:text-3xl">
+          Step 1: Type in your address
+        </h1>
+        {complete ? (
+          <ProgressBar completed={29} />
+        ) : (
+          <ProgressBar completed={2} />
         )}
-        <div className="absolute mt-20 text-center">
-          {zipCode && <p className="text-white">ZIP Code: {zipCode}</p>}
-          {censusTract && (
-            <p className="text-white">Census Tract: {censusTract}</p>
+        <div className="flex w-full flex-col justify-center">
+          <input
+            type="text"
+            value={query}
+            onChange={handleInputChange}
+            placeholder="Enter address"
+            className="border-gray-300 mt-10 w-full rounded border p-2"
+          />
+          {suggestions.length > 0 && (
+            <div className="border-gray-300 z-10 w-full rounded border bg-white">
+              {suggestions.map((suggestion, index) => (
+                <div
+                  key={index}
+                  className="cursor-pointer bg-white p-2 hover:bg-gray/20"
+                  onClick={() => handleSuggestionClick(suggestion)}
+                >
+                  {suggestion.text}
+                </div>
+              ))}
+            </div>
           )}
-          {planningRegion && (
-            <p className="text-white">Planning Region: {planningRegion}</p>
-          )}
+          <div className="mt-20 text-center">
+            {zipCode && <p className="text-white">ZIP Code: {zipCode}</p>}
+            {censusTract && (
+              <p className="text-white">Census Tract: {censusTract}</p>
+            )}
+            {planningRegion && (
+              <p className="text-white">Planning Region: {planningRegion}</p>
+            )}
+          </div>
         </div>
       </div>
     </div>
