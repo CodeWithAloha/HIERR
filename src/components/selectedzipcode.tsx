@@ -40,7 +40,7 @@ export default function SelectedZipCode({
         >
           {" "}
           <IoMdArrowBack />
-          Re-enter zip code
+          Re-enter ZIP Code
         </button>
         <Link href={{ pathname: "./survey" }}>
           <button

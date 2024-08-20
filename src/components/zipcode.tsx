@@ -8,7 +8,10 @@ import { useForm } from "react-hook-form";
 import stateZipCodes from "../data/2020_Zip_Code_Data.json";
 import { GrLinkNext } from "react-icons/gr";
 import { BiError } from "react-icons/bi";
+import { IoMdArrowBack } from "react-icons/io";
 import ProgressBar from "./ProgressBar";
+import Link from "next/link";
+
 interface ZipCodeData {
   zipCode: string;
 }
@@ -111,6 +114,17 @@ const ZipCode: NextPage = () => {
               Submit <GrLinkNext />
             </button>
           </form>
+          <Link href={{ pathname: "./censusmap" }}>
+            <button
+              className="mb-1 flex flex-row items-center justify-center gap-1 
+              rounded-full bg-white/70 px-4
+             py-1 text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out 
+              hover:translate-y-1  hover:bg-white"
+            >
+              <IoMdArrowBack />
+              Go back to Census Tract selection
+            </button>
+          </Link>
           <p
             className="mx-auto mt-4 w-[80%] border border-dashed border-white p-1
         text-center text-sm text-white md:m-4 md:w-1/2 md:p-4 xl:w-1/3 2xl:text-lg "

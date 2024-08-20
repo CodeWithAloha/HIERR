@@ -3,6 +3,7 @@ import ProgressBar from "../components/ProgressBar";
 import Link from "next/link";
 import { api } from "../utils/api";
 import { useEffect, useState } from "react";
+import { IoMdArrowBack } from "react-icons/io";
 
 interface PolisSurvey {
   id: string;
@@ -55,6 +56,18 @@ const Polis: NextPage = () => {
               </div>
             );
           })}
+          <br />
+          <br />
+          <hr />
+          <Link href={{ pathname: "./survey" }}>
+            <button
+              className="mb-1 mt-4 rounded-full bg-white/80 px-6 py-2 text-blue-darker no-underline
+              transition hover:translate-y-1 hover:bg-white hover:text-blue-darker "
+            >
+              <IoMdArrowBack />
+              Go back to Demographic Survey
+            </button>
+          </Link>
         </div>
       </div>
     </div>

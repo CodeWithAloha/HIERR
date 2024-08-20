@@ -23,6 +23,7 @@ import { TiInputChecked } from "react-icons/ti";
 import ProgressBar from "./ProgressBar";
 import InfoPopup from "./InfoPopup";
 import CensusMapInfo from "./CensusMapInfo";
+import { IoMdArrowBack } from "react-icons/io";
 
 interface LayerEventTarget {
   feature: {
@@ -129,6 +130,17 @@ const CensusTractMap: NextPage = () => {
       />
       {censusTractComplete ? (
         <div className="mb-5 mt-6 flex items-center">
+          <Link href={{ pathname: "./" }}>
+            <button
+              className="mb-1 flex flex-row items-center justify-center gap-1 
+              rounded-full bg-white/70 px-4
+             py-1 text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out 
+              hover:translate-y-1  hover:bg-white"
+            >
+              <IoMdArrowBack />
+              Go back to main page
+            </button>
+          </Link>
           <h1 className="mb-2 mr-5 flex flex-row items-center justify-center gap-1 font-thin text-white">
             <TiInputChecked className="text-2xl text-yellowGreen " />
             <strong>{`You selected track ${String(
