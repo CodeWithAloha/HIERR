@@ -3,6 +3,7 @@ import SurveyQuestion from "./surveyquestion";
 import { api } from "../../utils/api";
 import Link from "next/link";
 import { TiInputChecked } from "react-icons/ti";
+import { IoMdArrowBack } from "react-icons/io";
 import ProgressBar from "../ProgressBar";
 
 export interface SurveyData {
@@ -158,6 +159,15 @@ export default function DemographicsSurvey() {
           start the last part of the HIERR survey.
         </h2>
         <div className="flex flex-row items-center justify-center gap-5">
+          <Link href={{ pathname: "./zipcode" }}>
+            <button
+              className="mb-1 mt-4 rounded-full bg-white/80 px-6 py-2 text-blue-darker no-underline
+              transition hover:translate-y-1 hover:bg-white hover:text-blue-darker "
+            >
+              <IoMdArrowBack />
+              Go back to ZIP Code entry
+            </button>
+          </Link>
           <button
             className="mb-1 mt-4 rounded-full bg-white/80 px-6 py-2 text-blue-darker no-underline
              transition hover:translate-y-1 hover:bg-white hover:text-blue-darker "
@@ -212,6 +222,18 @@ export default function DemographicsSurvey() {
             diversity of our community. This helps us make sure that we hear
             from as many different perspectives as possible during our process.
           </p>
+
+          <Link href={{ pathname: "./zipcode" }}>
+            <button
+              className="mb-1 flex flex-row items-center justify-center gap-1 
+              rounded-full bg-white/70 px-4
+             py-1 text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out 
+              hover:translate-y-1  hover:bg-white"
+            >
+              <IoMdArrowBack />
+              Go back to ZIP Code entry
+            </button>
+          </Link>
         </>
       )}
     </div>
