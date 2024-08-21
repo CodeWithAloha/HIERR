@@ -7,7 +7,7 @@
 import React, { useRef, useState, ChangeEvent, useEffect } from "react";
 import ZipCodesGeojson from "../data/Zip_Codes.json";
 import CensusTractGeojson from "../data/Census_Tracts.json";
-import PlanningAreaGeojson from "../data/statewide_planning_regions.json";
+import PlanningAreaGeojson from "../data/Statewide_Planning_Regions.json";
 import DHHLGeojson from "../data/DHHL_WGS84.json";
 import * as turf from "@turf/turf";
 import { FeatureCollection, Feature, Polygon } from "geojson";
