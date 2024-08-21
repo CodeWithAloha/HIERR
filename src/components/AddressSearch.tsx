@@ -4,16 +4,18 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 /// <reference types="leaflet" />
-import React, { useRef, useState, ChangeEvent } from "react";
-import ZipCodesGeojson from "../data/zipcodes.json";
-import CensusTractGeojson from "../data/census-tracts_min.json";
-import PlanningAreaGeojson from "../data/Plan_Areas.json";
+import React, { useRef, useState, ChangeEvent, useEffect } from "react";
+import ZipCodesGeojson from "../data/Zip_Codes.json";
+import CensusTractGeojson from "../data/Census_Tracts.json";
+import PlanningAreaGeojson from "../data/statewide_planning_regions.json";
+import DHHLGeojson from "../data/DHHL_WGS84.json";
 import * as turf from "@turf/turf";
 import { FeatureCollection, Feature, Polygon } from "geojson";
 import ProgressBar from "./ProgressBar";
 import * as ELG from "esri-leaflet-geocoder";
 import Link from "next/link";
 import { GrLinkNext } from "react-icons/gr";
+import { api } from "../utils/api";
 
 declare global {
   interface Window {
@@ -48,9 +50,28 @@ const AddressSearch: React.FC = () => {
   const [censusTract, setCensusTract] = useState<string | null>(null);
   const [zipCode, setZipCode] = useState<string | null>(null);
   const [planningRegion, setPlanningRegion] = useState<string | null>(null);
+  const [dhhlRegion, setDhhlRegion] = useState<string | null>(null);
   const [location, setLocation] = useState<Address | null>(null);
   const [complete, setComplete] = useState<boolean>(false);
   const apiToken = process.env.NEXT_PUBLIC_SEARCH_API;
+
+  const censusTractDB = api.user.getCensusTract.useQuery();
+  const zipCodeDB = api.zipcode.getUserZipCode.useQuery();
+  // TODO: Add planning region call
+  // const planningRegionDB = api.zipcode.getUserZipCode.useQuery();
+
+  // useEffect(() => {
+  //   if (censusTractDB && censusTractDB.data) {
+  //     if (censusTractDB.data.censustract !== null) {
+  //       setCensusTract(censusTractDB.data?.censustract);
+  //     }
+  //   }
+  //   if (zipCodeDB && zipCodeDB.data) {
+  //     if (zipCodeDB.data.zipcode !== null) {
+  //       setZipCode(zipCodeDB.data?.zipcode);
+  //     }
+  //   }
+  // }, [censusTractDB.data?.censustract, zipCodeDB.data?.zipcode]);
 
   const boundaryBox = {
     xmin: -162.171387,
@@ -145,11 +166,13 @@ const AddressSearch: React.FC = () => {
     let zip = "";
     let censusTract = "";
     let featurePlanningRegion = "";
+    let dhhlRegion = "";
+
     turf.featureEach(
       ZipCodesGeojson as FeatureCollection<Polygon>,
       (currentFeature, featureIndex) => {
         if (turf.booleanPointInPolygon(point, currentFeature)) {
-          zip = (currentFeature.properties?.ZIP as string) ?? "Not Found";
+          zip = (currentFeature.properties?.geoid20 as string) ?? "Not Found";
         }
       }
     );
@@ -167,7 +190,15 @@ const AddressSearch: React.FC = () => {
       (currentFeature, featureIndex) => {
         if (turf.booleanPointInPolygon(point, currentFeature)) {
           featurePlanningRegion =
-            (currentFeature.properties?.COMMUNITY_ as string) ?? "Not Found";
+            (currentFeature.properties?.Name as string) ?? "Not Found";
+        }
+      }
+    );
+    turf.featureEach(
+      DHHLGeojson as FeatureCollection<Polygon>,
+      (currentFeature, featureIndex) => {
+        if (turf.booleanPointInPolygon(point, currentFeature)) {
+          dhhlRegion = "Yes";
         }
       }
     );
@@ -175,6 +206,7 @@ const AddressSearch: React.FC = () => {
     setZipCode(zip);
     setCensusTract(censusTract);
     setPlanningRegion(featurePlanningRegion);
+    setDhhlRegion(dhhlRegion);
     setComplete(true);
   };
 
@@ -217,6 +249,9 @@ const AddressSearch: React.FC = () => {
             )}
             {planningRegion && (
               <p className="text-white">Planning Region: {planningRegion}</p>
+            )}
+            {dhhlRegion && (
+              <p className="text-white">DHHL Region:{dhhlRegion ?? ""}</p>
             )}
           </div>
           <Link href={{ pathname: "./survey" }}>
