@@ -149,7 +149,7 @@ export default function DemographicsSurvey() {
     return (
       <div className="relative top-2 flex flex-col items-center justify-center">
         <h1 className="mb-6 text-lg font-semibold text-white md:mt-6 md:text-3xl ">
-          Step 4 complete!
+          Step 2 complete!
         </h1>
         <ProgressBar completed={71} />
         <h2 className=" my-6 mb-12 w-96 self-center border border-dashed  p-4 text-center text-white">
@@ -186,7 +186,7 @@ export default function DemographicsSurvey() {
       ) : (
         <>
           <h1 className="mb-6 text-lg font-semibold text-white md:mt-6 md:text-3xl ">
-            Step 4: Complete the Demographic Survey
+            Step 2: Complete the Demographic Survey
           </h1>
           <ProgressBar completed={57} />
 

@@ -57,21 +57,33 @@ const AddressSearch: React.FC = () => {
 
   const censusTractDB = api.user.getCensusTract.useQuery();
   const zipCodeDB = api.zipcode.getUserZipCode.useQuery();
-  // TODO: Add planning region call
-  // const planningRegionDB = api.zipcode.getUserZipCode.useQuery();
+  const planningRegionDB = api.user.getPlanningRegion.useQuery();
 
-  // useEffect(() => {
-  //   if (censusTractDB && censusTractDB.data) {
-  //     if (censusTractDB.data.censustract !== null) {
-  //       setCensusTract(censusTractDB.data?.censustract);
-  //     }
-  //   }
-  //   if (zipCodeDB && zipCodeDB.data) {
-  //     if (zipCodeDB.data.zipcode !== null) {
-  //       setZipCode(zipCodeDB.data?.zipcode);
-  //     }
-  //   }
-  // }, [censusTractDB.data?.censustract, zipCodeDB.data?.zipcode]);
+  const updateUserCensusTract = api.user.addCensusTract.useMutation();
+  const updateUserZipCode = api.zipcode.postZipCode.useMutation();
+  const updateUserPlanningRegion = api.user.addPlanningRegion.useMutation();
+
+  useEffect(() => {
+    if (censusTractDB && censusTractDB.data) {
+      if (censusTractDB.data.censustract !== null) {
+        setCensusTract(censusTractDB.data?.censustract);
+      }
+    }
+    if (zipCodeDB && zipCodeDB.data) {
+      if (zipCodeDB.data.zipcode !== null) {
+        setZipCode(zipCodeDB.data?.zipcode);
+      }
+    }
+    if (planningRegionDB && planningRegionDB.data) {
+      if (planningRegionDB.data.planningRegion !== null) {
+        setPlanningRegion(planningRegionDB.data?.planningRegion);
+      }
+    }
+  }, [
+    censusTractDB.data?.censustract,
+    zipCodeDB.data?.zipcode,
+    planningRegionDB.data?.planningRegion,
+  ]);
 
   const boundaryBox = {
     xmin: -162.171387,
@@ -82,6 +94,14 @@ const AddressSearch: React.FC = () => {
 
   const handleSubmit = () => {
     console.log("Submitted!");
+    const planningRegionDhhl = `${planningRegion ?? ""} ${
+      dhhlRegion === "Yes" ? "- DHHL" : ""
+    }`;
+    updateUserCensusTract.mutate({ censusTract: censusTract ?? "" });
+    updateUserZipCode.mutate({ zipcode: zipCode ?? "" });
+    updateUserPlanningRegion.mutate({
+      planningRegion: planningRegionDhhl ?? "",
+    });
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -243,15 +263,19 @@ const AddressSearch: React.FC = () => {
             </div>
           )}
           <div className="mt-20 text-center">
+            <p className="text-white">
+              Your address will not be recorded, but will be used to return the
+              following information commonly used in planning:
+            </p>
             {zipCode && <p className="text-white">ZIP Code: {zipCode}</p>}
             {censusTract && (
               <p className="text-white">Census Tract: {censusTract}</p>
             )}
             {planningRegion && (
-              <p className="text-white">Planning Region: {planningRegion}</p>
-            )}
-            {dhhlRegion && (
-              <p className="text-white">DHHL Region:{dhhlRegion ?? ""}</p>
+              <p className="text-white">
+                Planning Region: {planningRegion}
+                {dhhlRegion === "Yes" ? "-DHHL" : ""}
+              </p>
             )}
           </div>
           <Link href={{ pathname: "./survey" }}>
@@ -262,7 +286,7 @@ const AddressSearch: React.FC = () => {
               onClick={() => handleSubmit()}
               disabled={!complete}
             >
-              Submit <GrLinkNext />
+              Next <GrLinkNext />
             </button>
           </Link>
         </div>
