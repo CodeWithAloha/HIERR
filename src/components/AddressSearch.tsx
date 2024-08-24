@@ -278,17 +278,19 @@ const AddressSearch: React.FC = () => {
               </p>
             )}
           </div>
-          <Link href={{ pathname: "./survey" }}>
-            <button
-              className="mb-1 flex flex-row items-center justify-center gap-1 rounded-full border-2 border-dashed border-lightGreen bg-yellowGreen
-          px-6 py-1 text-lg  text-blue-darker no-underline shadow-xl transition 
-           ease-in-out  hover:translate-y-1 hover:bg-lightGreen"
-              onClick={() => handleSubmit()}
-              disabled={!complete}
-            >
-              Next <GrLinkNext />
-            </button>
-          </Link>
+          <div className="flex flex-row items-center justify-center gap-5">
+            <Link href={{ pathname: "./survey" }}>
+              <button
+                className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full border-2 
+              border-dashed border-lightGreen bg-yellowGreen px-6 py-1 text-right text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out 
+           hover:translate-y-1  hover:cursor-pointer hover:bg-lightGreen"
+                onClick={() => handleSubmit()}
+                disabled={!complete}
+              >
+                Next <GrLinkNext />
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
