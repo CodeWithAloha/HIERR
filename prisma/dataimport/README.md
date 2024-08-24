@@ -16,7 +16,7 @@
      - id,surveyId,search
 5. Add a .env file to the dataimport folder based on the .env.example
 
-## Creating questions.csv, answers.csv, and polis_surveys.csv
+## Creating questions.csv, answers.csv, polis_surveys.csv, and survey_rules.csv
 
 1. Open a new google sheet
 2. Rename one tab Questions

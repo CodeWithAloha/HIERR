@@ -59,8 +59,7 @@ IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='SurveyRules' and xtype='U')
     CREATE TABLE SurveyRules (
         id NVARCHAR(255) PRIMARY KEY,
         surveyId NVARCHAR(255),
-        questionId INT,
-        requiredAnswerId INT,
+        search NVARCHAR(255),
     )
 ''')
 
