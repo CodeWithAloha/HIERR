@@ -13,7 +13,7 @@
      - id,title,description
 4. survey_rules.csv
    - Required Format
-     - id,surveyId,questionId,requiredAnswerId
+     - id,surveyId,search
 5. Add a .env file to the dataimport folder based on the .env.example
 
 ## Creating questions.csv, answers.csv, and polis_surveys.csv
@@ -54,15 +54,14 @@
       2. title: The title of the polis survey
       3. description: A short description of the pol.is survey
 7. In the SurveyRules sheet, add the following headers:
-   1. id surveyId questionId requiredAnswerId
+   1. id surveyId search
       1. id: The ID of the survey rule
       2. surveyId: The ID of the pol.is survey that requires the rule
-      3. questionId: The ID of the question in the pol.is survey that requires the specific answer
-      4. requiredAnswerId: The answerId that qualifies as a correct answer to show that pol.is survey
+      3. search: This is the term that will be used for filtering. If the planning region has that word, the survey will show
 8. Add your questions to the questions sheet
 9. Add your answers to the answers sheet
 10. Add any survey rules to the survey rules sheet
-    1. **Note:** Any rules that are added will mean that the assoicated pol.is survey will not display unless that corresponding answer ID is selected
+    1. **Note:** Any rules that are added will mean that the associated pol.is survey will not display unless that corresponding answer ID is selected
 11. Download the Questions sheet as a csv and name it "questions.csv"
 12. Download the Answers sheet as a csv and name it "answers.csv"
 13. Download the SurveyRules sheet as a csv and name it "survey_rules.csv"
