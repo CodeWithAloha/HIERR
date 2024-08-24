@@ -52,6 +52,11 @@ const AddressSearch: React.FC = () => {
   const [planningRegion, setPlanningRegion] = useState<string | null>(null);
   const [dhhlRegion, setDhhlRegion] = useState<string | null>(null);
   const [location, setLocation] = useState<Address | null>(null);
+  const [censusTractComplete, setCensusTractComplete] =
+    useState<boolean>(false);
+  const [zipCodeComplete, setZipCodeComplete] = useState<boolean>(false);
+  const [planningRegionComplete, setPlanningRegionComplete] =
+    useState<boolean>(false);
   const [complete, setComplete] = useState<boolean>(false);
   const apiToken = process.env.NEXT_PUBLIC_SEARCH_API;
 
@@ -67,16 +72,19 @@ const AddressSearch: React.FC = () => {
     if (censusTractDB && censusTractDB.data) {
       if (censusTractDB.data.censustract !== null) {
         setCensusTract(censusTractDB.data?.censustract);
+        setCensusTractComplete(true);
       }
     }
     if (zipCodeDB && zipCodeDB.data) {
       if (zipCodeDB.data.zipcode !== null) {
         setZipCode(zipCodeDB.data?.zipcode);
+        setZipCodeComplete(true);
       }
     }
     if (planningRegionDB && planningRegionDB.data) {
       if (planningRegionDB.data.planningRegion !== null) {
         setPlanningRegion(planningRegionDB.data?.planningRegion);
+        setPlanningRegionComplete(true);
       }
     }
   }, [
@@ -84,6 +92,12 @@ const AddressSearch: React.FC = () => {
     zipCodeDB.data?.zipcode,
     planningRegionDB.data?.planningRegion,
   ]);
+
+  useEffect(() => {
+    if (censusTractComplete && zipCodeComplete && planningRegionComplete) {
+      setComplete(true);
+    }
+  }, [censusTractComplete, zipCodeComplete, planningRegionComplete]);
 
   const boundaryBox = {
     xmin: -162.171387,
