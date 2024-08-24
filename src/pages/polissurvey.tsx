@@ -37,8 +37,8 @@ const PolisSurvey: NextPage = () => {
   }
   return (
     <div className="flex h-full flex-col items-center shadow-xl">
-      <h1 className="mt-8 mb-4 text-lg font-semibold text-white md:mt-6 md:text-3xl">
-        Step 6: Fill out the Pol.is survey
+      <h1 className="mb-4 mt-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
+        Step 4: Fill out the Pol.is survey
       </h1>
       <ProgressBar completed={100} />
       <LoggedInAs email={sessionData?.user.email} />
@@ -52,7 +52,7 @@ const PolisSurvey: NextPage = () => {
           data-xid={userID}
         ></div>
       </div>
-      <div className="mt-6 mb-6 flex justify-between align-middle">
+      <div className="mb-6 mt-6 flex justify-between align-middle">
         <Link
           href={"./polis"}
           className="rounded-full bg-white/90 px-10 py-2 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"

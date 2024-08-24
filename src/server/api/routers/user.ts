@@ -20,6 +20,23 @@ export const userRouter = createTRPCRouter({
         },
       });
     }),
+  addPlanningRegion: publicProcedure
+    .input(z.object({ planningRegion: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      if (!ctx.session) {
+        console.log("Not authenticated");
+        return null;
+      }
+      const { id: userId } = ctx.session.user;
+      const planningRegion = input.planningRegion;
+
+      return ctx.prisma.user.update({
+        where: { id: userId },
+        data: {
+          planningRegion: planningRegion,
+        },
+      });
+    }),
   getDemoSurveyCompleted: publicProcedure.query(async ({ ctx }) => {
     if (!ctx.session) {
       console.log("Not authenticated");
@@ -56,6 +73,19 @@ export const userRouter = createTRPCRouter({
       where: { id: userId },
       select: {
         censustract: true,
+      },
+    });
+  }),
+  getPlanningRegion: publicProcedure.query(async ({ ctx }) => {
+    if (!ctx.session) {
+      console.log("Not authenticated");
+      return null;
+    }
+    const { id: userId } = ctx.session.user;
+    return ctx.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        planningRegion: true,
       },
     });
   }),

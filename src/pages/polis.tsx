@@ -26,7 +26,7 @@ const Polis: NextPage = () => {
     <div className="flex h-screen flex-col items-center justify-center">
       <div className="flex h-full flex-col items-center">
         <h1 className="mb-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
-          Step 5: Please select the Pol.is survey you wish to complete.
+          Step 3: Please select the Pol.is survey you wish to complete.
         </h1>
         <ProgressBar completed={85} />
         <div className={`grid ${gridItemStyle} gap-4`}>
