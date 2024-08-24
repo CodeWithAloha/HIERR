@@ -15,6 +15,7 @@
    - Required Format
      - id,surveyId,search
 5. Add a .env file to the dataimport folder based on the .env.example
+   1. If the database uses a username and password use the following in dataimport conn_str = f'DRIVER={{SQL Server}};SERVER={server};DATABASE={database};UID={username};PWD={password}'
 
 ## Creating questions.csv, answers.csv, polis_surveys.csv, and survey_rules.csv
 
