@@ -109,7 +109,7 @@ const AddressSearch: React.FC = () => {
   const handleSubmit = () => {
     console.log("Submitted!");
     const planningRegionDhhl = `${planningRegion ?? ""} ${
-      dhhlRegion === "Yes" ? "- DHHL" : ""
+      dhhlRegion === "Yes" ? "-DHHL" : ""
     }`;
     updateUserCensusTract.mutate({ censusTract: censusTract ?? "" });
     updateUserZipCode.mutate({ zipcode: zipCode ?? "" });
@@ -197,45 +197,49 @@ const AddressSearch: React.FC = () => {
 
   const setDemographicData = (lat: number, lng: number) => {
     const point = turf.point([lng, lat]);
-    let zip = "";
-    let censusTract = "";
-    let featurePlanningRegion = "";
-    let dhhlRegion = "";
 
-    turf.featureEach(
+    const getFeatureProperty = (
+      geojson: FeatureCollection<Polygon>,
+      propertyName: string,
+      defaultValue = "Not Found",
+      name?: string
+    ): string => {
+      let propertyValue = defaultValue;
+      turf.featureEach(geojson, (currentFeature) => {
+        if (turf.booleanPointInPolygon(point, currentFeature)) {
+          if (name !== "dhhl") {
+            propertyValue =
+              (currentFeature.properties?.[propertyName] as string) ??
+              defaultValue;
+          } else {
+            propertyValue = "Yes";
+          }
+        }
+      });
+      return propertyValue;
+    };
+
+    const zip = getFeatureProperty(
       ZipCodesGeojson as FeatureCollection<Polygon>,
-      (currentFeature, featureIndex) => {
-        if (turf.booleanPointInPolygon(point, currentFeature)) {
-          zip = (currentFeature.properties?.geoid20 as string) ?? "Not Found";
-        }
-      }
+      "geoid20"
     );
-    turf.featureEach(
+    const censusTract = getFeatureProperty(
       CensusTractGeojson as FeatureCollection<Polygon>,
-      (currentFeature, featureIndex) => {
-        if (turf.booleanPointInPolygon(point, currentFeature)) {
-          censusTract =
-            (currentFeature.properties?.name20 as string) ?? "Not Found";
-        }
-      }
+      "name20"
     );
-    turf.featureEach(
+    const featurePlanningRegion = getFeatureProperty(
       PlanningAreaGeojson as FeatureCollection<Polygon>,
-      (currentFeature, featureIndex) => {
-        if (turf.booleanPointInPolygon(point, currentFeature)) {
-          featurePlanningRegion =
-            (currentFeature.properties?.Name as string) ?? "Not Found";
-        }
-      }
+      "Name"
     );
-    turf.featureEach(
-      DHHLGeojson as FeatureCollection<Polygon>,
-      (currentFeature, featureIndex) => {
-        if (turf.booleanPointInPolygon(point, currentFeature)) {
-          dhhlRegion = "Yes";
-        }
-      }
-    );
+    const dhhlRegion =
+      getFeatureProperty(
+        DHHLGeojson as FeatureCollection<Polygon>,
+        "Name",
+        "Not Found",
+        "dhhl"
+      ) === "Not Found"
+        ? "No"
+        : "Yes";
 
     setZipCode(zip);
     setCensusTract(censusTract);
