@@ -214,8 +214,8 @@ const AddressSearch: React.FC = () => {
       turf.featureEach(geojson, (currentFeature) => {
         if (turf.booleanPointInPolygon(point, currentFeature)) {
           if (name === "censustract") {
-            setIsland(currentFeature.properties?.island as string) ?? "";
-            setCounty(currentFeature.properties?.county as string) ?? "";
+            setIsland((currentFeature.properties?.island as string) ?? "");
+            setCounty((currentFeature.properties?.county as string) ?? "");
           }
           if (name === "dhhl") {
             propertyValue = "Yes";
