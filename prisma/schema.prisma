@@ -93,6 +93,7 @@ model User {
   sessions            Session[]
   zipcode             String?
   censustract         String?
+  planningRegion      String?
   UserSurveyAnswers   UserSurveyAnswers[]
 }
 
