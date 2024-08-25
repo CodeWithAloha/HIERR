@@ -30,6 +30,7 @@ Create a new database and check that it was created
 CREATE DATABASE HIERR;
 SELECT Name from sys.databases;
 GO
+exit
 ```
 
 Then, you may exit:
@@ -41,10 +42,9 @@ exit
 Prepare the HIERR container:
 
 ```bash
-# instal curl in hierr container
-docker exec -u 0:0 -it hierr-node-1 bash -c "curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg"
-docker exec -u 0:0 -it hierr-node-1 bash -c "apt update && ACCEPT_EULA=Y apt install -y curl python3 python3-dev python3.11-venv gcc g++ libodbc2 gpg msodbcsql18"
-# open hierr container and run
+# instal OS dependencies in HIERR container
+docker exec -u 0:0 -it hierr-node-1 bash -c "apt update && apt install -y curl gpg && curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg && curl https://packages.microsoft.com/config/debian/12/prod.list | tee /etc/apt/sources.list.d/mssql-release.list && apt update && ACCEPT_EULA=Y apt install -y python3 python3-dev python3.11-venv gcc g++ libodbc2 msodbcsql18"
+# open hierr container and install Node.js dependencies
 docker exec -it hierr-node-1 bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 exit
@@ -66,7 +66,7 @@ npx prisma db push
 python3 -mvenv venv
 source venv/bin/activate
 cd prisma/dataimport
-DB_SERVER='hierr-sql-1:1433' DB_NAME='HIERR' python3 ./dataimport.py
+DB_SERVER='hierr-sql-1' DB_NAME='HIERR' USERID='SA' PWD='<YourStrong@Passw0rd>' python3 ./dataimport.py
 
 # Run dev server on http://localhost:3000
 npm run dev
