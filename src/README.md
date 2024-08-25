@@ -66,6 +66,7 @@ npx prisma db push
 python3 -mvenv venv
 source venv/bin/activate
 cd prisma/dataimport
+pip install -r requirements.txt
 DB_SERVER='hierr-sql-1' DB_NAME='HIERR' USERID='SA' PWD='<YourStrong@Passw0rd>' python3 ./dataimport.py
 
 # Run dev server on http://localhost:3000
