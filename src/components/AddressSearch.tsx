@@ -301,7 +301,7 @@ const AddressSearch: React.FC = () => {
             <Link href={{ pathname: "./" }}>
               <button className="mb-1 mt-4 flex flex-row items-center justify-center rounded-full bg-white/80 px-6 py-2 text-blue-darker no-underline transition hover:translate-y-1 hover:bg-white hover:text-blue-darker">
                 <IoMdArrowBack />
-                Homepage
+                Home
               </button>
             </Link>
             <Link href={{ pathname: "./survey" }}>

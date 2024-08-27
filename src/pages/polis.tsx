@@ -62,7 +62,7 @@ const Polis: NextPage = () => {
           <Link href={{ pathname: "./survey" }}>
             <button className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full bg-white/70 px-4 py-1 text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out hover:translate-y-1  hover:bg-white">
               <IoMdArrowBack />
-              Go back to Demographic Survey
+              Retake Demographic Survey
             </button>
           </Link>
         </div>
