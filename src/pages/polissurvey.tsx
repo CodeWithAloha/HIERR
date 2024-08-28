@@ -60,7 +60,7 @@ const PolisSurvey: NextPage = () => {
         >
           {" "}
           <IoMdArrowBack />
-          Return to polis survey selection
+          Select New Polis Survey
         </Link>
       </div>
     </div>

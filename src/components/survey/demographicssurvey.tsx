@@ -223,7 +223,7 @@ export default function DemographicsSurvey() {
           <Link href={{ pathname: "./address" }}>
             <button className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full bg-white/70 px-4 py-1 text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out hover:translate-y-1  hover:bg-white">
               <IoMdArrowBack />
-              Go back to Address entry
+              Re-enter Address
             </button>
           </Link>
         </>
