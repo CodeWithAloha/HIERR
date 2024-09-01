@@ -51,8 +51,7 @@ model PolisSurveys {
 model SurveyRules {
   id               String @id @default(cuid())
   surveyId         String
-  questionId       String
-  requiredAnswerId String
+  search           String
 }
 
 // Necessary for Next auth
@@ -93,6 +92,7 @@ model User {
   sessions            Session[]
   zipcode             String?
   censustract         String?
+  planningRegion      String?
   UserSurveyAnswers   UserSurveyAnswers[]
 }
 

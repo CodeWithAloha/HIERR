@@ -14,9 +14,11 @@ survey_rules_df = pd.read_csv('survey_rules.csv')
 # Database connection parameters - adjust these to your own server
 server = os.getenv('DB_SERVER') 
 database = os.getenv('DB_NAME')
+userid = os.getenv('USERID')
+pwd = os.getenv('PWD')
 
 # Establish a connection
-conn_str = f'DRIVER={{SQL Server}};SERVER={server};DATABASE={database};Integrated Security=true'
+conn_str = f'DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={server};DATABASE={database};Integrated Security=true;TrustServerCertificate=yes;UID={userid};PWD={pwd}'
 
 conn = pyodbc.connect(conn_str)
 
@@ -59,8 +61,7 @@ IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='SurveyRules' and xtype='U')
     CREATE TABLE SurveyRules (
         id NVARCHAR(255) PRIMARY KEY,
         surveyId NVARCHAR(255),
-        questionId INT,
-        requiredAnswerId INT,
+        search NVARCHAR(255),
     )
 ''')
 
