@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { SurveyData } from "../components/survey/demographicssurvey";
 import { api } from "../utils/api";
 import Link from "next/link";
+import SummaryQuestionAnswer from "../components/SummaryQuestionAnswer";
 
 const QuerySummary: NextPage = () => {
   const [userCensusTract, setUserCensusTract] = useState<string>("");
@@ -93,26 +94,26 @@ const QuerySummary: NextPage = () => {
             <div className="mb-4 self-start">
               <h2 className="text-lg font-semibold ">Location Questions</h2>
               <ul>
-                <li className="mt-2">
-                  <h3 className="font-medium text-gray">Census tract</h3>
-                  <p className="text-black">{userCensusTract}</p>
-                </li>
-                <li className="mt-2">
-                  <h3 className="font-medium text-gray">Zipcode</h3>
-                  <p className="text-black">{userZipCode}</p>
-                </li>
-                <li className="mt-2">
-                  <h3 className="font-medium text-gray">Island</h3>
-                  <p className="text-black">{userIsland}</p>
-                </li>
-                <li className="mt-2">
-                  <h3 className="font-medium text-gray">County</h3>
-                  <p className="text-black">{userCounty}</p>
-                </li>
-                <li className="mt-2">
-                  <h3 className="font-medium text-gray">Planning Region</h3>
-                  <p className="text-black">{userPlanningRegion}</p>
-                </li>
+                <SummaryQuestionAnswer
+                  question={"Census tract"}
+                  answer={userCensusTract}
+                />
+                <SummaryQuestionAnswer
+                  question={"ZIP Code"}
+                  answer={userZipCode}
+                />
+                <SummaryQuestionAnswer
+                  question={"Island"}
+                  answer={userIsland}
+                />
+                <SummaryQuestionAnswer
+                  question={"County"}
+                  answer={userCounty}
+                />
+                <SummaryQuestionAnswer
+                  question={"Planning Region"}
+                  answer={userPlanningRegion}
+                />
               </ul>
             </div>
             <div>
@@ -124,12 +125,11 @@ const QuerySummary: NextPage = () => {
                     userAnswer = answersResult[index + 1] ?? "No answer";
                   }
                   return (
-                    <li key={`question-${index}`} className="mt-2">
-                      <h3 className="font-medium text-gray">
-                        {question.question}
-                      </h3>
-                      <p className="text-black">Answer: {userAnswer}</p>
-                    </li>
+                    <SummaryQuestionAnswer
+                      question={question.question}
+                      answer={`Answer: ${userAnswer}`}
+                      key={`question-${index}`}
+                    />
                   );
                 })}
               </ul>
