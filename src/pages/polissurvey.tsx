@@ -6,6 +6,7 @@ import Link from "next/link";
 import ProgressBar from "../components/ProgressBar";
 import LoggedInAs from "./loggedinas";
 import { useSession } from "next-auth/react";
+import { IoMdArrowBack } from "react-icons/io";
 
 const PolisSurvey: NextPage = () => {
   const router = useRouter();
@@ -58,7 +59,8 @@ const PolisSurvey: NextPage = () => {
           className="rounded-full bg-white/90 px-10 py-2 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
         >
           {" "}
-          Return to polis survey selection
+          <IoMdArrowBack />
+          Select New Polis Survey
         </Link>
       </div>
     </div>

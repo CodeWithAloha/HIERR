@@ -13,3 +13,15 @@ services:
       - 25:25
     environment:
       - ServerOptions__HostName=smtp4dev
+  node:
+    image: debian:12-slim
+    ports:
+      - 3000:3000
+    stdin_open: true # used to keep container running
+    tty: true
+    user: "${UID_GID}"
+    environment:
+      HOME: "${USER_HOME}"
+    volumes:
+      - ./:/HIERR
+      - ${USER_HOME}:${USER_HOME}
