@@ -51,6 +51,8 @@ const AddressSearch: React.FC = () => {
   const [censusTract, setCensusTract] = useState<string | null>(null);
   const [zipCode, setZipCode] = useState<string | null>(null);
   const [planningRegion, setPlanningRegion] = useState<string | null>(null);
+  const [island, setIsland] = useState<string | null>(null);
+  const [county, setCounty] = useState<string | null>(null);
   const [dhhlRegion, setDhhlRegion] = useState<string | null>(null);
   const [location, setLocation] = useState<Address | null>(null);
   const [censusTractComplete, setCensusTractComplete] =
@@ -84,7 +86,11 @@ const AddressSearch: React.FC = () => {
     }
     if (planningRegionDB && planningRegionDB.data) {
       if (planningRegionDB.data.planningRegion !== null) {
-        setPlanningRegion(planningRegionDB.data?.planningRegion);
+        const [islandData, countyData, planningRegionData] =
+          planningRegionDB.data.planningRegion.split(",");
+        setIsland(islandData ?? "");
+        setCounty(countyData ?? "");
+        setPlanningRegion(planningRegionData ?? "");
         setPlanningRegionComplete(true);
       }
     }
@@ -109,9 +115,9 @@ const AddressSearch: React.FC = () => {
 
   const handleSubmit = () => {
     console.log("Submitted!");
-    const planningRegionDhhl = `${planningRegion ?? ""} ${
-      dhhlRegion === "Yes" ? "-DHHL" : ""
-    }`;
+    const planningRegionDhhl = `${island ? island + "," : ""}${
+      county ? county + "," : ""
+    }${planningRegion ?? ""}${dhhlRegion === "Yes" ? "-DHHL" : ""}`;
     updateUserCensusTract.mutate({ censusTract: censusTract ?? "" });
     updateUserZipCode.mutate({ zipcode: zipCode ?? "" });
     updateUserPlanningRegion.mutate({
@@ -208,12 +214,16 @@ const AddressSearch: React.FC = () => {
       let propertyValue = defaultValue;
       turf.featureEach(geojson, (currentFeature) => {
         if (turf.booleanPointInPolygon(point, currentFeature)) {
-          if (name !== "dhhl") {
+          if (name === "censustract") {
+            setIsland((currentFeature.properties?.island as string) ?? "");
+            setCounty((currentFeature.properties?.county as string) ?? "");
+          }
+          if (name === "dhhl") {
+            propertyValue = "Yes";
+          } else {
             propertyValue =
               (currentFeature.properties?.[propertyName] as string) ??
               defaultValue;
-          } else {
-            propertyValue = "Yes";
           }
         }
       });
@@ -226,7 +236,9 @@ const AddressSearch: React.FC = () => {
     );
     const censusTract = getFeatureProperty(
       CensusTractGeojson as FeatureCollection<Polygon>,
-      "name20"
+      "name20",
+      "Not Found",
+      "censustract"
     );
     const featurePlanningRegion = getFeatureProperty(
       PlanningAreaGeojson as FeatureCollection<Polygon>,
@@ -290,6 +302,8 @@ const AddressSearch: React.FC = () => {
             {censusTract && (
               <p className="text-white">Census Tract: {censusTract}</p>
             )}
+            {island && <p className="text-white">Island: {island}</p>}
+            {county && <p className="text-white">County: {county}</p>}
             {planningRegion && (
               <p className="text-white">
                 Planning Region: {planningRegion}

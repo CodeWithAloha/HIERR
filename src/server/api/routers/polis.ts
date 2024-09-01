@@ -11,11 +11,10 @@ export const polisRouter = createTRPCRouter({
     }
     const { id: userId } = ctx.session.user;
 
-    const userSurveyAnswers = await ctx.prisma.userSurveyAnswers.findMany({
-      where: { userId: userId },
+    const userPlanningRegion = await ctx.prisma.user.findUnique({
+      where: { id: userId },
       select: {
-        questionId: true,
-        answerId: true,
+        planningRegion: true,
       },
     });
 
@@ -31,8 +30,7 @@ export const polisRouter = createTRPCRouter({
       select: {
         id: true,
         surveyId: true,
-        questionId: true,
-        requiredAnswerId: true,
+        search: true,
       },
     });
 
@@ -44,23 +42,19 @@ export const polisRouter = createTRPCRouter({
 
     surveyRules.map((rule) => {
       const surveyId = rule.surveyId;
-      const questionId = rule.questionId;
-      const requiredAnswerId = rule.requiredAnswerId;
-
-      // Returns all the answers for a certain question
-      const userAnswer = userSurveyAnswers.find(
-        (answer) => answer.questionId === questionId
-      );
+      const filterTerm = rule.search;
 
       if (
-        userAnswer &&
-        userAnswer.questionId == questionId &&
-        userAnswer.answerId === requiredAnswerId
+        userPlanningRegion &&
+        userPlanningRegion.planningRegion?.includes(filterTerm)
       ) {
         const filteredSurvey = allSurveys.find(
           (survey) => survey.id === surveyId
         );
-        if (filteredSurvey !== undefined) {
+        if (
+          filteredSurvey !== undefined &&
+          !filteredSurveys.includes(filteredSurvey)
+        ) {
           filteredSurveys.push(filteredSurvey);
         }
       }
