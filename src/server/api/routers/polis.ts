@@ -44,9 +44,6 @@ export const polisRouter = createTRPCRouter({
       const surveyId = rule.surveyId;
       const filterTerm = rule.search;
 
-      // TODO: Verify this is ok. Check to see if any planning regions include the name
-      // of an island they are not on. If some oahu planning region includes "Maui" or "Kauai"
-      // TODO: Verify this logic is right
       if (
         userPlanningRegion &&
         userPlanningRegion.planningRegion?.includes(filterTerm)
