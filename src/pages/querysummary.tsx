@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
 import ProgressBar from "../components/ProgressBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SurveyData } from "../components/survey/demographicssurvey";
 import { api } from "../utils/api";
 import Link from "next/link";
@@ -8,6 +8,9 @@ import Link from "next/link";
 const QuerySummary: NextPage = () => {
   const [userCensusTract, setUserCensusTract] = useState<string>("");
   const [userZipCode, setUserZipCode] = useState<string>("");
+  const [userPlanningRegion, setUserPlanningRegion] = useState<string>("");
+  const [userIsland, setUserIsland] = useState<string>("");
+  const [userCounty, setUserCounty] = useState<string>("");
   const [demographicQuestions, setDemographicQuestions] = useState<
     SurveyData[]
   >([]);
@@ -20,6 +23,32 @@ const QuerySummary: NextPage = () => {
   const planningRegionDB = api.user.getPlanningRegion.useQuery();
   const demographicQuestionsDB = api.survey.getSurveyData.useQuery();
   const userDemoSurveyAnswersDB = api.user.getDemoSurveyAnswers.useQuery();
+
+  useEffect(() => {
+    if (userCensusTractDB && userCensusTractDB.data) {
+      if (userCensusTractDB.data.censustract !== null) {
+        setUserCensusTract(userCensusTractDB.data?.censustract);
+      }
+    }
+    if (userZipCodeDB && userZipCodeDB.data) {
+      if (userZipCodeDB.data.zipcode !== null) {
+        setUserZipCode(userZipCodeDB.data?.zipcode);
+      }
+    }
+    if (planningRegionDB && planningRegionDB.data) {
+      if (planningRegionDB.data.planningRegion !== null) {
+        const [islandData, countyData, planningRegionData] =
+          planningRegionDB.data.planningRegion.split(",");
+        setUserIsland(islandData ?? "");
+        setUserCounty(countyData ?? "");
+        setUserPlanningRegion(planningRegionData ?? "");
+      }
+    }
+  }, [
+    userCensusTractDB.data?.censustract,
+    userZipCodeDB.data?.zipcode,
+    planningRegionDB.data?.planningRegion,
+  ]);
 
   const sortedDemoQuestions =
     demographicQuestionsDB.data?.sort((a, b) => {
@@ -66,19 +95,23 @@ const QuerySummary: NextPage = () => {
               <ul>
                 <li className="mt-2">
                   <h3 className="font-medium text-gray">Census tract</h3>
-                  <p className="text-black">
-                    {userCensusTractDB.data?.censustract}
-                  </p>
+                  <p className="text-black">{userCensusTract}</p>
                 </li>
                 <li className="mt-2">
                   <h3 className="font-medium text-gray">Zipcode</h3>
-                  <p className="text-black">{userZipCodeDB.data?.zipcode}</p>
+                  <p className="text-black">{userZipCode}</p>
+                </li>
+                <li className="mt-2">
+                  <h3 className="font-medium text-gray">Island</h3>
+                  <p className="text-black">{userIsland}</p>
+                </li>
+                <li className="mt-2">
+                  <h3 className="font-medium text-gray">County</h3>
+                  <p className="text-black">{userCounty}</p>
                 </li>
                 <li className="mt-2">
                   <h3 className="font-medium text-gray">Planning Region</h3>
-                  <p className="text-black">
-                    {planningRegionDB.data?.planningRegion}
-                  </p>
+                  <p className="text-black">{userPlanningRegion}</p>
                 </li>
               </ul>
             </div>
