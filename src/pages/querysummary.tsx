@@ -17,6 +17,7 @@ const QuerySummary: NextPage = () => {
 
   const userCensusTractDB = api.user.getCensusTract.useQuery();
   const userZipCodeDB = api.zipcode.getUserZipCode.useQuery();
+  const planningRegionDB = api.user.getPlanningRegion.useQuery();
   const demographicQuestionsDB = api.survey.getSurveyData.useQuery();
   const userDemoSurveyAnswersDB = api.user.getDemoSurveyAnswers.useQuery();
 
@@ -44,39 +45,88 @@ const QuerySummary: NextPage = () => {
     <div className="flex h-screen flex-col items-center justify-center">
       <div className="flex h-full flex-col items-center">
         <h1 className="mb-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
-          Here is a summary of your demographic information.
+          Demographic Information Summary
         </h1>
-        <ProgressBar completed={85} />
-        <div className="flex w-[80%] flex-col items-center">
-          <h2 className="text-lg font-semibold text-white">Census Tract</h2>
-          <p className="text-white">{userCensusTractDB.data?.censustract}</p>
-          <h2 className="text-lg font-semibold text-white">Zip Code</h2>
-          <p className="text-white">{userZipCodeDB.data?.zipcode}</p>
-          <h2 className="text-lg font-semibold text-white">
-            Demographic Questions
-          </h2>
-          <ul className="self-center">
-            {sortedDemoQuestions.map((question, index) => {
-              let userAnswer = "No Answer";
-              if (answersResult) {
-                userAnswer = answersResult[index + 1] ?? "No answer";
-              }
-              return (
-                <li key={`question-${index}`} className="text-white">
-                  {question.question}: {userAnswer}
-                </li>
-              );
-            })}
-          </ul>
-          <Link href={{ pathname: "./polis" }}>
-            <button
-              className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full border-2 
+        <div>
+          <ProgressBar completed={85} />
+        </div>
+        <Link href={{ pathname: "./polis" }}>
+          <button
+            className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full border-2 
                 border-dashed border-lightGreen bg-yellowGreen px-6 py-1 text-right text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out 
             hover:translate-y-1  hover:bg-lightGreen"
-            >
-              Continue
-            </button>
-          </Link>
+          >
+            Continue
+          </button>
+        </Link>
+        <div className="mt-8 flex flex-col rounded-md bg-[#FFFFFF] px-8 py-8 shadow-xl sm:w-[300px] md:w-[500px] lg:w-[600px]">
+          <div className="flex w-[80%] flex-col items-center">
+            <div className="mb-4 self-start">
+              <h2 className="text-lg font-semibold ">Location Questions</h2>
+              <ul>
+                <li className="mt-2">
+                  <h3 className="font-medium text-gray">Census tract</h3>
+                  <p className="text-black">
+                    {userCensusTractDB.data?.censustract}
+                  </p>
+                </li>
+                <li className="mt-2">
+                  <h3 className="font-medium text-gray">Zipcode</h3>
+                  <p className="text-black">{userZipCodeDB.data?.zipcode}</p>
+                </li>
+                <li className="mt-2">
+                  <h3 className="font-medium text-gray">Planning Region</h3>
+                  <p className="text-black">
+                    {planningRegionDB.data?.planningRegion}
+                  </p>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h2 className="text-lg font-semibold ">Demographic Questions</h2>
+              <ul className="">
+                {sortedDemoQuestions.map((question, index) => {
+                  let userAnswer = "No Answer";
+                  if (answersResult) {
+                    userAnswer = answersResult[index + 1] ?? "No answer";
+                  }
+                  return (
+                    <li key={`question-${index}`} className="mt-2">
+                      <h3 className="font-medium text-gray">
+                        {question.question}
+                      </h3>
+                      <p className="text-black">Answer: {userAnswer}</p>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 pb-[50px] md:grid-cols-2">
+          <div className="flex flex-col justify-start">
+            <Link href={{ pathname: "./address" }}>
+              <button className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full bg-white/70 px-4 py-1 text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out hover:translate-y-1  hover:bg-white">
+                Re-enter Address
+              </button>
+            </Link>
+            <Link href={{ pathname: "./survey" }}>
+              <button className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full bg-white/70 px-4 py-1 text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out hover:translate-y-1  hover:bg-white">
+                Retake Demographic Survey
+              </button>
+            </Link>
+          </div>
+          <div className="flex justify-end">
+            <Link href={{ pathname: "./polis" }}>
+              <button
+                className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full border-2 
+                  border-dashed border-lightGreen bg-yellowGreen px-6 py-1 text-right text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out 
+              hover:translate-y-1  hover:bg-lightGreen"
+              >
+                Continue
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
