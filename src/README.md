@@ -5,14 +5,11 @@ Run these commands to set up and run the project locally for the first time.
 ```bash
 git clone https://github.com/CodeforHawaii/HIERR.git
 cd HIERR
-# Use nvm to set the NodeJS version https://github.com/nvm-sh/nvm
-nvm use
-npm install
 cp -f .env.example .env # Note: You may have to update the .env file with your specific secret values.
 # Use docker to set up SQL and SMTP servers locally https://www.docker.com/
 # See "SMTP Cloud Server Setup" and "Prisma SQL Server Migration" sections if
 # wanting to use a different set up.
-docker compose up -d
+UID_GID="$(id -u):$(id -g)" USER_HOME=$HOME docker compose up -d
 ```
 
 Next, create database table `HIERR`. Enter the bash shell in the docker image:
@@ -33,6 +30,7 @@ Create a new database and check that it was created
 CREATE DATABASE HIERR;
 SELECT Name from sys.databases;
 GO
+exit
 ```
 
 Then, you may exit:
@@ -41,14 +39,41 @@ Then, you may exit:
 exit
 ```
 
+Prepare the HIERR container:
+
+```bash
+# instal OS dependencies in HIERR container
+docker exec -u 0:0 -it hierr-node-1 bash -c "apt update && apt install -y curl gpg && curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg && curl https://packages.microsoft.com/config/debian/12/prod.list | tee /etc/apt/sources.list.d/mssql-release.list && apt update && ACCEPT_EULA=Y apt install -y python3 python3-dev python3.11-venv gcc g++ libodbc2 msodbcsql18"
+# open hierr container and install Node.js dependencies
+docker exec -it hierr-node-1 bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+exit
+docker exec -it hierr-node-1 bash
+cd /HIERR
+nvm install
+nvm use
+npm install
+```
+
 Finally, run the DB migration scripts and run the dev server:
 
 ```bash
+# still inside the HIERR container...
 npx prisma migrate dev
 npx prisma db push
+
+# Load demographic survey questions
+python3 -mvenv venv
+source venv/bin/activate
+cd prisma/dataimport
+pip install -r requirements.txt
+DB_SERVER='hierr-sql-1' DB_NAME='HIERR' USERID='SA' PWD='<YourStrong@Passw0rd>' python3 ./dataimport.py
+
 # Run dev server on http://localhost:3000
 npm run dev
 ```
+
+You can now access HIERR from http://localhost:3000
 
 The SMTP email web interface is available at http://localhost:3001.
 
@@ -219,7 +244,7 @@ Docs: https://www.prisma.io/docs/guides/database/developing-with-prisma-migrate/
 
 In the .env file, add the following environment variable with the survey ids comma separated.
 
-NEXT_PUBLIC_POLIS_SURVEYS='[{"id": "SurveyID1", "title": "SurveyTitle1", "description", "SurveyDescription1"}, ...]'
+Read the dataimport readme and follow it's instructions.
 
 # Exporting data from Pol.is survey data
 
