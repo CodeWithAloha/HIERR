@@ -93,8 +93,7 @@ const AuthShowcase: React.FC = () => {
         ) : null}
       </p>
       <button
-        className="text-black text-md rounded-full bg-white/80 px-6 py-2 
-        no-underline shadow-xl transition ease-in-out hover:translate-y-1 hover:bg-white "
+        className="btn btn-back"
         onClick={sessionData ? () => void handleSignOut() : () => void signIn()}
       >
         {sessionData ? "Sign out" : "Sign in to begin"}

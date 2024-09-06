@@ -82,10 +82,7 @@ export default function SurveyQuestion({
       {getAnswers(question.questionType, question.answers)}
       <div className="mt-10 flex flex-row justify-between">
         <button
-          className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full border-2 
-              border-dashed border-blue-darker  bg-white py-1 text-right text-lg text-blue-darker
-          no-underline shadow-xl transition  ease-in-out hover:translate-y-1 hover:bg-blue-darker/20 sm:px-2 
-           md:px-4  lg:px-6"
+          className="btn btn-survey-back"
           onClick={() => updateQuestion("Prev")}
         >
           Back
@@ -94,11 +91,7 @@ export default function SurveyQuestion({
           Question {surveyInfo.questionNumber + 1} /{surveyInfo.totalQuestions}
         </span>
         <button
-          className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full border-2 
-              border-dashed border-lightGreen
-            bg-yellowGreen py-1 text-right text-lg text-blue-darker
-          no-underline shadow-xl transition  ease-in-out hover:translate-y-1 hover:bg-lightGreen sm:px-2 
-           md:px-4  lg:px-6"
+          className="btn btn-next"
           onClick={() => updateQuestion("Next", selectedAnswer)}
           disabled={disabled}
         >

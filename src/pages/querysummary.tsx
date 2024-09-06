@@ -81,13 +81,7 @@ const QuerySummary: NextPage = () => {
           <ProgressBar completed={85} />
         </div>
         <Link href={{ pathname: "./polis" }}>
-          <button
-            className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full border-2 
-                border-dashed border-lightGreen bg-yellowGreen px-6 py-1 text-right text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out 
-            hover:translate-y-1  hover:bg-lightGreen"
-          >
-            Continue
-          </button>
+          <button className="btn btn-next">Continue</button>
         </Link>
         <div className="mt-8 flex flex-col rounded-md bg-[#FFFFFF] px-8 py-8 shadow-xl sm:w-[300px] md:w-[500px] lg:w-[600px]">
           <div className="flex w-[80%] flex-col items-center">
@@ -139,25 +133,17 @@ const QuerySummary: NextPage = () => {
         <div className="grid grid-cols-1 pb-[50px] md:grid-cols-2">
           <div className="flex flex-col justify-start">
             <Link href={{ pathname: "./address" }}>
-              <button className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full bg-white/70 px-4 py-1 text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out hover:translate-y-1  hover:bg-white">
-                Re-enter Address
-              </button>
+              <button className="btn btn-back">Re-enter Address</button>
             </Link>
             <Link href={{ pathname: "./survey" }}>
-              <button className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full bg-white/70 px-4 py-1 text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out hover:translate-y-1  hover:bg-white">
+              <button className="btn btn-back">
                 Retake Demographic Survey
               </button>
             </Link>
           </div>
           <div className="flex justify-end">
             <Link href={{ pathname: "./polis" }}>
-              <button
-                className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full border-2 
-                  border-dashed border-lightGreen bg-yellowGreen px-6 py-1 text-right text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out 
-              hover:translate-y-1  hover:bg-lightGreen"
-              >
-                Continue
-              </button>
+              <button className="btn btn-next">Continue</button>
             </Link>
           </div>
         </div>
