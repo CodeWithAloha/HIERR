@@ -104,4 +104,14 @@ export const userRouter = createTRPCRouter({
         },
       });
     }),
+  getDemoSurveyAnswers: publicProcedure.query(async ({ ctx }) => {
+    if (!ctx.session) {
+      console.log("Not authenticated");
+      return null;
+    }
+    const { id: userId } = ctx.session.user;
+    return ctx.prisma.userSurveyAnswers.findMany({
+      where: { userId: userId },
+    });
+  }),
 });

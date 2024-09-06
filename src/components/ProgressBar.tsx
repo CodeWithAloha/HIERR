@@ -11,6 +11,7 @@ const ProgressBar = ({ completed }: ProgressBarProps) => {
     backgroundColor: "yellowGreen",
     borderRadius: "inherit",
     transition: "width 1s ease-in-out",
+    minHeight: "100%",
   };
 
   return (
