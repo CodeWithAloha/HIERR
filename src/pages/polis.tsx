@@ -44,23 +44,16 @@ const Polis: NextPage = () => {
                       query: { surveyId: id },
                     }}
                   >
-                    <button
-                      className="mb-1 w-full rounded-full   bg-white/80 px-6
-                      py-2 text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out 
-                       hover:translate-y-1  hover:bg-white "
-                    >
-                      {title}
-                    </button>
+                    <button className="btn btn-polis">{title}</button>
                   </Link>
                 </div>
               </div>
             );
           })}
-          <br />
-          <br />
-          <hr />
+        </div>
+        <div className="mt-20">
           <Link href={{ pathname: "./survey" }}>
-            <button className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full bg-white/70 px-4 py-1 text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out hover:translate-y-1  hover:bg-white">
+            <button className="btn btn-back">
               <IoMdArrowBack />
               Retake Demographic Survey
             </button>

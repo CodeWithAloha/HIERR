@@ -114,7 +114,9 @@ const AddressSearch: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    console.log("Submitted!");
+    if (!complete) {
+      return;
+    }
     const planningRegionDhhl = `${island ? island + "," : ""}${
       county ? county + "," : ""
     }${planningRegion ?? ""}${dhhlRegion === "Yes" ? "-DHHL" : ""}`;
@@ -313,22 +315,26 @@ const AddressSearch: React.FC = () => {
           </div>
           <div className="flex flex-row items-center justify-center gap-5">
             <Link href={{ pathname: "./" }}>
-              <button className="mb-1 mt-4 flex flex-row items-center justify-center rounded-full bg-white/80 px-6 py-2 text-blue-darker no-underline transition hover:translate-y-1 hover:bg-white hover:text-blue-darker">
+              <button className="btn btn-back">
                 <IoMdArrowBack />
                 Home
               </button>
             </Link>
-            <Link href={{ pathname: "./survey" }}>
-              <button
-                className="mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full border-2 
-              border-dashed border-lightGreen bg-yellowGreen px-6 py-1 text-right text-lg text-blue-darker  no-underline shadow-xl transition ease-in-out 
-           hover:translate-y-1  hover:cursor-pointer hover:bg-lightGreen"
-                onClick={() => handleSubmit()}
-                disabled={!complete}
-              >
+            {complete ? (
+              <Link href={{ pathname: "./survey" }}>
+                <button
+                  className="btn btn-next"
+                  onClick={() => handleSubmit()}
+                  disabled={false}
+                >
+                  Next <GrLinkNext />
+                </button>
+              </Link>
+            ) : (
+              <button className="btn btn-next" disabled={true}>
                 Next <GrLinkNext />
               </button>
-            </Link>
+            )}
           </div>
         </div>
       </div>
