@@ -4,6 +4,53 @@
 
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
+  daisyui: {
+    themes: [
+      {
+        hierrtheme: {
+          primary: "#89E21D",
+
+          "primary-content": "#071200",
+
+          secondary: "#FFFFFF",
+
+          "secondary-content": "#161616",
+
+          accent: "#17364F",
+
+          "accent-content": "#ccd3da",
+
+          neutral: "#001113",
+
+          "neutral-content": "#c4c9ca",
+
+          "base-100": "#3276AE",
+
+          "base-200": "#2a6697",
+
+          "base-300": "#225680",
+
+          "base-content": "#ffffff",
+
+          info: "#f0f0f0",
+
+          "info-content": "#000b14",
+
+          success: "#aef84e",
+
+          "success-content": "#0b1502",
+
+          warning: "#ed7600",
+
+          "warning-content": "#140500",
+
+          error: "#e61635",
+
+          "error-content": "#ffd9d6",
+        },
+      },
+    ],
+  },
   theme: {
     extend: {
       screens: {
@@ -48,6 +95,6 @@ module.exports = {
       red: "#F52020",
     },
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [require("@tailwindcss/forms"), require("daisyui")],
   mode: "jit",
 };

@@ -23,7 +23,7 @@ body,
   background-color: #f2f2f2;
 }
 
-.btn {
+/* .btn {
   @apply mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full px-6 py-2 text-lg no-underline shadow-xl transition ease-in-out;
 }
 
@@ -61,4 +61,4 @@ body,
 
 .btn-polis:hover {
   @apply translate-y-1 bg-white;
-}
+} */
