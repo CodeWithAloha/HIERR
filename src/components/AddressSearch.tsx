@@ -264,9 +264,9 @@ const AddressSearch: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="flex flex-col items-center sm:w-2/3 md:w-2/3 lg:w-1/2 xl:w-1/2">
-        <h1 className="text-lg font-semibold text-white md:mt-4 md:text-3xl">
+    <div className="container mx-auto flex h-screen items-center justify-center">
+      <div className="flex flex-col items-center py-2 sm:w-2/3 md:w-2/3 lg:w-1/2 xl:w-1/2">
+        <h1 className="py-4 text-lg font-semibold text-white md:mt-4 md:text-3xl">
           Step 1: Type in your address
         </h1>
         {complete ? (
@@ -274,68 +274,81 @@ const AddressSearch: React.FC = () => {
         ) : (
           <ProgressBar completed={2} />
         )}
-        <div className="flex w-full flex-col justify-center">
-          <input
-            type="text"
-            value={query}
-            onChange={handleInputChange}
-            placeholder="Enter address"
-            className="border-gray-300 mt-10 w-full rounded border p-2"
-          />
-          {suggestions.length > 0 && (
-            <div className="border-gray-300 z-10 w-full rounded border bg-white">
-              {suggestions.map((suggestion, index) => (
-                <div
-                  key={index}
-                  className="cursor-pointer bg-white p-2 hover:bg-gray/20"
-                  onClick={() => handleSuggestionClick(suggestion)}
+        <div className="divider-base-300 divider"></div>
+        <div className="card flex w-full flex-col justify-center space-y-2">
+          <section className="card-body w-full py-2">
+            <div className="relative w-full max-w-lg">
+              <input
+                type="text"
+                value={query}
+                onChange={handleInputChange}
+                placeholder="Enter address"
+                className="input-bordered input w-full bg-white text-primary-content"
+              />
+              {suggestions.length > 0 && (
+                <ul
+                  className="absolute left-0 right-0 top-full z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-white  text-primary-content shadow-lg"
+                  role="listbox"
                 >
-                  {suggestion.text}
-                </div>
-              ))}
+                  {suggestions.map((suggestion, index) => (
+                    <li
+                      key={index}
+                      className="cursor-pointer px-4 py-2 hover:bg-info"
+                      role="option"
+                      onClick={() => handleSuggestionClick(suggestion)}
+                    >
+                      {suggestion.text}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
-          )}
-          <div className="mt-20 text-center">
-            <p className="text-white">
-              Your address will not be recorded, but will be used to return the
-              following information commonly used in planning:
-            </p>
-            {zipCode && <p className="text-white">ZIP Code: {zipCode}</p>}
-            {censusTract && (
-              <p className="text-white">Census Tract: {censusTract}</p>
-            )}
-            {island && <p className="text-white">Island: {island}</p>}
-            {county && <p className="text-white">County: {county}</p>}
-            {planningRegion && (
-              <p className="text-white">
-                Planning Region: {planningRegion}
-                {dhhlRegion === "Yes" ? "-DHHL" : ""}
+          </section>
+          <section className="card-body py-2">
+            <div className="prose">
+              <p className="card-title">
+                Your address will not be recorded, but will be used to return
+                the following information commonly used in planning:
               </p>
-            )}
-          </div>
-          <div className="flex flex-row items-center justify-center gap-5">
-            <Link href={{ pathname: "./" }}>
-              <button className="btn btn-back">
-                <IoMdArrowBack />
-                Home
-              </button>
-            </Link>
-            {complete ? (
-              <Link href={{ pathname: "./survey" }}>
-                <button
-                  className="btn btn-next"
-                  onClick={() => handleSubmit()}
-                  disabled={false}
-                >
-                  Next <GrLinkNext />
+              <section className="card-body">
+                {zipCode && <p className="">ZIP Code: {zipCode}</p>}
+                {censusTract && <p className="">Census Tract: {censusTract}</p>}
+                {island && <p className="">Island: {island}</p>}
+                {county && <p className="">County: {county}</p>}
+                {planningRegion && (
+                  <p className="">
+                    Planning Region: {planningRegion}
+                    {dhhlRegion === "Yes" ? "-DHHL" : ""}
+                  </p>
+                )}
+              </section>
+            </div>
+          </section>
+          <section className="py-2">
+            <div className="flex flex-row items-center justify-center gap-5">
+              <Link href={{ pathname: "./" }}>
+                <button className="btn-secondary btn">
+                  <IoMdArrowBack />
+                  Home
                 </button>
               </Link>
-            ) : (
-              <button className="btn btn-next" disabled={true}>
-                Next <GrLinkNext />
-              </button>
-            )}
-          </div>
+              {complete ? (
+                <Link href={{ pathname: "./survey" }}>
+                  <button
+                    className="btn-primary btn"
+                    onClick={() => handleSubmit()}
+                    disabled={false}
+                  >
+                    Next <GrLinkNext />
+                  </button>
+                </Link>
+              ) : (
+                <button className="btn-primary btn" disabled={true}>
+                  Next <GrLinkNext />
+                </button>
+              )}
+            </div>
+          </section>
         </div>
       </div>
     </div>
