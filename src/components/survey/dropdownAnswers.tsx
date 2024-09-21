@@ -56,7 +56,10 @@ export default function DropdownAnswers({
     <>
       <div className="flex flex-col">
         <>
-          <label htmlFor="county" className="text-med mb-5 mr-2">
+          <label
+            htmlFor="county"
+            className="text-med mb-5 mr-2 text-primary-content"
+          >
             Select your county
           </label>
           <select
@@ -78,7 +81,7 @@ export default function DropdownAnswers({
             </label>
             <select
               id="workshop"
-              className="form-select mb-5 w-64 rounded"
+              className="form-select mb-5 w-64 rounded text-primary-content"
               onChange={(e) =>
                 handleChange((e.target as HTMLSelectElement).value)
               }

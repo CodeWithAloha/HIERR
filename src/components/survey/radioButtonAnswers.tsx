@@ -56,7 +56,7 @@ export default function RadioButtonAnswers({
           <span className="mx-2">
             {a.answer}
             <input
-              className="form-input rounded"
+              className="form-input rounded text-primary-content"
               type={"text"}
               disabled={disabledInput !== a.answer}
               onChange={(e) =>
@@ -76,7 +76,7 @@ export default function RadioButtonAnswers({
       <ul>
         {answers.map((a, index) => {
           return (
-            <div key={index}>
+            <div key={index} className="text-primary-content">
               {a.answerType === "option"
                 ? radioBtn(a)
                 : a.answerType === "optionText"

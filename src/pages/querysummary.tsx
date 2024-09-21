@@ -80,13 +80,16 @@ const QuerySummary: NextPage = () => {
         <div>
           <ProgressBar completed={85} />
         </div>
+        <div className="divider-base-300 divider"></div>
         <Link href={{ pathname: "./polis" }}>
-          <button className="btn btn-next">Continue</button>
+          <button className="btn-primary btn">Continue</button>
         </Link>
         <div className="mt-8 flex flex-col rounded-md bg-[#FFFFFF] px-8 py-8 shadow-xl sm:w-[300px] md:w-[500px] lg:w-[600px]">
           <div className="flex w-[80%] flex-col items-center">
             <div className="mb-4 self-start">
-              <h2 className="text-lg font-semibold ">Location Questions</h2>
+              <h2 className="text-lg font-semibold text-primary-content">
+                Location Questions
+              </h2>
               <ul>
                 <SummaryQuestionAnswer
                   question={"Census tract"}
@@ -111,7 +114,9 @@ const QuerySummary: NextPage = () => {
               </ul>
             </div>
             <div>
-              <h2 className="text-lg font-semibold ">Demographic Questions</h2>
+              <h2 className="text-lg font-semibold text-primary-content">
+                Demographic Questions
+              </h2>
               <ul className="">
                 {sortedDemoQuestions.map((question, index) => {
                   let userAnswer = "No Answer";
@@ -133,17 +138,17 @@ const QuerySummary: NextPage = () => {
         <div className="grid grid-cols-1 pb-[50px] md:grid-cols-2">
           <div className="flex flex-col justify-start">
             <Link href={{ pathname: "./address" }}>
-              <button className="btn btn-back">Re-enter Address</button>
+              <button className="btn-secondary btn">Re-enter Address</button>
             </Link>
             <Link href={{ pathname: "./survey" }}>
-              <button className="btn btn-back">
+              <button className="btn-secondary btn">
                 Retake Demographic Survey
               </button>
             </Link>
           </div>
           <div className="flex justify-end">
             <Link href={{ pathname: "./polis" }}>
-              <button className="btn btn-next">Continue</button>
+              <button className="btn-primary btn">Continue</button>
             </Link>
           </div>
         </div>

@@ -153,6 +153,7 @@ export default function DemographicsSurvey() {
           Step 2 complete!
         </h1>
         <ProgressBar completed={71} />
+        <div className="divider-base-300 divider"></div>
         <h2 className=" my-6 mb-12 w-96 self-center border border-dashed  p-4 text-center text-white">
           <TiInputChecked className="mx-auto text-6xl text-yellowGreen" /> Thank
           you for completing the demographics survey! Please click continue to
@@ -160,16 +161,19 @@ export default function DemographicsSurvey() {
         </h2>
         <div className="flex flex-row items-center justify-center gap-5">
           <Link href={{ pathname: "./address" }}>
-            <button className="btn btn-back">
+            <button className="btn-secondary btn">
               <IoMdArrowBack />
               Re-enter Address
             </button>
           </Link>
-          <button className="btn btn-back" onClick={() => handleRetakeSurvey()}>
+          <button
+            className="btn-secondary btn"
+            onClick={() => handleRetakeSurvey()}
+          >
             Retake demographic survey
           </button>
           <Link href={{ pathname: "./querysummary" }}>
-            <button className="btn btn-next" onClick={() => handleSubmit()}>
+            <button className="btn-primary btn" onClick={() => handleSubmit()}>
               Continue
             </button>
           </Link>
@@ -182,42 +186,45 @@ export default function DemographicsSurvey() {
       {surveyCompleted ? (
         completedSurvey()
       ) : (
-        <>
-          <h1 className="mb-6 text-lg font-semibold text-white md:mt-6 md:text-3xl ">
-            Step 2: Complete the Demographic Survey
-          </h1>
-          <ProgressBar completed={57} />
+        <div className="container mx-auto flex h-screen items-center justify-center">
+          <div className="flex flex-col items-center py-2 sm:w-2/3 md:w-2/3 lg:w-1/2 xl:w-1/2">
+            <h1 className="py-4 text-lg font-semibold text-white md:mt-4 md:text-3xl">
+              Step 2: Complete the Demographic Survey
+            </h1>
+            <ProgressBar completed={57} />
+            <div className="divider-base-300 divider"></div>
+            {surveyData[currentQuestion] !== undefined ? (
+              // TODO: Fix these conditionals
+              <SurveyQuestion
+                surveyInfo={{
+                  questionNumber: currentQuestion,
+                  totalQuestions: surveyData.length,
+                }}
+                disabled={disabled}
+                setDisabled={setDisabled}
+                question={surveyData[currentQuestion]}
+                updateQuestion={updateCurrentQuestion}
+              />
+            ) : null}
+            <p
+              className="mx-auto mt-8 w-[70%] border border-dashed border-white p-1
+          text-center text-sm text-white md:m-4 md:w-1/2 md:p-4 xl:w-1/3 2xl:text-lg "
+            >
+              Please answer the following questions <strong>anonymously</strong>
+              . Your answers will be combined with others and used to report on
+              the diversity of our community. This helps us make sure that we
+              hear from as many different perspectives as possible during our
+              process.
+            </p>
 
-          {surveyData[currentQuestion] !== undefined ? (
-            // TODO: Fix these conditionals
-            <SurveyQuestion
-              surveyInfo={{
-                questionNumber: currentQuestion,
-                totalQuestions: surveyData.length,
-              }}
-              disabled={disabled}
-              setDisabled={setDisabled}
-              question={surveyData[currentQuestion]}
-              updateQuestion={updateCurrentQuestion}
-            />
-          ) : null}
-          <p
-            className="mx-auto mt-8 w-[70%] border border-dashed border-white p-1
-        text-center text-sm text-white md:m-4 md:w-1/2 md:p-4 xl:w-1/3 2xl:text-lg "
-          >
-            Please answer the following questions <strong>anonymously</strong>.
-            Your answers will be combined with others and used to report on the
-            diversity of our community. This helps us make sure that we hear
-            from as many different perspectives as possible during our process.
-          </p>
-
-          <Link href={{ pathname: "./address" }}>
-            <button className="btn btn-back">
-              <IoMdArrowBack />
-              Re-enter Address
-            </button>
-          </Link>
-        </>
+            <Link href={{ pathname: "./address" }}>
+              <button className="btn-secondary btn">
+                <IoMdArrowBack />
+                Re-enter Address
+              </button>
+            </Link>
+          </div>
+        </div>
       )}
     </div>
   );

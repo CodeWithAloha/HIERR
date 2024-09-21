@@ -30,6 +30,7 @@ const Polis: NextPage = () => {
           Step 3: Please select the Pol.is survey you wish to complete.
         </h1>
         <ProgressBar completed={85} />
+        <div className="divider-base-300 divider"></div>
         <div className={`grid ${gridItemStyle} gap-4`}>
           {surveys?.map(({ id, title }, index) => {
             return (
@@ -44,7 +45,7 @@ const Polis: NextPage = () => {
                       query: { surveyId: id },
                     }}
                   >
-                    <button className="btn btn-polis">{title}</button>
+                    <button className="btn-secondary btn">{title}</button>
                   </Link>
                 </div>
               </div>
@@ -53,7 +54,7 @@ const Polis: NextPage = () => {
         </div>
         <div className="mt-20">
           <Link href={{ pathname: "./survey" }}>
-            <button className="btn btn-back">
+            <button className="btn-secondary btn">
               <IoMdArrowBack />
               Retake Demographic Survey
             </button>

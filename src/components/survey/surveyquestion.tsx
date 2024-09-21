@@ -76,22 +76,22 @@ export default function SurveyQuestion({
   };
   return (
     <div className="mt-8 flex flex-col rounded-md bg-[#FFFFFF] px-8 py-8 shadow-xl sm:w-[300px] md:w-[500px] lg:w-[600px]">
-      <h1 className="mb-8 font-semibold">
+      <h1 className="mb-8 font-semibold text-primary-content">
         {surveyInfo.questionNumber + 1}. {question.question}
       </h1>
       {getAnswers(question.questionType, question.answers)}
       <div className="mt-10 flex flex-row justify-between">
         <button
-          className="btn btn-survey-back"
+          className="btn bg-[#17364F/20]"
           onClick={() => updateQuestion("Prev")}
         >
           Back
         </button>
-        <span className="my-2 pt-8 opacity-75">
+        <span className="my-2 pt-8 text-primary-content opacity-75">
           Question {surveyInfo.questionNumber + 1} /{surveyInfo.totalQuestions}
         </span>
         <button
-          className="btn btn-next"
+          className="btn-primary btn"
           onClick={() => updateQuestion("Next", selectedAnswer)}
           disabled={disabled}
         >

@@ -121,7 +121,7 @@ export default function MultiSelectAnswers({
           &nbsp;{a.answer}{" "}
           <input
             disabled={!disabledInput.includes(a.answer)}
-            className="form-input rounded"
+            className="form-input rounded text-primary-content"
             id={`${index}-userText`}
             type={"text"}
             onChange={() => handleClick(a.id)}
@@ -136,7 +136,7 @@ export default function MultiSelectAnswers({
     <form ref={ref}>
       {answers.map((a, index) => {
         return (
-          <div key={index}>
+          <div key={index} className="text-primary-content">
             &nbsp;
             {a.answerType === "option"
               ? checkBox(a, index)
