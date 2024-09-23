@@ -54,13 +54,12 @@ const PolisSurvey: NextPage = () => {
         ></div>
       </div>
       <div className="mb-6 mt-6 flex justify-between align-middle">
-        <Link
-          href={"./polis"}
-          className="rounded-full bg-white/90 px-10 py-2 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
-        >
+        <Link href={"./polis"} className="">
           {" "}
-          <IoMdArrowBack />
-          Select New Polis Survey
+          <button className="btn-secondary btn">
+            <IoMdArrowBack />
+            Select New Polis Survey
+          </button>
         </Link>
       </div>
     </div>
