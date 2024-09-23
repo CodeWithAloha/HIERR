@@ -75,12 +75,12 @@ export default function SurveyQuestion({
     }
   };
   return (
-    <div className="mt-8 flex flex-col rounded-md bg-[#FFFFFF] px-8 py-8 shadow-xl sm:w-[300px] md:w-[500px] lg:w-[600px]">
-      <h1 className="mb-8 font-semibold text-primary-content">
+    <div className="flex flex-col rounded-md bg-[#FFFFFF] shadow-xl sm:mt-2 sm:w-[300px] sm:px-4 sm:py-4 md:mt-4 md:w-[500px] md:px-6 md:py-6 lg:mt-6 lg:w-[600px] lg:px-8 lg:py-8">
+      <h1 className="font-semibold text-primary-content sm:mb-2 md:mb-4 lg:mb-6">
         {surveyInfo.questionNumber + 1}. {question.question}
       </h1>
       {getAnswers(question.questionType, question.answers)}
-      <div className="mt-10 flex flex-row justify-between">
+      <div className="flex flex-row justify-between sm:mt-4 md:mt-6 lg:mt-10">
         <button
           className="btn bg-[#17364F/20]"
           onClick={() => updateQuestion("Prev")}

@@ -335,7 +335,7 @@ const AddressSearch: React.FC = () => {
               {complete ? (
                 <Link href={{ pathname: "./survey" }}>
                   <button
-                    className="btn-primary btn"
+                    className="btn-primary btn "
                     onClick={() => handleSubmit()}
                     disabled={false}
                   >

@@ -1,7 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { NextPageButtonLink } from "../UI/NextPageButtonLink";
 
 import React from "react";
 
@@ -10,6 +9,8 @@ import AboutThisEngagementPortal from "../components/AboutThisEngagement";
 import WhyCreateAccount from "../components/WhyCreateAccount";
 import InfoPopup from "../components/InfoPopup";
 import LoggedInAs from "./loggedinas";
+import { TiInputChecked } from "react-icons/ti";
+import Link from "next/link";
 
 const Login: NextPage = () => {
   return (
@@ -73,27 +74,35 @@ const AuthShowcase: React.FC = () => {
     await signOut();
   };
 
+  const href = { pathname: `./address` };
+
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <p className="text-center text-2xl text-white">
         {sessionData ? (
-          <>
-            <NextPageButtonLink
-              pageName="address"
-              msg="Start the survey"
-              text="You are currently logged in. 
-              You can begin the survey now, and rest assured that all responses will remain 
-              anonymous. Please note that we do not store any email credentials. 
-              If you need to take a break, simply sign out, and your progress will be saved. 
-              When you return, remember to sign in using the same email address."
-              successMessage={true}
-              whiteDesignButton={false}
-            />
-          </>
+          <div>
+            <p
+              className="  mx-auto  w-[80%]  -translate-y-8
+        border border-dashed border-white p-2 text-center text-sm xl:w-1/2 2xl:text-lg"
+            >
+              {" "}
+              <span>
+                <TiInputChecked className="mx-auto text-4xl text-yellowGreen" />
+              </span>{" "}
+              You are currently logged in. You can begin the survey now, and
+              rest assured that all responses will remain anonymous. Please note
+              that we do not store any email credentials. If you need to take a
+              break, simply sign out, and your progress will be saved. When you
+              return, remember to sign in using the same email address.
+            </p>
+            <Link href={href}>
+              <button className="btn-primary btn">Start the survey</button>
+            </Link>
+          </div>
         ) : null}
       </p>
       <button
-        className="btn btn-back"
+        className="btn-secondary btn"
         onClick={sessionData ? () => void handleSignOut() : () => void signIn()}
       >
         {sessionData ? "Sign out" : "Sign in to begin"}

@@ -135,8 +135,8 @@ const QuerySummary: NextPage = () => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-1 pb-[50px] md:grid-cols-2">
-          <div className="flex flex-col justify-start">
+        <div className="grid grid-cols-1 gap-2 pb-[50px] md:grid-cols-2">
+          <div className="flex flex-col justify-start py-2">
             <Link href={{ pathname: "./address" }}>
               <button className="btn-secondary btn">Re-enter Address</button>
             </Link>
@@ -146,7 +146,7 @@ const QuerySummary: NextPage = () => {
               </button>
             </Link>
           </div>
-          <div className="flex justify-end">
+          <div className="flex justify-end py-2">
             <Link href={{ pathname: "./polis" }}>
               <button className="btn-primary btn">Continue</button>
             </Link>

@@ -186,9 +186,9 @@ export default function DemographicsSurvey() {
       {surveyCompleted ? (
         completedSurvey()
       ) : (
-        <div className="container mx-auto flex h-screen items-center justify-center">
-          <div className="flex flex-col items-center py-2 sm:w-2/3 md:w-2/3 lg:w-1/2 xl:w-1/2">
-            <h1 className="py-4 text-lg font-semibold text-white md:mt-4 md:text-3xl">
+        <div className="container mx-auto flex items-center justify-center">
+          <div className="flex flex-col items-center py-2">
+            <h1 className="md:text-md font-semibold text-white sm:text-sm md:mt-4 lg:py-4 lg:text-lg">
               Step 2: Complete the Demographic Survey
             </h1>
             <ProgressBar completed={57} />
@@ -207,8 +207,8 @@ export default function DemographicsSurvey() {
               />
             ) : null}
             <p
-              className="mx-auto mt-8 w-[70%] border border-dashed border-white p-1
-          text-center text-sm text-white md:m-4 md:w-1/2 md:p-4 xl:w-1/3 2xl:text-lg "
+              className="text-md mx-auto w-[100%] border border-dashed border-white p-1 text-center text-white
+          sm:mt-2 sm:text-sm md:m-4 md:mt-4 md:w-1/2 md:p-4 lg:mt-8 xl:w-1/2 2xl:text-lg "
             >
               Please answer the following questions <strong>anonymously</strong>
               . Your answers will be combined with others and used to report on
