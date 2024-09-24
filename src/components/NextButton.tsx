@@ -5,15 +5,18 @@ interface NextButtonProps {
   onClick?: () => void;
   text: string;
   disabled?: boolean;
+  className?: string;
 }
 
-const NextButton = ({ onClick, text, disabled }: NextButtonProps) => {
+const NextButton = ({
+  onClick,
+  text,
+  disabled,
+  className,
+}: NextButtonProps) => {
+  const style = className ? className : "btn-primary btn text-primary-content";
   return (
-    <button
-      onClick={onClick}
-      className="btn-primary btn text-primary-content"
-      disabled={disabled}
-    >
+    <button onClick={onClick} className={style} disabled={disabled}>
       {text}
     </button>
   );

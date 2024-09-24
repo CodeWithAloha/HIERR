@@ -91,6 +91,7 @@ export default function SurveyQuestion({
           text="Next"
           onClick={() => updateQuestion("Next", selectedAnswer)}
           disabled={disabled}
+          className="btn-primary btn border-secondary"
         />
       </div>
     </div>
