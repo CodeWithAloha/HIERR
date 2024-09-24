@@ -42,7 +42,7 @@ const Polis: NextPage = () => {
                       query: { surveyId: id },
                     }}
                   >
-                    <button className="btn bg-[#FFF] text-primary-content md:min-w-[200px]">
+                    <button className="btn-primary btn bg-[#FFF] text-primary-content md:min-w-[200px]">
                       {title}
                     </button>
                   </Link>
