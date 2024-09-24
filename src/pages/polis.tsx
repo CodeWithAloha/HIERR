@@ -28,7 +28,6 @@ const Polis: NextPage = () => {
         <h1 className="mb-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
           Step 3: Please select the Pol.is survey you wish to complete.
         </h1>
-        <div className="divider-base-300 divider"></div>
         <div className={`grid ${gridItemStyle} gap-4`}>
           {surveys?.map(({ id, title }, index) => {
             return (

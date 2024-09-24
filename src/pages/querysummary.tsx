@@ -76,7 +76,6 @@ const QuerySummary: NextPage = () => {
         <h1 className="mb-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
           Demographic Information Summary
         </h1>
-        <div className="divider-base-300 divider"></div>
         <Link href={{ pathname: "./polis" }}>
           <button className="btn-primary btn">Continue</button>
         </Link>

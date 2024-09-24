@@ -268,7 +268,6 @@ const AddressSearch: React.FC = () => {
         <h1 className="py-4 text-lg font-semibold text-white md:mt-4 md:text-3xl">
           Step 1: Type in your address
         </h1>
-        <div className="divider-base-300 divider"></div>
         <div className="card flex w-full flex-col justify-center space-y-2">
           <section className="card-body w-full py-2">
             <div className="relative w-full max-w-lg">

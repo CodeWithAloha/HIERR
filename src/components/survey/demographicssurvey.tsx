@@ -151,7 +151,6 @@ export default function DemographicsSurvey() {
         <h1 className="mb-6 text-lg font-semibold text-white md:mt-6 md:text-3xl ">
           Step 2 complete!
         </h1>
-        <div className="divider-base-300 divider"></div>
         <h2 className=" my-6 mb-12 w-96 self-center border border-dashed  p-4 text-center text-white">
           <TiInputChecked className="mx-auto text-6xl text-yellowGreen" /> Thank
           you for completing the demographics survey! Please click continue to
@@ -189,7 +188,6 @@ export default function DemographicsSurvey() {
             <h1 className="md:text-md font-semibold text-white sm:text-sm md:mt-4 lg:py-4 lg:text-lg">
               Step 2: Complete the Demographic Survey
             </h1>
-            <div className="divider-base-300 divider"></div>
             {surveyData[currentQuestion] !== undefined ? (
               // TODO: Fix these conditionals
               <SurveyQuestion
