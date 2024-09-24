@@ -11,7 +11,6 @@ import PlanningAreaGeojson from "../data/Statewide_Planning_Regions.json";
 import DHHLGeojson from "../data/DHHL_WGS84.json";
 import * as turf from "@turf/turf";
 import { FeatureCollection, Feature, Polygon } from "geojson";
-import ProgressBar from "./ProgressBar";
 import * as ELG from "esri-leaflet-geocoder";
 import Link from "next/link";
 import { GrLinkNext } from "react-icons/gr";
@@ -269,11 +268,6 @@ const AddressSearch: React.FC = () => {
         <h1 className="py-4 text-lg font-semibold text-white md:mt-4 md:text-3xl">
           Step 1: Type in your address
         </h1>
-        {complete ? (
-          <ProgressBar completed={29} />
-        ) : (
-          <ProgressBar completed={2} />
-        )}
         <div className="divider-base-300 divider"></div>
         <div className="card flex w-full flex-col justify-center space-y-2">
           <section className="card-body w-full py-2">

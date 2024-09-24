@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { api } from "../utils/api";
 import Link from "next/link";
-import ProgressBar from "../components/ProgressBar";
 import LoggedInAs from "./loggedinas";
 import { useSession } from "next-auth/react";
 import { IoMdArrowBack } from "react-icons/io";
@@ -41,7 +40,6 @@ const PolisSurvey: NextPage = () => {
       <h1 className="mb-4 mt-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
         Step 4: Fill out the Pol.is survey
       </h1>
-      <ProgressBar completed={100} />
       <LoggedInAs email={sessionData?.user.email} />
       <div
         id="polis-container"

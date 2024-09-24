@@ -1,5 +1,4 @@
 import { type NextPage } from "next";
-import ProgressBar from "../components/ProgressBar";
 import { useEffect, useState } from "react";
 import { SurveyData } from "../components/survey/demographicssurvey";
 import { api } from "../utils/api";
@@ -77,9 +76,6 @@ const QuerySummary: NextPage = () => {
         <h1 className="mb-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
           Demographic Information Summary
         </h1>
-        <div>
-          <ProgressBar completed={85} />
-        </div>
         <div className="divider-base-300 divider"></div>
         <Link href={{ pathname: "./polis" }}>
           <button className="btn-primary btn">Continue</button>
