@@ -4,6 +4,7 @@ import { api } from "../../utils/api";
 import Link from "next/link";
 import { TiInputChecked } from "react-icons/ti";
 import { IoMdArrowBack } from "react-icons/io";
+import Infobox from "../Infobox";
 
 export interface SurveyData {
   questionId: string;
@@ -145,17 +146,16 @@ export default function DemographicsSurvey() {
     [currentQuestion, userAnswers, surveyData.length]
   );
 
+  const completedSurveyMessage =
+    " Thank you for completing the demographics survey! Please click continue to start the last part of the HIERR survey.";
+
   const completedSurvey = () => {
     return (
       <div className="relative top-2 flex flex-col items-center justify-center">
         <h1 className="mb-6 text-lg font-semibold text-white md:mt-6 md:text-3xl ">
           Step 2 complete!
         </h1>
-        <h2 className=" my-6 mb-12 w-96 self-center border border-dashed  p-4 text-center text-white">
-          <TiInputChecked className="mx-auto text-6xl text-yellowGreen" /> Thank
-          you for completing the demographics survey! Please click continue to
-          start the last part of the HIERR survey.
-        </h2>
+        <Infobox message={completedSurveyMessage} greenCheck={true} />
         <div className="flex flex-row items-center justify-center gap-5">
           <Link href={{ pathname: "./address" }}>
             <button className="btn-secondary btn">
@@ -178,6 +178,9 @@ export default function DemographicsSurvey() {
       </div>
     );
   };
+  const infoboxMessage =
+    "Please answer the following questions anonymously. Your answers will be combined with others and used to report on the diversity of our community. This helps us make sure that we hear from as many different perspectives as possible during our process.";
+
   return (
     <div className="flex h-screen flex-col items-center">
       {surveyCompleted ? (
@@ -201,16 +204,7 @@ export default function DemographicsSurvey() {
                 updateQuestion={updateCurrentQuestion}
               />
             ) : null}
-            <p
-              className="text-md mx-auto w-[100%] border border-dashed border-white p-1 text-center text-white
-          sm:mt-2 sm:text-sm md:m-4 md:mt-4 md:w-1/2 md:p-4 lg:mt-8 xl:w-1/2 2xl:text-lg "
-            >
-              Please answer the following questions <strong>anonymously</strong>
-              . Your answers will be combined with others and used to report on
-              the diversity of our community. This helps us make sure that we
-              hear from as many different perspectives as possible during our
-              process.
-            </p>
+            <Infobox message={infoboxMessage} greenCheck={false} />
 
             <Link href={{ pathname: "./address" }}>
               <button className="btn-secondary btn">

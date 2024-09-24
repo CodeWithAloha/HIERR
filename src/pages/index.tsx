@@ -11,6 +11,7 @@ import InfoPopup from "../components/InfoPopup";
 import LoggedInAs from "./loggedinas";
 import { TiInputChecked } from "react-icons/ti";
 import Link from "next/link";
+import Infobox from "../components/Infobox";
 
 const Login: NextPage = () => {
   return (
@@ -75,26 +76,15 @@ const AuthShowcase: React.FC = () => {
   };
 
   const href = { pathname: `./address` };
+  const loggedinText =
+    "You are currently logged in. You can begin the survey now, and rest assured that all responses will remain anonymous. Please note that we do not store any email credentials. If you need to take a break, simply sign out, and your progress will be saved. When you return, remember to sign in using the same email address.";
 
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <p className="text-center text-2xl text-white">
         {sessionData ? (
           <div>
-            <p
-              className="  mx-auto  w-[80%]  -translate-y-8
-        border border-dashed border-white p-2 text-center text-sm xl:w-1/2 2xl:text-lg"
-            >
-              {" "}
-              <span>
-                <TiInputChecked className="mx-auto text-4xl text-yellowGreen" />
-              </span>{" "}
-              You are currently logged in. You can begin the survey now, and
-              rest assured that all responses will remain anonymous. Please note
-              that we do not store any email credentials. If you need to take a
-              break, simply sign out, and your progress will be saved. When you
-              return, remember to sign in using the same email address.
-            </p>
+            <Infobox message={loggedinText} greenCheck={true} />
             <Link href={href}>
               <button className="btn-primary btn">Start the survey</button>
             </Link>
