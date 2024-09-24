@@ -8,13 +8,13 @@ module.exports = {
     themes: [
       {
         hierrtheme: {
-          primary: "#89E21D",
+          primary: "#32aea8",
 
           "primary-content": "#071200",
 
-          secondary: "#FFFFFF",
+          secondary: "#222222",
 
-          "secondary-content": "#161616",
+          "secondary-content": "#FFFFFF",
 
           accent: "#17364F",
 

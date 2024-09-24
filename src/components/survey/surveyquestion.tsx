@@ -10,6 +10,8 @@ import RadioButtonAnswers from "./radioButtonAnswers";
 import MultiSelectAnswers from "./multiSelectAnswers";
 import TextAnswer from "./textAnswers";
 import DropdownAnswers from "./dropdownAnswers";
+import NextButton from "../NextButton";
+import PrevButton from "../PrevButton";
 
 interface SurveyQuestionProps {
   surveyInfo: DemographicSurveyInfo;
@@ -81,22 +83,15 @@ export default function SurveyQuestion({
       </h1>
       {getAnswers(question.questionType, question.answers)}
       <div className="flex flex-row justify-between sm:mt-4 md:mt-6 lg:mt-10">
-        <button
-          className="btn bg-[#17364F/20]"
-          onClick={() => updateQuestion("Prev")}
-        >
-          Back
-        </button>
+        <PrevButton text="Back" onClick={() => updateQuestion("Prev")} />
         <span className="my-2 pt-8 text-primary-content opacity-75">
           Question {surveyInfo.questionNumber + 1} /{surveyInfo.totalQuestions}
         </span>
-        <button
-          className="btn-primary btn"
+        <NextButton
+          text="Next"
           onClick={() => updateQuestion("Next", selectedAnswer)}
           disabled={disabled}
-        >
-          Next
-        </button>
+        />
       </div>
     </div>
   );

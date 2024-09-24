@@ -9,7 +9,11 @@ interface NextButtonProps {
 
 const NextButton = ({ onClick, text, disabled }: NextButtonProps) => {
   return (
-    <button onClick={onClick} className="btn" disabled={disabled}>
+    <button
+      onClick={onClick}
+      className="btn-primary btn text-secondary-content"
+      disabled={disabled}
+    >
       {text}
     </button>
   );

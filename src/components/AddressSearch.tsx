@@ -297,8 +297,8 @@ const AddressSearch: React.FC = () => {
               )}
             </div>
           </section>
-          <section className="card-body py-2">
-            <div className="prose">
+          <section className="card-body rounded-md bg-white/90 py-2 shadow-xl">
+            <div className="prose text-primary-content">
               <p className="card-title">
                 Your address will not be recorded, but will be used to return
                 the following information commonly used in planning:

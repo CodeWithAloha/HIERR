@@ -9,7 +9,7 @@ interface PrevButtonProps {
 
 const PrevButton = ({ onClick, text, disabled }: PrevButtonProps) => {
   return (
-    <button onClick={onClick} className="btn" disabled={disabled}>
+    <button onClick={onClick} className="btn-secondary btn" disabled={disabled}>
       {text}
     </button>
   );

@@ -198,7 +198,9 @@ export default function DemographicsSurvey() {
                 updateQuestion={updateCurrentQuestion}
               />
             ) : null}
-            <Infobox message={infoboxMessage} greenCheck={false} />
+            <div className="mx-auto mt-8 ">
+              <Infobox message={infoboxMessage} greenCheck={false} />
+            </div>
 
             <Link href={{ pathname: "./address" }}>
               <PrevButton text="Re-enter Address" />

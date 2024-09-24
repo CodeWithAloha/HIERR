@@ -10,7 +10,7 @@ const Infobox = ({ greenCheck, message }: InfoboxProps) => {
   return (
     <>
       <p
-        className="  mx-auto  w-[80%]  -translate-y-8
+        className="  m-2 mx-auto w-[80%] 
         border border-dashed border-white p-2 text-center text-sm xl:w-1/2 2xl:text-lg"
       >
         {greenCheck ? (
