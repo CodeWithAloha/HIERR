@@ -11,7 +11,7 @@ const NextButton = ({ onClick, text, disabled }: NextButtonProps) => {
   return (
     <button
       onClick={onClick}
-      className="btn-primary btn text-secondary-content"
+      className="btn-primary btn text-primary-content"
       disabled={disabled}
     >
       {text}

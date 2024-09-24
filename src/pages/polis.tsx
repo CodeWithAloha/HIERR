@@ -22,18 +22,17 @@ const Polis: NextPage = () => {
     }
   }, [polisSurveys.data]);
 
-  const gridItemStyle = surveys.length > 2 ? "grid-cols-3" : "grid-cols-1";
   return (
     <div className="flex h-screen flex-col items-center justify-center">
       <div className="flex h-full flex-col items-center">
         <h1 className="mb-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
           Step 3: Please select the Pol.is survey you wish to complete.
         </h1>
-        <div className={`grid ${gridItemStyle} gap-4`}>
+        <div className={`grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3`}>
           {surveys?.map(({ id, title }, index) => {
             return (
               <div
-                className="mb-4 flex translate-y-10 flex-col items-center justify-center"
+                className="mb-4 flex items-center justify-center"
                 key={`survey-button-next-page-${index}`}
               >
                 <div className="w-full">
@@ -43,7 +42,9 @@ const Polis: NextPage = () => {
                       query: { surveyId: id },
                     }}
                   >
-                    <PrevButton text={title} />
+                    <button className="btn bg-[#FFF] text-primary-content md:min-w-[200px]">
+                      {title}
+                    </button>
                   </Link>
                 </div>
               </div>

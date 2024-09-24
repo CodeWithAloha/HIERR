@@ -48,7 +48,7 @@ const InfoPopup = ({ title, PopupInfo }: InfoPopupProps) => {
         >
           <button
             onClick={toggleMoreInformation}
-            className="absolute right-4 top-4 text-2xl lg:text-4xl"
+            className="absolute right-4 top-4 text-2xl text-primary-content lg:text-4xl"
           >
             <IoCloseSharp />
           </button>

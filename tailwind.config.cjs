@@ -8,7 +8,7 @@ module.exports = {
     themes: [
       {
         hierrtheme: {
-          primary: "#32aea8",
+          primary: "#FFFFFF",
 
           "primary-content": "#071200",
 

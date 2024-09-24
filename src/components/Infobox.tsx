@@ -15,7 +15,7 @@ const Infobox = ({ greenCheck, message }: InfoboxProps) => {
       >
         {greenCheck ? (
           <span>
-            <TiInputChecked className="mx-auto text-4xl text-[#32AEA8]" />
+            <TiInputChecked className="mx-auto text-4xl text-[#89E21D]" />
           </span>
         ) : null}
         {message}

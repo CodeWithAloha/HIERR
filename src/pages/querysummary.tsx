@@ -78,10 +78,8 @@ const QuerySummary: NextPage = () => {
         <h1 className="mb-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
           Demographic Information Summary
         </h1>
-        <Link href={{ pathname: "./polis" }}>
-          <NextButton text="Next" />
-        </Link>
-        <div className="mt-8 flex flex-col rounded-md bg-[#FFFFFF] px-8 py-8 shadow-xl sm:w-[300px] md:w-[500px] lg:w-[600px]">
+        <PageLinkButtons />
+        <div className="mt-2 flex flex-col rounded-md bg-[#FFFFFF] px-8 py-8 shadow-xl sm:w-[300px] md:w-[500px] lg:w-[600px]">
           <div className="flex w-[80%] flex-col items-center">
             <div className="mb-4 self-start">
               <h2 className="text-lg font-semibold text-primary-content">
@@ -132,21 +130,27 @@ const QuerySummary: NextPage = () => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-2 pb-[50px] md:grid-cols-2">
-          <div className="flex flex-col justify-start py-2">
-            <Link href={{ pathname: "./address" }}>
-              <PrevButton text="Re-enter Address" />
-            </Link>
-            <Link href={{ pathname: "./survey" }}>
-              <PrevButton text="Retake Demographic Survey" />
-            </Link>
-          </div>
-          <div className="flex justify-end py-2">
-            <Link href={{ pathname: "./polis" }}>
-              <NextButton text="Next" />
-            </Link>
-          </div>
-        </div>
+        <PageLinkButtons />
+      </div>
+    </div>
+  );
+};
+
+const PageLinkButtons = () => {
+  return (
+    <div className="m-4 flex gap-20">
+      <div className="flex gap-5 self-start">
+        <Link href={{ pathname: "./address" }}>
+          <PrevButton text="Re-enter Address" />
+        </Link>
+        <Link href={{ pathname: "./survey" }}>
+          <PrevButton text="Retake Demographic Survey" />
+        </Link>
+      </div>
+      <div className="flex self-end">
+        <Link href={{ pathname: "./polis" }}>
+          <NextButton text="Next" />
+        </Link>
       </div>
     </div>
   );
