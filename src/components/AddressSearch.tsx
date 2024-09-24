@@ -13,9 +13,9 @@ import * as turf from "@turf/turf";
 import { FeatureCollection, Feature, Polygon } from "geojson";
 import * as ELG from "esri-leaflet-geocoder";
 import Link from "next/link";
-import { GrLinkNext } from "react-icons/gr";
-import { IoMdArrowBack } from "react-icons/io";
 import { api } from "../utils/api";
+import NextButton from "./NextButton";
+import PrevButton from "./PrevButton";
 
 declare global {
   interface Window {
@@ -320,25 +320,18 @@ const AddressSearch: React.FC = () => {
           <section className="py-2">
             <div className="flex flex-row items-center justify-center gap-5">
               <Link href={{ pathname: "./" }}>
-                <button className="btn-secondary btn">
-                  <IoMdArrowBack />
-                  Home
-                </button>
+                <PrevButton text="Home" />
               </Link>
               {complete ? (
                 <Link href={{ pathname: "./survey" }}>
-                  <button
-                    className="btn-primary btn "
+                  <NextButton
+                    text={"Next"}
                     onClick={() => handleSubmit()}
                     disabled={false}
-                  >
-                    Next <GrLinkNext />
-                  </button>
+                  />
                 </Link>
               ) : (
-                <button className="btn-primary btn" disabled={true}>
-                  Next <GrLinkNext />
-                </button>
+                <NextButton text={"Next"} disabled={true} />
               )}
             </div>
           </section>

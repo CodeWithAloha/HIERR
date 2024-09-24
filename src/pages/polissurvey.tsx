@@ -6,6 +6,7 @@ import Link from "next/link";
 import LoggedInAs from "./loggedinas";
 import { useSession } from "next-auth/react";
 import { IoMdArrowBack } from "react-icons/io";
+import PrevButton from "../components/PrevButton";
 
 const PolisSurvey: NextPage = () => {
   const router = useRouter();
@@ -53,11 +54,7 @@ const PolisSurvey: NextPage = () => {
       </div>
       <div className="mb-6 mt-6 flex justify-between align-middle">
         <Link href={"./polis"} className="">
-          {" "}
-          <button className="btn-secondary btn">
-            <IoMdArrowBack />
-            Select New Polis Survey
-          </button>
+          <PrevButton text="Select New Polis Survey" />
         </Link>
       </div>
     </div>

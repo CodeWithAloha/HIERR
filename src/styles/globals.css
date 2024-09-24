@@ -24,6 +24,20 @@ body,
   background-color: #f2f2f2;
 }
 
+.btn {
+  background-color: #32aea8;
+  border: none;
+}
+
+/* Chris' CSS edits */
+.btn-secondary {
+  color: white;
+}
+
+.bg-white\/90 {
+  color: black;
+}
+
 /* .btn {
   @apply mb-1 mt-4 flex flex-row items-center justify-center gap-1 rounded-full px-6 py-2 text-lg no-underline shadow-xl transition ease-in-out;
 }

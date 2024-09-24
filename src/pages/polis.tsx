@@ -3,6 +3,7 @@ import Link from "next/link";
 import { api } from "../utils/api";
 import { useEffect, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
+import PrevButton from "../components/PrevButton";
 
 interface PolisSurvey {
   id: string;
@@ -42,7 +43,7 @@ const Polis: NextPage = () => {
                       query: { surveyId: id },
                     }}
                   >
-                    <button className="btn-secondary btn">{title}</button>
+                    <PrevButton text={title} />
                   </Link>
                 </div>
               </div>
@@ -51,10 +52,7 @@ const Polis: NextPage = () => {
         </div>
         <div className="mt-20">
           <Link href={{ pathname: "./survey" }}>
-            <button className="btn-secondary btn">
-              <IoMdArrowBack />
-              Retake Demographic Survey
-            </button>
+            <PrevButton text={"Retake Demographic Survey"} />
           </Link>
         </div>
       </div>

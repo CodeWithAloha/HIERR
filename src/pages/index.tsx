@@ -12,6 +12,7 @@ import LoggedInAs from "./loggedinas";
 import { TiInputChecked } from "react-icons/ti";
 import Link from "next/link";
 import Infobox from "../components/Infobox";
+import NextButton from "../components/NextButton";
 
 const Login: NextPage = () => {
   return (
@@ -40,7 +41,7 @@ const Login: NextPage = () => {
             Welcome to the HIERR Project
           </h1>
           <h2
-            className="mx-2 pb-20 text-center text-2xl font-bold leading-none 
+            className="mx-2 text-center text-2xl font-bold leading-none 
             tracking-tight
             text-white
             md:text-5xl lg:pb-16"
@@ -86,7 +87,7 @@ const AuthShowcase: React.FC = () => {
           <div>
             <Infobox message={loggedinText} greenCheck={true} />
             <Link href={href}>
-              <button className="btn-primary btn">Start the survey</button>
+              <NextButton text="Start the survey" />
             </Link>
           </div>
         ) : null}
@@ -95,7 +96,7 @@ const AuthShowcase: React.FC = () => {
         className="btn-secondary btn"
         onClick={sessionData ? () => void handleSignOut() : () => void signIn()}
       >
-        {sessionData ? "Sign out" : "Sign in to begin"}
+        {sessionData ? "SIGN OUT" : "SIGN IN"}
       </button>
       <LoggedInAs email={sessionData?.user?.email} />
     </div>

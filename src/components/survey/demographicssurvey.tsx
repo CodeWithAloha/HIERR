@@ -2,9 +2,10 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import SurveyQuestion from "./surveyquestion";
 import { api } from "../../utils/api";
 import Link from "next/link";
-import { TiInputChecked } from "react-icons/ti";
 import { IoMdArrowBack } from "react-icons/io";
 import Infobox from "../Infobox";
+import NextButton from "../NextButton";
+import PrevButton from "../PrevButton";
 
 export interface SurveyData {
   questionId: string;
@@ -158,21 +159,14 @@ export default function DemographicsSurvey() {
         <Infobox message={completedSurveyMessage} greenCheck={true} />
         <div className="flex flex-row items-center justify-center gap-5">
           <Link href={{ pathname: "./address" }}>
-            <button className="btn-secondary btn">
-              <IoMdArrowBack />
-              Re-enter Address
-            </button>
+            <PrevButton text="Re-enter Address" />
           </Link>
-          <button
-            className="btn-secondary btn"
+          <PrevButton
             onClick={() => handleRetakeSurvey()}
-          >
-            Retake demographic survey
-          </button>
+            text="Retake demographic survey"
+          />
           <Link href={{ pathname: "./querysummary" }}>
-            <button className="btn-primary btn" onClick={() => handleSubmit()}>
-              Continue
-            </button>
+            <NextButton text="Next" onClick={() => handleSubmit()} />
           </Link>
         </div>
       </div>
@@ -207,10 +201,7 @@ export default function DemographicsSurvey() {
             <Infobox message={infoboxMessage} greenCheck={false} />
 
             <Link href={{ pathname: "./address" }}>
-              <button className="btn-secondary btn">
-                <IoMdArrowBack />
-                Re-enter Address
-              </button>
+              <PrevButton text="Re-enter Address" />
             </Link>
           </div>
         </div>

@@ -4,6 +4,8 @@ import { SurveyData } from "../components/survey/demographicssurvey";
 import { api } from "../utils/api";
 import Link from "next/link";
 import SummaryQuestionAnswer from "../components/SummaryQuestionAnswer";
+import NextButton from "../components/NextButton";
+import PrevButton from "../components/PrevButton";
 
 const QuerySummary: NextPage = () => {
   const [userCensusTract, setUserCensusTract] = useState<string>("");
@@ -77,7 +79,7 @@ const QuerySummary: NextPage = () => {
           Demographic Information Summary
         </h1>
         <Link href={{ pathname: "./polis" }}>
-          <button className="btn-primary btn">Continue</button>
+          <NextButton text="Next" />
         </Link>
         <div className="mt-8 flex flex-col rounded-md bg-[#FFFFFF] px-8 py-8 shadow-xl sm:w-[300px] md:w-[500px] lg:w-[600px]">
           <div className="flex w-[80%] flex-col items-center">
@@ -133,17 +135,15 @@ const QuerySummary: NextPage = () => {
         <div className="grid grid-cols-1 gap-2 pb-[50px] md:grid-cols-2">
           <div className="flex flex-col justify-start py-2">
             <Link href={{ pathname: "./address" }}>
-              <button className="btn-secondary btn">Re-enter Address</button>
+              <PrevButton text="Re-enter Address" />
             </Link>
             <Link href={{ pathname: "./survey" }}>
-              <button className="btn-secondary btn">
-                Retake Demographic Survey
-              </button>
+              <PrevButton text="Retake Demographic Survey" />
             </Link>
           </div>
           <div className="flex justify-end py-2">
             <Link href={{ pathname: "./polis" }}>
-              <button className="btn-primary btn">Continue</button>
+              <NextButton text="Next" />
             </Link>
           </div>
         </div>
