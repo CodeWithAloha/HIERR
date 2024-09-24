@@ -23,7 +23,7 @@ const InfoPopup = ({ title, PopupInfo }: InfoPopupProps) => {
       >
         <p
           className="text-md border-white py-1 text-white underline-offset-4 
-              hover:text-yellowGreen 2xl:text-xl"
+              2xl:text-xl"
         >
           {title}
         </p>
