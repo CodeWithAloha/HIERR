@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { MdOpenInNew } from "react-icons/md";
 
 interface InfoModalProps {
   children: React.ReactNode;
@@ -11,6 +12,7 @@ const InfoModal = ({ children, title }: InfoModalProps) => {
     <>
       <button className="btn-info btn" onClick={() => setIsModalOpen(true)}>
         {title}
+        <MdOpenInNew className="mr-2 text-lg" />
       </button>
       {isModalOpen && (
         <dialog className="modal" open>
