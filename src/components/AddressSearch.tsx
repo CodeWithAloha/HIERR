@@ -11,12 +11,13 @@ import PlanningAreaGeojson from "../data/Statewide_Planning_Regions.json";
 import DHHLGeojson from "../data/DHHL_WGS84.json";
 import * as turf from "@turf/turf";
 import { FeatureCollection, Feature, Polygon } from "geojson";
-import ProgressBar from "./ProgressBar";
 import * as ELG from "esri-leaflet-geocoder";
 import Link from "next/link";
-import { GrLinkNext } from "react-icons/gr";
-import { IoMdArrowBack } from "react-icons/io";
 import { api } from "../utils/api";
+import NextButton from "./NextButton";
+import PrevButton from "./PrevButton";
+import PageHeader from "./PageHeader";
+import PageLayout from "./PageLayout";
 
 declare global {
   interface Window {
@@ -258,87 +259,110 @@ const AddressSearch: React.FC = () => {
 
     setZipCode(zip);
     setCensusTract(censusTract);
+    if (censusTract === "Not Found") {
+      setIsland("Not Found");
+      setCounty("Not Found");
+    }
     setPlanningRegion(featurePlanningRegion);
     setDhhlRegion(dhhlRegion);
     setComplete(true);
   };
 
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="flex flex-col items-center sm:w-2/3 md:w-2/3 lg:w-1/2 xl:w-1/2">
-        <h1 className="text-lg font-semibold text-white md:mt-4 md:text-3xl">
-          Step 1: Type in your address
-        </h1>
-        {complete ? (
-          <ProgressBar completed={29} />
-        ) : (
-          <ProgressBar completed={2} />
-        )}
-        <div className="flex w-full flex-col justify-center">
-          <input
-            type="text"
-            value={query}
-            onChange={handleInputChange}
-            placeholder="Enter address"
-            className="border-gray-300 mt-10 w-full rounded border p-2"
-          />
-          {suggestions.length > 0 && (
-            <div className="border-gray-300 z-10 w-full rounded border bg-white">
-              {suggestions.map((suggestion, index) => (
-                <div
-                  key={index}
-                  className="cursor-pointer bg-white p-2 hover:bg-gray/20"
-                  onClick={() => handleSuggestionClick(suggestion)}
-                >
-                  {suggestion.text}
-                </div>
-              ))}
-            </div>
-          )}
-          <div className="mt-20 text-center">
-            <p className="text-white">
+    <>
+      <PageLayout>
+        <PageHeader title="Step 1: Type in your address" />
+        <section className="">
+          <div className="relative">
+            <input
+              type="text"
+              value={query}
+              onChange={handleInputChange}
+              placeholder="Enter address"
+              className="input-bordered input w-full bg-white text-primary-content sm:text-sm md:text-lg"
+            />
+            {suggestions.length > 0 && (
+              <ul
+                className="absolute left-0 right-0 top-full z-10 mt-1 rounded-md bg-white text-primary-content shadow-lg"
+                role="listbox"
+              >
+                {suggestions.map((suggestion, index) => (
+                  <li
+                    key={index}
+                    className="cursor-pointer px-4 py-2 hover:bg-info"
+                    role="option"
+                    onClick={() => handleSuggestionClick(suggestion)}
+                  >
+                    {suggestion.text}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </section>
+        <section className="rounded-md bg-white shadow-xl sm:m-4 sm:p-4 md:m-4 md:p-4 lg:m-6 lg:p-6">
+          <div className="text-primary-content">
+            <p className="card-title sm:text-sm md:text-lg">
               Your address will not be recorded, but will be used to return the
               following information commonly used in planning:
             </p>
-            {zipCode && <p className="text-white">ZIP Code: {zipCode}</p>}
-            {censusTract && (
-              <p className="text-white">Census Tract: {censusTract}</p>
-            )}
-            {island && <p className="text-white">Island: {island}</p>}
-            {county && <p className="text-white">County: {county}</p>}
-            {planningRegion && (
-              <p className="text-white">
-                Planning Region: {planningRegion}
-                {dhhlRegion === "Yes" ? "-DHHL" : ""}
-              </p>
-            )}
+            <section className="card-body sm:text-sm md:text-lg lg:text-xl">
+              {zipCode && (
+                <div className="flex items-center">
+                  <span className="font-bold">ZIP Code:</span>
+                  <span className="ml-2">{zipCode}</span>
+                </div>
+              )}
+              {censusTract && (
+                <div className="flex items-center">
+                  <span className="font-bold">Census Tract:</span>
+                  <span className="ml-2">{censusTract}</span>
+                </div>
+              )}
+              {island && (
+                <div className="flex items-center">
+                  <span className="font-bold">Island:</span>
+                  <span className="ml-2">{island}</span>
+                </div>
+              )}
+              {county && (
+                <div className="flex items-center">
+                  <span className="font-bold">County:</span>
+                  <span className="ml-2">{county}</span>
+                </div>
+              )}
+              {planningRegion && (
+                <div className="flex items-center">
+                  <span className="font-bold">Planning Region:</span>
+                  <span className="ml-2">
+                    {planningRegion}
+                    {dhhlRegion === "Yes" ? "-DHHL" : ""}
+                  </span>
+                </div>
+              )}
+            </section>
           </div>
-          <div className="flex flex-row items-center justify-center gap-5">
+        </section>
+        <section className="">
+          <div className="flex flex-row justify-center gap-5">
             <Link href={{ pathname: "./" }}>
-              <button className="btn btn-back">
-                <IoMdArrowBack />
-                Home
-              </button>
+              <PrevButton text="Home" />
             </Link>
             {complete ? (
               <Link href={{ pathname: "./survey" }}>
-                <button
-                  className="btn btn-next"
+                <NextButton
+                  text={"Next"}
                   onClick={() => handleSubmit()}
                   disabled={false}
-                >
-                  Next <GrLinkNext />
-                </button>
+                />
               </Link>
             ) : (
-              <button className="btn btn-next" disabled={true}>
-                Next <GrLinkNext />
-              </button>
+              <NextButton text={"Next"} disabled={true} />
             )}
           </div>
-        </div>
-      </div>
-    </div>
+        </section>
+      </PageLayout>
+    </>
   );
 };
 

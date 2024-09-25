@@ -14,7 +14,7 @@ export default function SummaryQuestionAnswer({
   return (
     <li key={key} className="mt-2">
       <h3 className="font-medium text-gray">{question}</h3>
-      <p className="text-black">{answer}</p>
+      <p className="text-primary-content">{answer}</p>
     </li>
   );
 }

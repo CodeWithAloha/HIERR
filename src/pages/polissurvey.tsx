@@ -3,10 +3,11 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { api } from "../utils/api";
 import Link from "next/link";
-import ProgressBar from "../components/ProgressBar";
 import LoggedInAs from "./loggedinas";
 import { useSession } from "next-auth/react";
 import { IoMdArrowBack } from "react-icons/io";
+import PrevButton from "../components/PrevButton";
+import PageHeader from "../components/PageHeader";
 
 const PolisSurvey: NextPage = () => {
   const router = useRouter();
@@ -37,31 +38,20 @@ const PolisSurvey: NextPage = () => {
     );
   }
   return (
-    <div className="flex h-full flex-col items-center shadow-xl">
-      <h1 className="mb-4 mt-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
-        Step 4: Fill out the Pol.is survey
-      </h1>
-      <ProgressBar completed={100} />
+    <div className="flex h-full flex-col items-center">
+      <PageHeader title="Step 4: Fill out the Pol.is survey" />
       <LoggedInAs email={sessionData?.user.email} />
-      <div
-        id="polis-container"
-        className="mx-auto mt-8 h-[80%] w-[80%] overflow-y-scroll"
-      >
+      <div className="mb-6 mt-6 flex align-middle">
+        <Link href={"./polis"} className="">
+          <PrevButton text="Select New Polis Survey" />
+        </Link>
+      </div>
+      <div id="polis-container" className="mx-auto mt-8 h-[80%] w-[80%]">
         <div
           className="polis"
           data-conversation_id={surveyId}
           data-xid={userID}
         ></div>
-      </div>
-      <div className="mb-6 mt-6 flex justify-between align-middle">
-        <Link
-          href={"./polis"}
-          className="rounded-full bg-white/90 px-10 py-2 text-blue-default no-underline transition hover:bg-white hover:text-blue-darker"
-        >
-          {" "}
-          <IoMdArrowBack />
-          Select New Polis Survey
-        </Link>
       </div>
     </div>
   );

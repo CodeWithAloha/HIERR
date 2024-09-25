@@ -1,9 +1,11 @@
 import { type NextPage } from "next";
-import ProgressBar from "../components/ProgressBar";
 import Link from "next/link";
 import { api } from "../utils/api";
 import { useEffect, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
+import PrevButton from "../components/PrevButton";
+import PageHeader from "../components/PageHeader";
+import PageLayout from "../components/PageLayout";
 
 interface PolisSurvey {
   id: string;
@@ -22,19 +24,15 @@ const Polis: NextPage = () => {
     }
   }, [polisSurveys.data]);
 
-  const gridItemStyle = surveys.length > 2 ? "grid-cols-3" : "grid-cols-1";
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
-      <div className="flex h-full flex-col items-center">
-        <h1 className="mb-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
-          Step 3: Please select the Pol.is survey you wish to complete.
-        </h1>
-        <ProgressBar completed={85} />
-        <div className={`grid ${gridItemStyle} gap-4`}>
+    <>
+      <PageLayout>
+        <PageHeader title="Step 3: Please select the Pol.is survey you wish to complete." />
+        <div className={`flex flex-row flex-wrap sm:gap-2 md:gap-4 lg:gap-6`}>
           {surveys?.map(({ id, title }, index) => {
             return (
               <div
-                className="mb-4 flex translate-y-10 flex-col items-center justify-center"
+                className="mb-4 flex items-center justify-center"
                 key={`survey-button-next-page-${index}`}
               >
                 <div className="w-full">
@@ -44,7 +42,9 @@ const Polis: NextPage = () => {
                       query: { surveyId: id },
                     }}
                   >
-                    <button className="btn btn-polis">{title}</button>
+                    <button className="btn-primary btn bg-[#FFF] text-primary-content md:min-w-[150px]">
+                      {title}
+                    </button>
                   </Link>
                 </div>
               </div>
@@ -53,14 +53,11 @@ const Polis: NextPage = () => {
         </div>
         <div className="mt-20">
           <Link href={{ pathname: "./survey" }}>
-            <button className="btn btn-back">
-              <IoMdArrowBack />
-              Retake Demographic Survey
-            </button>
+            <PrevButton text={"Retake Demographic Survey"} />
           </Link>
         </div>
-      </div>
-    </div>
+      </PageLayout>
+    </>
   );
 };
 

@@ -1,10 +1,13 @@
 import { type NextPage } from "next";
-import ProgressBar from "../components/ProgressBar";
 import { useEffect, useState } from "react";
 import { SurveyData } from "../components/survey/demographicssurvey";
 import { api } from "../utils/api";
 import Link from "next/link";
 import SummaryQuestionAnswer from "../components/SummaryQuestionAnswer";
+import NextButton from "../components/NextButton";
+import PrevButton from "../components/PrevButton";
+import PageHeader from "../components/PageHeader";
+import PageLayout from "../components/PageLayout";
 
 const QuerySummary: NextPage = () => {
   const [userCensusTract, setUserCensusTract] = useState<string>("");
@@ -72,21 +75,16 @@ const QuerySummary: NextPage = () => {
   }, {} as Record<string, string>);
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
-      <div className="flex h-full flex-col items-center">
-        <h1 className="mb-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
-          Demographic Information Summary
-        </h1>
-        <div>
-          <ProgressBar completed={85} />
-        </div>
-        <Link href={{ pathname: "./polis" }}>
-          <button className="btn btn-next">Continue</button>
-        </Link>
-        <div className="mt-8 flex flex-col rounded-md bg-[#FFFFFF] px-8 py-8 shadow-xl sm:w-[300px] md:w-[500px] lg:w-[600px]">
+    <>
+      <PageLayout>
+        <PageHeader title="Demographic Information Summary" />
+        <PageLinkButtons />
+        <div className="mt-2 flex flex-col rounded-md bg-[#FFFFFF] px-8 py-8 shadow-xl sm:w-[300px] md:w-[500px] lg:w-[600px]">
           <div className="flex w-[80%] flex-col items-center">
             <div className="mb-4 self-start">
-              <h2 className="text-lg font-semibold ">Location Questions</h2>
+              <h2 className="text-lg font-semibold text-primary-content">
+                Location Questions
+              </h2>
               <ul>
                 <SummaryQuestionAnswer
                   question={"Census tract"}
@@ -111,7 +109,9 @@ const QuerySummary: NextPage = () => {
               </ul>
             </div>
             <div>
-              <h2 className="text-lg font-semibold ">Demographic Questions</h2>
+              <h2 className="text-lg font-semibold text-primary-content">
+                Demographic Questions
+              </h2>
               <ul className="">
                 {sortedDemoQuestions.map((question, index) => {
                   let userAnswer = "No Answer";
@@ -130,23 +130,27 @@ const QuerySummary: NextPage = () => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-1 pb-[50px] md:grid-cols-2">
-          <div className="flex flex-col justify-start">
-            <Link href={{ pathname: "./address" }}>
-              <button className="btn btn-back">Re-enter Address</button>
-            </Link>
-            <Link href={{ pathname: "./survey" }}>
-              <button className="btn btn-back">
-                Retake Demographic Survey
-              </button>
-            </Link>
-          </div>
-          <div className="flex justify-end">
-            <Link href={{ pathname: "./polis" }}>
-              <button className="btn btn-next">Continue</button>
-            </Link>
-          </div>
-        </div>
+        <PageLinkButtons />
+      </PageLayout>
+    </>
+  );
+};
+
+const PageLinkButtons = () => {
+  return (
+    <div className="m-4 flex sm:flex-col sm:items-center sm:gap-5 md:flex-row md:gap-20">
+      <div className="flex sm:flex-col sm:items-center sm:gap-2 md:flex-row md:gap-5 md:self-start">
+        <Link href={{ pathname: "./address" }}>
+          <PrevButton text="Re-enter Address" />
+        </Link>
+        <Link href={{ pathname: "./survey" }}>
+          <PrevButton text="Retake Demographic Survey" />
+        </Link>
+      </div>
+      <div className="flex sm:flex-col sm:items-center md:self-end">
+        <Link href={{ pathname: "./polis" }}>
+          <NextButton text="Next" />
+        </Link>
       </div>
     </div>
   );

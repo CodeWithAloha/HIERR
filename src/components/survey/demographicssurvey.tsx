@@ -2,9 +2,12 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import SurveyQuestion from "./surveyquestion";
 import { api } from "../../utils/api";
 import Link from "next/link";
-import { TiInputChecked } from "react-icons/ti";
 import { IoMdArrowBack } from "react-icons/io";
-import ProgressBar from "../ProgressBar";
+import Infobox from "../Infobox";
+import NextButton from "../NextButton";
+import PrevButton from "../PrevButton";
+import PageHeader from "../PageHeader";
+import PageLayout from "../PageLayout";
 
 export interface SurveyData {
   questionId: string;
@@ -146,79 +149,63 @@ export default function DemographicsSurvey() {
     [currentQuestion, userAnswers, surveyData.length]
   );
 
+  const completedSurveyMessage =
+    " Thank you for completing the demographics survey! Please click continue to start the last part of the HIERR survey.";
+
   const completedSurvey = () => {
     return (
-      <div className="relative top-2 flex flex-col items-center justify-center">
-        <h1 className="mb-6 text-lg font-semibold text-white md:mt-6 md:text-3xl ">
-          Step 2 complete!
-        </h1>
-        <ProgressBar completed={71} />
-        <h2 className=" my-6 mb-12 w-96 self-center border border-dashed  p-4 text-center text-white">
-          <TiInputChecked className="mx-auto text-6xl text-yellowGreen" /> Thank
-          you for completing the demographics survey! Please click continue to
-          start the last part of the HIERR survey.
-        </h2>
-        <div className="flex flex-row items-center justify-center gap-5">
-          <Link href={{ pathname: "./address" }}>
-            <button className="btn btn-back">
-              <IoMdArrowBack />
-              Re-enter Address
-            </button>
-          </Link>
-          <button className="btn btn-back" onClick={() => handleRetakeSurvey()}>
-            Retake demographic survey
-          </button>
-          <Link href={{ pathname: "./querysummary" }}>
-            <button className="btn btn-next" onClick={() => handleSubmit()}>
-              Continue
-            </button>
-          </Link>
-        </div>
-      </div>
+      <>
+        <PageLayout>
+          <h1 className="mb-6 text-lg font-semibold text-white md:mt-6 md:text-3xl ">
+            Step 2 complete!
+          </h1>
+          <Infobox message={completedSurveyMessage} greenCheck={true} />
+          <div className="flex flex-row items-center justify-center gap-5 sm:flex-wrap md:flex-nowrap">
+            <Link href={{ pathname: "./address" }}>
+              <PrevButton text="Re-enter Address" />
+            </Link>
+            <PrevButton
+              onClick={() => handleRetakeSurvey()}
+              text="Retake demographic survey"
+            />
+            <Link href={{ pathname: "./querysummary" }}>
+              <NextButton text="Next" onClick={() => handleSubmit()} />
+            </Link>
+          </div>
+        </PageLayout>
+      </>
     );
   };
+  const infoboxMessage =
+    "Please answer the following questions anonymously. Your answers will be combined with others and used to report on the diversity of our community. This helps us make sure that we hear from as many different perspectives as possible during our process.";
+
   return (
-    <div className="flex h-screen flex-col items-center">
-      {surveyCompleted ? (
-        completedSurvey()
-      ) : (
-        <>
-          <h1 className="mb-6 text-lg font-semibold text-white md:mt-6 md:text-3xl ">
-            Step 2: Complete the Demographic Survey
-          </h1>
-          <ProgressBar completed={57} />
-
-          {surveyData[currentQuestion] !== undefined ? (
-            // TODO: Fix these conditionals
-            <SurveyQuestion
-              surveyInfo={{
-                questionNumber: currentQuestion,
-                totalQuestions: surveyData.length,
-              }}
-              disabled={disabled}
-              setDisabled={setDisabled}
-              question={surveyData[currentQuestion]}
-              updateQuestion={updateCurrentQuestion}
-            />
-          ) : null}
-          <p
-            className="mx-auto mt-8 w-[70%] border border-dashed border-white p-1
-        text-center text-sm text-white md:m-4 md:w-1/2 md:p-4 xl:w-1/3 2xl:text-lg "
-          >
-            Please answer the following questions <strong>anonymously</strong>.
-            Your answers will be combined with others and used to report on the
-            diversity of our community. This helps us make sure that we hear
-            from as many different perspectives as possible during our process.
-          </p>
-
-          <Link href={{ pathname: "./address" }}>
-            <button className="btn btn-back">
-              <IoMdArrowBack />
-              Re-enter Address
-            </button>
-          </Link>
-        </>
-      )}
-    </div>
+    <>
+      <PageLayout>
+        {surveyCompleted ? (
+          completedSurvey()
+        ) : (
+          <>
+            <PageHeader title="Step 2: Complete the Demographic Survey" />
+            {surveyData[currentQuestion] !== undefined ? (
+              // TODO: Fix these conditionals
+              <SurveyQuestion
+                surveyInfo={{
+                  questionNumber: currentQuestion,
+                  totalQuestions: surveyData.length,
+                }}
+                disabled={disabled}
+                setDisabled={setDisabled}
+                question={surveyData[currentQuestion]}
+                updateQuestion={updateCurrentQuestion}
+              />
+            ) : null}
+            <div className="">
+              <Infobox message={infoboxMessage} greenCheck={false} />
+            </div>
+          </>
+        )}
+      </PageLayout>
+    </>
   );
 }

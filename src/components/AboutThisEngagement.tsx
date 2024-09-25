@@ -3,14 +3,14 @@ import React from "react";
 const AboutThisEngagementPortal = () => {
   return (
     <>
-      <h3 className="text-md p-4 pl-2 text-center font-semibold 2xl:text-xl">
+      <h3 className="text-md p-4 pl-2 text-center font-semibold text-primary-content 2xl:text-xl">
         About this Engagement Portal
       </h3>
-      <p className="mb-2 mt-4 pb-4 2xl:text-lg">
+      <p className="mb-2 mt-4 pb-4 text-primary-content 2xl:text-lg">
         This engagement portal is designed to help our project team understand:{" "}
       </p>
 
-      <ol className="mb-2 ml-4 list-decimal pb-4 2xl:text-lg">
+      <ol className="mb-2 ml-4 list-decimal pb-4 text-primary-content 2xl:text-lg">
         <li className="md:mb-2">
           Demographic information of those who participate in the project.
         </li>

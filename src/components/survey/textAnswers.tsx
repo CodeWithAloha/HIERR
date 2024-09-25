@@ -23,7 +23,7 @@ export default function TextAnswer({
   return (
     <>
       <input
-        className="form-input rounded"
+        className="form-input rounded text-primary-content"
         type="text"
         id="textQuestion"
         name="textQuestion"

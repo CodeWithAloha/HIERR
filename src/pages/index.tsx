@@ -1,15 +1,17 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { NextPageButtonLink } from "../UI/NextPageButtonLink";
 
 import React from "react";
 
 import WhatIsHierr from "../components/WhatIsHierr";
 import AboutThisEngagementPortal from "../components/AboutThisEngagement";
 import WhyCreateAccount from "../components/WhyCreateAccount";
-import InfoPopup from "../components/InfoPopup";
 import LoggedInAs from "./loggedinas";
+import Link from "next/link";
+import Infobox from "../components/Infobox";
+import NextButton from "../components/NextButton";
+import InfoModal from "../components/InfoModal";
 
 const Login: NextPage = () => {
   return (
@@ -38,7 +40,7 @@ const Login: NextPage = () => {
             Welcome to the HIERR Project
           </h1>
           <h2
-            className="mx-2 pb-20 text-center text-2xl font-bold leading-none 
+            className="mx-2 text-center text-2xl font-bold leading-none 
             tracking-tight
             text-white
             md:text-5xl lg:pb-16"
@@ -47,16 +49,16 @@ const Login: NextPage = () => {
           </h2>
           <AuthShowcase />
 
-          <div className="mt-4 flex flex-col items-center justify-center">
-            <InfoPopup title="What is HIERR?" PopupInfo={WhatIsHierr} />
-            <InfoPopup
-              title="About this Engagement Portal"
-              PopupInfo={AboutThisEngagementPortal}
-            />
-            <InfoPopup
-              title="Why am I creating an account?"
-              PopupInfo={WhyCreateAccount}
-            />
+          <div className="mt-2 mb-2 flex flex-col items-center justify-center gap-2 md:mt-4 md:mb-4 lg:mt-6 lg:mb-6 ">
+            <InfoModal title="What is HIERR?">
+              <WhatIsHierr />
+            </InfoModal>
+            <InfoModal title="About this Engagement Portal">
+              <AboutThisEngagementPortal />
+            </InfoModal>
+            <InfoModal title="Why am I creating an account?">
+              <WhyCreateAccount />
+            </InfoModal>
           </div>
         </div>
       </main>
@@ -73,30 +75,27 @@ const AuthShowcase: React.FC = () => {
     await signOut();
   };
 
+  const href = { pathname: `./address` };
+  const loggedinText =
+    "You are currently logged in. You can begin the survey now, and rest assured that all responses will remain anonymous. Please note that we do not store any email credentials. If you need to take a break, simply sign out, and your progress will be saved. When you return, remember to sign in using the same email address.";
+
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <p className="text-center text-2xl text-white">
         {sessionData ? (
-          <>
-            <NextPageButtonLink
-              pageName="address"
-              msg="Start the survey"
-              text="You are currently logged in. 
-              You can begin the survey now, and rest assured that all responses will remain 
-              anonymous. Please note that we do not store any email credentials. 
-              If you need to take a break, simply sign out, and your progress will be saved. 
-              When you return, remember to sign in using the same email address."
-              successMessage={true}
-              whiteDesignButton={false}
-            />
-          </>
+          <div>
+            <Infobox message={loggedinText} greenCheck={true} />
+            <Link href={href}>
+              <NextButton text="Start the survey" />
+            </Link>
+          </div>
         ) : null}
       </p>
       <button
-        className="btn btn-back"
+        className="btn-secondary btn text-white"
         onClick={sessionData ? () => void handleSignOut() : () => void signIn()}
       >
-        {sessionData ? "Sign out" : "Sign in to begin"}
+        {sessionData ? "SIGN OUT" : "SIGN IN"}
       </button>
       <LoggedInAs email={sessionData?.user?.email} />
     </div>
