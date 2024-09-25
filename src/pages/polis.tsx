@@ -4,6 +4,8 @@ import { api } from "../utils/api";
 import { useEffect, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import PrevButton from "../components/PrevButton";
+import PageHeader from "../components/PageHeader";
+import PageLayout from "../components/PageLayout";
 
 interface PolisSurvey {
   id: string;
@@ -23,12 +25,10 @@ const Polis: NextPage = () => {
   }, [polisSurveys.data]);
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
-      <div className="flex h-full flex-col items-center">
-        <h1 className="mb-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
-          Step 3: Please select the Pol.is survey you wish to complete.
-        </h1>
-        <div className={`grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3`}>
+    <>
+      <PageLayout>
+        <PageHeader title="Step 3: Please select the Pol.is survey you wish to complete." />
+        <div className={`flex flex-row flex-wrap sm:gap-2 md:gap-4 lg:gap-6`}>
           {surveys?.map(({ id, title }, index) => {
             return (
               <div
@@ -42,7 +42,7 @@ const Polis: NextPage = () => {
                       query: { surveyId: id },
                     }}
                   >
-                    <button className="btn-primary btn bg-[#FFF] text-primary-content md:min-w-[200px]">
+                    <button className="btn-primary btn bg-[#FFF] text-primary-content md:min-w-[150px]">
                       {title}
                     </button>
                   </Link>
@@ -56,8 +56,8 @@ const Polis: NextPage = () => {
             <PrevButton text={"Retake Demographic Survey"} />
           </Link>
         </div>
-      </div>
-    </div>
+      </PageLayout>
+    </>
   );
 };
 

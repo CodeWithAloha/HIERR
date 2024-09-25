@@ -259,6 +259,10 @@ const AddressSearch: React.FC = () => {
 
     setZipCode(zip);
     setCensusTract(censusTract);
+    if (censusTract === "Not Found") {
+      setIsland("Not Found");
+      setCounty("Not Found");
+    }
     setPlanningRegion(featurePlanningRegion);
     setDhhlRegion(dhhlRegion);
     setComplete(true);
