@@ -54,7 +54,7 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        sm: "375px", //mobile M
+        sm: "350px", //mobile M
         md: "768px", //tablet
         lg: "1024px", //laptop
         xl: "1280px", //laptop L
