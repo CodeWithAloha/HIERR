@@ -11,7 +11,7 @@ export default function LoggedInAs({ email }: LoggedInAsProps) {
 
   return (
     <>
-      <p className="text-2xl font-bold">Logged in as: {email}</p>
+      <p className="font-bold md:text-xl lg:text-2xl">Logged in as: {email}</p>
     </>
   );
 }

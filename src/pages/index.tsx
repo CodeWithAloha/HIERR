@@ -13,6 +13,7 @@ import { TiInputChecked } from "react-icons/ti";
 import Link from "next/link";
 import Infobox from "../components/Infobox";
 import NextButton from "../components/NextButton";
+import InfoModal from "../components/InfoModal";
 
 const Login: NextPage = () => {
   return (
@@ -50,16 +51,16 @@ const Login: NextPage = () => {
           </h2>
           <AuthShowcase />
 
-          <div className="mt-4 flex flex-col items-center justify-center">
-            <InfoPopup title="What is HIERR?" PopupInfo={WhatIsHierr} />
-            <InfoPopup
-              title="About this Engagement Portal"
-              PopupInfo={AboutThisEngagementPortal}
-            />
-            <InfoPopup
-              title="Why am I creating an account?"
-              PopupInfo={WhyCreateAccount}
-            />
+          <div className="mt-2 mb-2 flex flex-col items-center justify-center gap-2 md:mt-4 md:mb-4 lg:mt-6 lg:mb-6 ">
+            <InfoModal title="What is HIERR?">
+              <WhatIsHierr />
+            </InfoModal>
+            <InfoModal title="About this Engagement Portal">
+              <AboutThisEngagementPortal />
+            </InfoModal>
+            <InfoModal title="Why am I creating an account?">
+              <WhyCreateAccount />
+            </InfoModal>
           </div>
         </div>
       </main>
