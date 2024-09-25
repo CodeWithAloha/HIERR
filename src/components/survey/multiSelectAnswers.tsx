@@ -101,7 +101,7 @@ export default function MultiSelectAnswers({
           value={a.answer}
           onClick={() => handleClick(a.id)}
         />
-        <label htmlFor={`a-${index}`}>&nbsp;{a.answer}</label>
+        <label htmlFor={`a-${index}-option`}>&nbsp;{a.answer}</label>
         <br />
       </>
     );

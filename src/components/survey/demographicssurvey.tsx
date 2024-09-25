@@ -160,7 +160,7 @@ export default function DemographicsSurvey() {
             Step 2 complete!
           </h1>
           <Infobox message={completedSurveyMessage} greenCheck={true} />
-          <div className="flex flex-row items-center justify-center gap-5">
+          <div className="flex flex-row items-center justify-center gap-5 sm:flex-wrap md:flex-nowrap">
             <Link href={{ pathname: "./address" }}>
               <PrevButton text="Re-enter Address" />
             </Link>

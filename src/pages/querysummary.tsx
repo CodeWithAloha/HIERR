@@ -6,6 +6,8 @@ import Link from "next/link";
 import SummaryQuestionAnswer from "../components/SummaryQuestionAnswer";
 import NextButton from "../components/NextButton";
 import PrevButton from "../components/PrevButton";
+import PageHeader from "../components/PageHeader";
+import PageLayout from "../components/PageLayout";
 
 const QuerySummary: NextPage = () => {
   const [userCensusTract, setUserCensusTract] = useState<string>("");
@@ -73,11 +75,9 @@ const QuerySummary: NextPage = () => {
   }, {} as Record<string, string>);
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
-      <div className="flex h-full flex-col items-center">
-        <h1 className="mb-8 text-lg font-semibold text-white md:mt-6 md:text-3xl">
-          Demographic Information Summary
-        </h1>
+    <>
+      <PageLayout>
+        <PageHeader title="Demographic Information Summary" />
         <PageLinkButtons />
         <div className="mt-2 flex flex-col rounded-md bg-[#FFFFFF] px-8 py-8 shadow-xl sm:w-[300px] md:w-[500px] lg:w-[600px]">
           <div className="flex w-[80%] flex-col items-center">
@@ -131,15 +131,15 @@ const QuerySummary: NextPage = () => {
           </div>
         </div>
         <PageLinkButtons />
-      </div>
-    </div>
+      </PageLayout>
+    </>
   );
 };
 
 const PageLinkButtons = () => {
   return (
-    <div className="m-4 flex gap-20">
-      <div className="flex gap-5 self-start">
+    <div className="m-4 flex sm:flex-col sm:items-center sm:gap-5 md:flex-row md:gap-20">
+      <div className="flex sm:flex-col sm:items-center sm:gap-2 md:flex-row md:gap-5 md:self-start">
         <Link href={{ pathname: "./address" }}>
           <PrevButton text="Re-enter Address" />
         </Link>
@@ -147,7 +147,7 @@ const PageLinkButtons = () => {
           <PrevButton text="Retake Demographic Survey" />
         </Link>
       </div>
-      <div className="flex self-end">
+      <div className="flex sm:flex-col sm:items-center md:self-end">
         <Link href={{ pathname: "./polis" }}>
           <NextButton text="Next" />
         </Link>
