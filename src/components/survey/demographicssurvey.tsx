@@ -6,6 +6,8 @@ import { IoMdArrowBack } from "react-icons/io";
 import Infobox from "../Infobox";
 import NextButton from "../NextButton";
 import PrevButton from "../PrevButton";
+import PageHeader from "../PageHeader";
+import PageLayout from "../PageLayout";
 
 export interface SurveyData {
   questionId: string;
@@ -152,39 +154,39 @@ export default function DemographicsSurvey() {
 
   const completedSurvey = () => {
     return (
-      <div className="relative top-2 flex flex-col items-center justify-center">
-        <h1 className="mb-6 text-lg font-semibold text-white md:mt-6 md:text-3xl ">
-          Step 2 complete!
-        </h1>
-        <Infobox message={completedSurveyMessage} greenCheck={true} />
-        <div className="flex flex-row items-center justify-center gap-5">
-          <Link href={{ pathname: "./address" }}>
-            <PrevButton text="Re-enter Address" />
-          </Link>
-          <PrevButton
-            onClick={() => handleRetakeSurvey()}
-            text="Retake demographic survey"
-          />
-          <Link href={{ pathname: "./querysummary" }}>
-            <NextButton text="Next" onClick={() => handleSubmit()} />
-          </Link>
-        </div>
-      </div>
+      <>
+        <PageLayout>
+          <h1 className="mb-6 text-lg font-semibold text-white md:mt-6 md:text-3xl ">
+            Step 2 complete!
+          </h1>
+          <Infobox message={completedSurveyMessage} greenCheck={true} />
+          <div className="flex flex-row items-center justify-center gap-5">
+            <Link href={{ pathname: "./address" }}>
+              <PrevButton text="Re-enter Address" />
+            </Link>
+            <PrevButton
+              onClick={() => handleRetakeSurvey()}
+              text="Retake demographic survey"
+            />
+            <Link href={{ pathname: "./querysummary" }}>
+              <NextButton text="Next" onClick={() => handleSubmit()} />
+            </Link>
+          </div>
+        </PageLayout>
+      </>
     );
   };
   const infoboxMessage =
     "Please answer the following questions anonymously. Your answers will be combined with others and used to report on the diversity of our community. This helps us make sure that we hear from as many different perspectives as possible during our process.";
 
   return (
-    <div className="flex h-screen flex-col items-center">
-      {surveyCompleted ? (
-        completedSurvey()
-      ) : (
-        <div className="container mx-auto flex items-center justify-center">
-          <div className="flex flex-col items-center py-2">
-            <h1 className="md:text-md font-semibold text-white sm:text-sm md:mt-4 lg:py-4 lg:text-lg">
-              Step 2: Complete the Demographic Survey
-            </h1>
+    <>
+      <PageLayout>
+        {surveyCompleted ? (
+          completedSurvey()
+        ) : (
+          <>
+            <PageHeader title="Step 2: Complete the Demographic Survey" />
             {surveyData[currentQuestion] !== undefined ? (
               // TODO: Fix these conditionals
               <SurveyQuestion
@@ -198,16 +200,17 @@ export default function DemographicsSurvey() {
                 updateQuestion={updateCurrentQuestion}
               />
             ) : null}
-            <div className="mx-auto mt-8 ">
+            {/* <div className="mx-auto mt-8 "> */}
+            <div className="">
               <Infobox message={infoboxMessage} greenCheck={false} />
             </div>
 
             <Link href={{ pathname: "./address" }}>
               <PrevButton text="Re-enter Address" />
             </Link>
-          </div>
-        </div>
-      )}
-    </div>
+          </>
+        )}
+      </PageLayout>
+    </>
   );
 }

@@ -77,7 +77,7 @@ export default function SurveyQuestion({
     }
   };
   return (
-    <div className="flex flex-col rounded-md bg-[#FFFFFF] shadow-xl sm:mt-2 sm:w-[300px] sm:px-4 sm:py-4 md:mt-4 md:w-[500px] md:px-6 md:py-6 lg:mt-6 lg:w-[600px] lg:px-8 lg:py-8">
+    <div className="rounded-md bg-white shadow-xl sm:w-[325px] sm:p-4 md:w-[500px] md:p-6 lg:p-8">
       <h1 className="font-semibold text-primary-content sm:mb-2 md:mb-4 lg:mb-6">
         {surveyInfo.questionNumber + 1}. {question.question}
       </h1>
