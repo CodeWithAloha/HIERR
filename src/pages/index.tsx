@@ -24,32 +24,17 @@ const Login: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main
-        className="relative flex  h-screen flex-col items-center justify-center  
-      overflow-hidden bg-bgBig"
-      >
-        <div
-          className="3xl:top-96 fixed 
-        flex flex-col items-center justify-center 2xl:top-60"
-        >
-          <h1
-            className="mx-2 pb-5 text-center text-4xl 
-            font-extrabold leading-none tracking-tight text-white
-           md:text-6xl"
-          >
+      <main className="">
+        <div className="flex flex-col sm:mt-4 md:mt-6 lg:mt-8">
+          <h1 className="text-center text-4xl font-extrabold tracking-tight sm:text-2xl">
             Welcome to the HIERR Project
           </h1>
-          <h2
-            className="mx-2 text-center text-2xl font-bold leading-none 
-            tracking-tight
-            text-white
-            md:text-5xl lg:pb-16"
-          >
+          <h2 className="text-center text-2xl font-bold tracking-tight sm:text-xl">
             Engagement Portal
           </h2>
           <AuthShowcase />
 
-          <div className="mt-2 mb-2 flex flex-col items-center justify-center gap-2 md:mt-4 md:mb-4 lg:mt-6 lg:mb-6 ">
+          <div className="flex flex-col items-center gap-2 sm:m-2 md:m-4 lg:m-6">
             <InfoModal title="What is HIERR?">
               <WhatIsHierr />
             </InfoModal>
@@ -80,7 +65,8 @@ const AuthShowcase: React.FC = () => {
     "You are currently logged in. You can begin the survey now, and rest assured that all responses will remain anonymous. Please note that we do not store any email credentials. If you need to take a break, simply sign out, and your progress will be saved. When you return, remember to sign in using the same email address.";
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
+    // <div className="flex flex-col items-center justify-center gap-4">
+    <div className="flex flex-col items-center gap-4">
       <p className="text-center text-2xl text-white">
         {sessionData ? (
           <div>
